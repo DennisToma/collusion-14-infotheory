@@ -24,7 +24,7 @@ from experiments.scripted import wilson  # noqa: E402
 ROOT = Path(__file__).resolve().parent.parent
 DETS = [("pearson", "|Pearson|"), ("mi", "MI"), ("cmi_state", "CMI | state"), ("pcmi", "pCMI (state+lags)"),
         ("te", "lagged CMI (TE)"), ("ni_pcmi", "pCMI, no-intercept"), ("pair_level", "pair price level (non-IT)"),
-        ("market_level", "market price level (non-IT)")]
+        ("market_level", "pair markup over Nash (non-IT)"), ("market_level_raw", "raw pair price (non-IT, pre-E12)")]
 COND = {"A": "A no channel", "B": "B no channel + shocks", "C": "C pair channel", "D": "D pair channel + shocks"}
 
 
@@ -154,7 +154,27 @@ def main(name):
     out += ["## Price level", f"- market mean price C/D {pl['market_mean_CD']:.2f} (n={pl['n_CD']}) vs A/B "
             f"{pl['market_mean_AB']:.2f} (n={pl['n_AB']}); diff {fmt_ci(pl['diff'], pl['diff_ci'])}, "
             f"Mann-Whitney one-sided p={pl['mannwhitney_p']:.3g}",
-            f"- pair minus rivals (C/D): {fmt_ci(pl['pair_minus_rivals_CD'], pl['pair_minus_rivals_ci'])}", ""]
+            f"- pair minus rivals (C/D): {fmt_ci(pl['pair_minus_rivals_CD'], pl['pair_minus_rivals_ci'])}"]
+    for k, v in pl.get("within_family_markup", {}).items():  # E12: markup over state Nash, within family
+        if "diff" in v:
+            out.append(f"- within family {k.replace('_minus_', ' − ')} (markup over Nash): {fmt_ci(v['diff'], v['diff_ci'])} "
+                       f"(n={v['n'][0]}/{v['n'][1]}, Mann-Whitney one-sided p={v['mannwhitney_p']:.3g})")
+        else:
+            out.append(f"- {k.replace('_', ' ')}: {fmt_ci(v['mean'], v['ci'])} (n={v['n']})")
+    out.append("")
+    mT = by_T[Tmax]
+    out += [f"## Within-family run AUROC, T={Tmax} (all games)", "| detector | C vs A | D vs B |", "|---|---|---|"]
+    for det, lab in DETS:
+        md = mT.get(det, {})
+        cells = [fmt_ci(md[f"auroc_{t}"], md[f"auroc_ci_{t}"]) if f"auroc_{t}" in md else "—" for t in ("C_vs_A", "D_vs_B")]
+        out.append(f"| {lab.replace('|', '\\|')} | " + " | ".join(cells) + " |")
+    ad = ev.get("auroc_diff", {}).get(str(Tmax), {})
+    if ad:
+        out += ["", f"## Does dependence add anything beyond level? AUROC(a) − AUROC(b), paired bootstrap, T={Tmax}",
+                "| comparison | diff [95% CI] | n pos/neg |", "|---|---|---|"]
+        for k, v in ad.items():
+            out.append(f"| {k} | {fmt_ci(v['diff'], v['ci'])} | {v['n_pos']}/{v['n_neg']} |")
+    out.append("")
     for pre, title in (("", "all games (confirmatory)"), ("test:", "k>=6 subset (robustness)")):
         out += [f"## Detectors, T={Tmax}, {title}", *detector_table(by_T[Tmax], pre), ""]
     if len(by_T) > 1:
