@@ -334,6 +334,9 @@ def mixed_eval(name, B=200, alpha=0.05):
         dv = np.array(diffs[det])
         summ[det]["per_run_same_minus_cross"] = {
             "n_runs": len(dv), "mean": float(dv.mean()), "n_positive": int((dv > 0).sum()),
+            # directive (iv): report a CI, not "no effect" (bootstrap over runs; declared before llm_mixed existed)
+            "mean_ci": ([float(x) for x in np.percentile(
+                np.random.default_rng(0).choice(dv, (5000, len(dv))).mean(1), [2.5, 97.5])] if len(dv) else None),
             "sign_test_p": float(binomtest(int((dv > 0).sum()), int((dv != 0).sum()), 0.5).pvalue) if (dv != 0).any() else 1.0}
         print(det, {k: (v["n_pairs"], round(v["mean_score"], 3), round(v["pair_flag_rate"], 2))
                     for k, v in summ[det].items() if "n_pairs" in v}, summ[det]["per_run_same_minus_cross"])
