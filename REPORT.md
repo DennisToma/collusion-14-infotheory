@@ -239,7 +239,7 @@ result; that dependence detectors fail on LLM agents in general. *Results pendin
   easiest possible case for dependence detectors.
 * The shared-policy hard negative is a modelling choice (30% idiosyncratic noise); its FPR scales with how
   much sampling noise two copies of a policy share.
-* Small n per group (25) — CIs are wide.
+* Small n per group (scripted locked gate: 50 per group; power sweep: 20 per condition; LLM: 16–21 per condition) — CIs are wide.
 
 ## 6. Reproduce
 ```
