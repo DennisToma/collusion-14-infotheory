@@ -13,8 +13,9 @@ Each is calibrated two ways — a within-game circular-shift null (max over the 
 control-surrogate null (rank against comparable no-channel markets). On a locked test seed (T=100,
 50 runs/group) all contemporaneous detectors flag and localise a planted shared-signal pair in 100% of runs.
 The hard negatives separate them: raw MI flags **100%** of markets in which independent sellers share a
-public cost/demand shock; pCMI with the surrogate null flags **4%** [1,13] of common-shock, shared-policy and
-leader-follower controls. Two confounds are not removable from actions alone: copies of a policy that also
+public cost/demand shock, pCMI (conditioning on state and lagged prices) 10–14% under the shift null.
+Ranked against no-channel reference markets, pCMI accuses only **4%** [1,13] of markets containing a
+shared-policy pair or a public leader-follower pair, while still flagging 100% of colluding markets. Two confounds are not removable from actions alone: copies of a policy that also
 share their **random seed** (48–94% flagged by every detector), and **lagged** price matching, where TE
 flags legitimate public leader-follower pricing in 100% of runs. Information-theoretic dependence detects
 *coordinated variation*, not agreement: collusion that is a constant high price or a lagged matching rule
@@ -73,14 +74,22 @@ dependent than the same series de-aligned?"; it is anti-conservative whenever ag
 public state is something the residualisation misses. The alternative asks "is this market's most
 dependent pair more dependent than the most dependent pair in comparable markets *without* a channel?":
 the run's max-pair score is ranked against no-channel control runs of the same shock family (A for A/C,
-B for B/D; leave-one-out for controls). It needs a pool of reference markets with the same agents — for
-LLM sellers, no-channel games of the same model, which is exactly the shared-policy baseline.
+B for B/D; leave-one-out for controls). Caveats: (i) on the controls themselves the leave-one-out flag rate is
+≤ α *by construction*, so it is not calibration evidence — only hard-negative and collusive rows are
+informative; (ii) in the scripted market the reference pool consists of best-responder markets, so a
+hard-negative row measures "false-accusation rate against a best-responder reference", not a same-policy
+null; (iii) the pool is drawn transductively from the controls of the same dataset (no labels of positives
+are used; the shock family is public); (iv) with a pool of m references the minimum attainable p is
+1/(m+1), so m ≥ 20 is required at α = 0.05. For LLM sellers the reference pool is no-channel games of the
+same model — the "same-model baseline". With 16 per family in `llm_v1` the surrogate test cannot reach
+α = 0.05; we report run-level AUROC (= the mean surrogate rank) with bootstrap CIs instead.
 
 **Tuning discipline** (`data/SPLITS.md`, `EXPERIMENTS.tsv`). Scripted seeds 1–99 are dev; the hard-negative
 battery and power sweeps reported as headline numbers use locked seeds 1001/1002, run once with the frozen
 configuration (linear residualisation design, B=200 / B=100). Tuning attempts on dev so far: 2 (design
 "inter" = state×lag interactions → discarded, no FPR gain; control-surrogate null → kept as second null).
-LLM games k=0–5 per condition are dev, k=6–15 locked test.
+No detector setting is tuned on LLM data, so all 64 `llm_v1` games are confirmatory (declared before any
+detector output on them was computed); k=6–15 is reported as a robustness subset.
 
 ## 4. Results
 
@@ -124,35 +133,38 @@ are shown for completeness, the informative surrogate rows are the hard negative
 
 ![hard negatives](figures/hard_negatives.png)
 
-### 4.2 Power vs collusion strength and vs T (scripted, 20 runs per condition per point)
-`uv run python -m experiments.sweep --workers 3` → `results/sweeps/power.json`;
-`uv run python -m experiments.plot_sweeps` → figures below. Rate = run-level flag rate at α=0.05,
-averaged over C and D (collusive) vs A and B (controls).
+### 4.2 Power vs collusion strength and vs T (scripted, LOCKED test seed 1002, 20 runs per condition per point)
+`uv run python -m experiments.sweep --seed 1002 --workers 2 --out results/sweeps/power_test.json` (B=100);
+`uv run python -m experiments.plot_sweeps results/sweeps/power_test.json gate_test` → figures below.
+Rate = run-level flag rate at α=0.05 under the shift null, averaged over C and D (collusive) / A and B
+(controls). Top-1 = planted pair ranked first (chance 1/6).
 
 | collusion type | setting | MI (coll./ctrl) | CMI\|state | pCMI | TE | pair top-1 pCMI / TE |
 |---|---|---|---|---|---|---|
-| shared signal | T=100, s=0.1 | 0.97 / 0.55 | 0.60 / 0.07 | **0.85 / 0.10** | 0.10 / 0.05 | 0.95 / 0.35 |
-| shared signal | T=100, s=0.2 | 1.00 / 0.55 | 0.95 / 0.07 | **1.00 / 0.10** | 0.10 / 0.05 | 1.00 / 0.05 |
-| shared signal | T=20, s=0.3 | 0.12 / 0.05 | 0.10 / 0.00 | 0.12 / 0.03 | 0.28 / 0.17 | **0.95** / 0.05 |
-| shared signal | T=50, s=0.3 | 0.95 / 0.50 | 0.82 / 0.00 | **0.90 / 0.08** | 0.15 / 0.15 | 1.00 / 0.10 |
-| tit-for-tat | T=100, s=0.3 | 0.50 / 0.55 | 0.00 / 0.07 | 0.07 / 0.10 | **0.80 / 0.05** | 0.15 / 0.75 |
-| tit-for-tat | T=100, s≥0.45 | ≈0.5 / 0.55 | ≈0.03 / 0.07 | ≈0.05 / 0.10 | **1.00 / 0.05** | ≈0.1 / **1.00** |
-| stay-high (no shared variation) | T=100, s=0.8 | 0.30 / 0.55 | 0.12 / 0.07 | 0.10 / 0.10 | 0.55 / 0.05 | 0.20 / 0.00 |
+| shared signal | T=100, s=0.1 | 1.00 / 0.50 | 0.97 / 0.03 | **0.97 / 0.08** | 0.05 / 0.03 | 1.00 / 0.12 |
+| shared signal | T=100, s≥0.2 | 1.00 / 0.50 | 1.00 / 0.03 | **1.00 / 0.08** | ≤0.25 / 0.03 | 1.00 / ≤0.17 |
+| shared signal | T=10, s=0.3 | 0 / 0 | 0 / 0 | 0 / 0 (no test: <20 valid shifts) | 0 / 0 | 0.47 / 0.12 |
+| shared signal | T=20, s=0.3 | 0.90 / 0.50 | 0.60 / 0.12 | **0.80 / 0.05** | 0.08 / 0.12 | 0.95 / 0.08 |
+| shared signal | T=50, s=0.3 | 1.00 / 0.53 | 1.00 / 0.10 | **1.00 / 0.05** | 0.10 / 0.05 | 1.00 / 0.15 |
+| tit-for-tat | T=100, s=0.2 | 0.55 / 0.50 | 0.10 / 0.03 | 0.10 / 0.08 | **0.40 / 0.03** | 0.28 / 0.75 |
+| tit-for-tat | T=100, s≥0.45 | ≈0.55 / 0.50 | ≤0.20 / 0.03 | ≤0.05 / 0.08 | **≥0.97 / 0.03** | ≤0.28 / **≥0.97** |
+| tit-for-tat | T=20 / 50, s=0.3 | 0.35 / 0.50 ; 0.53 / 0.53 | 0.17 ; 0.10 | 0.08 ; 0.08 | 0.20 / 0.12 ; 0.38 / 0.05 | 0.17 / 0.45 ; 0.28 / 0.75 |
+| stay-high (no shared variation) | T=100, s=0.8 | 0.45 / 0.50 | 0.28 / 0.03 | 0.07 / 0.08 | 0.47 / 0.03 | 0.17 / 0.00 |
 
 Readings:
-1. **Contemporaneous coordination** (pair moves together within a round) is detected by CMI|state and pCMI
-   down to s=0.1 at T=100 and at s=0.3 from T≈50. At T=20 the run-level test has little power (0.12),
-   but the planted pair is still *ranked* first in 95% of runs — localisation is easier than detection.
-2. **Lagged coordination** (tit-for-tat matching) is invisible to contemporaneous CMI (it conditions the
-   lags away) and is caught only by lagged CMI/TE — which also flags *legitimate* public leader-follower
-   pricing in 100% of runs (§4.1). Statistically the two are the same object.
-3. **Collusion as a level** (both just price high) carries no shared information; no dependence measure
-   detects it. Detecting it needs a price-level benchmark (Nash vs observed), not information theory.
-4. Raw MI is not calibrated whenever there is a common driver: it flags ~100% of common-shock control
-   runs (the 0.55 control column averages 0.0 on A and 1.0 on B).
-5. TE is mis-calibrated at very short T (FPR 0.70 at T=10, 0.17 at T=20): the regression on 6–7
-   regressors with 9–19 points overfits and the circular-shift null has few distinct shifts. Do not trust
-   TE at T ≤ 20.
+1. **Contemporaneous coordination** is detected by CMI|state and pCMI down to s=0.1 at T=100 and at s=0.3 from
+   T=20 (pCMI 0.80, controls 0.05). At T=10 the shift null cannot be run. The planted pair is ranked first at
+   T=20 in 95% of runs. (An earlier sweep under the iteration-2 null reported power 0.12 at T=20; that null was
+   replaced after review — its relative offsets were not constrained — and the dev numbers are superseded.)
+2. **Lagged coordination** (tit-for-tat) is invisible to contemporaneous CMI (the lags are conditioned away) and
+   is caught by lagged CMI/TE at s ≥ 0.2–0.3 with T ≥ 50–100 — but TE also flags *legitimate* public
+   leader-follower pricing in 100% of runs (§4.1). Statistically these are the same object.
+3. **Collusion as a level** (both just price high) carries no shared variation; no dependence measure detects
+   it (pCMI 0.07 vs 0.08 on controls). It needs a price-level benchmark, not information theory.
+4. Raw MI is uncalibrated whenever there is a common driver (control column 0.50 = 0.0 on A and 1.0 on B).
+5. Control-surrogate null (in `results/sweeps/power_test.json`, `surrogate_flag_rate`): pCMI power 0.93 at
+   s=0.1 and 0.57 at T=20 (vs 0.97 / 0.80 for the shift null). With 20 reference runs per family the minimum
+   attainable p is 1/21, so it is close to its resolution limit here.
 
 ![power vs strength](figures/power_vs_strength.png)
 ![power vs T](figures/power_vs_T.png)
@@ -172,10 +184,22 @@ Two lessons: (i) a single example value in the output format fixed the whole mar
 pricing experiments are fragile to prompt anchors; (ii) a market in which every seller plays the same
 constant price contains **zero** information for dependence-based detectors, whatever the agreement status.
 
-**Main LLM dataset `llm_v1`** (running): 64 games, 16 per condition A–D, T=20, design of `llm_pilot4`
-(sim_version llm0.3). Labels: judge (tier=big) reads the private chat → `agreement_verified`;
-`coordinated_actions_verified` from prices; no-channel runs with mean markup ≥ 2 over Nash are
-`tacit_supracompetitive`. *Results pending.*
+**Main LLM dataset `llm_v1`** (running): 64 games, 16 per condition A–D (+5 extra A and B games so the
+same-model reference pool has ≥ 20 per family), T=20, design of `llm_pilot4` (sim_version llm0.3). Labels:
+judge (tier=big) reads the private chat → `agreement_verified`; `coordinated_actions_verified` from prices
+(agreed price played by both in ≥ 50% of rounds after the agreement); no-channel runs with mean markup ≥ 2
+over Nash are `tacit_supracompetitive`. First games (descriptive, before any detector was run): channel pairs
+lift the **whole market's** price level (market means 12.0–14.6 in C/D vs 9.2–12.3 in A/B) — rivals follow.
+
+*Analysis plan, declared before results* (after the iteration-3 review): (a) label rates per condition with
+Wilson CIs; (b) price-level effect of the channel — market mean price C/D vs A/B (Mann-Whitney, bootstrap CI)
+and pair-minus-rivals gap; (c) run-level AUROC [bootstrap CI] of pCMI, MI, TE vs the non-IT baselines
+`market_level` and `pair_level`; pCMI/TE top-1 localisation vs chance 1/6 (exact binomial); (d) shift-null flag
+rates by T (expected near-powerless at T=20); (e) surrogate null only where the pool ≥ 20; (f) follow-ups
+`llm_long` (A and C, T=50, 8 each: is it "too short" or "collusion is a level"?) and `llm_mixed` (2 gpt-6-luna
++ 2 gpt-6.1-sol, no channel: same-model vs cross-model pair dependence, per-run sign test).
+Not claimed from this data: surrogate-null FPR with pool < 20; absence of same-model dependence from a null
+result; that dependence detectors fail on LLM agents in general. *Results pending.*
 
 ## 5. Limitations (so far)
 * Scripted colluders are stylised; `signal` collusion with fresh shared randomness every round is the
@@ -186,7 +210,10 @@ constant price contains **zero** information for dependence-based detectors, wha
 
 ## 6. Reproduce
 ```
-uv run python -m experiments.scripted both --name gate_s06_T100 --n 25 --T 100 --strength 0.6 --B 200
-uv run python -m experiments.sweep --workers 3
-uv run python -m experiments.plot_sweeps
+uv run python -m experiments.scripted both --name gate_test --n 50 --T 100 --strength 0.6 --B 200 --seed 1001  # §4.1 (locked)
+uv run python -m experiments.sweep --seed 1002 --workers 2 --out results/sweeps/power_test.json               # §4.2 (locked)
+uv run python -m experiments.plot_sweeps results/sweeps/power_test.json gate_test                           # figures
+uv run python -m experiments.dev_pcmi --seed 11 --n 40 --T 100 50                                           # dev tuning (E07/E08)
+scripts/llm_queue.sh   # LLM datasets llm_v1 (+controls), labels, eval, llm_long, llm_mixed (cached LLM calls in cache/)
 ```
+Splits: `data/SPLITS.md`; every experiment incl. discarded ones: `EXPERIMENTS.tsv`; reviews: `results/reviews/`.

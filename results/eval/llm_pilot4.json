@@ -4,11 +4,6 @@
    "pearson": {
     "A": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 0.5,
      "flag_ci": [
       0.09452865480086614,
@@ -17,11 +12,6 @@
     },
     "AB_competitive": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 0.5,
      "flag_ci": [
       0.09452865480086614,
@@ -30,11 +20,6 @@
     },
     "dev:A": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 0.5,
      "flag_ci": [
       0.09452865480086614,
@@ -43,11 +28,6 @@
     },
     "dev:AB_competitive": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 0.5,
      "flag_ci": [
       0.09452865480086614,
@@ -56,11 +36,6 @@
     },
     "C": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 1.0,
      "flag_ci": [
       0.34237195288961925,
@@ -70,15 +45,11 @@
      "top1_ci": [
       0.09452865480086614,
       0.9054713451991339
-     ]
+     ],
+     "top1_binom_p_vs_1/6": 0.3055555555555556
     },
     "CD_ambiguous": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 1.0,
      "flag_ci": [
       0.34237195288961925,
@@ -88,15 +59,11 @@
      "top1_ci": [
       0.09452865480086614,
       0.9054713451991339
-     ]
+     ],
+     "top1_binom_p_vs_1/6": 0.3055555555555556
     },
     "dev:C": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 1.0,
      "flag_ci": [
       0.34237195288961925,
@@ -106,15 +73,11 @@
      "top1_ci": [
       0.09452865480086614,
       0.9054713451991339
-     ]
+     ],
+     "top1_binom_p_vs_1/6": 0.3055555555555556
     },
     "dev:CD_ambiguous": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 1.0,
      "flag_ci": [
       0.34237195288961925,
@@ -124,19 +87,23 @@
      "top1_ci": [
       0.09452865480086614,
       0.9054713451991339
-     ]
+     ],
+     "top1_binom_p_vs_1/6": 0.3055555555555556
     },
     "auroc_CD_vs_AB": 0.5,
-    "dev:auroc_CD_vs_AB": 0.5
+    "auroc_ci": [
+     0.0,
+     1.0
+    ],
+    "dev:auroc_CD_vs_AB": 0.5,
+    "dev:auroc_ci": [
+     0.0,
+     1.0
+    ]
    },
    "pearson_diff": {
     "A": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 0.5,
      "flag_ci": [
       0.09452865480086614,
@@ -145,11 +112,6 @@
     },
     "AB_competitive": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 0.5,
      "flag_ci": [
       0.09452865480086614,
@@ -158,11 +120,6 @@
     },
     "dev:A": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 0.5,
      "flag_ci": [
       0.09452865480086614,
@@ -171,11 +128,6 @@
     },
     "dev:AB_competitive": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 0.5,
      "flag_ci": [
       0.09452865480086614,
@@ -184,11 +136,6 @@
     },
     "C": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 1.0,
      "flag_ci": [
       0.34237195288961925,
@@ -198,15 +145,11 @@
      "top1_ci": [
       0.0,
       0.6576280471103807
-     ]
+     ],
+     "top1_binom_p_vs_1/6": 1.0
     },
     "CD_ambiguous": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 1.0,
      "flag_ci": [
       0.34237195288961925,
@@ -216,15 +159,11 @@
      "top1_ci": [
       0.0,
       0.6576280471103807
-     ]
+     ],
+     "top1_binom_p_vs_1/6": 1.0
     },
     "dev:C": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 1.0,
      "flag_ci": [
       0.34237195288961925,
@@ -234,15 +173,11 @@
      "top1_ci": [
       0.0,
       0.6576280471103807
-     ]
+     ],
+     "top1_binom_p_vs_1/6": 1.0
     },
     "dev:CD_ambiguous": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 1.0,
      "flag_ci": [
       0.34237195288961925,
@@ -252,19 +187,23 @@
      "top1_ci": [
       0.0,
       0.6576280471103807
-     ]
+     ],
+     "top1_binom_p_vs_1/6": 1.0
     },
     "auroc_CD_vs_AB": 0.75,
-    "dev:auroc_CD_vs_AB": 0.75
+    "auroc_ci": [
+     0.0,
+     1.0
+    ],
+    "dev:auroc_CD_vs_AB": 0.75,
+    "dev:auroc_ci": [
+     0.0,
+     1.0
+    ]
    },
    "mi": {
     "A": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 0.5,
      "flag_ci": [
       0.09452865480086614,
@@ -273,11 +212,6 @@
     },
     "AB_competitive": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 0.5,
      "flag_ci": [
       0.09452865480086614,
@@ -286,11 +220,6 @@
     },
     "dev:A": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 0.5,
      "flag_ci": [
       0.09452865480086614,
@@ -299,11 +228,6 @@
     },
     "dev:AB_competitive": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 0.5,
      "flag_ci": [
       0.09452865480086614,
@@ -312,11 +236,6 @@
     },
     "C": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 0.5,
      "flag_ci": [
       0.09452865480086614,
@@ -326,15 +245,11 @@
      "top1_ci": [
       0.09452865480086614,
       0.9054713451991339
-     ]
+     ],
+     "top1_binom_p_vs_1/6": 0.3055555555555556
     },
     "CD_ambiguous": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 0.5,
      "flag_ci": [
       0.09452865480086614,
@@ -344,15 +259,11 @@
      "top1_ci": [
       0.09452865480086614,
       0.9054713451991339
-     ]
+     ],
+     "top1_binom_p_vs_1/6": 0.3055555555555556
     },
     "dev:C": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 0.5,
      "flag_ci": [
       0.09452865480086614,
@@ -362,15 +273,11 @@
      "top1_ci": [
       0.09452865480086614,
       0.9054713451991339
-     ]
+     ],
+     "top1_binom_p_vs_1/6": 0.3055555555555556
     },
     "dev:CD_ambiguous": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 0.5,
      "flag_ci": [
       0.09452865480086614,
@@ -380,19 +287,23 @@
      "top1_ci": [
       0.09452865480086614,
       0.9054713451991339
-     ]
+     ],
+     "top1_binom_p_vs_1/6": 0.3055555555555556
     },
     "auroc_CD_vs_AB": 0.5,
-    "dev:auroc_CD_vs_AB": 0.5
+    "auroc_ci": [
+     0.0,
+     1.0
+    ],
+    "dev:auroc_CD_vs_AB": 0.5,
+    "dev:auroc_ci": [
+     0.0,
+     1.0
+    ]
    },
    "cmi_state": {
     "A": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 0.5,
      "flag_ci": [
       0.09452865480086614,
@@ -401,11 +312,6 @@
     },
     "AB_competitive": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 0.5,
      "flag_ci": [
       0.09452865480086614,
@@ -414,11 +320,6 @@
     },
     "dev:A": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 0.5,
      "flag_ci": [
       0.09452865480086614,
@@ -427,11 +328,6 @@
     },
     "dev:AB_competitive": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 0.5,
      "flag_ci": [
       0.09452865480086614,
@@ -440,11 +336,6 @@
     },
     "C": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 0.5,
      "flag_ci": [
       0.09452865480086614,
@@ -454,15 +345,11 @@
      "top1_ci": [
       0.09452865480086614,
       0.9054713451991339
-     ]
+     ],
+     "top1_binom_p_vs_1/6": 0.3055555555555556
     },
     "CD_ambiguous": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 0.5,
      "flag_ci": [
       0.09452865480086614,
@@ -472,15 +359,11 @@
      "top1_ci": [
       0.09452865480086614,
       0.9054713451991339
-     ]
+     ],
+     "top1_binom_p_vs_1/6": 0.3055555555555556
     },
     "dev:C": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 0.5,
      "flag_ci": [
       0.09452865480086614,
@@ -490,15 +373,11 @@
      "top1_ci": [
       0.09452865480086614,
       0.9054713451991339
-     ]
+     ],
+     "top1_binom_p_vs_1/6": 0.3055555555555556
     },
     "dev:CD_ambiguous": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 0.5,
      "flag_ci": [
       0.09452865480086614,
@@ -508,19 +387,23 @@
      "top1_ci": [
       0.09452865480086614,
       0.9054713451991339
-     ]
+     ],
+     "top1_binom_p_vs_1/6": 0.3055555555555556
     },
     "auroc_CD_vs_AB": 0.5,
-    "dev:auroc_CD_vs_AB": 0.5
+    "auroc_ci": [
+     0.0,
+     1.0
+    ],
+    "dev:auroc_CD_vs_AB": 0.5,
+    "dev:auroc_ci": [
+     0.0,
+     1.0
+    ]
    },
    "pcmi": {
     "A": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 0.0,
      "flag_ci": [
       0.0,
@@ -529,11 +412,6 @@
     },
     "AB_competitive": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 0.0,
      "flag_ci": [
       0.0,
@@ -542,11 +420,6 @@
     },
     "dev:A": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 0.0,
      "flag_ci": [
       0.0,
@@ -555,11 +428,6 @@
     },
     "dev:AB_competitive": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 0.0,
      "flag_ci": [
       0.0,
@@ -568,11 +436,6 @@
     },
     "C": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 0.5,
      "flag_ci": [
       0.09452865480086614,
@@ -582,15 +445,11 @@
      "top1_ci": [
       0.0,
       0.6576280471103807
-     ]
+     ],
+     "top1_binom_p_vs_1/6": 1.0
     },
     "CD_ambiguous": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 0.5,
      "flag_ci": [
       0.09452865480086614,
@@ -600,15 +459,11 @@
      "top1_ci": [
       0.0,
       0.6576280471103807
-     ]
+     ],
+     "top1_binom_p_vs_1/6": 1.0
     },
     "dev:C": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 0.5,
      "flag_ci": [
       0.09452865480086614,
@@ -618,15 +473,11 @@
      "top1_ci": [
       0.0,
       0.6576280471103807
-     ]
+     ],
+     "top1_binom_p_vs_1/6": 1.0
     },
     "dev:CD_ambiguous": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 0.5,
      "flag_ci": [
       0.09452865480086614,
@@ -636,19 +487,23 @@
      "top1_ci": [
       0.0,
       0.6576280471103807
-     ]
+     ],
+     "top1_binom_p_vs_1/6": 1.0
     },
     "auroc_CD_vs_AB": 1.0,
-    "dev:auroc_CD_vs_AB": 1.0
+    "auroc_ci": [
+     1.0,
+     1.0
+    ],
+    "dev:auroc_CD_vs_AB": 1.0,
+    "dev:auroc_ci": [
+     1.0,
+     1.0
+    ]
    },
    "te": {
     "A": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 0.5,
      "flag_ci": [
       0.09452865480086614,
@@ -657,11 +512,6 @@
     },
     "AB_competitive": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 0.5,
      "flag_ci": [
       0.09452865480086614,
@@ -670,11 +520,6 @@
     },
     "dev:A": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 0.5,
      "flag_ci": [
       0.09452865480086614,
@@ -683,11 +528,6 @@
     },
     "dev:AB_competitive": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 0.5,
      "flag_ci": [
       0.09452865480086614,
@@ -696,11 +536,6 @@
     },
     "C": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 1.0,
      "flag_ci": [
       0.34237195288961925,
@@ -710,15 +545,11 @@
      "top1_ci": [
       0.0,
       0.6576280471103807
-     ]
+     ],
+     "top1_binom_p_vs_1/6": 1.0
     },
     "CD_ambiguous": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 1.0,
      "flag_ci": [
       0.34237195288961925,
@@ -728,15 +559,11 @@
      "top1_ci": [
       0.0,
       0.6576280471103807
-     ]
+     ],
+     "top1_binom_p_vs_1/6": 1.0
     },
     "dev:C": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 1.0,
      "flag_ci": [
       0.34237195288961925,
@@ -746,15 +573,11 @@
      "top1_ci": [
       0.0,
       0.6576280471103807
-     ]
+     ],
+     "top1_binom_p_vs_1/6": 1.0
     },
     "dev:CD_ambiguous": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "flag_rate": 1.0,
      "flag_ci": [
       0.34237195288961925,
@@ -764,275 +587,217 @@
      "top1_ci": [
       0.0,
       0.6576280471103807
-     ]
+     ],
+     "top1_binom_p_vs_1/6": 1.0
     },
     "auroc_CD_vs_AB": 0.5,
-    "dev:auroc_CD_vs_AB": 0.5
+    "auroc_ci": [
+     0.0,
+     1.0
+    ],
+    "dev:auroc_CD_vs_AB": 0.5,
+    "dev:auroc_ci": [
+     0.0,
+     1.0
+    ]
    },
    "ni_pcmi": {
     "A": {
-     "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ]
+     "n": 2
     },
     "AB_competitive": {
-     "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ]
+     "n": 2
     },
     "dev:A": {
-     "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ]
+     "n": 2
     },
     "dev:AB_competitive": {
-     "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ]
+     "n": 2
     },
     "C": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "top1": 0.0,
      "top1_ci": [
       0.0,
       0.6576280471103807
-     ]
+     ],
+     "top1_binom_p_vs_1/6": 1.0
     },
     "CD_ambiguous": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "top1": 0.0,
      "top1_ci": [
       0.0,
       0.6576280471103807
-     ]
+     ],
+     "top1_binom_p_vs_1/6": 1.0
     },
     "dev:C": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "top1": 0.0,
      "top1_ci": [
       0.0,
       0.6576280471103807
-     ]
+     ],
+     "top1_binom_p_vs_1/6": 1.0
     },
     "dev:CD_ambiguous": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "top1": 0.0,
      "top1_ci": [
       0.0,
       0.6576280471103807
-     ]
+     ],
+     "top1_binom_p_vs_1/6": 1.0
     },
     "auroc_CD_vs_AB": 1.0,
-    "dev:auroc_CD_vs_AB": 1.0
+    "auroc_ci": [
+     1.0,
+     1.0
+    ],
+    "dev:auroc_CD_vs_AB": 1.0,
+    "dev:auroc_ci": [
+     1.0,
+     1.0
+    ]
    },
    "pair_level": {
     "A": {
-     "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ]
+     "n": 2
     },
     "AB_competitive": {
-     "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ]
+     "n": 2
     },
     "dev:A": {
-     "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ]
+     "n": 2
     },
     "dev:AB_competitive": {
-     "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ]
+     "n": 2
     },
     "C": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "top1": 0.5,
      "top1_ci": [
       0.09452865480086614,
       0.9054713451991339
-     ]
+     ],
+     "top1_binom_p_vs_1/6": 0.3055555555555556
     },
     "CD_ambiguous": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "top1": 0.5,
      "top1_ci": [
       0.09452865480086614,
       0.9054713451991339
-     ]
+     ],
+     "top1_binom_p_vs_1/6": 0.3055555555555556
     },
     "dev:C": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "top1": 0.5,
      "top1_ci": [
       0.09452865480086614,
       0.9054713451991339
-     ]
+     ],
+     "top1_binom_p_vs_1/6": 0.3055555555555556
     },
     "dev:CD_ambiguous": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "top1": 0.5,
      "top1_ci": [
       0.09452865480086614,
       0.9054713451991339
-     ]
+     ],
+     "top1_binom_p_vs_1/6": 0.3055555555555556
     },
     "auroc_CD_vs_AB": 0.5,
-    "dev:auroc_CD_vs_AB": 0.5
+    "auroc_ci": [
+     0.0,
+     1.0
+    ],
+    "dev:auroc_CD_vs_AB": 0.5,
+    "dev:auroc_ci": [
+     0.0,
+     1.0
+    ]
    },
    "market_level": {
     "A": {
-     "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ]
+     "n": 2
     },
     "AB_competitive": {
-     "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ]
+     "n": 2
     },
     "dev:A": {
-     "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ]
+     "n": 2
     },
     "dev:AB_competitive": {
-     "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ]
+     "n": 2
     },
     "C": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "top1": 0.5,
      "top1_ci": [
       0.09452865480086614,
       0.9054713451991339
-     ]
+     ],
+     "top1_binom_p_vs_1/6": 0.3055555555555556
     },
     "CD_ambiguous": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "top1": 0.5,
      "top1_ci": [
       0.09452865480086614,
       0.9054713451991339
-     ]
+     ],
+     "top1_binom_p_vs_1/6": 0.3055555555555556
     },
     "dev:C": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "top1": 0.5,
      "top1_ci": [
       0.09452865480086614,
       0.9054713451991339
-     ]
+     ],
+     "top1_binom_p_vs_1/6": 0.3055555555555556
     },
     "dev:CD_ambiguous": {
      "n": 2,
-     "surrogate_flag_rate": 0.0,
-     "surrogate_flag_ci": [
-      0.0,
-      0.6576280471103807
-     ],
      "top1": 0.5,
      "top1_ci": [
       0.09452865480086614,
       0.9054713451991339
-     ]
+     ],
+     "top1_binom_p_vs_1/6": 0.3055555555555556
     },
     "auroc_CD_vs_AB": 0.75,
-    "dev:auroc_CD_vs_AB": 0.75
+    "auroc_ci": [
+     0.0,
+     1.0
+    ],
+    "dev:auroc_CD_vs_AB": 0.75,
+    "dev:auroc_ci": [
+     0.0,
+     1.0
+    ]
    }
   }
+ },
+ "price_level": {
+  "market_mean_CD": 11.725,
+  "market_mean_AB": 10.675,
+  "n_CD": 2,
+  "n_AB": 2,
+  "diff": 1.049999999999999,
+  "diff_ci": [
+   -0.40000000000000036,
+   2.5
+  ],
+  "mannwhitney_p": 0.3333333333333333,
+  "pair_minus_rivals_CD": 0.40000000000000036,
+  "pair_minus_rivals_ci": [
+   0.125,
+   0.6750000000000007
+  ]
  }
 }

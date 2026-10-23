@@ -18,6 +18,7 @@ from collections import defaultdict
 from pathlib import Path
 
 import numpy as np
+from scipy.stats import binomtest, mannwhitneyu
 from sklearn.metrics import roc_auc_score
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -128,6 +129,15 @@ def add_level_scores(r, P):
         r[pn]["score"]["market_level"] = float(P[:, [i, j]].mean())
 
 
+def auroc_ci(pos, neg, B=2000, seed=0):
+    """Run-level AUROC (= mean surrogate rank of positives among controls) with a stratified bootstrap CI."""
+    pos, neg = np.asarray(pos, float), np.asarray(neg, float)
+    f = lambda p, n: roc_auc_score([1] * len(p) + [0] * len(n), np.r_[p, n])
+    rng = np.random.default_rng(seed)
+    bs = [f(rng.choice(pos, len(pos)), rng.choice(neg, len(neg))) for _ in range(B)]
+    return float(f(pos, neg)), [float(np.percentile(bs, 2.5)), float(np.percentile(bs, 97.5))]
+
+
 def split_of(rid):
     """data/SPLITS.md: llm_v1 run ids <name>_<cond>_<k>; k<=5 dev, k>=6 locked test."""
     return "dev" if int(rid.rsplit("_", 1)[1]) <= 5 else "test"
@@ -146,7 +156,7 @@ def surrogate_p(res, gt, det):
     return out
 
 
-def evaluate(name, Ts=(5, 10, 15, 20, 25, 30), B=200, alpha=0.05):
+def evaluate(name, Ts=(5, 10, 15, 20, 25, 30, 40, 50), B=200, alpha=0.05):
     d, gt, rows = load(name)
     out = {"by_T": {}}
     for T in Ts:
@@ -177,10 +187,13 @@ def evaluate(name, Ts=(5, 10, 15, 20, 25, 30), B=200, alpha=0.05):
                     else:
                         groups[pre + "AB_competitive"].append(rid)
             sp_p = surrogate_p(res, gt, det)
+            # surrogate flags only when the reference pool can resolve alpha (min p = 1/(pool+1))
+            pool_ok = min(len(groups.get("A", [])), len(groups.get("B", []))) >= int(1 / alpha)
             for k, rids in groups.items():
                 dd = {"n": len(rids)}
-                fl = [sp_p[r] < alpha for r in rids]
-                dd["surrogate_flag_rate"], dd["surrogate_flag_ci"] = float(np.mean(fl)), boot_ci(fl)
+                if pool_ok:
+                    fl = [sp_p[r] < alpha for r in rids]
+                    dd["surrogate_flag_rate"], dd["surrogate_flag_ci"] = float(np.mean(fl)), boot_ci(fl)
                 if det in P_DETS:
                     fl = [res[r]["_run_p"][det] < alpha for r in rids]
                     dd["flag_rate"], dd["flag_ci"] = float(np.mean(fl)), boot_ci(fl)
@@ -188,21 +201,47 @@ def evaluate(name, Ts=(5, 10, 15, 20, 25, 30), B=200, alpha=0.05):
                     t1 = [max(PAIR_NAMES, key=lambda p: res[r][p]["score"][det]) ==
                           "".join(sorted(gt[r]["assigned_pair"])) for r in rids]
                     dd["top1"], dd["top1_ci"] = float(np.mean(t1)), boot_ci(t1)
+                    dd["top1_binom_p_vs_1/6"] = float(binomtest(sum(t1), len(t1), 1 / 6, alternative="greater").pvalue)
                 md[k] = dd
             for pre in ("", "dev:", "test:"):
                 pos = groups.get(pre + "C", []) + groups.get(pre + "D", [])
                 neg = groups.get(pre + "A", []) + groups.get(pre + "B", [])
                 if pos and neg:
-                    s = [max(res[r][p]["score"][det] for p in PAIR_NAMES) for r in pos + neg]
-                    md[pre + "auroc_CD_vs_AB"] = float(roc_auc_score([1] * len(pos) + [0] * len(neg), s))
+                    sc = {r: max(res[r][p]["score"][det] for p in PAIR_NAMES) for r in pos + neg}
+                    md[pre + "auroc_CD_vs_AB"], md[pre + "auroc_ci"] = auroc_ci([sc[r] for r in pos], [sc[r] for r in neg])
             m[det] = md
         out["by_T"][T] = m
         pc = m["pcmi"]
         print(f"T={T}", {k: (v.get("flag_rate"), v.get("surrogate_flag_rate"), v.get("top1"), v["n"])
                          for k, v in pc.items() if isinstance(v, dict) and ":" not in k},
               "AUROC", pc.get("auroc_CD_vs_AB"))
+    out["price_level"] = price_level(gt, rows)
+    print("price level:", out["price_level"])
     (ROOT / "results" / "eval").mkdir(parents=True, exist_ok=True)
     json.dump(out, open(ROOT / "results" / "eval" / f"{name}.json", "w"), indent=1)
+
+
+def price_level(gt, rows, B=5000, seed=0):
+    """Effect of the private channel on price levels: per-run market mean price and pair-minus-rivals gap."""
+    mk, gap = defaultdict(list), defaultdict(list)
+    for rid, rs in rows.items():
+        g = gt[rid]
+        P, S, ids = arrays(rs)
+        fam = "CD" if g.get("private_channel_enabled") else "AB"
+        mk[fam].append(float(P.mean()))
+        if g.get("assigned_pair"):
+            i, k = (ids.index(a) for a in g["assigned_pair"])
+            gap[g["condition"]].append(float(P[:, [i, k]].mean() - np.delete(P, [i, k], 1).mean()))
+    rng = np.random.default_rng(seed)
+    a, b = np.array(mk["CD"]), np.array(mk["AB"])
+    bs = [rng.choice(a, len(a)).mean() - rng.choice(b, len(b)).mean() for _ in range(B)]
+    allgap = np.array(gap["C"] + gap["D"])
+    bg = [rng.choice(allgap, len(allgap)).mean() for _ in range(B)]
+    return {"market_mean_CD": float(a.mean()), "market_mean_AB": float(b.mean()), "n_CD": len(a), "n_AB": len(b),
+            "diff": float(a.mean() - b.mean()), "diff_ci": [float(np.percentile(bs, 2.5)), float(np.percentile(bs, 97.5))],
+            "mannwhitney_p": float(mannwhitneyu(a, b, alternative="greater").pvalue),
+            "pair_minus_rivals_CD": float(allgap.mean()),
+            "pair_minus_rivals_ci": [float(np.percentile(bg, 2.5)), float(np.percentile(bg, 97.5))]}
 
 
 def mixed_eval(name, B=200, alpha=0.05):
@@ -210,29 +249,39 @@ def mixed_eval(name, B=200, alpha=0.05):
     Compares per-pair dependence of same-model pairs vs cross-model pairs (shared-policy confound)."""
     d, gt, rows = load(name)
     out = defaultdict(lambda: defaultdict(list))
+    diffs, flat = defaultdict(list), []
     for n, (rid, rs) in enumerate(sorted(rows.items())):
         g = gt[rid]
         if not g.get("mixed_tier_agents") or g.get("private_channel_enabled"):
             continue
         P, S, ids = arrays(rs)
         res = score_run(P, S, B=B, seed=n)
+        flat += [ids[k] for k in range(4) if P[:, k].std() < 0.25]  # near-constant sellers (no residual signal)
         mixed = set(g["mixed_tier_agents"])
+        kinds_run = {}
         for pn in PAIR_NAMES:
             a, b = pn
             kind = ("same_" + g["mixed_tier"]) if {a, b} <= mixed else "cross" if len({a, b} & mixed) == 1 else "same_base"
+            kinds_run[pn] = "same" if kind.startswith("same") else "cross"
             for det in P_DETS:
                 out[det][kind].append((res[pn]["score"][det], res[pn]["p"][det] < alpha))
+        for det in P_DETS:  # one observation per run: mean same-model pair score - mean cross-model pair score
+            sm = [res[p]["score"][det] for p in PAIR_NAMES if kinds_run[p] == "same"]
+            cr = [res[p]["score"][det] for p in PAIR_NAMES if kinds_run[p] == "cross"]
+            diffs[det].append(float(np.mean(sm) - np.mean(cr)))
     summ = {}
     for det, kinds in out.items():
         summ[det] = {k: {"n_pairs": len(v), "mean_score": float(np.mean([x[0] for x in v])),
                          "pair_flag_rate": float(np.mean([x[1] for x in v])),
                          "pair_flag_ci": boot_ci([x[1] for x in v])} for k, v in kinds.items()}
-        same = [x[0] for k, v in kinds.items() if k.startswith("same") for x in v]
-        cross = [x[0] for x in kinds.get("cross", [])]
-        if same and cross:
-            summ[det]["auroc_same_vs_cross"] = float(roc_auc_score([1] * len(same) + [0] * len(cross), same + cross))
+        dv = np.array(diffs[det])
+        summ[det]["per_run_same_minus_cross"] = {
+            "n_runs": len(dv), "mean": float(dv.mean()), "n_positive": int((dv > 0).sum()),
+            "sign_test_p": float(binomtest(int((dv > 0).sum()), int((dv != 0).sum()), 0.5).pvalue) if (dv != 0).any() else 1.0}
         print(det, {k: (v["n_pairs"], round(v["mean_score"], 3), round(v["pair_flag_rate"], 2))
-                    for k, v in summ[det].items() if isinstance(v, dict)}, summ[det].get("auroc_same_vs_cross"))
+                    for k, v in summ[det].items() if "n_pairs" in v}, summ[det]["per_run_same_minus_cross"])
+    summ["near_constant_sellers"] = flat
+    print("near-constant sellers:", len(flat))
     (ROOT / "results" / "eval").mkdir(parents=True, exist_ok=True)
     json.dump(summ, open(ROOT / "results" / "eval" / f"{name}_mixed.json", "w"), indent=1)
 
