@@ -1,0 +1,862 @@
+{
+ "by_T": {
+  "20": {
+   "pearson": {
+    "A": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 0.5,
+     "flag_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ]
+    },
+    "AB_competitive": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 0.5,
+     "flag_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ]
+    },
+    "dev:A": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 0.5,
+     "flag_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ]
+    },
+    "dev:AB_competitive": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 0.5,
+     "flag_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ]
+    },
+    "C": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 1.0,
+     "flag_ci": [
+      0.34237195288961925,
+      1.0
+     ],
+     "top1": 0.5,
+     "top1_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ]
+    },
+    "CD_ambiguous": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 1.0,
+     "flag_ci": [
+      0.34237195288961925,
+      1.0
+     ],
+     "top1": 0.5,
+     "top1_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ]
+    },
+    "dev:C": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 1.0,
+     "flag_ci": [
+      0.34237195288961925,
+      1.0
+     ],
+     "top1": 0.5,
+     "top1_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ]
+    },
+    "dev:CD_ambiguous": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 1.0,
+     "flag_ci": [
+      0.34237195288961925,
+      1.0
+     ],
+     "top1": 0.5,
+     "top1_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ]
+    },
+    "auroc_CD_vs_AB": 0.5,
+    "dev:auroc_CD_vs_AB": 0.5
+   },
+   "pearson_diff": {
+    "A": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 0.5,
+     "flag_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ]
+    },
+    "AB_competitive": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 0.5,
+     "flag_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ]
+    },
+    "dev:A": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 0.5,
+     "flag_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ]
+    },
+    "dev:AB_competitive": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 0.5,
+     "flag_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ]
+    },
+    "C": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 1.0,
+     "flag_ci": [
+      0.34237195288961925,
+      1.0
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.6576280471103807
+     ]
+    },
+    "CD_ambiguous": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 1.0,
+     "flag_ci": [
+      0.34237195288961925,
+      1.0
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.6576280471103807
+     ]
+    },
+    "dev:C": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 1.0,
+     "flag_ci": [
+      0.34237195288961925,
+      1.0
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.6576280471103807
+     ]
+    },
+    "dev:CD_ambiguous": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 1.0,
+     "flag_ci": [
+      0.34237195288961925,
+      1.0
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.6576280471103807
+     ]
+    },
+    "auroc_CD_vs_AB": 0.75,
+    "dev:auroc_CD_vs_AB": 0.75
+   },
+   "mi": {
+    "A": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 0.5,
+     "flag_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ]
+    },
+    "AB_competitive": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 0.5,
+     "flag_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ]
+    },
+    "dev:A": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 0.5,
+     "flag_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ]
+    },
+    "dev:AB_competitive": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 0.5,
+     "flag_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ]
+    },
+    "C": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 0.5,
+     "flag_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ],
+     "top1": 0.5,
+     "top1_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ]
+    },
+    "CD_ambiguous": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 0.5,
+     "flag_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ],
+     "top1": 0.5,
+     "top1_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ]
+    },
+    "dev:C": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 0.5,
+     "flag_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ],
+     "top1": 0.5,
+     "top1_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ]
+    },
+    "dev:CD_ambiguous": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 0.5,
+     "flag_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ],
+     "top1": 0.5,
+     "top1_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ]
+    },
+    "auroc_CD_vs_AB": 0.5,
+    "dev:auroc_CD_vs_AB": 0.5
+   },
+   "cmi_state": {
+    "A": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 0.5,
+     "flag_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ]
+    },
+    "AB_competitive": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 0.5,
+     "flag_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ]
+    },
+    "dev:A": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 0.5,
+     "flag_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ]
+    },
+    "dev:AB_competitive": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 0.5,
+     "flag_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ]
+    },
+    "C": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 0.5,
+     "flag_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ],
+     "top1": 0.5,
+     "top1_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ]
+    },
+    "CD_ambiguous": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 0.5,
+     "flag_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ],
+     "top1": 0.5,
+     "top1_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ]
+    },
+    "dev:C": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 0.5,
+     "flag_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ],
+     "top1": 0.5,
+     "top1_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ]
+    },
+    "dev:CD_ambiguous": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 0.5,
+     "flag_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ],
+     "top1": 0.5,
+     "top1_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ]
+    },
+    "auroc_CD_vs_AB": 0.5,
+    "dev:auroc_CD_vs_AB": 0.5
+   },
+   "pcmi": {
+    "A": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.6576280471103807
+     ]
+    },
+    "AB_competitive": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.6576280471103807
+     ]
+    },
+    "dev:A": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.6576280471103807
+     ]
+    },
+    "dev:AB_competitive": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.6576280471103807
+     ]
+    },
+    "C": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.6576280471103807
+     ]
+    },
+    "CD_ambiguous": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.6576280471103807
+     ]
+    },
+    "dev:C": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.6576280471103807
+     ]
+    },
+    "dev:CD_ambiguous": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.6576280471103807
+     ]
+    },
+    "auroc_CD_vs_AB": 1.0,
+    "dev:auroc_CD_vs_AB": 1.0
+   },
+   "te": {
+    "A": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 0.5,
+     "flag_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ]
+    },
+    "AB_competitive": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 0.5,
+     "flag_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ]
+    },
+    "dev:A": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 0.5,
+     "flag_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ]
+    },
+    "dev:AB_competitive": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 0.5,
+     "flag_ci": [
+      0.09452865480086614,
+      0.9054713451991339
+     ]
+    },
+    "C": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 1.0,
+     "flag_ci": [
+      0.34237195288961925,
+      1.0
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.6576280471103807
+     ]
+    },
+    "CD_ambiguous": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 1.0,
+     "flag_ci": [
+      0.34237195288961925,
+      1.0
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.6576280471103807
+     ]
+    },
+    "dev:C": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 1.0,
+     "flag_ci": [
+      0.34237195288961925,
+      1.0
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.6576280471103807
+     ]
+    },
+    "dev:CD_ambiguous": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "flag_rate": 1.0,
+     "flag_ci": [
+      0.34237195288961925,
+      1.0
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.6576280471103807
+     ]
+    },
+    "auroc_CD_vs_AB": 0.5,
+    "dev:auroc_CD_vs_AB": 0.5
+   },
+   "ni_pcmi": {
+    "A": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ]
+    },
+    "AB_competitive": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ]
+    },
+    "dev:A": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ]
+    },
+    "dev:AB_competitive": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ]
+    },
+    "C": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.6576280471103807
+     ]
+    },
+    "CD_ambiguous": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.6576280471103807
+     ]
+    },
+    "dev:C": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.6576280471103807
+     ]
+    },
+    "dev:CD_ambiguous": {
+     "n": 2,
+     "surrogate_flag_rate": 0.0,
+     "surrogate_flag_ci": [
+      0.0,
+      0.6576280471103807
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.6576280471103807
+     ]
+    },
+    "auroc_CD_vs_AB": 1.0,
+    "dev:auroc_CD_vs_AB": 1.0
+   }
+  }
+ }
+}

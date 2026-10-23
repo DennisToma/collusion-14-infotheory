@@ -1,0 +1,7 @@
+time_utc	id	hypothesis	change	dataset/split	metric (with 95% CI)	decision(keep/discard/inconclusive)	commit
+2026-10-23T20:10	E01-gate-v1	CMI/pCMI rank planted pair #1 and FPR≈5% on A/B	first null: per-pair Bonferroni, B=100	scripted seed0=0 (dev)	null could never reject (min p=1/101 > 0.05/6)	discard	1d82275
+2026-10-23T20:20	E02-maxstat-null	max-over-pairs shift null is calibrated	max-statistic run-level p	scripted seed0=0 (dev)	gate passes: pCMI top1 1.00 C/D, FPR A ≈0.04	keep	1d82275
+2026-10-23T20:35	E03-sweeps	power vs strength/T	sweep 3 types × strengths × T, n=20	scripted seed0=100 (dev, old null)	signal s≥0.1@T=100 detectable; tft only TE; stay-high invisible	keep (rerun w/ new null pending)	08a5136
+2026-10-23T20:50	E04-llm-pilots	gpt-6-luna sellers with private channel collude	grid/private cost/reasoning/explore/hybrid variants	llm_pilot..pilot3, hpilot	all sellers fixed at 12 (no variance)	discard	08a5136
+2026-10-23T21:05	E05-anchor	JSON example "price": 12 anchors LLM prices	remove example value	llm_pilot4 (5 games)	prices vary 9–15; one pair 13–14 vs rivals 12	keep	e037f72
+2026-10-23T21:10	E06-null-v2	codex review: stratified/re-residualised null fixes calibration	offsets≥3, CMI strata shifts, pCMI re-resid, realistic shared_policy	scripted seed0=7 (gate_v2, now dev)	pCMI FPR A .02[.00,.10], B .16[.08,.29]; shared_policy .12[.06,.24]	keep (B FPR open)	e037f72

@@ -71,14 +71,20 @@ def cmi_mm(x, y, z):
     return tot
 
 
-def _design(S, P, t_idx, exclude_lag=None):
-    """Regressors: const, state dummies, lagged prices (optionally excluding one agent's lag)."""
+DESIGN = "lin"  # "lin": state dummies + lags; "inter": + state x lag interactions
+
+
+def _design(S, P, t_idx, exclude_lag=None, design=None):
+    """Regressors: const, state dummies, lagged prices (optionally excluding one agent's lag).
+    design="inter" adds state-dummy x lagged-price interactions (each state level gets its own
+    response to rivals' previous prices); used only when there are >= 4 rows per regressor."""
+    design = design or DESIGN
     n_lev = S.max() + 1
-    cols = [np.ones(len(t_idx))]
-    cols += [(S[t_idx] == s).astype(float) for s in range(1, n_lev)]
-    for k in range(P.shape[1]):
-        if k != exclude_lag:
-            cols.append(P[t_idx - 1, k])
+    dums = [(S[t_idx] == s).astype(float) for s in range(1, n_lev)]
+    lags = [P[t_idx - 1, k] for k in range(P.shape[1]) if k != exclude_lag]
+    cols = [np.ones(len(t_idx))] + dums + lags
+    if design == "inter" and len(t_idx) >= 4 * (len(cols) + len(dums) * len(lags)):
+        cols += [d * l for d in dums for l in lags]
     return np.column_stack(cols)
 
 
