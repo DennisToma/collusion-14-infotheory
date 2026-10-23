@@ -85,9 +85,38 @@ With n=25 the 95% bootstrap CI on an 8% rate is roughly [0, 20%]; more seeds are
 
 ![hard negatives](figures/hard_negatives.png)
 
-### 4.2 Power vs collusion strength and vs T — *running*
-`uv run python -m experiments.sweep` → `results/sweeps/power.json`; figures `figures/power_vs_strength.png`,
-`figures/power_vs_T.png` (`uv run python -m experiments.plot_sweeps`).
+### 4.2 Power vs collusion strength and vs T (scripted, 20 runs per condition per point)
+`uv run python -m experiments.sweep --workers 3` → `results/sweeps/power.json`;
+`uv run python -m experiments.plot_sweeps` → figures below. Rate = run-level flag rate at α=0.05,
+averaged over C and D (collusive) vs A and B (controls).
+
+| collusion type | setting | MI (coll./ctrl) | CMI\|state | pCMI | TE | pair top-1 pCMI / TE |
+|---|---|---|---|---|---|---|
+| shared signal | T=100, s=0.1 | 0.97 / 0.55 | 0.60 / 0.07 | **0.85 / 0.10** | 0.10 / 0.05 | 0.95 / 0.35 |
+| shared signal | T=100, s=0.2 | 1.00 / 0.55 | 0.95 / 0.07 | **1.00 / 0.10** | 0.10 / 0.05 | 1.00 / 0.05 |
+| shared signal | T=20, s=0.3 | 0.12 / 0.05 | 0.10 / 0.00 | 0.12 / 0.03 | 0.28 / 0.17 | **0.95** / 0.05 |
+| shared signal | T=50, s=0.3 | 0.95 / 0.50 | 0.82 / 0.00 | **0.90 / 0.08** | 0.15 / 0.15 | 1.00 / 0.10 |
+| tit-for-tat | T=100, s=0.3 | 0.50 / 0.55 | 0.00 / 0.07 | 0.07 / 0.10 | **0.80 / 0.05** | 0.15 / 0.75 |
+| tit-for-tat | T=100, s≥0.45 | ≈0.5 / 0.55 | ≈0.03 / 0.07 | ≈0.05 / 0.10 | **1.00 / 0.05** | ≈0.1 / **1.00** |
+| stay-high (no shared variation) | T=100, s=0.8 | 0.30 / 0.55 | 0.12 / 0.07 | 0.10 / 0.10 | 0.55 / 0.05 | 0.20 / 0.00 |
+
+Readings:
+1. **Contemporaneous coordination** (pair moves together within a round) is detected by CMI|state and pCMI
+   down to s=0.1 at T=100 and at s=0.3 from T≈50. At T=20 the run-level test has little power (0.12),
+   but the planted pair is still *ranked* first in 95% of runs — localisation is easier than detection.
+2. **Lagged coordination** (tit-for-tat matching) is invisible to contemporaneous CMI (it conditions the
+   lags away) and is caught only by lagged CMI/TE — which also flags *legitimate* public leader-follower
+   pricing in 100% of runs (§4.1). Statistically the two are the same object.
+3. **Collusion as a level** (both just price high) carries no shared information; no dependence measure
+   detects it. Detecting it needs a price-level benchmark (Nash vs observed), not information theory.
+4. Raw MI is not calibrated whenever there is a common driver: it flags ~100% of common-shock control
+   runs (the 0.55 control column averages 0.0 on A and 1.0 on B).
+5. TE is mis-calibrated at very short T (FPR 0.70 at T=10, 0.17 at T=20): the regression on 6–7
+   regressors with 9–19 points overfits and the circular-shift null has few distinct shifts. Do not trust
+   TE at T ≤ 20.
+
+![power vs strength](figures/power_vs_strength.png)
+![power vs T](figures/power_vs_T.png)
 
 ### 4.3 LLM sellers — *pending*
 
