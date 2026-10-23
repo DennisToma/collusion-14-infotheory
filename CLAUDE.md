@@ -40,9 +40,9 @@ everything you know lives in this repo's files. Nobody will answer questions ove
   | task | use |
   |---|---|
   | research design, analysis, judging results, final claims | yourself (Opus); second brain: `codex exec -m gpt-6.1-sol -c model_reasoning_effort=high` |
-  | substantial / tricky implementation (estimators, stats, sim logic) | yourself, or `codex exec -m gpt-6.1-sol --full-auto -C "$PWD" "<task>"` |
+  | substantial / tricky implementation (estimators, stats, sim logic) | yourself, or `codex exec -m gpt-6.1-sol -s workspace-write -C "$PWD" "<task>"` |
   | adversarial review of design / results / REPORT | `codex exec -m gpt-6.1-sol -s read-only ...` AND an Opus subagent (`model: opus`) — two independent critics |
-  | worker tasks: boilerplate, plots, refactors, data wrangling, running sweeps, docs | Agent subagent `model: sonnet`, or `codex exec -m gpt-5.6-terra` / `-m gpt-6-luna --full-auto` |
+  | worker tasks: boilerplate, plots, refactors, data wrangling, running sweeps, docs | Agent subagent `model: sonnet`, or `codex exec -m gpt-5.6-terra` / `-m gpt-6-luna -s workspace-write` |
   | simulated sellers, message paraphrasing (bulk calls) | `llm.chat(..., tier="cheap")` → gpt-6-luna / Go |
   | LLM auditors, label verification (judges) | `llm.chat(..., tier="big")` → gpt-6.1-sol; keep one model across compared auditors |
   | cross-family auditor check | `llm.chat(..., backend="claude", model="claude-opus-5-5")` on a subset (Sonnet if Claude quota is tight) |

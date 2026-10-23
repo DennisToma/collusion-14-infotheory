@@ -1,4 +1,4 @@
-# STATUS (top = current state; updated 2026-10-23 22:00 UTC, end of iteration 3)
+# STATUS (top = current state; updated 2026-10-23 22:15 UTC, iteration 4)
 
 **Works:** scripted market + detectors; **two nulls**: within-run shift null and **control-surrogate null**
 (rank max-pair score vs no-channel control markets; = "same-model baseline null"). Splits frozen in `data/SPLITS.md`
@@ -11,11 +11,14 @@ tft only TE (≥0.97 at s≥0.45); stay-high invisible. REPORT §4.1/§4.2 + fig
 **Opus review** (`results/reviews/opus_review_iter3.md`) → fixed: LOO-surrogate wording, llm surrogate pool bug (16 → min p
 1/17; now flags only if pool ≥ 20, AUROC+bootstrap CI otherwise), mixed_eval per-run sign test, all-64 confirmatory LLM split.
 **Running:** `scripts/llm_queue.sh` (pid via `pgrep -f llm_queue`; progress /var/tmp/c14/queue.log): waits for llm_v1
-(18/64 at 21:52, ETA ~23:30) → +5 A & +5 B controls → `llm_eval label/eval llm_v1` → llm_long (A,C ×8, T=50)
+(20/64 at 21:55; ~8 min/game ×4 workers → main ETA ~23:30, +controls ~00:00, llm_long ~01:30, llm_mixed ~02:00) → +5 A & +5 B controls → `llm_eval label/eval llm_v1` → llm_long (A,C ×8, T=50)
 → llm_mixed (A ×12, 2 luna + 2 sol) → label/eval/mixed. If killed: rerun the script (all steps resumable/cached).
-**Next:** (1) read /var/tmp/c14/llm_v1_eval.log + results/eval/llm_v1.json, fill REPORT §4.3 per declared plan
+**New (iter 4):** `experiments/llm_report.py --name <ds>` turns results/eval/<ds>.json into the §4.3 markdown tables
+(`results/eval/<ds>_report.md`: labels w/ Wilson CIs, price level, detector AUROC/flags/top-1, AUROC vs T) + figures
+`figures/<ds>_{prices,auroc,power_vs_T}.png`; tested on llm_pilot4. Did NOT peek at llm_v1 detector output (all 64 confirmatory).
+**Next:** (0) once queue.log says 'labelled+evaluated': `uv run python -m experiments.llm_report --name llm_v1`; (1) read /var/tmp/c14/llm_v1_eval.log + results/eval/llm_v1.json, fill REPORT §4.3 per declared plan
 (label rates, price-level effect, AUROC pCMI vs market_level/pair_level, top-1 binomial, power vs T);
-(2) LLM figure (price trajectories C vs A; AUROC bars); (3) llm_long/mixed results; (4) codex review of REPORT claims;
+(2) [figures now auto via llm_report]; (3) llm_long/mixed results; (4) codex review of REPORT claims;
 (5) optional: scripted "level + followers" twin (≈ fixed_high already).
 **Risks:** LLM C/D pair-specific signal may be weak at T=20; surrogate null needs matched reference markets.
 
@@ -31,3 +34,4 @@ tft only TE (≥0.97 at s≥0.45); stay-high invisible. REPORT §4.1/§4.2 + fig
   scripted + llm eval; locked test gate run; hard-negatives figure with both nulls; llm_eval: msg-timing fix,
   CD_ambiguous, dev/test groups, pair_level/market_level baselines, mixed-model analysis; sim --mixed-tier.
 - iter 3 21:50–22:00: locked test sweep, Opus review + fixes, LLM analysis plan declared in REPORT §4.3, queue script.
+- iter 4 21:54–22:15: queue healthy (20/64). Wrote experiments/llm_report.py (tables+figures for §4.3), verified on llm_pilot4; no llm_v1 detector peeking. Codex REPORT-claims review deferred until LLM results land.
