@@ -13,7 +13,7 @@ Before using any LLM dataset: check ground_truth model field is single-model.
 **Next:** (1) when /var/tmp/c14/queue.log says 'labelled+evaluated': `uv run python -m experiments.llm_report --name llm_v1`,
 fill §4.3 per DIRECTION (i)–(v); `uv run python -m experiments.llm_fig`; (2) DONE; (3) llm_long/mixed; directive-4 decision on extra batch (no launch after 04:00);
 (4) 04:00+: codex/Opus claims review, abstract rewrite once, umbrella paragraph.
-**Risks:** no pCMI positive control at T=12 (nearest scripted T=10 top-1 0.47); queue script must not be edited while running.
+**Risks:** (for director/sibling) llm.py tier=cheap auto-order silently uses Go/deepseek whenever the Go cooldown lapses — sibling llm_v3fp may be affected; no pCMI positive control at T=12 (nearest scripted T=10 top-1 0.47); queue script must not be edited while running.
 
 ## Log
 - 20:24 smoke test ok.
