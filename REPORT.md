@@ -210,7 +210,7 @@ cost + demand instead of state dummies, and `market_level` uses the static Nash 
 AUROC private vs none (and legit vs none), top-1 localisation vs 1/6, control-surrogate null vs the `none` pool.
 Per-pair scores for the sibling: `results/eval/llm_v3_ext.json` (`uv run python -m experiments.ext_llm_v3`).
 
-**External LLM set `llm_v3` (E13): PROVISIONAL, 70/125 runs.** The sibling's generation is still running. Rerun
+**External LLM set `llm_v3` (E13): PROVISIONAL, 74/125 runs.** The sibling's generation is still running. Rerun
 `uv run python -m experiments.ext_llm_v3`, which writes this table to `results/eval/llm_v3_ext_report.md`. The `none` pool is
 18 < 20, so there are no surrogate-null flags yet. Columns: run AUROC of the max-pair score [bootstrap 95% CI] and top-1 localisation of the
 assigned pair (chance 1/6, ties broken uniformly at random). "Agreement" = the judge found an explicit agreement in the
@@ -218,28 +218,38 @@ private chat (communication-only). We do *not* use the sibling's `explicit_collu
 pair premium ≥ 1, i.e. it is selected on the level baseline's own signal (codex review, iter 5). Binomial p-values are unadjusted
 and exploratory: 6 detectors × several subgroups were tested.
 
-n runs = 70 (private 42, of which judge-verified agreement 37; none 18; legit 10)
+n runs = 74 (private 45, of which judge-verified agreement 45; none 18; legit 11)
 
 | detector | AUROC private vs none | AUROC agreement vs none | AUROC legit vs none | top-1, private | top-1, agreement |
 |---|---|---|---|---|---|
-| pCMI (state+lags) | 0.53 [0.35, 0.72] | 0.53 [0.34, 0.71] | 0.50 [0.29, 0.71] | 11/42 (p=0.079, 2 tied) | 10/37 (p=0.077, 2 tied) |
-| MI (raw prices) | 0.55 [0.39, 0.70] | 0.56 [0.40, 0.71] | 0.43 [0.23, 0.66] | 25/42 (p=4.6e-10, 2 tied) | 22/37 (p=5.3e-09, 2 tied) |
-| lagged CMI (TE) | 0.33 [0.17, 0.51] | 0.32 [0.16, 0.49] | 0.33 [0.14, 0.53] | 10/42 (p=0.15, 1 tied) | 10/37 (p=0.077) |
-| \|Pearson\| | 0.40 [0.24, 0.56] | 0.39 [0.24, 0.55] | 0.36 [0.16, 0.59] | 21/42 (p=6.6e-07, 1 tied) | 17/37 (p=3.1e-05, 1 tied) |
-| pair_level (non-IT) | 0.98 [0.94, 1.00] | 0.98 [0.93, 1.00] | 0.76 [0.56, 0.92] | 40/42 (p=4.5e-29) | 35/37 (p=2.7e-25) |
-| markup over Nash (non-IT) | 0.93 [0.85, 0.98] | 0.93 [0.85, 0.98] | 0.28 [0.09, 0.51] | 40/42 (p=4.5e-29) | 35/37 (p=2.7e-25) |
+| pCMI (state+lags) | 0.52 [0.32, 0.70] | 0.52 [0.32, 0.70] | 0.49 [0.28, 0.70] | 11/45 (p=0.12, 2 tied) | 11/45 (p=0.12, 2 tied) |
+| MI (raw prices) | 0.56 [0.40, 0.70] | 0.56 [0.40, 0.70] | 0.40 [0.22, 0.62] | 27/45 (p=7.2e-11, 3 tied) | 27/45 (p=7.2e-11, 3 tied) |
+| lagged CMI (TE) | 0.34 [0.18, 0.52] | 0.34 [0.18, 0.52] | 0.33 [0.14, 0.53] | 11/45 (p=0.12, 1 tied) | 11/45 (p=0.12, 1 tied) |
+| \|Pearson\| | 0.41 [0.26, 0.57] | 0.41 [0.26, 0.57] | 0.34 [0.15, 0.58] | 23/45 (p=1.2e-07, 1 tied) | 23/45 (p=1.2e-07, 1 tied) |
+| pair_level (non-IT) | 0.98 [0.94, 1.00] | 0.98 [0.94, 1.00] | 0.77 [0.59, 0.92] | 42/45 (p=1.7e-29) | 42/45 (p=1.7e-29) |
+| markup over Nash (non-IT) | 0.92 [0.85, 0.98] | 0.92 [0.85, 0.98] | 0.35 [0.14, 0.58] | 42/45 (p=1.7e-29) | 42/45 (p=1.7e-29) |
 
-Paired-bootstrap AUROC differences (private vs none): pcmi-pair_level -0.45 [-0.63, -0.26]; pcmi-market_level -0.40 [-0.59, -0.20]; mi-pair_level -0.43 [-0.60, -0.28]; te-pair_level -0.65 [-0.81, -0.48]; pair_level-market_level +0.05 [-0.00, +0.13]
+Paired-bootstrap AUROC differences (private vs none): pcmi-pair_level -0.46 [-0.65, -0.29]; pcmi-market_level -0.41 [-0.60, -0.22]; mi-pair_level -0.42 [-0.57, -0.27]; te-pair_level -0.63 [-0.80, -0.46]; pair_level-market_level +0.05 [-0.00, +0.12]
 
 Reading: AUROC here measures how well a detector tells *channel-assigned* runs from controls, not how well it tells realised collusion.
 In this market the channel shows up as a **pair-specific price level**: the pair sits above its rivals. A trivial level statistic separates
-the conditions almost perfectly and names the right pair in 40/42 runs. The dependence detectors are at chance
-across runs. Raw-price MI and Pearson still pick the right pair *within* a run above chance (25/42 and 21/42), plausibly because the pair moves
-up together. After conditioning on state and lagged prices, pCMI localisation is 11/42, not significantly above chance
-(p=0.08). We have not tested whether conditioning removes that information or only loses power at T=12. Many sellers are
-near-constant at T=12 (see `near_constant_sellers` in the json). There is no positive control for pCMI at T=12: scripted power is
-known only down to T=20. The `legit` hard negative (public shipping deal, cost −1) scores *below* controls on markup (0.28) but
-0.76 on pair_level, because its partners undercut their rivals.
+the conditions almost perfectly and names the right pair in 42/45 runs. The dependence detectors are at chance
+across runs. Raw-price MI and Pearson still pick the right pair *within* a run above chance (27/45 and 23/45), plausibly because the pair moves
+up together. After conditioning on state and lagged prices, pCMI localisation is 11/45, not significantly above chance
+(p=0.12). Whether conditioning removes that information or only loses power at T=12: see the exploratory check below. Many sellers are
+near-constant at T=12 (see `near_constant_sellers` in the json). There is no positive control for pCMI at exactly T=12; the nearest scripted point (shared-signal collusion, s=0.3, T=10, §4.2)
+localises the pair in 47% of runs (chance 17%), T=20 in 95% — so 11/45 = 24% is below what moderate *coordinated-variation* collusion gives at this length. The `legit` hard negative (public shipping deal, cost −1) scores *below* controls on markup (0.35) but
+0.77 on pair_level, because its partners undercut their rivals.
+
+*Exploratory check E15 (not a headline; `uv run python -m experiments.diag_llm_v3` → `results/eval/llm_v3_diag.json`,
+computed at 49 private / 18 none runs).* Is the raw-price localisation only a shared upward drift? No. Top-1 of the
+assigned pair (chance 8/49): raw MI 29/49, |Pearson| after removing each seller's linear trend 23/49, MI on **first
+differences** 21.5/49 (p≈1e-5), |Pearson| on first differences 16.7/49 (p=0.002). The channel pair changes price in
+the same rounds, so there is coordinated *variation* as well as a level. But none of these variants separates channel
+runs from no-channel runs (run AUROC of the max-pair score 0.41–0.56, all CIs include 0.5). At T=12 with coarse
+prices, *some* pair in every control market co-moves about as strongly as the colluding pair does. So the dependence
+signal localises a pair you already suspect but cannot screen markets. pCMI's loss of within-run localisation is
+consistent with lost power: about 7 regressors on 11 usable rows. It does not show that the information is absent.
 
 ![LLM AUROC](figures/llm_auroc_both.png)
 *Run AUROC of dependence (blue) vs level (orange) detectors on the LLM datasets (`uv run python -m experiments.llm_fig`; llm_v1 panel is added once its eval exists).*
@@ -263,6 +273,8 @@ uv run python -m experiments.dev_pcmi --seed 11 --n 40 --T 100 50               
 scripts/llm_queue.sh   # LLM datasets llm_v1 (+controls), labels, eval, llm_long, llm_mixed (cached LLM calls in cache/)
 uv run python -m experiments.ext_llm_v3                  # external LLM set (sibling llm_v3) → results/eval/llm_v3_ext{.json,_report.md}
 uv run python -m experiments.llm_fig                     # figures/llm_auroc_both.png
+uv run python -m experiments.diag_llm_v3                 # E15 exploratory co-movement check on llm_v3
+uv run python scripts/tables.py                          # reprints §4.1/§4.2 tables from results/*.json (+ §4.3 generated tables)
 uv run python -m experiments.llm_report --name llm_v1   # §4.3 tables (results/eval/llm_v1_report.md) + figures/llm_v1_*.png
 ```
 Splits: `data/SPLITS.md`; every experiment incl. discarded ones: `EXPERIMENTS.tsv`; reviews: `results/reviews/`.

@@ -1,22 +1,20 @@
-# STATUS (top = current state; updated 2026-10-23 22:25 UTC, iteration 5)
+# STATUS (top = current state; updated 2026-10-23 22:52 UTC, iteration 6)
 
-**Scripted half DONE (director: stop touching it).** Locked gate (seed 1001) + locked sweep (1002) in REPORT §4.1/4.2.
-**E12 (pre-registered before llm_v1 eval):** `market_level` = pair markup over per-round state Nash (raw kept as
-`market_level_raw`); within-family AUROC (C vs A, D vs B); paired-bootstrap AUROC(IT) − AUROC(level) (`auroc_diff`);
-within-family markup premium in `price_level`. `llm_report` prints all of these. Tested on llm_pilot4.
-**E13/E14 external set (sibling llm_v3, PROVISIONAL n=70/125):** `experiments/ext_llm_v3.py` → `results/eval/llm_v3_ext.json`
-(per-pair rows for 22) + `llm_v3_ext_report.md` (table pasted in REPORT). Run AUROC private vs none: pCMI 0.53 [.35,.72],
-pair_level 0.98 [.94,1], markup 0.93; top-1 pCMI 11/42 vs pair_level 40/42; diff −0.45 [−.63,−.26]. MI/Pearson localise
-within-run above chance (25/42) but don't separate runs. Codex review (results/reviews/codex_review_iter5.md) fixed:
-price-selected label leak, global monkeypatch, tie-breaking (also llm_eval), exploratory p-values. → "LLM collusion = pair-specific level; dependence detectors remove levels". In REPORT §4.3.
-**Running:** `scripts/llm_queue.sh` (llm_v1 30/64 at 22:15 → main ETA ~23:30, +controls ~00:00 → label+eval →
-llm_long → llm_mixed ~02:00). Codex review of E12/E13 code → results/reviews/codex_review_iter5.md.
-**Next:** (1) after sibling finishes (~00:15; 125 lines in their ground_truth.jsonl) rerun `uv run python -m experiments.ext_llm_v3`,
-update §4.3 table (surrogate null becomes available when none ≥ 20); (2) when queue.log says 'labelled+evaluated':
-`uv run python -m experiments.llm_report --name llm_v1`, fill §4.3 per plan (i)–(v) of DIRECTION; (3) llm_long/mixed;
-(4) rerun `uv run python -m experiments.llm_fig` after llm_v1 eval (figure exists, llm_v3 panel only); (5) 04:00+: scripts/tables.py, claims review, umbrella paragraph.
-**Risks:** ext pCMI at T=12 has no positive control at that length (scripted power known only down to T=20);
-queue script must not be edited while running (bash reads it incrementally).
+**Scripted half DONE (director: stop touching it).** `scripts/tables.py` reprints §4.1/§4.2 from results JSON — every cell
+checked, no discrepancies (directive 5 regenerability, done early).
+**E12** pre-registered level baseline (markup over state Nash) + within-family/paired AUROC in llm_eval/llm_report.
+**External llm_v3 (PROVISIONAL n=74/125):** run AUROC private vs none pCMI 0.52 [.32,.70], MI 0.56, pair_level 0.98 [.94,1];
+top-1 pCMI 11/45, MI 27/45, pair_level 42/45; diff pCMI−pair_level −0.46 [−.65,−.29]. Agreement label now 45/45
+(earlier 37/42 because sibling labels.jsonl lagged; missing label counted as no agreement — fine once labels complete).
+**E15 (exploratory):** pair co-movement on llm_v3 is real (MI on first differences top-1 21.5/49), not just drift, but
+max-over-pairs in controls is as high → run AUROC ≈0.5. "Localises a suspected pair, can't screen markets at T=12."
+**Running:** `scripts/llm_queue.sh`: llm_v1 50/64 at 22:49 → main ~23:15, +10 controls ~23:35 → label+eval → llm_long
+(~01:00) → llm_mixed (~01:40). Sibling llm_v3 done ≈00:15.
+**Next:** (1) when /var/tmp/c14/queue.log says 'labelled+evaluated': `uv run python -m experiments.llm_report --name llm_v1`,
+fill §4.3 per DIRECTION (i)–(v); `uv run python -m experiments.llm_fig`; (2) after sibling hits 125: rerun ext_llm_v3 +
+diag_llm_v3, update §4.3 (surrogate null if none ≥ 20); (3) llm_long/mixed; directive-4 decision on extra batch (no launch after 04:00);
+(4) 04:00+: codex/Opus claims review, abstract rewrite once, umbrella paragraph.
+**Risks:** no pCMI positive control at T=12 (nearest scripted T=10 top-1 0.47); queue script must not be edited while running.
 
 ## Log
 - 20:24 smoke test ok.
@@ -32,3 +30,4 @@ queue script must not be edited while running (bash reads it incrementally).
 - iter 3 21:50–22:00: locked test sweep, Opus review + fixes, LLM analysis plan declared in REPORT §4.3, queue script.
 - iter 4 21:54–22:15: queue healthy (20/64). Wrote experiments/llm_report.py (tables+figures for §4.3), verified on llm_pilot4; no llm_v1 detector peeking. Codex REPORT-claims review deferred until LLM results land.
 - iter 5 21:57–22:30: E12 baseline fix + within-family/paired AUROC in llm_eval/llm_report (before llm_v1 eval); E13 ext_llm_v3 provisional; ledger hashes; §5 n fix; codex review → E14 fixes; ext rerun at n=70; experiments/llm_fig.py (figures/llm_auroc_both.png).
+- iter 6 22:34–22:52: scripts/tables.py (sonnet worker; verified), ext_llm_v3 rerun n=74 → REPORT, T=10 scripted top-1 as nearest positive control, E15 co-movement diag.

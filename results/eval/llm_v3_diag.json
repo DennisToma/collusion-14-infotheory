@@ -1,0 +1,80 @@
+{
+ "MI raw prices": {
+  "n": 49,
+  "top1_mean_hits": 29.1,
+  "p_binom_vs_1/6": 2.3055739936702035e-11,
+  "auroc_private_vs_none": [
+   0.5573372206025267,
+   [
+    0.41202623906705543,
+    0.7011783284742468
+   ]
+  ],
+  "n_none": 21
+ },
+ "|Pearson| raw prices": {
+  "n": 49,
+  "top1_mean_hits": 25.145,
+  "p_binom_vs_1/6": 3.4169220142743975e-08,
+  "auroc_private_vs_none": [
+   0.4071914480077745,
+   [
+    0.2633381924198251,
+    0.5622084548104955
+   ]
+  ],
+  "n_none": 21
+ },
+ "|Pearson| linear-detrended": {
+  "n": 49,
+  "top1_mean_hits": 23.0,
+  "p_binom_vs_1/6": 8.193539891071458e-07,
+  "auroc_private_vs_none": [
+   0.4091350826044704,
+   [
+    0.2638362487852284,
+    0.5588070942662778
+   ]
+  ],
+  "n_none": 21
+ },
+ "|Pearson| first differences": {
+  "n": 49,
+  "top1_mean_hits": 16.72,
+  "p_binom_vs_1/6": 0.0017064811954673278,
+  "auroc_private_vs_none": [
+   0.4261418853255588,
+   [
+    0.2735544217687075,
+    0.5811467444120505
+   ]
+  ],
+  "n_none": 21
+ },
+ "MI first differences": {
+  "n": 49,
+  "top1_mean_hits": 21.46,
+  "p_binom_vs_1/6": 1.4366736336862156e-05,
+  "auroc_private_vs_none": [
+   0.5592808551992225,
+   [
+    0.4042517006802721,
+    0.720614674441205
+   ]
+  ],
+  "n_none": 21
+ },
+ "pair_level (pair mean - rivals mean)": {
+  "n": 49,
+  "top1_mean_hits": 45.0,
+  "p_binom_vs_1/6": 1.0003088015795899e-30,
+  "auroc_private_vs_none": [
+   0.9650145772594753,
+   [
+    0.9159256559766763,
+    0.9990281827016521
+   ]
+  ],
+  "n_none": 21
+ }
+}
