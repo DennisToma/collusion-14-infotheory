@@ -24,6 +24,7 @@ KEY_PROVIDERS = {  # env var -> (base url, default model)
     "OPENROUTER_API_KEY": ("https://openrouter.ai/api/v1", "openai/gpt-4o-mini"),
 }
 GO_DEFAULT = "deepseek-v4.1-flash"
+CODEX_CHEAP, CODEX_BIG = "gpt-6-luna", "gpt-6.1-sol"  # sims: cheap; auditors/judges: tier="big"
 
 
 def _env():
@@ -78,32 +79,41 @@ def _go(msgs, model, temperature, max_tokens):
             raise
 
 
-def _codex(msgs, model, temperature, max_tokens):
+def _codex(msgs, model, temperature, max_tokens, effort="low"):
     text = "\n\n".join(f"[{m['role'].upper()}]\n{m['content']}" for m in msgs)
     text += "\n\nAnswer directly. Do not run commands or edit files."
     with tempfile.TemporaryDirectory() as d:
         out = Path(d) / "out.txt"
         cmd = ["codex", "exec", "--skip-git-repo-check", "-s", "read-only", "-C", d,
-               "-c", "model_reasoning_effort=low", "-o", str(out)]
-        if model:
-            cmd += ["-m", model]
-        subprocess.run(cmd + [text], capture_output=True, timeout=300, check=True)
-        return out.read_text().strip(), model or "codex-default"
+               "-c", f"model_reasoning_effort={effort}", "-o", str(out)]
+        for m in dict.fromkeys([model or CODEX_CHEAP, CODEX_CHEAP]):  # big model limited -> cheap
+            try:
+                subprocess.run(cmd + ["-m", m, text], capture_output=True, timeout=600, check=True)
+                return out.read_text().strip(), m
+            except subprocess.CalledProcessError as e:
+                err = e
+        raise err
 
 
 BACKENDS = {"keyed": _keyed, "go": _go, "codex": _codex}
 
 
-def chat(prompt, system=None, model=None, temperature=0.7, max_tokens=512, backend=None, retries=3):
+def chat(prompt, system=None, model=None, temperature=0.7, max_tokens=512, backend=None, retries=3,
+         tier="cheap"):
     """prompt: str or list of {role, content}. backend: None=auto, or 'keyed'|'go'|'codex'.
+    tier="big" (auditors, judges, label verification) -> codex gpt-6.1-sol first (medium effort), falls back to luna — check r["model"] so auditor comparisons stay same-model.
+    tier="cheap" (simulated agents, paraphrasing) -> keyed -> Go -> codex gpt-6-luna.
     `model` is backend-specific; only pass it together with an explicit backend."""
     msgs = _messages(prompt, system)
+    if tier == "big" and not backend:
+        backend, model = "codex", CODEX_BIG
     order = [backend] if backend else ["keyed", "go", "codex"]
     err = None
     for attempt in range(retries):
         for b in order:
             try:
-                r = BACKENDS[b](msgs, model, temperature, max_tokens)
+                r = (_codex(msgs, model, temperature, max_tokens, "medium") if tier == "big"
+                     else BACKENDS[b](msgs, model, temperature, max_tokens))
             except Exception as e:  # network / timeout / codex failure -> next backend
                 err = e
                 continue
@@ -121,4 +131,5 @@ def chat(prompt, system=None, model=None, temperature=0.7, max_tokens=512, backe
 if __name__ == "__main__":
     r = chat('Reply only with JSON {"price": N}, N in [8,10,12,14,16].', system="You are a seller.")
     print(r)
+    print(chat("Reply: ok", tier="big"))
     assert r["text"].strip(), "empty reply"

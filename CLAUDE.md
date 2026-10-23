@@ -33,9 +33,18 @@ everything you know lives in this repo's files. Nobody will answer questions ove
   OpenCode Go is shared with another service: it is rate-limited by llm.py; don't bypass the lock.
   codex exec handles ~4 parallel calls fine; keep total parallelism ≤ 6. Cache LLM outputs to disk
   (JSONL) so reruns never re-spend. Log model/backend per trajectory.
-- **Save Claude quota** (both managers share one subscription): delegate large code-writing and all
-  reviews to codex, e.g. `codex exec --full-auto -C "$PWD" "<task>"` for implementation and
-  `codex exec -s read-only -C "$PWD" "Review ... critically"` for review of a design or result.
+- **Model routing — strong models for thinking, cheap models for grunt work.** Claude (Opus 5.5) and
+  codex (ChatGPT) are separate subscriptions with ~5h rolling limits; spread load across both.
+  | task | use |
+  |---|---|
+  | research design, analysis, judging results, final claims | yourself (Opus) or `codex exec -m gpt-6.1-sol -c model_reasoning_effort=high` |
+  | substantial implementation | `codex exec -m gpt-6.1-sol --full-auto -C "$PWD" "<task>"` |
+  | adversarial review of design / results / REPORT | `codex exec -m gpt-6.1-sol -s read-only -C "$PWD" "Review ... critically"` |
+  | easy edits, boilerplate, plots, file wrangling | Agent subagent with `model: sonnet`, or `codex exec -m gpt-6-luna` |
+  | simulated sellers, message paraphrasing (bulk calls) | `llm.chat(..., tier="cheap")` → gpt-6-luna / Go |
+  | LLM auditors, label verification (judges) | `llm.chat(..., tier="big")` → gpt-6.1-sol; keep one model across compared auditors |
+  If a codex call fails with a usage limit, fall back to the other tier/backend or do it yourself;
+  if Claude is limited, the runner automatically continues with codex gpt-6.1-sol as manager.
   You can also use `opencode run -m opencode-go/<model> "<prompt>"` for a second opinion when Go is not
   rate-limited (it may be; then skip). Don't use subagents/Task fan-out heavily.
 - Get at least one adversarial codex review of the methodology and one of the final REPORT.md claims.
