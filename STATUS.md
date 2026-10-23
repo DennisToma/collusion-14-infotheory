@@ -1,11 +1,11 @@
-# STATUS (top = current state; updated 2026-10-23 23:33 UTC, iteration 7)
+# STATUS (top = current state; updated 2026-10-24 00:00 UTC, iteration 7)
 
 **Scripted half DONE (director: stop touching it).** `scripts/tables.py` reprints §4.1/§4.2 from results JSON — every cell
 checked, no discrepancies (directive 5 regenerability, done early).
 **E12** pre-registered level baseline (markup over state Nash) + within-family/paired AUROC in llm_eval/llm_report.
 **External llm_v3 FINAL n=125 (E13):** run AUROC private vs none pCMI 0.52 [.39,.64], MI 0.59, pair_level 0.98 [.95,1];
 top-1 pCMI 18/70, MI 42/70, pair_level 63/70; diff pCMI−pair_level −0.46 [−.58,−.33]; surrogate null pCMI 0/70, pair_level 45/70. In REPORT.
-**E15 (exploratory):** pair co-movement on llm_v3 is real (MI on first differences top-1 21.5/49), not just drift, but
+**E15 (exploratory):** pair co-movement on llm_v3 is real (MI on first differences top-1 31.5/70, final n), not just drift, but
 max-over-pairs in controls is as high → run AUROC ≈0.5. "Localises a suspected pair, can't screen markets at T=12."
 **Running:** `scripts/llm_queue2.sh` (E17: queue v1 KILLED 23:55 — backend=auto drifted to Go/deepseek for in-flight controls;
 68 completed llm_v1 runs verified gpt-6-luna; queue2 pins --backend codex). llm_v1 controls → label+eval ≈00:25 → llm_long ≈01:45 → llm_mixed ≈02:15.
