@@ -187,7 +187,7 @@ constant price contains **zero** information for dependence-based detectors, wha
 **Main LLM dataset `llm_v1`** (running): 64 games, 16 per condition A–D (+5 extra A and B games so the
 same-model reference pool has ≥ 20 per family), T=20, design of `llm_pilot4` (sim_version llm0.3). Labels:
 judge (tier=big) reads the private chat → `agreement_verified`; `coordinated_actions_verified` from prices
-(agreed price played by both in ≥ 50% of rounds after the agreement); no-channel runs with mean markup ≥ 2
+(both pair members within ±1 of the agreed price in ≥ 50% of rounds after the agreement; criterion fixed on `llm_pilot4`, E11); no-channel runs with mean markup ≥ 2
 over Nash are `tacit_supracompetitive`. First games (descriptive, before any detector was run): channel pairs
 lift the **whole market's** price level (market means 12.0–14.6 in C/D vs 9.2–12.3 in A/B) — rivals follow.
 
