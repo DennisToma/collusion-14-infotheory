@@ -1,4 +1,4 @@
-# STATUS (top = current state; updated 2026-10-23 22:52 UTC, iteration 6)
+# STATUS (top = current state; updated 2026-10-23 23:33 UTC, iteration 7)
 
 **Scripted half DONE (director: stop touching it).** `scripts/tables.py` reprints §4.1/§4.2 from results JSON — every cell
 checked, no discrepancies (directive 5 regenerability, done early).
@@ -8,8 +8,8 @@ top-1 pCMI 11/45, MI 27/45, pair_level 42/45; diff pCMI−pair_level −0.46 [�
 (earlier 37/42 because sibling labels.jsonl lagged; missing label counted as no agreement — fine once labels complete).
 **E15 (exploratory):** pair co-movement on llm_v3 is real (MI on first differences top-1 21.5/49), not just drift, but
 max-over-pairs in controls is as high → run AUROC ≈0.5. "Localises a suspected pair, can't screen markets at T=12."
-**Running:** `scripts/llm_queue.sh`: llm_v1 50/64 at 22:49 → main ~23:15, +10 controls ~23:35 → label+eval → llm_long
-(~01:00) → llm_mixed (~01:40). Sibling llm_v3 done ≈00:15.
+**Running:** `scripts/llm_queue.sh`: llm_v1 main done 23:15, controls 68/74 at 23:32 → label+eval ≈23:55 → llm_long
+(~01:10) → llm_mixed (~01:50). Sibling llm_v3 85/125 at 22:52. E16: mixed eval now gives bootstrap CI (declared pre-data).
 **Next:** (1) when /var/tmp/c14/queue.log says 'labelled+evaluated': `uv run python -m experiments.llm_report --name llm_v1`,
 fill §4.3 per DIRECTION (i)–(v); `uv run python -m experiments.llm_fig`; (2) after sibling hits 125: rerun ext_llm_v3 +
 diag_llm_v3, update §4.3 (surrogate null if none ≥ 20); (3) llm_long/mixed; directive-4 decision on extra batch (no launch after 04:00);
@@ -30,4 +30,5 @@ diag_llm_v3, update §4.3 (surrogate null if none ≥ 20); (3) llm_long/mixed; d
 - iter 3 21:50–22:00: locked test sweep, Opus review + fixes, LLM analysis plan declared in REPORT §4.3, queue script.
 - iter 4 21:54–22:15: queue healthy (20/64). Wrote experiments/llm_report.py (tables+figures for §4.3), verified on llm_pilot4; no llm_v1 detector peeking. Codex REPORT-claims review deferred until LLM results land.
 - iter 5 21:57–22:30: E12 baseline fix + within-family/paired AUROC in llm_eval/llm_report (before llm_v1 eval); E13 ext_llm_v3 provisional; ledger hashes; §5 n fix; codex review → E14 fixes; ext rerun at n=70; experiments/llm_fig.py (figures/llm_auroc_both.png).
+- iter 7 22:49–: E16 mixed-eval CI (tested on synthetic relabelled pilot copy); waited on queue for llm_v1 eval.
 - iter 6 22:34–22:52: scripts/tables.py (sonnet worker; verified), ext_llm_v3 rerun n=74 → REPORT, T=10 scripted top-1 as nearest positive control, E15 co-movement diag.
