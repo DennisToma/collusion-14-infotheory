@@ -14,7 +14,7 @@ llm_long → llm_mixed ~02:00). Codex review of E12/E13 code → results/reviews
 **Next:** (1) after sibling finishes (~00:15; 125 lines in their ground_truth.jsonl) rerun `uv run python -m experiments.ext_llm_v3`,
 update §4.3 table (surrogate null becomes available when none ≥ 20); (2) when queue.log says 'labelled+evaluated':
 `uv run python -m experiments.llm_report --name llm_v1`, fill §4.3 per plan (i)–(v) of DIRECTION; (3) llm_long/mixed;
-(4) LLM figure with AUROC bars for both LLM datasets; (5) 04:00+: scripts/tables.py, claims review, umbrella paragraph.
+(4) rerun `uv run python -m experiments.llm_fig` after llm_v1 eval (figure exists, llm_v3 panel only); (5) 04:00+: scripts/tables.py, claims review, umbrella paragraph.
 **Risks:** ext pCMI at T=12 has no positive control at that length (scripted power known only down to T=20);
 queue script must not be edited while running (bash reads it incrementally).
 
@@ -31,4 +31,4 @@ queue script must not be edited while running (bash reads it incrementally).
   CD_ambiguous, dev/test groups, pair_level/market_level baselines, mixed-model analysis; sim --mixed-tier.
 - iter 3 21:50–22:00: locked test sweep, Opus review + fixes, LLM analysis plan declared in REPORT §4.3, queue script.
 - iter 4 21:54–22:15: queue healthy (20/64). Wrote experiments/llm_report.py (tables+figures for §4.3), verified on llm_pilot4; no llm_v1 detector peeking. Codex REPORT-claims review deferred until LLM results land.
-- iter 5 21:57–22:30: E12 baseline fix + within-family/paired AUROC in llm_eval/llm_report (before llm_v1 eval); E13 ext_llm_v3 provisional; ledger hashes; §5 n fix; codex review → E14 fixes; ext rerun at n=70.
+- iter 5 21:57–22:30: E12 baseline fix + within-family/paired AUROC in llm_eval/llm_report (before llm_v1 eval); E13 ext_llm_v3 provisional; ledger hashes; §5 n fix; codex review → E14 fixes; ext rerun at n=70; experiments/llm_fig.py (figures/llm_auroc_both.png).

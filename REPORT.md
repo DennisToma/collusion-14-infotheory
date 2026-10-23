@@ -241,6 +241,9 @@ near-constant at T=12 (see `near_constant_sellers` in the json). There is no pos
 known only down to T=20. The `legit` hard negative (public shipping deal, cost −1) scores *below* controls on markup (0.28) but
 0.76 on pair_level, because its partners undercut their rivals.
 
+![LLM AUROC](figures/llm_auroc_both.png)
+*Run AUROC of dependence (blue) vs level (orange) detectors on the LLM datasets (`uv run python -m experiments.llm_fig`; llm_v1 panel is added once its eval exists).*
+
 Not claimed from this data: surrogate-null FPR with pool < 20; absence of same-model dependence from a null
 result; that dependence detectors fail on LLM agents in general. *Results pending.*
 
@@ -258,6 +261,8 @@ uv run python -m experiments.sweep --seed 1002 --workers 2 --out results/sweeps/
 uv run python -m experiments.plot_sweeps results/sweeps/power_test.json gate_test                           # figures
 uv run python -m experiments.dev_pcmi --seed 11 --n 40 --T 100 50                                           # dev tuning (E07/E08)
 scripts/llm_queue.sh   # LLM datasets llm_v1 (+controls), labels, eval, llm_long, llm_mixed (cached LLM calls in cache/)
+uv run python -m experiments.ext_llm_v3                  # external LLM set (sibling llm_v3) → results/eval/llm_v3_ext{.json,_report.md}
+uv run python -m experiments.llm_fig                     # figures/llm_auroc_both.png
 uv run python -m experiments.llm_report --name llm_v1   # §4.3 tables (results/eval/llm_v1_report.md) + figures/llm_v1_*.png
 ```
 Splits: `data/SPLITS.md`; every experiment incl. discarded ones: `EXPERIMENTS.tsv`; reviews: `results/reviews/`.
