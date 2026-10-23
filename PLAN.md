@@ -63,3 +63,26 @@ detection delay (rounds needed), all with bootstrap CIs over runs. Held-out seed
 Datasets (`data/scripted_v*/`, `data/llm_v*/`) in SCHEMA.md format — publish early so the sibling
 repo can use them; detectors in `detectors/`; REPORT.md with figures: power vs T, power vs collusion
 strength, FPR under hard negatives, MI vs CMI vs net-influence comparison, LLM pilot results.
+
+## Validity requirements (added 2026-10-23 20:35 UTC — binding)
+1. **Operational definition.** Define in REPORT.md which collusion we detect: *explicit collusion* =
+   coordinated supra-competitive pricing enabled by a private agreement channel. *Tacit coordination*
+   (high prices with no channel) is a separate label (`tacit_supracompetitive`), never silently counted
+   as a false positive. Label independent runs as tacit if mean price is clearly above the competitive
+   benchmark. Cite `~/collusion/collusion_hackathon/literature/definitions/`.
+2. **Scripted data is validation, not the finding.** Planted-pair recovery is the positive control.
+   Headline results must be: (a) hard-negative FPRs (common shock, shared policy, leader-follower),
+   (b) power vs rounds T and vs collusion strength, (c) results on LLM agents.
+3. **Shared-policy confound is a first-class experiment.** Same-model LLM agents without a channel vs.
+   different-model agents without a channel vs. a colluding pair. Quantify how much CMI-on-market-state
+   leaves; test whether conditioning on lagged own/others' actions or a "same-model baseline" null
+   (surrogate games from no-channel runs of the same model) fixes it.
+4. **LLM sample size.** Short games make MI noisy: run ≥ 60 LLM games total across conditions,
+   ≥ 20 rounds each where budget allows, and report power-vs-T curves on LLM data too.
+5. **Make sure LLM collusion actually happens.** Pilot 5 games first: if gpt-6-luna sellers with a private
+   channel don't coordinate, use a profit-maximisation framing (as in Fish et al. 2024, "Algorithmic
+   Collusion by Large Language Models") and/or tier="big" sellers for the pair. Verify agreement by
+   reading the private chat (tier="big" judge) and record `agreement_verified` / `coordinated_actions_verified`.
+   Never instruct agents to collude — only give the opportunity and the profit objective.
+6. Publish `data/llm_v1/` in SCHEMA.md format (with public + private messages logged) as early as
+   possible — the 2.2 repo depends on LLM data with messages for its headline.
