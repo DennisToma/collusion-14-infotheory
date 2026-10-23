@@ -102,56 +102,78 @@ def _shift_null(stat_fn, x, y, B, rng, min_shift=3):
 
 
 # ---------------------------------------------------------------- per-run scoring
-def score_run(P, S, B=200, seed=0):
+def _absr(x, y):
+    if x.std() == 0 or y.std() == 0:
+        return 0.0
+    return abs(np.corrcoef(x, y)[0, 1])
+
+
+def _te_pairs(P, S, t_idx, i, j):
+    out = []
+    for a, b in ((i, j), (j, i)):
+        Xb = _design(S, P, t_idx, exclude_lag=a)
+        out.append((_resid(P[t_idx - 1, a], Xb), _resid(P[t_idx, b], Xb)))
+    return out
+
+
+def score_run(P, S, B=200, seed=0, min_shift=3):
+    """Scores for all 6 pairs + calibrated p-values.
+
+    Null: B draws, each circularly shifting every agent's series by an independent random offset
+    (same draw for all pairs). Per-pair p = P(null pair stat >= obs); run-level p for detector x =
+    P(max_pair null >= max_pair obs) (max-statistic correction over the 6 pairs, no Bonferroni)."""
     rng = np.random.default_rng(seed)
     T = len(P)
     t_idx = np.arange(1, T)
     X = _design(S, P, t_idx)
     R = np.column_stack([_resid(P[t_idx, k], X) for k in range(4)])
     dP = np.diff(P, axis=0)
-    out = {}
-    for (i, j), name in zip(PAIRS, PAIR_NAMES):
-        sc, pv = {}, {}
+    te_res = {name: _te_pairs(P, S, t_idx, i, j) for (i, j), name in zip(PAIRS, PAIR_NAMES)}
 
-        def add(key, fn, x, y):
-            obs = fn(x, y)
-            null = _shift_null(fn, x, y, B, rng)
-            sc[key] = float(obs)
-            pv[key] = float((1 + (null >= obs - 1e-12).sum()) / (1 + B))
+    def stats(Pm, dPm, Rm, te_shift=None):
+        d = {}
+        for (i, j), name in zip(PAIRS, PAIR_NAMES):
+            ri, rj = Rm[:, i], Rm[:, j]
+            r = float(np.clip(np.mean(ri * rj), -0.999999, 0.999999))
+            if te_shift is None:
+                te = max(gauss_cmi_from_resid(a, b) for a, b in te_res[name])
+            else:
+                te = max(gauss_cmi_from_resid(a, np.roll(b, te_shift)) for a, b in te_res[name])
+            d[name] = {"pearson": _absr(Pm[:, i], Pm[:, j]),
+                       "pearson_diff": _absr(dPm[:, i], dPm[:, j]),
+                       "mi": mi_mm(Pm[:, i], Pm[:, j]),
+                       "cmi_state": cmi_mm(Pm[:, i], Pm[:, j], S),
+                       "pcmi": -0.5 * np.log(1 - r * r),
+                       "te": te}
+        return d
 
-        def absr(x, y):
-            if x.std() == 0 or y.std() == 0:
-                return 0.0
-            return abs(np.corrcoef(x, y)[0, 1])
-
-        add("pearson", absr, P[:, i], P[:, j])
-        add("pearson_diff", absr, dP[:, i], dP[:, j])
-        add("mi", mi_mm, P[:, i], P[:, j])
-        # CMI | state: shift y jointly with nothing -> keeps x,z aligned (conservative-ish null)
-        add("cmi_state", lambda x, y: cmi_mm(x, y, S), P[:, i], P[:, j])
-        add("pcmi", gauss_cmi_from_resid, R[:, i], R[:, j])
-        # transfer entropy (both directions), lag-1, Gaussian
-        te_vals = []
-        for a, b in ((i, j), (j, i)):
-            Xb = _design(S, P, t_idx, exclude_lag=a)
-            rb = _resid(P[t_idx, b], Xb)
-            ra = _resid(P[t_idx - 1, a], Xb)
-            te_vals.append((ra, rb))
-        def te_stat(_x, _y, te_vals=te_vals):
-            return max(gauss_cmi_from_resid(ra, rb) for ra, rb in te_vals)
-        obs = te_stat(None, None)
-        null = []
-        for _ in range(B):
-            null.append(max(gauss_cmi_from_resid(ra, np.roll(rb, rng.integers(3, len(rb) - 2)))
-                            for ra, rb in te_vals))
-        sc["te"] = float(obs)
-        pv["te"] = float((1 + (np.array(null) >= obs - 1e-12).sum()) / (1 + B))
-        out[name] = {"score": sc, "p": pv}
+    obs = stats(P, dP, R)
+    keys = list(obs[PAIR_NAMES[0]].keys())
+    ge = {n: {k: 0 for k in keys} for n in PAIR_NAMES}
+    ge_max = {k: 0 for k in keys}
+    obs_max = {k: max(obs[n][k] for n in PAIR_NAMES) for k in keys}
+    lo, hi = min_shift, T - 1 - min_shift
+    for _ in range(B):
+        if hi <= lo:
+            break
+        sh = rng.integers(lo, hi + 1, size=4)
+        Ps = np.column_stack([np.roll(P[:, k], sh[k]) for k in range(4)])
+        Rs = np.column_stack([np.roll(R[:, k], sh[k]) for k in range(4)])
+        nd = stats(Ps, np.diff(Ps, axis=0), Rs, te_shift=int(sh[0]))
+        for k in keys:
+            mx = max(nd[n][k] for n in PAIR_NAMES)
+            ge_max[k] += mx >= obs_max[k] - 1e-12
+            for n in PAIR_NAMES:
+                ge[n][k] += nd[n][k] >= obs[n][k] - 1e-12
+    out = {n: {"score": {k: float(v) for k, v in obs[n].items()},
+               "p": {k: (1 + ge[n][k]) / (1 + B) for k in keys}} for n in PAIR_NAMES}
+    run_p = {k: (1 + ge_max[k]) / (1 + B) for k in keys}
     # net influence: excess over mean of other pairs
     for key in ["mi", "cmi_state", "pcmi"]:
         vals = np.array([out[n]["score"][key] for n in PAIR_NAMES])
         for k, n in enumerate(PAIR_NAMES):
             out[n]["score"][f"ni_{key}"] = float(vals[k] - np.delete(vals, k).mean())
+    out["_run_p"] = run_p
     return out
 
 
@@ -169,9 +191,10 @@ def run_detectors(dataset_dir, B=200, out_root=None):
             od.mkdir(parents=True, exist_ok=True)
             with open(od / f"{dataset_dir.name}.jsonl", "w") as f:
                 for rid, pr in res.items():
-                    for n in PAIR_NAMES:
+                    for n in PAIR_NAMES:  # "run_p": max-statistic run-level p (same for all pairs)
                         f.write(json.dumps({"run_id": rid, "pair": n, "score": pr[n]["score"][key],
-                                            "p": pr[n]["p"].get(key)}) + "\n")
+                                            "p": pr[n]["p"].get(key),
+                                            "run_p": pr["_run_p"].get(key)}) + "\n")
     return res
 
 

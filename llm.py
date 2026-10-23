@@ -88,14 +88,27 @@ def _codex(msgs, model, temperature, max_tokens, effort="low"):
                "-c", f"model_reasoning_effort={effort}", "-o", str(out)]
         for m in dict.fromkeys([model or CODEX_CHEAP, CODEX_CHEAP]):  # big model limited -> cheap
             try:
-                subprocess.run(cmd + ["-m", m, text], capture_output=True, timeout=600, check=True)
+                subprocess.run(cmd + ["-m", m, text], capture_output=True, timeout=600, check=True, stdin=subprocess.DEVNULL)
                 return out.read_text().strip(), m
             except subprocess.CalledProcessError as e:
                 err = e
         raise err
 
 
-BACKENDS = {"keyed": _keyed, "go": _go, "codex": _codex}
+def _claude(msgs, model, temperature, max_tokens):
+    # Claude subscription (shared with the managers): use for cross-family auditing, not bulk sims.
+    sys_ = "\n".join(m["content"] for m in msgs if m["role"] == "system")
+    text = "\n\n".join(m["content"] for m in msgs if m["role"] != "system")
+    m = model or "claude-sonnet-5-5"
+    cmd = ["claude", "-p", text, "--model", m, "--output-format", "text", "--tools", ""]
+    if sys_:
+        cmd += ["--system-prompt", sys_]
+    r = subprocess.run(cmd, capture_output=True, text=True, timeout=600, check=True,
+                       cwd=tempfile.gettempdir(), stdin=subprocess.DEVNULL)
+    return r.stdout.strip(), m
+
+
+BACKENDS = {"keyed": _keyed, "go": _go, "codex": _codex, "claude": _claude}
 
 
 def chat(prompt, system=None, model=None, temperature=0.7, max_tokens=512, backend=None, retries=3,
@@ -103,6 +116,7 @@ def chat(prompt, system=None, model=None, temperature=0.7, max_tokens=512, backe
     """prompt: str or list of {role, content}. backend: None=auto, or 'keyed'|'go'|'codex'.
     tier="big" (auditors, judges, label verification) -> codex gpt-6.1-sol first (medium effort), falls back to luna — check r["model"] so auditor comparisons stay same-model.
     tier="cheap" (simulated agents, paraphrasing) -> keyed -> Go -> codex gpt-6-luna.
+    backend="claude", model="claude-opus-5-5"|"claude-sonnet-5-5" -> Claude (cross-family auditor).
     `model` is backend-specific; only pass it together with an explicit backend."""
     msgs = _messages(prompt, system)
     if tier == "big" and not backend:

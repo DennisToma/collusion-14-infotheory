@@ -21,7 +21,7 @@ DETS = ["pearson", "pearson_diff", "mi", "cmi_state", "pcmi", "te",
 P_DETS = ["pearson", "pearson_diff", "mi", "cmi_state", "pcmi", "te"]  # have shift-null p-values
 
 
-def gen(name, n, T, strength, collusion_type="signal", seed0=0, hard_negatives=True):
+def gen(name, n, T, strength, collusion_type="signal", seed0=0, hard_negatives=True, root=None):
     rng = np.random.default_rng(seed0)
     games, k = [], 0
     conds = [("A", None), ("B", None), ("C", None), ("D", None)]
@@ -36,11 +36,12 @@ def gen(name, n, T, strength, collusion_type="signal", seed0=0, hard_negatives=T
             games.append(run_game(f"{name}_{k:05d}", seed, T, cond, pair=pair, strength=strength,
                                   collusion_type=collusion_type, hard_negative=hn, hn_pair=hn_pair))
             k += 1
-    return write_dataset(name, games)
+    return write_dataset(name, games, root) if root else write_dataset(name, games)
 
 
-def load_gt(name):
-    return {g["run_id"]: g for g in map(json.loads, open(ROOT / "data" / name / "ground_truth.jsonl"))}
+def load_gt(name, root=None):
+    root = Path(root) if root else ROOT / "data"
+    return {g["run_id"]: g for g in map(json.loads, open(root / name / "ground_truth.jsonl"))}
 
 
 def boot_ci(x, B=1000, seed=0):
@@ -57,7 +58,7 @@ def pairname(p):
 
 
 def evaluate(res, gt, alpha=0.05):
-    """Returns per-detector metrics. Run-level test = Bonferroni over 6 pairs (min p * 6 < alpha)."""
+    """Returns per-detector metrics. Run-level test = max-statistic shift null over the 6 pairs."""
     groups = {}
     for rid, g in gt.items():
         key = g["condition"] + ("" if not g.get("hard_negative") or g["hard_negative"] == "common_shock"
@@ -70,7 +71,7 @@ def evaluate(res, gt, alpha=0.05):
         for key, rids in groups.items():
             d = {"n": len(rids)}
             if det in P_DETS:
-                flags = [min(res[r][n]["p"][det] for n in PAIR_NAMES) * 6 < alpha for r in rids]
+                flags = [res[r]["_run_p"][det] < alpha for r in rids]  # max-stat run-level test
                 d["flag_rate"] = float(np.mean(flags)); d["flag_ci"] = boot_ci(flags)
             if key[0] in "CD":
                 top1 = [max(PAIR_NAMES, key=lambda n: res[r][n]["score"][det]) ==

@@ -7,7 +7,7 @@
   "strength": 0.6,
   "type": "signal",
   "seed": 0,
-  "B": 100,
+  "B": 200,
   "no_hn": false
  },
  "metrics": {
@@ -22,18 +22,18 @@
    },
    "B": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 1.0,
     "flag_ci": [
-     0.0,
-     0.0
+     1.0,
+     1.0
     ]
    },
    "C": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 1.0,
     "flag_ci": [
-     0.0,
-     0.0
+     1.0,
+     1.0
     ],
     "top1": 1.0,
     "top1_ci": [
@@ -43,10 +43,10 @@
    },
    "D": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 1.0,
     "flag_ci": [
-     0.0,
-     0.0
+     1.0,
+     1.0
     ],
     "top1": 1.0,
     "top1_ci": [
@@ -56,19 +56,19 @@
    },
    "A+shared_policy": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 0.72,
     "flag_ci": [
-     0.0,
-     0.0
+     0.52,
+     0.88
     ],
     "hn_pair_top1": 0.92
    },
    "A+legit_cooperation": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 0.08,
     "flag_ci": [
      0.0,
-     0.0
+     0.2
     ],
     "hn_pair_top1": 0.2
    },
@@ -83,10 +83,10 @@
    },
    "B+shared_policy": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 1.0,
     "flag_ci": [
-     0.0,
-     0.0
+     1.0,
+     1.0
     ],
     "hn_pair_top1": 0.96
    },
@@ -96,26 +96,26 @@
   "pearson_diff": {
    "A": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 0.04,
     "flag_ci": [
      0.0,
-     0.0
+     0.12
     ]
    },
    "B": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 0.88,
     "flag_ci": [
-     0.0,
-     0.0
+     0.76,
+     1.0
     ]
    },
    "C": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 1.0,
     "flag_ci": [
-     0.0,
-     0.0
+     1.0,
+     1.0
     ],
     "top1": 1.0,
     "top1_ci": [
@@ -125,10 +125,10 @@
    },
    "D": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 1.0,
     "flag_ci": [
-     0.0,
-     0.0
+     1.0,
+     1.0
     ],
     "top1": 1.0,
     "top1_ci": [
@@ -138,37 +138,37 @@
    },
    "A+shared_policy": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 0.72,
     "flag_ci": [
-     0.0,
-     0.0
+     0.52,
+     0.88
     ],
     "hn_pair_top1": 0.8
    },
    "A+legit_cooperation": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 0.32,
     "flag_ci": [
-     0.0,
-     0.0
+     0.16,
+     0.52
     ],
     "hn_pair_top1": 0.84
    },
    "A+independent_high_price": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 0.28,
     "flag_ci": [
-     0.0,
-     0.0
+     0.12,
+     0.44
     ],
     "hn_pair_top1": 0.04
    },
    "B+shared_policy": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 0.96,
     "flag_ci": [
-     0.0,
-     0.0
+     0.8790000000000001,
+     1.0
     ],
     "hn_pair_top1": 0.96
    },
@@ -186,18 +186,18 @@
    },
    "B": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 1.0,
     "flag_ci": [
-     0.0,
-     0.0
+     1.0,
+     1.0
     ]
    },
    "C": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 1.0,
     "flag_ci": [
-     0.0,
-     0.0
+     1.0,
+     1.0
     ],
     "top1": 1.0,
     "top1_ci": [
@@ -207,10 +207,10 @@
    },
    "D": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 1.0,
     "flag_ci": [
-     0.0,
-     0.0
+     1.0,
+     1.0
     ],
     "top1": 1.0,
     "top1_ci": [
@@ -220,37 +220,37 @@
    },
    "A+shared_policy": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 0.84,
     "flag_ci": [
-     0.0,
-     0.0
+     0.72,
+     0.96
     ],
     "hn_pair_top1": 0.96
    },
    "A+legit_cooperation": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 0.08,
     "flag_ci": [
      0.0,
-     0.0
+     0.2
     ],
     "hn_pair_top1": 0.08
    },
    "A+independent_high_price": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 0.04,
     "flag_ci": [
      0.0,
-     0.0
+     0.12
     ],
     "hn_pair_top1": 0.08
    },
    "B+shared_policy": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 1.0,
     "flag_ci": [
-     0.0,
-     0.0
+     1.0,
+     1.0
     ],
     "hn_pair_top1": 1.0
    },
@@ -276,10 +276,10 @@
    },
    "C": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 1.0,
     "flag_ci": [
-     0.0,
-     0.0
+     1.0,
+     1.0
     ],
     "top1": 1.0,
     "top1_ci": [
@@ -289,10 +289,10 @@
    },
    "D": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 1.0,
     "flag_ci": [
-     0.0,
-     0.0
+     1.0,
+     1.0
     ],
     "top1": 1.0,
     "top1_ci": [
@@ -302,37 +302,37 @@
    },
    "A+shared_policy": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 0.84,
     "flag_ci": [
-     0.0,
-     0.0
+     0.72,
+     0.96
     ],
     "hn_pair_top1": 0.96
    },
    "A+legit_cooperation": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 0.08,
     "flag_ci": [
      0.0,
-     0.0
+     0.2
     ],
     "hn_pair_top1": 0.08
    },
    "A+independent_high_price": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 0.04,
     "flag_ci": [
      0.0,
-     0.0
+     0.12
     ],
     "hn_pair_top1": 0.08
    },
    "B+shared_policy": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 0.52,
     "flag_ci": [
-     0.0,
-     0.0
+     0.32,
+     0.72
     ],
     "hn_pair_top1": 0.96
    },
@@ -342,26 +342,26 @@
   "pcmi": {
    "A": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 0.04,
     "flag_ci": [
      0.0,
-     0.0
+     0.12
     ]
    },
    "B": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 0.08,
     "flag_ci": [
      0.0,
-     0.0
+     0.2
     ]
    },
    "C": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 1.0,
     "flag_ci": [
-     0.0,
-     0.0
+     1.0,
+     1.0
     ],
     "top1": 1.0,
     "top1_ci": [
@@ -371,10 +371,10 @@
    },
    "D": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 1.0,
     "flag_ci": [
-     0.0,
-     0.0
+     1.0,
+     1.0
     ],
     "top1": 1.0,
     "top1_ci": [
@@ -384,37 +384,37 @@
    },
    "A+shared_policy": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 0.76,
     "flag_ci": [
-     0.0,
-     0.0
+     0.6,
+     0.92
     ],
     "hn_pair_top1": 0.92
    },
    "A+legit_cooperation": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 0.08,
     "flag_ci": [
      0.0,
-     0.0
+     0.2
     ],
     "hn_pair_top1": 0.16
    },
    "A+independent_high_price": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 0.08,
     "flag_ci": [
      0.0,
-     0.0
+     0.2
     ],
     "hn_pair_top1": 0.16
    },
    "B+shared_policy": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 0.88,
     "flag_ci": [
-     0.0,
-     0.0
+     0.76,
+     1.0
     ],
     "hn_pair_top1": 0.96
    },
@@ -424,26 +424,26 @@
   "te": {
    "A": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 0.12,
     "flag_ci": [
      0.0,
-     0.0
+     0.24
     ]
    },
    "B": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 0.24,
     "flag_ci": [
-     0.0,
-     0.0
+     0.08,
+     0.4
     ]
    },
    "C": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 0.28,
     "flag_ci": [
-     0.0,
-     0.0
+     0.12,
+     0.44
     ],
     "top1": 0.12,
     "top1_ci": [
@@ -453,10 +453,10 @@
    },
    "D": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 0.24,
     "flag_ci": [
-     0.0,
-     0.0
+     0.08,
+     0.4
     ],
     "top1": 0.08,
     "top1_ci": [
@@ -466,37 +466,37 @@
    },
    "A+shared_policy": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 0.12,
     "flag_ci": [
      0.0,
-     0.0
+     0.28
     ],
     "hn_pair_top1": 0.24
    },
    "A+legit_cooperation": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 1.0,
     "flag_ci": [
-     0.0,
-     0.0
+     1.0,
+     1.0
     ],
     "hn_pair_top1": 1.0
    },
    "A+independent_high_price": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 0.52,
     "flag_ci": [
-     0.0,
-     0.0
+     0.32,
+     0.72
     ],
     "hn_pair_top1": 0.04
    },
    "B+shared_policy": {
     "n": 25,
-    "flag_rate": 0.0,
+    "flag_rate": 0.04,
     "flag_ci": [
      0.0,
-     0.0
+     0.12
     ],
     "hn_pair_top1": 0.16
    },
