@@ -40,15 +40,16 @@ if __name__ == "__main__":
     main()
 
 
-def hard_negatives(name="gate_s06_T100"):
+def hard_negatives(name="gate_v2"):
     """Bar chart of run-level flag rate per condition / hard negative for each detector."""
     import numpy as np
     m = json.load(open(ROOT / "results/eval" / f"{name}.json"))["metrics"]
     groups = ["A", "B", "A+independent_high_price", "A+legit_cooperation", "A+shared_policy",
-              "B+shared_policy", "C", "D"]
-    labels = ["A indep.", "B common shock", "indep. high-price", "leader-follower", "shared policy",
-              "shared policy\n+ common shock", "C collusion", "D collusion\n+ common shock"]
-    fig, ax = plt.subplots(figsize=(13, 4.2))
+              "B+shared_policy", "A+shared_seed", "B+shared_seed", "C", "D"]
+    labels = ["A indep.", "B common shock", "indep. high-price", "leader-follower", "shared policy\n(indep. noise)",
+              "shared policy\n+ common shock", "shared policy\n+ shared seed", "shared seed\n+ common shock",
+              "C collusion", "D collusion\n+ common shock"]
+    fig, ax = plt.subplots(figsize=(15, 4.4))
     w = 0.8 / len(DETS)
     for k, (det, lab, col) in enumerate(DETS):
         ys = [m[det][g]["flag_rate"] for g in groups]
@@ -56,10 +57,10 @@ def hard_negatives(name="gate_s06_T100"):
         hi = [m[det][g]["flag_ci"][1] - ys[i] for i, g in enumerate(groups)]
         ax.bar(np.arange(len(groups)) + (k - 2) * w, ys, w, yerr=[lo, hi], color=col, label=lab, capsize=2)
     ax.axhline(0.05, color="k", lw=0.8, ls="--")
-    ax.axvline(5.5, color="k", lw=0.6)
+    ax.axvline(7.5, color="k", lw=0.6)
     ax.set_xticks(range(len(groups))); ax.set_xticklabels(labels, fontsize=8)
     ax.set_ylabel("runs flagged at α=0.05"); ax.legend(fontsize=7, ncol=5, loc="upper left")
-    ax.set_title("Scripted market, T=100, strength 0.6 (n=%d runs/group): left of line = no collusion" %
+    ax.set_title("Scripted market, held-out seed, T=100, strength 0.6 (n=%d runs/group, Wilson 95%% CI): left of line = no collusion" %
                  m["pcmi"]["A"]["n"])
     fig.tight_layout(); fig.savefig(ROOT / "figures" / "hard_negatives.png", dpi=130); plt.close(fig)
     print("wrote hard_negatives.png")

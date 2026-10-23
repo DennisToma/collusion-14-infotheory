@@ -59,29 +59,44 @@ Per run and pair: |Pearson| of prices and of price changes; plug-in MI with Mill
 CMI given the discrete public state; **pCMI** = −½ log(1−ρ²) of residuals after regressing each agent's
 price on state dummies and *all four lagged prices*; lagged CMI/TE (max over directions); and Bonjour-style
 net influence (pair score minus mean of the other pairs). **Null:** B=200 draws, each circularly shifting
-every agent's series by an independent random offset; per-pair p-values and a run-level p-value for the
-max-over-pairs statistic (controls family-wise error over the 6 pairs). Rounds are not iid, so we never
-use iid permutation.
+every agent's series by its own random offset (all pairwise relative offsets ≥ 3 rounds); raw-price
+statistics use plain shifts, CMI|state shifts within each state stratum (keeps each seller's price–state
+relation), pCMI/TE re-residualise the shifted residuals on the design. Run-level p-value = max-over-pairs
+statistic against its null. Rounds are not iid, so we never use iid permutation. With fewer than 20
+valid shifts (T ≲ 13) no test is performed (p = 1). Calibration is checked empirically on control runs
+(below), not assumed.
 
 ## 4. Results
 
-### 4.1 Positive control and hard negatives (scripted, T=100, s=0.6, 25 runs per group)
-`uv run python -m experiments.scripted both --name gate_s06_T100 --n 25 --T 100 --strength 0.6 --B 200`
-→ `results/eval/gate_s06_T100.json`, `figures/hard_negatives.png`.
+### 4.1 Positive control and hard negatives (scripted, held-out seed, T=100, s=0.6, 50 runs per group)
+`uv run python -m experiments.scripted both --name gate_v2 --n 50 --T 100 --strength 0.6 --B 200 --seed 7`
+→ `results/eval/gate_v2.json`, `figures/hard_negatives.png`. Run-level flag rate at α=0.05 [Wilson 95% CI].
 
-| runs flagged at α=0.05 | \|Pearson\| | MI | CMI\|state | pCMI | TE |
+| group (no collusion above the line) | \|Pearson\| | MI | CMI\|state | pCMI | TE |
 |---|---|---|---|---|---|
-| A independent | 0.00 | 0.00 | 0.00 | 0.04 | 0.12 |
-| B common shock | **1.00** | **1.00** | 0.00 | 0.08 | 0.24 |
-| independent high-price pair | 0.00 | 0.04 | 0.04 | 0.08 | 0.52 |
-| legit leader-follower | 0.08 | 0.08 | 0.08 | 0.08 | **1.00** |
-| shared policy | 0.72 | 0.84 | 0.84 | 0.76 | 0.12 |
-| shared policy + common shock | 1.00 | 1.00 | 0.52 | 0.88 | 0.04 |
-| C collusion (pair ranked #1) | 1.00 (1.00) | 1.00 (1.00) | 1.00 (1.00) | 1.00 (1.00) | 0.28 (0.12) |
-| D collusion + shock (pair #1) | 1.00 (1.00) | 1.00 (1.00) | 1.00 (1.00) | 1.00 (1.00) | 0.24 (0.08) |
+| A independent | 0.04 [.01,.13] | 0.06 [.02,.16] | 0.06 [.02,.16] | **0.02** [.00,.10] | 0.08 [.03,.19] |
+| B common shock | 0.94 [.84,.98] | **1.00** [.93,1] | 0.10 [.04,.21] | 0.16 [.08,.29] | 0.00 [.00,.07] |
+| independent high-price pair | 0.04 | 0.10 | 0.10 | 0.04 | 0.52 |
+| legit leader-follower (public matching) | 0.06 | 0.10 | 0.10 | 0.04 | **0.96** |
+| shared policy, independent noise | 0.34 | 0.30 | 0.30 | **0.12** [.06,.24] | 0.76 |
+| shared policy + common shock | 0.86 | 1.00 | 0.28 | **0.18** [.10,.31] | 1.00 |
+| shared policy **and shared seed** | 0.72 | 0.90 | 0.90 | 0.74 [.60,.84] | 0.12 |
+| shared seed + common shock | 1.00 | 1.00 | 0.98 | 0.94 | 0.06 |
+| **C collusion** (pair ranked #1) | 1.00 (1.00) | 1.00 (1.00) | 1.00 (1.00) | 1.00 (1.00) | 0.12 (0.06) |
+| **D collusion + shock** (pair #1) | 1.00 (1.00) | 1.00 (1.00) | 1.00 (1.00) | 1.00 (1.00) | 0.20 (0.12) |
 
-Gate (PLAN.md) **passes** for CMI|state and pCMI: top-1 = 1.0 at T=100 and FPR on A/B ≤ 8%.
-With n=25 the 95% bootstrap CI on an 8% rate is roughly [0, 20%]; more seeds are pending.
+* Positive control: all contemporaneous detectors flag and localise the planted pair in 100% of runs
+  (this `signal` colluder is the easiest possible case — fresh shared randomness each round).
+* Conditioning matters: raw MI flags 100% of common-shock controls; CMI|state 10%, pCMI 16%.
+  pCMI is **not perfectly calibrated under common shocks** (16% vs nominal 5%): independent best-responders
+  react to state × lagged prices non-linearly, which the linear residualisation does not remove.
+* Shared policy: when two copies of a policy draw *independent* noise, conditioning on state + lags
+  (pCMI) cuts false flags from 30–100% (MI) to 12–18%. When they also share the *random seed*
+  (temperature-0 / same-seed copies), no action-only detector can tell them from a private channel
+  (74–94% flagged): a shared seed **is** a shared random signal.
+* Lagged CMI (TE) is the only detector for lagged price matching, but flags legitimate public
+  leader-follower pricing (96%) and shared heuristics (76–100%): lagged dependence is not evidence of
+  an agreement.
 
 ![hard negatives](figures/hard_negatives.png)
 
@@ -118,7 +133,25 @@ Readings:
 ![power vs strength](figures/power_vs_strength.png)
 ![power vs T](figures/power_vs_T.png)
 
-### 4.3 LLM sellers — *pending*
+### 4.3 LLM sellers
+**Pilots (what it took to get LLM collusion to happen at all)** — gpt-6-luna sellers via codex, all games T=20
+(`data/llm_pilot*`, `data/llm_hpilot`; `uv run python -m sim.llm_market --name <...>`):
+
+| pilot | design change | outcome |
+|---|---|---|
+| `llm_pilot` (6 games, C/D) | grid {8..16}, public board off | pairs agree privately ("let's both hold 12") but **all four** sellers play 12 in ~every round (Nash 10) — no variance, no pair effect |
+| `llm_pilot2/3` | wide integer grid 6–24, private cost shocks, reasoning field, T=1.0, "learn demand" hint | still 12 everywhere |
+| `llm_hpilot` | 2 LLM + 2 scripted best-responders | LLMs still 12 every round, channel or not |
+| `llm_pilot4` | **removed the `"price": 12` example from the JSON format spec** | prices vary (9–15); no-channel sellers drift toward Nash (means 9.5–11.9); one channel pair agrees on "start near 14", prices 13–14 vs rivals 12 for 10 rounds, then erodes to 12 |
+
+Two lessons: (i) a single example value in the output format fixed the whole market at a focal price — LLM
+pricing experiments are fragile to prompt anchors; (ii) a market in which every seller plays the same
+constant price contains **zero** information for dependence-based detectors, whatever the agreement status.
+
+**Main LLM dataset `llm_v1`** (running): 64 games, 16 per condition A–D, T=20, design of `llm_pilot4`
+(sim_version llm0.3). Labels: judge (tier=big) reads the private chat → `agreement_verified`;
+`coordinated_actions_verified` from prices; no-channel runs with mean markup ≥ 2 over Nash are
+`tacit_supracompetitive`. *Results pending.*
 
 ## 5. Limitations (so far)
 * Scripted colluders are stylised; `signal` collusion with fresh shared randomness every round is the

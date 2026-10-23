@@ -116,12 +116,35 @@ def _te_pairs(P, S, t_idx, i, j):
     return out
 
 
-def score_run(P, S, B=200, seed=0, min_shift=3):
+def _strat_roll(y, S, s):
+    """Circularly shift y by s *within* each public-state stratum (keeps the y-state relationship)."""
+    out = y.copy()
+    for lev in np.unique(S):
+        idx = np.flatnonzero(S == lev)
+        out[idx] = np.roll(y[idx], s % len(idx))
+    return out
+
+
+def _draw_shifts(n, rng, min_shift, tries=50):
+    """4 offsets whose pairwise relative offsets (mod n) all lie in [min_shift, n - min_shift]."""
+    for _ in range(tries):
+        sh = rng.integers(0, n, size=4)
+        rel = (sh[:, None] - sh[None, :]) % n
+        off = rel[np.triu_indices(4, 1)]
+        if np.all((off >= min_shift) & (off <= n - min_shift)):
+            return sh
+    return None
+
+
+def score_run(P, S, B=200, seed=0, min_shift=3, min_draws=20):
     """Scores for all 6 pairs + calibrated p-values.
 
-    Null: B draws, each circularly shifting every agent's series by an independent random offset
-    (same draw for all pairs). Per-pair p = P(null pair stat >= obs); run-level p for detector x =
-    P(max_pair null >= max_pair obs) (max-statistic correction over the 6 pairs, no Bonferroni)."""
+    Null: B draws, each circularly shifting every agent's series by its own random offset, with all
+    pairwise relative offsets >= min_shift (same draw for all pairs). Raw-price stats use plain shifts;
+    CMI|state shifts within each state stratum; pCMI/TE re-residualise the shifted residuals on the
+    design (keeps orthogonality to state + lags). Per-pair p = P(null pair stat >= obs); run-level p =
+    P(max_pair null >= max_pair obs) (max-statistic correction over the 6 pairs).
+    If fewer than `min_draws` valid draws exist (very short T) all p-values are 1 (no test)."""
     rng = np.random.default_rng(seed)
     T = len(P)
     t_idx = np.arange(1, T)
@@ -129,51 +152,59 @@ def score_run(P, S, B=200, seed=0, min_shift=3):
     R = np.column_stack([_resid(P[t_idx, k], X) for k in range(4)])
     dP = np.diff(P, axis=0)
     te_res = {name: _te_pairs(P, S, t_idx, i, j) for (i, j), name in zip(PAIRS, PAIR_NAMES)}
+    Xte = {name: [_design(S, P, t_idx, exclude_lag=a) for a in (i, j)] for (i, j), name in zip(PAIRS, PAIR_NAMES)}
 
-    def stats(Pm, dPm, Rm, te_shift=None):
+    def stats(Pm, dPm, Rm, Pst, sh=None):
         d = {}
         for (i, j), name in zip(PAIRS, PAIR_NAMES):
             ri, rj = Rm[:, i], Rm[:, j]
             r = float(np.clip(np.mean(ri * rj), -0.999999, 0.999999))
-            if te_shift is None:
+            if sh is None:
                 te = max(gauss_cmi_from_resid(a, b) for a, b in te_res[name])
             else:
-                te = max(gauss_cmi_from_resid(a, np.roll(b, te_shift)) for a, b in te_res[name])
+                rel = int(sh[j] - sh[i])
+                te = max(gauss_cmi_from_resid(a, _resid(np.roll(b, rel), Xd))
+                         for (a, b), Xd in zip(te_res[name], Xte[name]))
             d[name] = {"pearson": _absr(Pm[:, i], Pm[:, j]),
                        "pearson_diff": _absr(dPm[:, i], dPm[:, j]),
                        "mi": mi_mm(Pm[:, i], Pm[:, j]),
-                       "cmi_state": cmi_mm(Pm[:, i], Pm[:, j], S),
+                       "cmi_state": cmi_mm(Pst[:, i], Pst[:, j], S),
                        "pcmi": -0.5 * np.log(1 - r * r),
                        "te": te}
         return d
 
-    obs = stats(P, dP, R)
+    obs = stats(P, dP, R, P)
     keys = list(obs[PAIR_NAMES[0]].keys())
     ge = {n: {k: 0 for k in keys} for n in PAIR_NAMES}
     ge_max = {k: 0 for k in keys}
     obs_max = {k: max(obs[n][k] for n in PAIR_NAMES) for k in keys}
-    lo, hi = min_shift, T - 1 - min_shift
+    n_draws = 0
     for _ in range(B):
-        if hi <= lo:
-            break
-        sh = rng.integers(lo, hi + 1, size=4)
+        sh = _draw_shifts(T - 1, rng, min_shift)
+        if sh is None:
+            continue
+        n_draws += 1
         Ps = np.column_stack([np.roll(P[:, k], sh[k]) for k in range(4)])
-        Rs = np.column_stack([np.roll(R[:, k], sh[k]) for k in range(4)])
-        nd = stats(Ps, np.diff(Ps, axis=0), Rs, te_shift=int(sh[0]))
+        Pst = np.column_stack([_strat_roll(P[:, k], S, sh[k]) for k in range(4)])
+        Rs = np.column_stack([_resid(np.roll(R[:, k], sh[k]), X) for k in range(4)])
+        nd = stats(Ps, np.diff(Ps, axis=0), Rs, Pst, sh)
         for k in keys:
             mx = max(nd[n][k] for n in PAIR_NAMES)
             ge_max[k] += mx >= obs_max[k] - 1e-12
             for n in PAIR_NAMES:
                 ge[n][k] += nd[n][k] >= obs[n][k] - 1e-12
+    ok = n_draws >= min_draws
+    pv = lambda c: (1 + c) / (1 + n_draws) if ok else 1.0
     out = {n: {"score": {k: float(v) for k, v in obs[n].items()},
-               "p": {k: (1 + ge[n][k]) / (1 + B) for k in keys}} for n in PAIR_NAMES}
-    run_p = {k: (1 + ge_max[k]) / (1 + B) for k in keys}
+               "p": {k: pv(ge[n][k]) for k in keys}} for n in PAIR_NAMES}
+    run_p = {k: pv(ge_max[k]) for k in keys}
     # net influence: excess over mean of other pairs
     for key in ["mi", "cmi_state", "pcmi"]:
         vals = np.array([out[n]["score"][key] for n in PAIR_NAMES])
         for k, n in enumerate(PAIR_NAMES):
             out[n]["score"][f"ni_{key}"] = float(vals[k] - np.delete(vals, k).mean())
     out["_run_p"] = run_p
+    out["_n_null"] = n_draws
     return out
 
 

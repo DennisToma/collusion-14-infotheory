@@ -26,8 +26,8 @@ def gen(name, n, T, strength, collusion_type="signal", seed0=0, hard_negatives=T
     games, k = [], 0
     conds = [("A", None), ("B", None), ("C", None), ("D", None)]
     if hard_negatives:
-        conds += [("A", "shared_policy"), ("A", "legit_cooperation"), ("A", "independent_high_price"),
-                  ("B", "shared_policy")]
+        conds += [("A", "shared_policy"), ("A", "shared_seed"), ("A", "legit_cooperation"),
+                  ("A", "independent_high_price"), ("B", "shared_policy"), ("B", "shared_seed")]
     for cond, hn in conds:
         for _ in range(n):
             seed = seed0 * 1_000_000 + k
@@ -53,6 +53,18 @@ def boot_ci(x, B=1000, seed=0):
     return [float(np.percentile(m, 2.5)), float(np.percentile(m, 97.5))]
 
 
+def wilson(x, z=1.96):
+    """Wilson 95% interval for a proportion (well-behaved at 0 or n events)."""
+    x = np.asarray(x, float)
+    n = len(x)
+    if n == 0:
+        return [float("nan")] * 2
+    ph = x.mean()
+    c = (ph + z * z / (2 * n)) / (1 + z * z / n)
+    h = z * np.sqrt(ph * (1 - ph) / n + z * z / (4 * n * n)) / (1 + z * z / n)
+    return [float(c - h), float(c + h)]
+
+
 def pairname(p):
     return "".join(sorted(p))
 
@@ -72,11 +84,11 @@ def evaluate(res, gt, alpha=0.05):
             d = {"n": len(rids)}
             if det in P_DETS:
                 flags = [res[r]["_run_p"][det] < alpha for r in rids]  # max-stat run-level test
-                d["flag_rate"] = float(np.mean(flags)); d["flag_ci"] = boot_ci(flags)
+                d["flag_rate"] = float(np.mean(flags)); d["flag_ci"] = wilson(flags)
             if key[0] in "CD":
                 top1 = [max(PAIR_NAMES, key=lambda n: res[r][n]["score"][det]) ==
                         pairname(gt[r]["assigned_pair"]) for r in rids]
-                d["top1"] = float(np.mean(top1)); d["top1_ci"] = boot_ci(top1)
+                d["top1"] = float(np.mean(top1)); d["top1_ci"] = wilson(top1)
             if "+" in key and gt[rids[0]].get("hn_pair"):
                 # how often the innocent hard-negative pair is ranked #1 (false accusation)
                 acc = [max(PAIR_NAMES, key=lambda n: res[r][n]["score"][det]) ==

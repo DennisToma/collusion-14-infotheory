@@ -19,7 +19,7 @@ from pathlib import Path
 
 import numpy as np
 
-SIM_VERSION = "0.1"
+SIM_VERSION = "0.2"
 AGENTS = ["A", "B", "C", "D"]
 PRICES = np.array([8, 10, 12, 14, 16])
 Q, Q0, MU = 16.0, 0.0, 3.0
@@ -94,10 +94,21 @@ def follower(ctx: Ctx, leader_idx: int, p_match=0.7):
     return quantal_br(ctx)
 
 
-def shared_policy(ctx: Ctx):
-    """Two agents running the same 'model': identical deterministic response to the public
-    history, with sampling noise seeded by the public history (same model + same prompt =>
-    same sample). No private channel; correlation comes from the shared policy only."""
+def shared_policy(ctx: Ctx, p_rule=0.6):
+    """Two agents running the same 'model' with INDEPENDENT sampling noise (temperature > 0): with
+    prob p_rule both apply the same nonlinear heuristic to the public history (follow the market up
+    when last round's mean price >= 12, otherwise undercut), else noisy best response. No channel;
+    dependence comes only from the shared deterministic response to common public information."""
+    if ctx.last is None or ctx.rng.random() >= p_rule:
+        return quantal_br(ctx)
+    others = np.delete(ctx.last, ctx.me)
+    return 14 if others.mean() >= 12 else 10
+
+
+def shared_seed(ctx: Ctx):
+    """Extreme shared-policy case: same model AND shared sampling randomness (e.g. temperature 0 or a
+    common seed): the sample is a function of the public history. No private channel, but statistically
+    this is a shared random signal."""
     pub = 0 if ctx.last is None else int(sum(int(x) * 17 ** k for k, x in enumerate(ctx.last)))
     r = np.random.default_rng([ctx.t, pub, ctx.cost, int(ctx.demand == "high")])
     sub = Ctx(ctx.t, ctx.me, ctx.last, ctx.cost, ctx.demand, r)
@@ -143,9 +154,9 @@ def run_game(run_id, seed, T, condition, pair=None, strength=0.0, collusion_type
     if pair:
         for a in pair:
             policies[a] = f"colluder_{collusion_type}(s={strength})"
-    if hard_negative == "shared_policy":
+    if hard_negative in ("shared_policy", "shared_seed"):
         for a in hn_pair:
-            policies[a] = "shared_policy"
+            policies[a] = hard_negative
     elif hard_negative == "legit_cooperation":
         policies[hn_pair[0]] = "leader"; policies[hn_pair[1]] = f"follower({hn_pair[0]})"
     elif hard_negative == "independent_high_price":
@@ -170,6 +181,8 @@ def run_game(run_id, seed, T, condition, pair=None, strength=0.0, collusion_type
                 p = colluder_tft(ctx, partner, strength)
             elif pol == "shared_policy":
                 p = shared_policy(ctx)
+            elif pol == "shared_seed":
+                p = shared_seed(ctx)
             elif pol == "leader":
                 p = leader(ctx)
             elif pol.startswith("follower"):

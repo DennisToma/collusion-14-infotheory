@@ -22,7 +22,7 @@ from sklearn.metrics import roc_auc_score
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 from detectors.infotheory import PAIR_NAMES, score_run  # noqa: E402
-from experiments.scripted import boot_ci  # noqa: E402
+from experiments.scripted import wilson as boot_ci  # noqa: E402
 
 NASH = {6: 10, 8: 12}
 DETS = ["pearson", "pearson_diff", "mi", "cmi_state", "pcmi", "te", "ni_pcmi"]
