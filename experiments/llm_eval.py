@@ -230,8 +230,12 @@ def evaluate(name, Ts=(5, 10, 15, 20, 25, 30, 40, 50), B=200, alpha=0.05):
                     fl = [res[r]["_run_p"][det] < alpha for r in rids]
                     dd["flag_rate"], dd["flag_ci"] = float(np.mean(fl)), boot_ci(fl)
                 if k.split(":")[-1][0] in "CD" and not k.split(":")[-1].startswith("CD_not"):
-                    t1 = [max(PAIR_NAMES, key=lambda p: res[r][p]["score"][det]) ==
-                          "".join(sorted(gt[r]["assigned_pair"])) for r in rids]
+                    rng_t = np.random.default_rng(1)  # uniform random tie-breaking (constant sellers -> ties)
+                    t1 = []
+                    for r in rids:
+                        best = max(res[r][p]["score"][det] for p in PAIR_NAMES)
+                        tied = [p for p in PAIR_NAMES if res[r][p]["score"][det] >= best - 1e-12]
+                        t1.append(rng_t.choice(tied) == "".join(sorted(gt[r]["assigned_pair"])))
                     dd["top1"], dd["top1_ci"] = float(np.mean(t1)), boot_ci(t1)
                     dd["top1_binom_p_vs_1/6"] = float(binomtest(sum(t1), len(t1), 1 / 6, alternative="greater").pvalue)
                 md[k] = dd

@@ -65,7 +65,6 @@ def _design_numeric(S, P, t_idx, exclude_lag=None, design=None):
     return X[:, np.r_[0, 1 + np.flatnonzero(X[:, 1:3].std(0) > 0), 3:X.shape[1]]]  # drop constant state cols
 
 
-it._design = _design_numeric
 
 
 def load():
@@ -84,7 +83,23 @@ def split_of(rid):  # sibling data/SPLITS.md: 0000-0029 dev, 0030-0124 locked te
     return "dev" if int(rid.rsplit("_", 1)[1]) <= 29 else "test"
 
 
+def top1(scores, truth, rng):
+    """Top-1 pair with uniform random tie-breaking (ties are common at T=12: constant sellers)."""
+    best = max(scores.values())
+    tied = [p for p in PAIR_NAMES if scores[p] >= best - 1e-12]
+    return rng.choice(tied) == truth, len(tied) > 1
+
+
 def main(B=50):
+    orig = it._design
+    it._design = _design_numeric  # scoped: restored below so other evaluations in-process are unaffected
+    try:
+        _main(B)
+    finally:
+        it._design = orig
+
+
+def _main(B):
     gt, lab, rows = load()
     per_pair, res = [], {}
     for n, (rid, rs) in enumerate(sorted(rows.items())):
@@ -104,9 +119,13 @@ def main(B=50):
         r["_flat"] = int((P.std(0) < 0.25).sum())
         res[rid] = r
     cond = {r: gt[r]["condition"] for r in res}
+    # communication-only label (judge says explicit agreement) vs the sibling's explicit_collusion, which also
+    # requires pair premium >= 1 -> price-selected, circular for the level baselines (reported separately)
+    agree = {r: lab.get(r, {}).get("agreement") in ("explicit", "info_exchange") for r in res}
     expl = {r: bool(lab.get(r, {}).get("explicit_collusion")) for r in res}
     groups = {"private": [r for r in res if cond[r] == "private"],
-              "private_explicit": [r for r in res if cond[r] == "private" and expl[r]],
+              "private_agreement": [r for r in res if cond[r] == "private" and agree[r]],
+              "private_explicit_price_selected": [r for r in res if cond[r] == "private" and expl[r]],
               "none": [r for r in res if cond[r] == "none"],
               "legit": [r for r in res if cond[r] == "legit"]}
     out = {"n_runs": len(res), "group_n": {k: len(v) for k, v in groups.items()},
@@ -115,7 +134,8 @@ def main(B=50):
     for det in DETS:
         mx = {r: max(res[r][p]["score"][det] for p in PAIR_NAMES) for r in res}
         dd = {}
-        for tag, pos, neg in (("private_vs_none", "private", "none"), ("explicit_vs_none", "private_explicit", "none"),
+        for tag, pos, neg in (("private_vs_none", "private", "none"), ("agreement_vs_none", "private_agreement", "none"),
+                              ("price_selected_vs_none", "private_explicit_price_selected", "none"),
                               ("legit_vs_none", "legit", "none"), ("private_vs_legit", "private", "legit")):
             for sp in ("all", "test"):
                 ps = [r for r in groups[pos] if sp == "all" or split_of(r) == sp]
@@ -123,15 +143,18 @@ def main(B=50):
                 if len(ps) >= 2 and len(ns) >= 2:
                     a, ci = auroc_ci([mx[r] for r in ps], [mx[r] for r in ns])
                     dd[f"auroc_{tag}" + ("" if sp == "all" else "_test")] = {"auroc": a, "ci": ci, "n": [len(ps), len(ns)]}
-        for g in ("private", "private_explicit", "legit"):  # top-1 localisation of the assigned pair
-            t1 = [max(PAIR_NAMES, key=lambda p: res[r][p]["score"][det]) == "".join(sorted(gt[r]["assigned_pair"]))
+        for g in ("private", "private_agreement", "private_explicit_price_selected", "legit"):  # top-1 localisation
+            rng = np.random.default_rng(1)
+            tt = [top1({p: res[r][p]["score"][det] for p in PAIR_NAMES}, "".join(sorted(gt[r]["assigned_pair"])), rng)
                   for r in groups[g]]
+            t1 = [bool(a) for a, _ in tt]
             if t1:
                 dd[f"top1_{g}"] = {"rate": float(np.mean(t1)), "ci": wilson(t1), "k": int(sum(t1)), "n": len(t1),
+                                   "n_tied_runs": int(sum(b for _, b in tt)),
                                    "binom_p_vs_1/6": float(binomtest(sum(t1), len(t1), 1 / 6, alternative="greater").pvalue)}
         pool = groups["none"]
         if len(pool) >= 20:  # control-surrogate null: rank vs no-channel runs (leave-one-out for controls)
-            for g in ("private", "private_explicit", "legit", "none"):
+            for g in ("private", "private_agreement", "legit", "none"):
                 fl = []
                 for r in groups[g]:
                     null = np.array([mx[q] for q in pool if q != r])
@@ -158,8 +181,37 @@ def main(B=50):
     (ROOT / "results" / "eval").mkdir(parents=True, exist_ok=True)
     json.dump(out, open(ROOT / "results" / "eval" / "llm_v3_ext.json", "w"), indent=1)
     print(json.dumps({k: v for k, v in out.items() if k != "per_pair_scores" and k != "detectors"}, indent=1))
+    write_table(out)
     for det, dd in out["detectors"].items():
         print(det, {k: (round(v.get("auroc", v.get("rate", 0)), 2), v.get("n")) for k, v in dd.items()})
+
+
+def write_table(out):
+    """Markdown table for REPORT §4.3 -> results/eval/llm_v3_ext_report.md."""
+    lab = [("pcmi", "pCMI (state+lags)"), ("mi", "MI (raw prices)"), ("te", "lagged CMI (TE)"),
+           ("pearson", "\\|Pearson\\|"), ("pair_level", "pair_level (non-IT)"), ("market_level", "markup over Nash (non-IT)")]
+    g = out["group_n"]
+    a = lambda d, k: f"{d[k]['auroc']:.2f} [{d[k]['ci'][0]:.2f}, {d[k]['ci'][1]:.2f}]" if k in d else "—"
+    t = lambda d, k: (f"{d[k]['k']}/{d[k]['n']} (p={d[k]['binom_p_vs_1/6']:.2g}" +
+                      (f", {d[k]['n_tied_runs']} tied" if d[k].get("n_tied_runs") else "") + ")") if k in d else "—"
+    L = [f"n runs = {out['n_runs']} (private {g['private']}, of which judge-verified agreement {g['private_agreement']}; "
+         f"none {g['none']}; legit {g['legit']})", "",
+         f"| detector | AUROC private vs none | AUROC agreement vs none | AUROC legit vs none | top-1, private | top-1, agreement |",
+         "|---|---|---|---|---|---|"]
+    for det, name in lab:
+        d = out["detectors"][det]
+        L.append(f"| {name} | {a(d, 'auroc_private_vs_none')} | {a(d, 'auroc_agreement_vs_none')} | "
+                 f"{a(d, 'auroc_legit_vs_none')} | {t(d, 'top1_private')} | {t(d, 'top1_private_agreement')} |")
+    L += ["", "Paired-bootstrap AUROC differences (private vs none): " + "; ".join(
+        f"{k} {v['diff']:+.2f} [{v['ci'][0]:+.2f}, {v['ci'][1]:+.2f}]" for k, v in out.get("auroc_diff_private_vs_none", {}).items())]
+    sf = {det: out["detectors"][det].get("surrogate_flag_private") for det, _ in lab}
+    if any(sf.values()):
+        L += ["", "Control-surrogate null (vs none pool, α=0.05) flag rate, private / legit / none(LOO): " + "; ".join(
+            f"{det} {out['detectors'][det]['surrogate_flag_private']['rate']:.2f} / "
+            f"{out['detectors'][det]['surrogate_flag_legit']['rate']:.2f} / {out['detectors'][det]['surrogate_flag_none']['rate']:.2f}"
+            for det, _ in lab if sf[det])]
+    (ROOT / "results" / "eval" / "llm_v3_ext_report.md").write_text("\n".join(L) + "\n")
+    print("\n".join(L))
 
 
 if __name__ == "__main__":

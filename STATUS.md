@@ -4,10 +4,11 @@
 **E12 (pre-registered before llm_v1 eval):** `market_level` = pair markup over per-round state Nash (raw kept as
 `market_level_raw`); within-family AUROC (C vs A, D vs B); paired-bootstrap AUROC(IT) − AUROC(level) (`auroc_diff`);
 within-family markup premium in `price_level`. `llm_report` prints all of these. Tested on llm_pilot4.
-**E13 external set (sibling llm_v3, PROVISIONAL n=52/125):** `experiments/ext_llm_v3.py` → `results/eval/llm_v3_ext.json`
-(per-pair rows for 22). Run AUROC private vs none: pCMI 0.49 [.26,.73], pair_level 0.98 [.93,1], markup 0.90; top-1
-pCMI 7/31 vs pair_level 30/31; diff −0.49 [−.72,−.27]. MI/Pearson localise within-run above chance (17/31) but don't
-separate runs. → "LLM collusion = pair-specific level; dependence detectors remove levels". In REPORT §4.3.
+**E13/E14 external set (sibling llm_v3, PROVISIONAL n=70/125):** `experiments/ext_llm_v3.py` → `results/eval/llm_v3_ext.json`
+(per-pair rows for 22) + `llm_v3_ext_report.md` (table pasted in REPORT). Run AUROC private vs none: pCMI 0.53 [.35,.72],
+pair_level 0.98 [.94,1], markup 0.93; top-1 pCMI 11/42 vs pair_level 40/42; diff −0.45 [−.63,−.26]. MI/Pearson localise
+within-run above chance (25/42) but don't separate runs. Codex review (results/reviews/codex_review_iter5.md) fixed:
+price-selected label leak, global monkeypatch, tie-breaking (also llm_eval), exploratory p-values. → "LLM collusion = pair-specific level; dependence detectors remove levels". In REPORT §4.3.
 **Running:** `scripts/llm_queue.sh` (llm_v1 30/64 at 22:15 → main ETA ~23:30, +controls ~00:00 → label+eval →
 llm_long → llm_mixed ~02:00). Codex review of E12/E13 code → results/reviews/codex_review_iter5.md.
 **Next:** (1) after sibling finishes (~00:15; 125 lines in their ground_truth.jsonl) rerun `uv run python -m experiments.ext_llm_v3`,
@@ -30,4 +31,4 @@ queue script must not be edited while running (bash reads it incrementally).
   CD_ambiguous, dev/test groups, pair_level/market_level baselines, mixed-model analysis; sim --mixed-tier.
 - iter 3 21:50–22:00: locked test sweep, Opus review + fixes, LLM analysis plan declared in REPORT §4.3, queue script.
 - iter 4 21:54–22:15: queue healthy (20/64). Wrote experiments/llm_report.py (tables+figures for §4.3), verified on llm_pilot4; no llm_v1 detector peeking. Codex REPORT-claims review deferred until LLM results land.
-- iter 5 21:57–22:30: E12 baseline fix + within-family/paired AUROC in llm_eval/llm_report (before llm_v1 eval); E13 ext_llm_v3 provisional; ledger hashes; §5 n fix; codex review launched.
+- iter 5 21:57–22:30: E12 baseline fix + within-family/paired AUROC in llm_eval/llm_report (before llm_v1 eval); E13 ext_llm_v3 provisional; ledger hashes; §5 n fix; codex review → E14 fixes; ext rerun at n=70.
