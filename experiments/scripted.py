@@ -69,8 +69,23 @@ def pairname(p):
     return "".join(sorted(p))
 
 
+def surrogate_p(res, gt, det):
+    """Control-surrogate null: rank a run's max-pair score among clean no-channel controls of the same shock
+    family (A for A/C/A+hn, B for B/D/B+hn); leave-one-out for the controls themselves."""
+    mx = {r: max(res[r][n]["score"][det] for n in PAIR_NAMES) for r in res}
+    ref = {f: [r for r, g in gt.items() if g["condition"] == f and g.get("hard_negative") in (None, "common_shock")]
+           for f in "AB"}
+    out = {}
+    for r, g in gt.items():
+        fam = {"A": "A", "C": "A", "B": "B", "D": "B"}[g["condition"]]
+        null = np.array([mx[q] for q in ref[fam] if q != r])
+        out[r] = (1 + (null >= mx[r] - 1e-12).sum()) / (1 + len(null)) if len(null) else 1.0
+    return out
+
+
 def evaluate(res, gt, alpha=0.05):
-    """Returns per-detector metrics. Run-level test = max-statistic shift null over the 6 pairs."""
+    """Returns per-detector metrics. Run-level test = max-statistic shift null over the 6 pairs;
+    also the control-surrogate null (surrogate_flag_rate)."""
     groups = {}
     for rid, g in gt.items():
         key = g["condition"] + ("" if not g.get("hard_negative") or g["hard_negative"] == "common_shock"
@@ -80,8 +95,11 @@ def evaluate(res, gt, alpha=0.05):
     for det in DETS:
         m = {}
         run_score = {rid: max(res[rid][n]["score"][det] for n in PAIR_NAMES) for rid in res}
+        sp = surrogate_p(res, gt, det)
         for key, rids in groups.items():
             d = {"n": len(rids)}
+            sf = [sp[r] < alpha for r in rids]
+            d["surrogate_flag_rate"] = float(np.mean(sf)); d["surrogate_flag_ci"] = wilson(sf)
             if det in P_DETS:
                 flags = [res[r]["_run_p"][det] < alpha for r in rids]  # max-stat run-level test
                 d["flag_rate"] = float(np.mean(flags)); d["flag_ci"] = wilson(flags)

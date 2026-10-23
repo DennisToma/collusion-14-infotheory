@@ -1,0 +1,1159 @@
+{
+ "args": {
+  "seed": 11,
+  "n": 40,
+  "T": [
+   100,
+   50
+  ],
+  "B": 200,
+  "designs": [
+   "lin",
+   "inter"
+  ],
+  "workers": 2,
+  "out": null
+ },
+ "results": [
+  {
+   "design": "lin",
+   "T": 50,
+   "n": 40,
+   "seed": 11,
+   "B": 200,
+   "rows": {
+    "pcmi": {
+     "A": {
+      "shift": 0.075,
+      "surrogate": 0.025,
+      "surrogate_ci": [
+       0.0044267174077949195,
+       0.1288165948800778
+      ],
+      "top1": null
+     },
+     "B": {
+      "shift": 0.15,
+      "surrogate": 0.025,
+      "surrogate_ci": [
+       0.0044267174077949195,
+       0.1288165948800778
+      ],
+      "top1": null
+     },
+     "C": {
+      "shift": 1.0,
+      "surrogate": 1.0,
+      "surrogate_ci": [
+       0.9123754607496077,
+       1.0
+      ],
+      "top1": 1.0
+     },
+     "D": {
+      "shift": 1.0,
+      "surrogate": 1.0,
+      "surrogate_ci": [
+       0.9123754607496077,
+       1.0
+      ],
+      "top1": 1.0
+     },
+     "A+shared_policy": {
+      "shift": 0.175,
+      "surrogate": 0.175,
+      "surrogate_ci": [
+       0.08745302996883066,
+       0.3195029205439244
+      ],
+      "top1": null
+     },
+     "A+shared_seed": {
+      "shift": 0.65,
+      "surrogate": 0.575,
+      "surrogate_ci": [
+       0.42194800436059987,
+       0.7149083147518411
+      ],
+      "top1": null
+     },
+     "A+legit_cooperation": {
+      "shift": 0.1,
+      "surrogate": 0.1,
+      "surrogate_ci": [
+       0.03957888759557486,
+       0.23052074380473897
+      ],
+      "top1": null
+     },
+     "A+independent_high_price": {
+      "shift": 0.05,
+      "surrogate": 0.0,
+      "surrogate_ci": [
+       -6.938893903907228e-18,
+       0.08762453925039232
+      ],
+      "top1": null
+     },
+     "B+shared_policy": {
+      "shift": 0.1,
+      "surrogate": 0.05,
+      "surrogate_ci": [
+       0.013820377146101098,
+       0.165041708179252
+      ],
+      "top1": null
+     },
+     "B+shared_seed": {
+      "shift": 0.7,
+      "surrogate": 0.425,
+      "surrogate_ci": [
+       0.28509168524815875,
+       0.5780519956394001
+      ],
+      "top1": null
+     }
+    },
+    "te": {
+     "A": {
+      "shift": 0.125,
+      "surrogate": 0.025,
+      "surrogate_ci": [
+       0.0044267174077949195,
+       0.1288165948800778
+      ],
+      "top1": null
+     },
+     "B": {
+      "shift": 0.05,
+      "surrogate": 0.025,
+      "surrogate_ci": [
+       0.0044267174077949195,
+       0.1288165948800778
+      ],
+      "top1": null
+     },
+     "C": {
+      "shift": 0.2,
+      "surrogate": 0.125,
+      "surrogate_ci": [
+       0.05459419773541284,
+       0.26112420670238146
+      ],
+      "top1": 0.075
+     },
+     "D": {
+      "shift": 0.125,
+      "surrogate": 0.0,
+      "surrogate_ci": [
+       -6.938893903907228e-18,
+       0.08762453925039232
+      ],
+      "top1": 0.15
+     },
+     "A+shared_policy": {
+      "shift": 0.575,
+      "surrogate": 0.475,
+      "surrogate_ci": [
+       0.32935229550181694,
+       0.6250289314607027
+      ],
+      "top1": null
+     },
+     "A+shared_seed": {
+      "shift": 0.1,
+      "surrogate": 0.05,
+      "surrogate_ci": [
+       0.013820377146101098,
+       0.165041708179252
+      ],
+      "top1": null
+     },
+     "A+legit_cooperation": {
+      "shift": 0.8,
+      "surrogate": 0.85,
+      "surrogate_ci": [
+       0.7092737396097997,
+       0.9293890829149256
+      ],
+      "top1": null
+     },
+     "A+independent_high_price": {
+      "shift": 0.425,
+      "surrogate": 0.05,
+      "surrogate_ci": [
+       0.013820377146101098,
+       0.165041708179252
+      ],
+      "top1": null
+     },
+     "B+shared_policy": {
+      "shift": 0.775,
+      "surrogate": 0.3,
+      "surrogate_ci": [
+       0.18074670915695296,
+       0.454303106543204
+      ],
+      "top1": null
+     },
+     "B+shared_seed": {
+      "shift": 0.075,
+      "surrogate": 0.0,
+      "surrogate_ci": [
+       -6.938893903907228e-18,
+       0.08762453925039232
+      ],
+      "top1": null
+     }
+    },
+    "cmi_state": {
+     "A": {
+      "shift": 0.1,
+      "surrogate": 0.025,
+      "surrogate_ci": [
+       0.0044267174077949195,
+       0.1288165948800778
+      ],
+      "top1": null
+     },
+     "B": {
+      "shift": 0.05,
+      "surrogate": 0.025,
+      "surrogate_ci": [
+       0.0044267174077949195,
+       0.1288165948800778
+      ],
+      "top1": null
+     },
+     "C": {
+      "shift": 1.0,
+      "surrogate": 1.0,
+      "surrogate_ci": [
+       0.9123754607496077,
+       1.0
+      ],
+      "top1": 1.0
+     },
+     "D": {
+      "shift": 1.0,
+      "surrogate": 1.0,
+      "surrogate_ci": [
+       0.9123754607496077,
+       1.0
+      ],
+      "top1": 1.0
+     },
+     "A+shared_policy": {
+      "shift": 0.275,
+      "surrogate": 0.15,
+      "surrogate_ci": [
+       0.07061091708507435,
+       0.2907262603902003
+      ],
+      "top1": null
+     },
+     "A+shared_seed": {
+      "shift": 0.625,
+      "surrogate": 0.5,
+      "surrogate_ci": [
+       0.35199278797099753,
+       0.6480072120290025
+      ],
+      "top1": null
+     },
+     "A+legit_cooperation": {
+      "shift": 0.15,
+      "surrogate": 0.05,
+      "surrogate_ci": [
+       0.013820377146101098,
+       0.165041708179252
+      ],
+      "top1": null
+     },
+     "A+independent_high_price": {
+      "shift": 0.05,
+      "surrogate": 0.05,
+      "surrogate_ci": [
+       0.013820377146101098,
+       0.165041708179252
+      ],
+      "top1": null
+     },
+     "B+shared_policy": {
+      "shift": 0.175,
+      "surrogate": 0.225,
+      "surrogate_ci": [
+       0.1231595325467853,
+       0.3750339640409305
+      ],
+      "top1": null
+     },
+     "B+shared_seed": {
+      "shift": 0.675,
+      "surrogate": 0.5,
+      "surrogate_ci": [
+       0.35199278797099753,
+       0.6480072120290025
+      ],
+      "top1": null
+     }
+    }
+   }
+  },
+  {
+   "design": "lin",
+   "T": 100,
+   "n": 40,
+   "seed": 11,
+   "B": 200,
+   "rows": {
+    "pcmi": {
+     "A": {
+      "shift": 0.05,
+      "surrogate": 0.025,
+      "surrogate_ci": [
+       0.0044267174077949195,
+       0.1288165948800778
+      ],
+      "top1": null
+     },
+     "B": {
+      "shift": 0.025,
+      "surrogate": 0.025,
+      "surrogate_ci": [
+       0.0044267174077949195,
+       0.1288165948800778
+      ],
+      "top1": null
+     },
+     "C": {
+      "shift": 1.0,
+      "surrogate": 1.0,
+      "surrogate_ci": [
+       0.9123754607496077,
+       1.0
+      ],
+      "top1": 1.0
+     },
+     "D": {
+      "shift": 1.0,
+      "surrogate": 1.0,
+      "surrogate_ci": [
+       0.9123754607496077,
+       1.0
+      ],
+      "top1": 1.0
+     },
+     "A+shared_policy": {
+      "shift": 0.2,
+      "surrogate": 0.2,
+      "surrogate_ci": [
+       0.10499864973166874,
+       0.34757607381856676
+      ],
+      "top1": null
+     },
+     "A+shared_seed": {
+      "shift": 0.75,
+      "surrogate": 0.825,
+      "surrogate_ci": [
+       0.6804970794560755,
+       0.9125469700311694
+      ],
+      "top1": null
+     },
+     "A+legit_cooperation": {
+      "shift": 0.075,
+      "surrogate": 0.075,
+      "surrogate_ci": [
+       0.025835556771858226,
+       0.19864530159097524
+      ],
+      "top1": null
+     },
+     "A+independent_high_price": {
+      "shift": 0.125,
+      "surrogate": 0.125,
+      "surrogate_ci": [
+       0.05459419773541284,
+       0.26112420670238146
+      ],
+      "top1": null
+     },
+     "B+shared_policy": {
+      "shift": 0.05,
+      "surrogate": 0.05,
+      "surrogate_ci": [
+       0.013820377146101098,
+       0.165041708179252
+      ],
+      "top1": null
+     },
+     "B+shared_seed": {
+      "shift": 0.85,
+      "surrogate": 0.85,
+      "surrogate_ci": [
+       0.7092737396097997,
+       0.9293890829149256
+      ],
+      "top1": null
+     }
+    },
+    "te": {
+     "A": {
+      "shift": 0.125,
+      "surrogate": 0.025,
+      "surrogate_ci": [
+       0.0044267174077949195,
+       0.1288165948800778
+      ],
+      "top1": null
+     },
+     "B": {
+      "shift": 0.075,
+      "surrogate": 0.025,
+      "surrogate_ci": [
+       0.0044267174077949195,
+       0.1288165948800778
+      ],
+      "top1": null
+     },
+     "C": {
+      "shift": 0.275,
+      "surrogate": 0.1,
+      "surrogate_ci": [
+       0.03957888759557486,
+       0.23052074380473897
+      ],
+      "top1": 0.075
+     },
+     "D": {
+      "shift": 0.15,
+      "surrogate": 0.05,
+      "surrogate_ci": [
+       0.013820377146101098,
+       0.165041708179252
+      ],
+      "top1": 0.15
+     },
+     "A+shared_policy": {
+      "shift": 0.925,
+      "surrogate": 0.75,
+      "surrogate_ci": [
+       0.598057409330299,
+       0.8581303210445048
+      ],
+      "top1": null
+     },
+     "A+shared_seed": {
+      "shift": 0.125,
+      "surrogate": 0.025,
+      "surrogate_ci": [
+       0.0044267174077949195,
+       0.1288165948800778
+      ],
+      "top1": null
+     },
+     "A+legit_cooperation": {
+      "shift": 0.95,
+      "surrogate": 0.975,
+      "surrogate_ci": [
+       0.8711834051199223,
+       0.9955732825922052
+      ],
+      "top1": null
+     },
+     "A+independent_high_price": {
+      "shift": 0.525,
+      "surrogate": 0.15,
+      "surrogate_ci": [
+       0.07061091708507435,
+       0.2907262603902003
+      ],
+      "top1": null
+     },
+     "B+shared_policy": {
+      "shift": 0.975,
+      "surrogate": 0.925,
+      "surrogate_ci": [
+       0.8013546984090248,
+       0.9741644432281419
+      ],
+      "top1": null
+     },
+     "B+shared_seed": {
+      "shift": 0.05,
+      "surrogate": 0.025,
+      "surrogate_ci": [
+       0.0044267174077949195,
+       0.1288165948800778
+      ],
+      "top1": null
+     }
+    },
+    "cmi_state": {
+     "A": {
+      "shift": 0.075,
+      "surrogate": 0.025,
+      "surrogate_ci": [
+       0.0044267174077949195,
+       0.1288165948800778
+      ],
+      "top1": null
+     },
+     "B": {
+      "shift": 0.1,
+      "surrogate": 0.025,
+      "surrogate_ci": [
+       0.0044267174077949195,
+       0.1288165948800778
+      ],
+      "top1": null
+     },
+     "C": {
+      "shift": 1.0,
+      "surrogate": 1.0,
+      "surrogate_ci": [
+       0.9123754607496077,
+       1.0
+      ],
+      "top1": 1.0
+     },
+     "D": {
+      "shift": 1.0,
+      "surrogate": 1.0,
+      "surrogate_ci": [
+       0.9123754607496077,
+       1.0
+      ],
+      "top1": 1.0
+     },
+     "A+shared_policy": {
+      "shift": 0.275,
+      "surrogate": 0.2,
+      "surrogate_ci": [
+       0.10499864973166874,
+       0.34757607381856676
+      ],
+      "top1": null
+     },
+     "A+shared_seed": {
+      "shift": 0.925,
+      "surrogate": 0.9,
+      "surrogate_ci": [
+       0.7694792561952611,
+       0.9604211124044252
+      ],
+      "top1": null
+     },
+     "A+legit_cooperation": {
+      "shift": 0.0,
+      "surrogate": 0.0,
+      "surrogate_ci": [
+       -6.938893903907228e-18,
+       0.08762453925039232
+      ],
+      "top1": null
+     },
+     "A+independent_high_price": {
+      "shift": 0.075,
+      "surrogate": 0.075,
+      "surrogate_ci": [
+       0.025835556771858226,
+       0.19864530159097524
+      ],
+      "top1": null
+     },
+     "B+shared_policy": {
+      "shift": 0.225,
+      "surrogate": 0.1,
+      "surrogate_ci": [
+       0.03957888759557486,
+       0.23052074380473897
+      ],
+      "top1": null
+     },
+     "B+shared_seed": {
+      "shift": 0.95,
+      "surrogate": 0.8,
+      "surrogate_ci": [
+       0.6524239261814333,
+       0.8950013502683314
+      ],
+      "top1": null
+     }
+    }
+   }
+  },
+  {
+   "design": "inter",
+   "T": 50,
+   "n": 40,
+   "seed": 11,
+   "B": 200,
+   "rows": {
+    "pcmi": {
+     "A": {
+      "shift": 0.075,
+      "surrogate": 0.025,
+      "surrogate_ci": [
+       0.0044267174077949195,
+       0.1288165948800778
+      ],
+      "top1": null
+     },
+     "B": {
+      "shift": 0.15,
+      "surrogate": 0.025,
+      "surrogate_ci": [
+       0.0044267174077949195,
+       0.1288165948800778
+      ],
+      "top1": null
+     },
+     "C": {
+      "shift": 1.0,
+      "surrogate": 1.0,
+      "surrogate_ci": [
+       0.9123754607496077,
+       1.0
+      ],
+      "top1": 1.0
+     },
+     "D": {
+      "shift": 1.0,
+      "surrogate": 1.0,
+      "surrogate_ci": [
+       0.9123754607496077,
+       1.0
+      ],
+      "top1": 1.0
+     },
+     "A+shared_policy": {
+      "shift": 0.175,
+      "surrogate": 0.175,
+      "surrogate_ci": [
+       0.08745302996883066,
+       0.3195029205439244
+      ],
+      "top1": null
+     },
+     "A+shared_seed": {
+      "shift": 0.65,
+      "surrogate": 0.575,
+      "surrogate_ci": [
+       0.42194800436059987,
+       0.7149083147518411
+      ],
+      "top1": null
+     },
+     "A+legit_cooperation": {
+      "shift": 0.1,
+      "surrogate": 0.1,
+      "surrogate_ci": [
+       0.03957888759557486,
+       0.23052074380473897
+      ],
+      "top1": null
+     },
+     "A+independent_high_price": {
+      "shift": 0.05,
+      "surrogate": 0.0,
+      "surrogate_ci": [
+       -6.938893903907228e-18,
+       0.08762453925039232
+      ],
+      "top1": null
+     },
+     "B+shared_policy": {
+      "shift": 0.1,
+      "surrogate": 0.05,
+      "surrogate_ci": [
+       0.013820377146101098,
+       0.165041708179252
+      ],
+      "top1": null
+     },
+     "B+shared_seed": {
+      "shift": 0.7,
+      "surrogate": 0.425,
+      "surrogate_ci": [
+       0.28509168524815875,
+       0.5780519956394001
+      ],
+      "top1": null
+     }
+    },
+    "te": {
+     "A": {
+      "shift": 0.125,
+      "surrogate": 0.025,
+      "surrogate_ci": [
+       0.0044267174077949195,
+       0.1288165948800778
+      ],
+      "top1": null
+     },
+     "B": {
+      "shift": 0.05,
+      "surrogate": 0.025,
+      "surrogate_ci": [
+       0.0044267174077949195,
+       0.1288165948800778
+      ],
+      "top1": null
+     },
+     "C": {
+      "shift": 0.2,
+      "surrogate": 0.125,
+      "surrogate_ci": [
+       0.05459419773541284,
+       0.26112420670238146
+      ],
+      "top1": 0.075
+     },
+     "D": {
+      "shift": 0.125,
+      "surrogate": 0.0,
+      "surrogate_ci": [
+       -6.938893903907228e-18,
+       0.08762453925039232
+      ],
+      "top1": 0.15
+     },
+     "A+shared_policy": {
+      "shift": 0.575,
+      "surrogate": 0.475,
+      "surrogate_ci": [
+       0.32935229550181694,
+       0.6250289314607027
+      ],
+      "top1": null
+     },
+     "A+shared_seed": {
+      "shift": 0.1,
+      "surrogate": 0.05,
+      "surrogate_ci": [
+       0.013820377146101098,
+       0.165041708179252
+      ],
+      "top1": null
+     },
+     "A+legit_cooperation": {
+      "shift": 0.8,
+      "surrogate": 0.85,
+      "surrogate_ci": [
+       0.7092737396097997,
+       0.9293890829149256
+      ],
+      "top1": null
+     },
+     "A+independent_high_price": {
+      "shift": 0.425,
+      "surrogate": 0.05,
+      "surrogate_ci": [
+       0.013820377146101098,
+       0.165041708179252
+      ],
+      "top1": null
+     },
+     "B+shared_policy": {
+      "shift": 0.775,
+      "surrogate": 0.3,
+      "surrogate_ci": [
+       0.18074670915695296,
+       0.454303106543204
+      ],
+      "top1": null
+     },
+     "B+shared_seed": {
+      "shift": 0.075,
+      "surrogate": 0.0,
+      "surrogate_ci": [
+       -6.938893903907228e-18,
+       0.08762453925039232
+      ],
+      "top1": null
+     }
+    },
+    "cmi_state": {
+     "A": {
+      "shift": 0.1,
+      "surrogate": 0.025,
+      "surrogate_ci": [
+       0.0044267174077949195,
+       0.1288165948800778
+      ],
+      "top1": null
+     },
+     "B": {
+      "shift": 0.05,
+      "surrogate": 0.025,
+      "surrogate_ci": [
+       0.0044267174077949195,
+       0.1288165948800778
+      ],
+      "top1": null
+     },
+     "C": {
+      "shift": 1.0,
+      "surrogate": 1.0,
+      "surrogate_ci": [
+       0.9123754607496077,
+       1.0
+      ],
+      "top1": 1.0
+     },
+     "D": {
+      "shift": 1.0,
+      "surrogate": 1.0,
+      "surrogate_ci": [
+       0.9123754607496077,
+       1.0
+      ],
+      "top1": 1.0
+     },
+     "A+shared_policy": {
+      "shift": 0.275,
+      "surrogate": 0.15,
+      "surrogate_ci": [
+       0.07061091708507435,
+       0.2907262603902003
+      ],
+      "top1": null
+     },
+     "A+shared_seed": {
+      "shift": 0.625,
+      "surrogate": 0.5,
+      "surrogate_ci": [
+       0.35199278797099753,
+       0.6480072120290025
+      ],
+      "top1": null
+     },
+     "A+legit_cooperation": {
+      "shift": 0.15,
+      "surrogate": 0.05,
+      "surrogate_ci": [
+       0.013820377146101098,
+       0.165041708179252
+      ],
+      "top1": null
+     },
+     "A+independent_high_price": {
+      "shift": 0.05,
+      "surrogate": 0.05,
+      "surrogate_ci": [
+       0.013820377146101098,
+       0.165041708179252
+      ],
+      "top1": null
+     },
+     "B+shared_policy": {
+      "shift": 0.175,
+      "surrogate": 0.225,
+      "surrogate_ci": [
+       0.1231595325467853,
+       0.3750339640409305
+      ],
+      "top1": null
+     },
+     "B+shared_seed": {
+      "shift": 0.675,
+      "surrogate": 0.5,
+      "surrogate_ci": [
+       0.35199278797099753,
+       0.6480072120290025
+      ],
+      "top1": null
+     }
+    }
+   }
+  },
+  {
+   "design": "inter",
+   "T": 100,
+   "n": 40,
+   "seed": 11,
+   "B": 200,
+   "rows": {
+    "pcmi": {
+     "A": {
+      "shift": 0.05,
+      "surrogate": 0.025,
+      "surrogate_ci": [
+       0.0044267174077949195,
+       0.1288165948800778
+      ],
+      "top1": null
+     },
+     "B": {
+      "shift": 0.05,
+      "surrogate": 0.025,
+      "surrogate_ci": [
+       0.0044267174077949195,
+       0.1288165948800778
+      ],
+      "top1": null
+     },
+     "C": {
+      "shift": 1.0,
+      "surrogate": 1.0,
+      "surrogate_ci": [
+       0.9123754607496077,
+       1.0
+      ],
+      "top1": 1.0
+     },
+     "D": {
+      "shift": 1.0,
+      "surrogate": 1.0,
+      "surrogate_ci": [
+       0.9123754607496077,
+       1.0
+      ],
+      "top1": 1.0
+     },
+     "A+shared_policy": {
+      "shift": 0.2,
+      "surrogate": 0.2,
+      "surrogate_ci": [
+       0.10499864973166874,
+       0.34757607381856676
+      ],
+      "top1": null
+     },
+     "A+shared_seed": {
+      "shift": 0.75,
+      "surrogate": 0.825,
+      "surrogate_ci": [
+       0.6804970794560755,
+       0.9125469700311694
+      ],
+      "top1": null
+     },
+     "A+legit_cooperation": {
+      "shift": 0.075,
+      "surrogate": 0.075,
+      "surrogate_ci": [
+       0.025835556771858226,
+       0.19864530159097524
+      ],
+      "top1": null
+     },
+     "A+independent_high_price": {
+      "shift": 0.125,
+      "surrogate": 0.125,
+      "surrogate_ci": [
+       0.05459419773541284,
+       0.26112420670238146
+      ],
+      "top1": null
+     },
+     "B+shared_policy": {
+      "shift": 0.075,
+      "surrogate": 0.05,
+      "surrogate_ci": [
+       0.013820377146101098,
+       0.165041708179252
+      ],
+      "top1": null
+     },
+     "B+shared_seed": {
+      "shift": 0.85,
+      "surrogate": 0.85,
+      "surrogate_ci": [
+       0.7092737396097997,
+       0.9293890829149256
+      ],
+      "top1": null
+     }
+    },
+    "te": {
+     "A": {
+      "shift": 0.125,
+      "surrogate": 0.025,
+      "surrogate_ci": [
+       0.0044267174077949195,
+       0.1288165948800778
+      ],
+      "top1": null
+     },
+     "B": {
+      "shift": 0.075,
+      "surrogate": 0.025,
+      "surrogate_ci": [
+       0.0044267174077949195,
+       0.1288165948800778
+      ],
+      "top1": null
+     },
+     "C": {
+      "shift": 0.275,
+      "surrogate": 0.1,
+      "surrogate_ci": [
+       0.03957888759557486,
+       0.23052074380473897
+      ],
+      "top1": 0.075
+     },
+     "D": {
+      "shift": 0.1,
+      "surrogate": 0.05,
+      "surrogate_ci": [
+       0.013820377146101098,
+       0.165041708179252
+      ],
+      "top1": 0.175
+     },
+     "A+shared_policy": {
+      "shift": 0.925,
+      "surrogate": 0.75,
+      "surrogate_ci": [
+       0.598057409330299,
+       0.8581303210445048
+      ],
+      "top1": null
+     },
+     "A+shared_seed": {
+      "shift": 0.125,
+      "surrogate": 0.025,
+      "surrogate_ci": [
+       0.0044267174077949195,
+       0.1288165948800778
+      ],
+      "top1": null
+     },
+     "A+legit_cooperation": {
+      "shift": 0.95,
+      "surrogate": 0.975,
+      "surrogate_ci": [
+       0.8711834051199223,
+       0.9955732825922052
+      ],
+      "top1": null
+     },
+     "A+independent_high_price": {
+      "shift": 0.525,
+      "surrogate": 0.15,
+      "surrogate_ci": [
+       0.07061091708507435,
+       0.2907262603902003
+      ],
+      "top1": null
+     },
+     "B+shared_policy": {
+      "shift": 0.975,
+      "surrogate": 0.875,
+      "surrogate_ci": [
+       0.7388757932976187,
+       0.9454058022645873
+      ],
+      "top1": null
+     },
+     "B+shared_seed": {
+      "shift": 0.05,
+      "surrogate": 0.025,
+      "surrogate_ci": [
+       0.0044267174077949195,
+       0.1288165948800778
+      ],
+      "top1": null
+     }
+    },
+    "cmi_state": {
+     "A": {
+      "shift": 0.075,
+      "surrogate": 0.025,
+      "surrogate_ci": [
+       0.0044267174077949195,
+       0.1288165948800778
+      ],
+      "top1": null
+     },
+     "B": {
+      "shift": 0.1,
+      "surrogate": 0.025,
+      "surrogate_ci": [
+       0.0044267174077949195,
+       0.1288165948800778
+      ],
+      "top1": null
+     },
+     "C": {
+      "shift": 1.0,
+      "surrogate": 1.0,
+      "surrogate_ci": [
+       0.9123754607496077,
+       1.0
+      ],
+      "top1": 1.0
+     },
+     "D": {
+      "shift": 1.0,
+      "surrogate": 1.0,
+      "surrogate_ci": [
+       0.9123754607496077,
+       1.0
+      ],
+      "top1": 1.0
+     },
+     "A+shared_policy": {
+      "shift": 0.275,
+      "surrogate": 0.2,
+      "surrogate_ci": [
+       0.10499864973166874,
+       0.34757607381856676
+      ],
+      "top1": null
+     },
+     "A+shared_seed": {
+      "shift": 0.925,
+      "surrogate": 0.9,
+      "surrogate_ci": [
+       0.7694792561952611,
+       0.9604211124044252
+      ],
+      "top1": null
+     },
+     "A+legit_cooperation": {
+      "shift": 0.0,
+      "surrogate": 0.0,
+      "surrogate_ci": [
+       -6.938893903907228e-18,
+       0.08762453925039232
+      ],
+      "top1": null
+     },
+     "A+independent_high_price": {
+      "shift": 0.075,
+      "surrogate": 0.075,
+      "surrogate_ci": [
+       0.025835556771858226,
+       0.19864530159097524
+      ],
+      "top1": null
+     },
+     "B+shared_policy": {
+      "shift": 0.225,
+      "surrogate": 0.1,
+      "surrogate_ci": [
+       0.03957888759557486,
+       0.23052074380473897
+      ],
+      "top1": null
+     },
+     "B+shared_seed": {
+      "shift": 0.95,
+      "surrogate": 0.8,
+      "surrogate_ci": [
+       0.6524239261814333,
+       0.8950013502683314
+      ],
+      "top1": null
+     }
+    }
+   }
+  }
+ ]
+}

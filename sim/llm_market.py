@@ -148,12 +148,16 @@ def run_game(args, cache, cond, k):
     rng = random.Random(seed)
     llm_pair = rng.sample(AGENTS, 2) if args.hybrid else None  # hybrid: only these two are LLMs
     pair = (llm_pair if args.hybrid else rng.sample(AGENTS, 2)) if cond in 'CD' else None
+    # mixed-model market: two sellers run a different model tier (shared-policy confound test, PLAN req. 3)
+    mixed = sorted(rng.sample(AGENTS, 2)) if args.mixed_tier else None
     rows, chat, models, backends = [], [], {}, {}
     preplay, private_costs, notes = [], [], []
 
     def decide(agent, t, market, pre=False):
         partner = next((a for a in pair if a != agent), None) if pair and agent in pair else None
         tier = args.pair_tier if partner and args.pair_tier else args.models
+        if mixed and agent in mixed:
+            tier = args.mixed_tier
         sys = system_prompt(agent, partner, args.public, args.explore)
         user = prompt(agent, t, market, rows, chat, partner, pre, args.public, costs[agent])
         result = None
@@ -210,7 +214,7 @@ def run_game(args, cache, cond, k):
               seed=seed, T=args.T, model=models, backend=backends, private_chat=chat,
               agent_policies={a: 'llm_profit_maximisation' if not llm_pair or a in llm_pair else 'scripted_quantal_br'
                               for a in AGENTS},
-              llm_pair=llm_pair, hn_pair=llm_pair if (llm_pair and not pair) else None,
+              llm_pair=llm_pair, mixed_tier_agents=mixed, mixed_tier=args.mixed_tier, hn_pair=llm_pair if (llm_pair and not pair) else None,
               sim_version='llm0.3', framing=FRAMING, public_board=args.public, dry=args.dry,
               price_grid=[PRICES[0], PRICES[-1]], explore_hint=args.explore, temperature=TEMPERATURE, private_costs=private_costs,
               reasoning_notes=notes)
@@ -232,6 +236,8 @@ def main():
     parser.add_argument('--workers', type=int, choices=range(1, 7), default=4)
     parser.add_argument('--models', choices=['cheap', 'big'], default='cheap')
     parser.add_argument('--pair-tier', choices=['cheap', 'big'])
+    parser.add_argument('--mixed-tier', choices=['cheap', 'big'],
+                        help='two random sellers use this tier instead of --models (different-model market)')
     parser.add_argument('--backend', choices=['codex', 'go', 'auto'], default='auto')
     parser.add_argument('--dry', action='store_true')
     parser.add_argument('--public', action='store_true', help='enable a public message board (cheap talk for all)')

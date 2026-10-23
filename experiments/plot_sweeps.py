@@ -36,11 +36,7 @@ def main(path=ROOT / "results/sweeps/power.json"):
         print("wrote", fname)
 
 
-if __name__ == "__main__":
-    main()
-
-
-def hard_negatives(name="gate_v2"):
+def hard_negatives(name="gate_test"):
     """Bar chart of run-level flag rate per condition / hard negative for each detector."""
     import numpy as np
     m = json.load(open(ROOT / "results/eval" / f"{name}.json"))["metrics"]
@@ -49,22 +45,27 @@ def hard_negatives(name="gate_v2"):
     labels = ["A indep.", "B common shock", "indep. high-price", "leader-follower", "shared policy\n(indep. noise)",
               "shared policy\n+ common shock", "shared policy\n+ shared seed", "shared seed\n+ common shock",
               "C collusion", "D collusion\n+ common shock"]
-    fig, ax = plt.subplots(figsize=(15, 4.4))
+    fig, axes = plt.subplots(2, 1, figsize=(15, 8), sharex=True)
     w = 0.8 / len(DETS)
-    for k, (det, lab, col) in enumerate(DETS):
-        ys = [m[det][g]["flag_rate"] for g in groups]
-        lo = [ys[i] - m[det][g]["flag_ci"][0] for i, g in enumerate(groups)]
-        hi = [m[det][g]["flag_ci"][1] - ys[i] for i, g in enumerate(groups)]
-        ax.bar(np.arange(len(groups)) + (k - 2) * w, ys, w, yerr=[lo, hi], color=col, label=lab, capsize=2)
-    ax.axhline(0.05, color="k", lw=0.8, ls="--")
-    ax.axvline(7.5, color="k", lw=0.6)
-    ax.set_xticks(range(len(groups))); ax.set_xticklabels(labels, fontsize=8)
-    ax.set_ylabel("runs flagged at α=0.05"); ax.legend(fontsize=7, ncol=5, loc="upper left")
-    ax.set_title("Scripted market, held-out seed, T=100, strength 0.6 (n=%d runs/group, Wilson 95%% CI): left of line = no collusion" %
-                 m["pcmi"]["A"]["n"])
+    for ax, (pre, null) in zip(axes, [("", "within-run circular-shift null"),
+                                      ("surrogate_", "control-surrogate null (no-channel reference markets)")]):
+        for k, (det, lab, col) in enumerate(DETS):
+            ys = [m[det][g][pre + "flag_rate"] for g in groups]
+            lo = [ys[i] - m[det][g][pre + "flag_ci"][0] for i, g in enumerate(groups)]
+            hi = [m[det][g][pre + "flag_ci"][1] - ys[i] for i, g in enumerate(groups)]
+            ax.bar(np.arange(len(groups)) + (k - 2) * w, ys, w, yerr=[lo, hi], color=col, label=lab, capsize=2)
+        ax.axhline(0.05, color="k", lw=0.8, ls="--")
+        ax.axvline(7.5, color="k", lw=0.6)
+        ax.set_ylabel("runs flagged at α=0.05"); ax.set_title(null, fontsize=10)
+    axes[0].legend(fontsize=7, ncol=5, loc="upper left")
+    axes[1].set_xticks(range(len(groups))); axes[1].set_xticklabels(labels, fontsize=8)
+    fig.suptitle("Scripted market, locked test seed, T=100, strength 0.6 (n=%d runs/group, Wilson 95%% CI): "
+                 "left of line = no collusion" % m["pcmi"]["A"]["n"])
     fig.tight_layout(); fig.savefig(ROOT / "figures" / "hard_negatives.png", dpi=130); plt.close(fig)
     print("wrote hard_negatives.png")
 
 
 if __name__ == "__main__":
-    hard_negatives()
+    import sys
+    main(sys.argv[1] if len(sys.argv) > 1 else ROOT / "results/sweeps/power.json")
+    hard_negatives(sys.argv[2] if len(sys.argv) > 2 else "gate_test")

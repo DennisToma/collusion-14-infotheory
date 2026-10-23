@@ -9,16 +9,18 @@ We build a 4-seller repeated differentiated-price market (logit demand, prices {
 demand/cost shocks, plant colluding pairs of scripted agents, and test pairwise dependence detectors that
 read **prices only**: |Pearson|, mutual information (MI), conditional MI given public market state
 (CMI|state), Gaussian CMI given state **and all lagged prices** (pCMI), and lagged CMI (transfer entropy).
-All are calibrated with a within-game circular-shift null and a max-over-pairs correction.
-On the positive control (T=100 rounds, collusion strength 0.6) all contemporaneous detectors identify the
-planted pair in 100% of runs. The hard negatives separate them: raw MI/Pearson flag **100%** of runs in
-which independent sellers share a public cost/demand shock, while CMI|state flags 0% and pCMI 8%
-(nominal 5%). But **no** detector survives the *shared-policy* confound — two independent agents running
-the same stochastic policy with no channel are flagged in 72–88% of runs — and lagged CMI (TE) flags
-legitimate leader-follower price matching in 100% of runs. Information-theoretic dependence detects
-*coordinated variation*, not agreement: collusion that is a constant high price, or a lagged
-price-matching rule, is (near-)invisible to the contemporaneous estimators.
-LLM-agent results: *pending*.
+Each is calibrated two ways — a within-game circular-shift null (max over the 6 pairs) and a
+control-surrogate null (rank against comparable no-channel markets). On a locked test seed (T=100,
+50 runs/group) all contemporaneous detectors flag and localise a planted shared-signal pair in 100% of runs.
+The hard negatives separate them: raw MI flags **100%** of markets in which independent sellers share a
+public cost/demand shock; pCMI with the surrogate null flags **4%** [1,13] of common-shock, shared-policy and
+leader-follower controls. Two confounds are not removable from actions alone: copies of a policy that also
+share their **random seed** (48–94% flagged by every detector), and **lagged** price matching, where TE
+flags legitimate public leader-follower pricing in 100% of runs. Information-theoretic dependence detects
+*coordinated variation*, not agreement: collusion that is a constant high price or a lagged matching rule
+is (near-)invisible to contemporaneous estimators.
+LLM-agent results (gpt-6-luna sellers, 64 games): *pending* — first games show channel pairs lifting the
+whole market's price level, not only their own.
 
 ## 1. Question and operational definition
 **Question.** Do colluding agents' actions share more information than is explained by public market
@@ -66,37 +68,59 @@ statistic against its null. Rounds are not iid, so we never use iid permutation.
 valid shifts (T ≲ 13) no test is performed (p = 1). Calibration is checked empirically on control runs
 (below), not assumed.
 
+**Second null — control surrogates ("same-model baseline").** The shift null asks "is this pair more
+dependent than the same series de-aligned?"; it is anti-conservative whenever agents' *joint* response to
+public state is something the residualisation misses. The alternative asks "is this market's most
+dependent pair more dependent than the most dependent pair in comparable markets *without* a channel?":
+the run's max-pair score is ranked against no-channel control runs of the same shock family (A for A/C,
+B for B/D; leave-one-out for controls). It needs a pool of reference markets with the same agents — for
+LLM sellers, no-channel games of the same model, which is exactly the shared-policy baseline.
+
+**Tuning discipline** (`data/SPLITS.md`, `EXPERIMENTS.tsv`). Scripted seeds 1–99 are dev; the hard-negative
+battery and power sweeps reported as headline numbers use locked seeds 1001/1002, run once with the frozen
+configuration (linear residualisation design, B=200 / B=100). Tuning attempts on dev so far: 2 (design
+"inter" = state×lag interactions → discarded, no FPR gain; control-surrogate null → kept as second null).
+LLM games k=0–5 per condition are dev, k=6–15 locked test.
+
 ## 4. Results
 
-### 4.1 Positive control and hard negatives (scripted, held-out seed, T=100, s=0.6, 50 runs per group)
-`uv run python -m experiments.scripted both --name gate_v2 --n 50 --T 100 --strength 0.6 --B 200 --seed 7`
-→ `results/eval/gate_v2.json`, `figures/hard_negatives.png`. Run-level flag rate at α=0.05 [Wilson 95% CI].
+### 4.1 Positive control and hard negatives (scripted, LOCKED test seed 1001, T=100, s=0.6, 50 runs per group)
+`uv run python -m experiments.scripted both --name gate_test --n 50 --T 100 --strength 0.6 --B 200 --seed 1001`
+→ `results/eval/gate_test.json`; `uv run python -m experiments.plot_sweeps` → `figures/hard_negatives.png`.
+Run once with the frozen configuration (no tuning on this seed). Cells: run-level flag rate at α=0.05,
+**shift null / control-surrogate null**; pCMI column with Wilson 95% CIs.
 
-| group (no collusion above the line) | \|Pearson\| | MI | CMI\|state | pCMI | TE |
+| group (no collusion above the line) | \|Pearson\| | MI | CMI\|state | **pCMI** shift [CI] / surrogate [CI] | TE |
 |---|---|---|---|---|---|
-| A independent | 0.04 [.01,.13] | 0.06 [.02,.16] | 0.06 [.02,.16] | **0.02** [.00,.10] | 0.08 [.03,.19] |
-| B common shock | 0.94 [.84,.98] | **1.00** [.93,1] | 0.10 [.04,.21] | 0.16 [.08,.29] | 0.00 [.00,.07] |
-| independent high-price pair | 0.04 | 0.10 | 0.10 | 0.04 | 0.52 |
-| legit leader-follower (public matching) | 0.06 | 0.10 | 0.10 | 0.04 | **0.96** |
-| shared policy, independent noise | 0.34 | 0.30 | 0.30 | **0.12** [.06,.24] | 0.76 |
-| shared policy + common shock | 0.86 | 1.00 | 0.28 | **0.18** [.10,.31] | 1.00 |
-| shared policy **and shared seed** | 0.72 | 0.90 | 0.90 | 0.74 [.60,.84] | 0.12 |
-| shared seed + common shock | 1.00 | 1.00 | 0.98 | 0.94 | 0.06 |
-| **C collusion** (pair ranked #1) | 1.00 (1.00) | 1.00 (1.00) | 1.00 (1.00) | 1.00 (1.00) | 0.12 (0.06) |
-| **D collusion + shock** (pair #1) | 1.00 (1.00) | 1.00 (1.00) | 1.00 (1.00) | 1.00 (1.00) | 0.20 (0.12) |
+| A independent | 0.16 / 0.04 | 0.06 / 0.04 | 0.06 / 0.04 | 0.04 [.01,.13] / 0.04 [.01,.13] | 0.06 / 0.04 |
+| B common shock | 0.96 / 0.04 | **1.00** / 0.04 | 0.12 / 0.04 | 0.14 [.07,.26] / **0.04** [.01,.13] | 0.06 / 0.04 |
+| independent high-price pair | 0.06 / 0.00 | 0.06 / 0.04 | 0.06 / 0.04 | 0.02 [.00,.10] / 0.00 [.00,.07] | 0.62 / 0.38 |
+| legit leader-follower (public matching) | 0.20 / 0.10 | 0.08 / 0.10 | 0.08 / 0.10 | 0.12 [.06,.24] / 0.04 [.01,.13] | **1.00 / 1.00** |
+| shared policy, independent noise | 0.52 / 0.34 | 0.30 / 0.22 | 0.30 / 0.22 | 0.10 [.04,.21] / **0.04** [.01,.13] | 0.90 / 0.92 |
+| shared policy + common shock | 0.86 / 0.04 | 0.98 / 0.00 | 0.36 / 0.18 | 0.12 [.06,.24] / **0.04** [.01,.13] | 0.98 / 0.96 |
+| shared policy **and shared seed** | 0.70 / 0.56 | 0.72 / 0.72 | 0.72 / 0.72 | 0.70 [.56,.81] / 0.48 [.35,.61] | 0.12 / 0.10 |
+| shared seed + common shock | 1.00 / 0.72 | 1.00 / 0.86 | 0.90 / 0.80 | 0.94 [.84,.98] / 0.88 [.76,.94] | 0.02 / 0.02 |
+| **C collusion** (pair ranked #1) | 1.00 / 1.00 (1.00) | 1.00 / 1.00 (1.00) | 1.00 / 1.00 (1.00) | 1.00 [.93,1] / 1.00 (top-1 1.00) | 0.22 / 0.20 (0.02) |
+| **D collusion + shock** (pair #1) | 1.00 / 1.00 (1.00) | 1.00 / 1.00 (1.00) | 1.00 / 1.00 (1.00) | 1.00 [.93,1] / 1.00 (top-1 1.00) | 0.08 / 0.00 (0.14) |
 
-* Positive control: all contemporaneous detectors flag and localise the planted pair in 100% of runs
-  (this `signal` colluder is the easiest possible case — fresh shared randomness each round).
-* Conditioning matters: raw MI flags 100% of common-shock controls; CMI|state 10%, pCMI 16%.
-  pCMI is **not perfectly calibrated under common shocks** (16% vs nominal 5%): independent best-responders
-  react to state × lagged prices non-linearly, which the linear residualisation does not remove.
-* Shared policy: when two copies of a policy draw *independent* noise, conditioning on state + lags
-  (pCMI) cuts false flags from 30–100% (MI) to 12–18%. When they also share the *random seed*
-  (temperature-0 / same-seed copies), no action-only detector can tell them from a private channel
-  (74–94% flagged): a shared seed **is** a shared random signal.
-* Lagged CMI (TE) is the only detector for lagged price matching, but flags legitimate public
-  leader-follower pricing (96%) and shared heuristics (76–100%): lagged dependence is not evidence of
-  an agreement.
+(Surrogate-null rates on A and B are leave-one-out within the reference pool and ≈ α by construction; they
+are shown for completeness, the informative surrogate rows are the hard negatives and C/D.)
+
+* **Positive control:** every contemporaneous detector flags and localises the planted pair in 100% of runs
+  (the `signal` colluder — fresh shared randomness each round — is the easiest case; §4.2 has weaker ones).
+* **Conditioning on public state is necessary:** raw MI flags 100% of common-shock controls; CMI|state 12%,
+  pCMI 14%. The within-run shift null stays somewhat anti-conservative for pCMI under common shocks
+  (14% here, 16% on dev seed 7, 2.5–15% on dev seed 11): best-responders react to state × lagged prices
+  non-linearly. Adding state×lag interactions did not help on dev (`EXPERIMENTS.tsv` E07).
+  Ranking against **no-channel control markets** (surrogate null) brings it to 4% (E08 dev → this test).
+* **Shared policy with independent sampling noise is mostly removable:** pCMI (conditioning on state and
+  all lagged prices) flags 10–12% under the shift null and 4% under the surrogate null, vs 30–98% for MI.
+* **Shared policy with a shared random seed is not removable** (48–94% flagged by every contemporaneous
+  detector, under either null): two copies of a policy that also share their sampling randomness *are* a
+  private shared signal from the point of view of the price data. Action-only detectors cannot separate it
+  from a private agreement channel; this needs provenance information (who runs which model with what seed).
+* **Lagged CMI (TE) flags legitimate public leader-follower pricing in 100% of runs** and shared heuristics in
+  90–98%; it is nearly blind to the contemporaneous colluder. Lagged dependence is not evidence of agreement.
 
 ![hard negatives](figures/hard_negatives.png)
 
