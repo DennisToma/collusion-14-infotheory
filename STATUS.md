@@ -1,4 +1,4 @@
-# STATUS (updated 2026-10-24 23:45 UTC, Phase 2 iteration 42; follows DIRECTION 22:05)
+# STATUS (updated 2026-10-24 23:39 UTC, Phase 2 iteration 43; follows DIRECTION 22:05)
 
 **E70 follow-up LANDED (FOLLOWUP_EXIT=0, 23:32, run once by e70_post.sh; 0 fallback games).** Factor model, predicted +: C − A luna +0.88, qwen +1.96 (12 + 12 per level); effect **+1.07 [−0.20, +2.41]: NOT CONFIRMED** (`results/eval/e70_followup.json`). Pre-commit (d) applied: no factor main effect is resolved, so E70's M/cost effects stay descriptive. It has the right sign and is underpowered, so this is not evidence of no effect.
 **REPORT updated (wording only):** merge-block header + "do not quote" line, status line, glance E1 row, P2.14 result paragraph, abstract clause (259 words, compensating cuts), slides.py → PRESENTATION. p2_tables PASS (463), tables PASS (404). README had no follow-up mention.
@@ -458,3 +458,5 @@ Verification: direct assertions against long_power_llm_long_p2_T60.json, claims_
 ## 2026-10-24 20:12 UTC — iteration 31: pending-result handoff
 
 Completion metadata only: D2 25/30 (nocomms seed 12 active); E70 c00–01 10 games, c02–10 8, c11–15 6 (three balanced sweeps complete). Existing generation/chain/post/prelabel processes alive; no e70_final.log, no result to land. Per DIRECTION 20:00, no new experiment, outcome inspection, review, tooling, audit or polish pass; end early. REPORT P2.12 pending-status timestamp refreshed; next action remains D2 once at 30/30, then E70 on E70_EXIT=0. Serendipity HITS read: no promoted hit; S11/S14/S16 remain unpromoted, only the existing S14 ask/payment caution applies.
+
+**Iteration 43 (2026-10-24 23:39 UTC, `date -u`; fallback manager):** nothing new landed. Completed the permitted light consistency read of REPORT top + P2.14 against saved `results/eval/e70_followup.json`: complete 12+12 games per model level, 0 fallbacks, effect +1.07 [−0.20, +2.41], declared verdict not confirmed; abstract, merge block, glance and P2.14 agree. REPORT remains current; no prose correction needed. No experiments, analyses, audits or LLM calls run. Ending early under DIRECTION 22:05 STOP rule; next scheduled milestone is the Sun 07:30 top freeze. The prior iteration 42 header said 23:45, ahead of this VM clock.
