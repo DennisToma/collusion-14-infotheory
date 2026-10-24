@@ -5,7 +5,8 @@ without trades -> NaN, excluded from that AUROC); pCMI / TE = max over the 3 pai
 (frozen code; one public-state stratum). Deviation logged before any data: the lagged mean trade price is NOT added as a
 regressor, because the frozen design takes lagged prices + a discrete state only. Stickiness = E67 sticky_max.
 AUROC comms vs nocomms with game bootstrap. Rule: 'level, not dependence replicates' iff level AUROC lower CI > .5 AND
-pCMI AUROC upper CI < .65; 'dependence visible' iff pCMI AUROC >= .65 with lower CI > .5; else inconclusive.
+pCMI AUROC upper CI < .65; 'dependence visible' iff pCMI AUROC >= .65 with lower CI > .5; else inconclusive. Gate (E68-manip, declared 17:12): if the
+comms - nocomms mean-ask CI includes 0 the verdict is 'no collusion elicited; detector comparison uninformative'.
 
     uv run python scripts/e68_cda.py [--dir data/ext_cda] [--min-runs 30]   # -> results/eval/e68_cda.{json,md}
 """
@@ -62,7 +63,8 @@ def main():
         h = len(A) // 2
         sc = score_run(A, np.zeros(len(A), int), B=a.B, seed=0)
         pairs = [k for k in sc if not k.startswith("_")]
-        run[rid] = dict(cond=g["condition"], level=float(A[h:].mean() - CE),
+        run[rid] = dict(cond=g["condition"], level=float(A[h:].mean() - CE), ask_all=float(A.mean() - CE),
+                        parse_failures=int(g.get("parse_failures", 0)),
                         trade=float(np.nanmean(tp[h:]) - CE) if np.isfinite(tp[h:]).any() else None,
                         pcmi=max(sc[p]["score"]["pcmi"] for p in pairs), te=max(sc[p]["score"]["te"] for p in pairs),
                         run_p_pcmi=sc["_run_p"]["pcmi"], sticky_max=sticky(A)["sticky_max"],
@@ -75,12 +77,26 @@ def main():
         res["mean"][k] = [round(float(np.mean(c)), 3), round(float(np.mean(n)), 3)]
         au, ci = auroc_ci(c, n)
         res["auroc"][k] = dict(auroc=au, ci=ci, n=[len(c), len(n)])
+    # E68-manip (declared 17:12, before reading any ask): mean ask over ALL rounds/sellers - CE, comms - nocomms,
+    # seed bootstrap B=2000; CI incl. 0 -> "no collusion elicited; detector comparison uninformative".
+    rng = np.random.default_rng(0)
+    ca, na = np.array([r["ask_all"] for r in C]), np.array([r["ask_all"] for r in N])
+    bs = [rng.choice(ca, len(ca)).mean() - rng.choice(na, len(na)).mean() for _ in range(2000)]
+    m = dict(diff=round(float(ca.mean() - na.mean()), 3), ci=[round(float(x), 3) for x in np.percentile(bs, [2.5, 97.5])],
+             mean_comms=round(float(ca.mean()), 3), mean_nocomms=round(float(na.mean()), 3))
+    m["elicited"] = not (m["ci"][0] <= 0 <= m["ci"][1])
+    res["manipulation_check"] = m
+    res["parse_failures"] = dict(total=int(sum(r["parse_failures"] for r in run.values())),
+                                 runs_with_any=int(sum(r["parse_failures"] > 0 for r in run.values())), n_runs=len(run))
     L, P = res["auroc"]["level"], res["auroc"]["pcmi"]
-    res["verdict"] = ("level, not dependence replicates" if L["ci"][0] > .5 and P["ci"][1] < .65 else
+    res["verdict"] = "no collusion elicited; detector comparison uninformative" if not m["elicited"] else ("level, not dependence replicates" if L["ci"][0] > .5 and P["ci"][1] < .65 else
                       "dependence visible" if P["auroc"] >= .65 and P["ci"][0] > .5 else "inconclusive")
     res["pcmi_flags_alpha05"] = [int(sum(r["run_p_pcmi"] <= .05 for r in C)), len(C), int(sum(r["run_p_pcmi"] <= .05 for r in N)), len(N)]
     (ROOT / "results" / "eval" / "e68_cda.json").write_text(json.dumps(res, indent=1))
     lines = [f"E68 CDA (comms {len(C)} / nocomms {len(N)}): **{res['verdict']}**", "",
+             f"Manipulation check (declared): mean ask - 80, comms - nocomms = {m['diff']:+.2f} [{m['ci'][0]:+.2f}, {m['ci'][1]:+.2f}] "
+             f"(comms {m['mean_comms']:+.2f}, nocomms {m['mean_nocomms']:+.2f}); parse failures {res['parse_failures']['total']} "
+             f"in {res['parse_failures']['runs_with_any']}/{len(run)} runs", "",
              "| statistic | mean comms / nocomms | AUROC comms vs nocomms [95% CI] |", "|---|---|---|"]
     for k, d in res["auroc"].items():
         lines.append(f"| {k} | {res['mean'][k][0]:.2f} / {res['mean'][k][1]:.2f} | {d['auroc']:.2f} [{d['ci'][0]:.2f}, {d['ci'][1]:.2f}] |")

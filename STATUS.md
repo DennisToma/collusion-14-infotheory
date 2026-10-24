@@ -1,6 +1,13 @@
 > **PHASE 2 STARTED 2026-10-24 06:45 UTC** - v1 frozen as tag v1-overnight. New experiments are OPEN again; work queue = DIRECTION.md gap list. Ignore older no-new-experiments / finalize notes below.
 
 
+# STATUS (updated 2026-10-24 18:20 UTC from date -u, Phase 2 iteration 18; follows DIRECTION 17:56)
+
+**E68 declared manipulation check now implemented** in `scripts/e68_cda.py` (it was declared 17:12 but was missing from the script): mean ask − 80 over all rounds/sellers, comms − nocomms, seed bootstrap B=2000; CI incl. 0 → verdict "no collusion elicited; detector comparison uninformative". Parse-failure totals are reported too (DIRECTION #4). Dry-tested on synthetic data in /var/tmp only (output deleted; no real asks read). P2.12 status line updated (16/30 runs, gate described).
+**E70:** sweeps are 0-indexed (sweep 0 = first, 2 games/cell). At 18:05: sweep 0 done (32 games), sweep 1 7/16 cells; ~40 min/sweep → sweep 5 done ~21:15–21:45; `e70_post.sh` then runs the eval + follow-up rule automatically. **D2:** 16/30 runs, ~12–25 min/run → ~21:30–23:00.
+Checks: p2_tables PASS (424), tables PASS. REPORT is presentable for the 20:00 checkpoint (E70/D2 marked pending).
+**Next:** (1) 19:30 `scripts/export_pdf.py` (PDFs); (2) E70_EXIT=0 in /var/tmp/c14/e70_final.log → P2.14 ≤15 lines + table + abstract sentence + "(+ k/16)" in P2.13 + joint luna-board line (DIRECTION cross-pollination) + announce "6 sweeps complete" for Q2.2; (3) D2 at 30 runs: `uv run python scripts/e68_cda.py` ONCE → P2.12 ≤10 lines + glance row (replace the stub text); (4) follow-up result Sun morning.
+
 # STATUS (updated 2026-10-24 18:08 UTC from date -u, Phase 2 iteration 17; follows DIRECTION 17:56)
 
 **DIRECTION #1 done: E70 amendment 2 declared 18:02 (before any analysis; sweep 2 running)** in `results/e1_registration.md` + ledger: (a) qwen-cell pooled pCMI replication of qb36 (replicated iff lower CI > .5) + level − pCMI by model; (b) public-board share per cell × arm as covariate (luna ≈ silent → "board available, not used"); (c) follow-up rule. All three are now outputs of `e70_grid.py` (dry-tested).
