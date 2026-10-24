@@ -576,6 +576,12 @@ uv run --group export python scripts/verify_release.py --recompute --export
 ```
 This uses a disposable copy under `/var/tmp` without gitignored caches. It checks all five external snapshots' SHA256 manifests and local document links, regenerates the later exploratory analyses (E30/E32/E35/E39), descriptive summaries, LLM result tables, figures and talk deck, and requires byte-identical outputs. It also compares the headers and 404 body cells of all 11 quantitative results tables with committed JSON/labels (`scripts/tables.py --check`); the narrative overview and pilot history are excluded. PDF exports must preserve headings/table cells, slide count and titles, with no slide overflow. Evidence, including input/output hashes, is saved to `results/release_audit.json`. This checks reproduction of the reported results; it does not validate the estimators or re-run the locked scripted experiments.
 
+To also regenerate the primary LLM scores, prefix analyses and confidence intervals from saved trajectories and labels, run the slower full check:
+```
+uv run --group export python scripts/verify_release.py --core-eval --recompute --export
+```
+`--core-eval` runs the frozen `llm_v1`, `llm_long`, `llm_mixed2` and external `llm_v3` evaluators, followed by the existing trend and incremental-value diagnostics, before the checks above. All seven additional JSON/Markdown outputs must match their saved bytes. It uses the original settings and saved agreement labels; it does not regenerate games, re-judge chats or tune detectors.
+
 Individual commands:
 ```
 uv run python -m experiments.scripted both --name gate_test --n 50 --T 100 --strength 0.6 --B 200 --seed 1001  # §4.1 (locked)

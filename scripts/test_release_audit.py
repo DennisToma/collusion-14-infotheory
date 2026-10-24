@@ -63,7 +63,7 @@ class ReleaseChecks(unittest.TestCase):
     def tearDown(self):
         self.tmp.cleanup()
 
-    def run_fixture(self):
+    def run_fixture(self, *, core_steps=None):
         def fake_git(*args):
             if args[0] == "rev-parse":
                 return "fixture-revision\n"
@@ -73,8 +73,10 @@ class ReleaseChecks(unittest.TestCase):
                 return "\0".join(str(p.relative_to(self.root)) for p in self.root.rglob("*") if p.is_file()) + "\0"
             raise AssertionError(args)
         steps = [(["render.py"], ["results/eval/value.json"])]
+        argv = ["verify_release.py"] + (["--core-eval"] if core_steps is not None else [])
         with patch.object(verify_release, "ROOT", self.root), patch.object(verify_release, "git", fake_git), \
-             patch.object(verify_release, "RENDER", steps), patch.object(sys, "argv", ["verify_release.py"]), \
+             patch.object(verify_release, "RENDER", steps), \
+             patch.object(verify_release, "CORE_EVAL", core_steps or []), patch.object(sys, "argv", argv), \
              contextlib.redirect_stdout(io.StringIO()):
             # Exercise the real command runner/snapshot/error handling, replacing only the
             # research table command with a small successful command for this fixture.
@@ -93,6 +95,7 @@ class ReleaseChecks(unittest.TestCase):
         self.assertTrue(evidence["passed"])
         self.assertEqual(evidence["static_checks"]["snapshot_checksums"], 5)
         self.assertFalse(evidence["static_checks"]["cache_present"])
+        self.assertFalse(evidence["core_eval"])
         self.assertEqual((self.root / "results/eval/value.json").read_text(), "original\n")
 
     def test_changed_output_fails_and_preserves_source(self):
@@ -122,6 +125,38 @@ class ReleaseChecks(unittest.TestCase):
         code, evidence = self.run_fixture()
         self.assertEqual(code, 1)
         self.assertIn("Checksum mismatch", evidence["error"])
+
+    def test_core_eval_runs_before_render_without_changing_saved_inputs(self):
+        # The renderer requires a marker created only by the evaluator. Both outputs
+        # must independently match the committed baseline; data stays unchanged.
+        (self.root / "data/labels.jsonl").write_text("saved labels\n")
+        (self.root / "results/eval/core.json").write_text("saved scores\n")
+        (self.root / "evaluate.py").write_text(
+            "from pathlib import Path\n"
+            "assert Path('data/labels.jsonl').read_text() == 'saved labels\\n'\n"
+            "Path('results/eval/core.json').write_text('saved scores\\n')\n"
+            "Path('evaluated').touch()\n")
+        self.script.write_text(
+            "from pathlib import Path\n"
+            "assert Path('evaluated').exists()\n"
+            "assert Path('results/eval/core.json').read_text() == 'saved scores\\n'\n"
+            "Path('results/eval/value.json').write_text('original\\n')\n")
+        code, evidence = self.run_fixture(core_steps=[(["evaluate.py"], ["results/eval/core.json"])])
+        self.assertEqual(code, 0)
+        self.assertTrue(evidence["core_eval"])
+        self.assertEqual([c["command"][1] for c in evidence["checks"][:2]], ["evaluate.py", "render.py"])
+        self.assertEqual((self.root / "data/labels.jsonl").read_text(), "saved labels\n")
+        self.assertFalse((self.root / "evaluated").exists(), "evaluation must run in the disposable copy")
+
+    def test_core_eval_mismatch_stops_before_render(self):
+        (self.root / "results/eval/core.json").write_text("saved scores\n")
+        (self.root / "evaluate.py").write_text(
+            "from pathlib import Path\nPath('results/eval/core.json').write_text('different scores\\n')\n")
+        code, evidence = self.run_fixture(core_steps=[(["evaluate.py"], ["results/eval/core.json"])])
+        self.assertEqual(code, 1)
+        self.assertEqual(len(evidence["checks"]), 1)
+        self.assertEqual(evidence["checks"][0]["byte_mismatches"], ["results/eval/core.json"])
+        self.assertEqual((self.root / "results/eval/core.json").read_text(), "saved scores\n")
 
 
 if __name__ == "__main__":

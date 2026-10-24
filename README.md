@@ -28,3 +28,5 @@ and judge labels are committed. `uv run python scripts/tables.py --report` repri
 Run `uv run --group export python scripts/verify_release.py --recompute --export` to check the later analyses, tables, figures,
 deck and PDF export in a disposable copy without LLM caches or a live sibling repo (export dependencies: REPORT §6).
 The check records input/output hashes and failures in `results/release_audit.json`.
+Add `--core-eval` to also regenerate the main LLM scores, prefix analyses, confidence intervals, mixed-model comparison and
+trend/incremental diagnostics from committed trajectories and labels; all seven additional outputs must match exactly.

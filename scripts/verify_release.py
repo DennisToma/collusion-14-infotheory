@@ -1,11 +1,15 @@
 """Audit the release in a disposable copy without caches, sibling repos, or LLM calls.
 
 uv run --group export python scripts/verify_release.py --recompute --export
+uv run --group export python scripts/verify_release.py --core-eval --recompute --export
 
 Always checks REPORT tables and snapshot checksums, then regenerates presentation/figures
 and LLM report tables. --recompute also re-runs E30/E32/E35/E39 and the small descriptive
 analyses from committed data. It never reruns the locked scripted experiments or LLM
-generation/judging. --export runs the PDF export's text/page/overflow checks.
+generation/judging. --core-eval additionally reruns the frozen main LLM evaluators
+(including their prefix/CI calculations), mixed-model comparison and trend/incremental
+diagnostics from saved trajectories and labels. This is slower than --recompute.
+--export runs the PDF export's text/page/overflow checks.
 All regenerated outputs except PDFs must match the source bytes exactly. The source
 worktree is untouched except for results/release_audit.json (including failure evidence).
 Uses the current Python environment; sync dependencies (plus the export group if needed)
@@ -28,6 +32,17 @@ import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+
+# Keep the original evaluation settings and order: these are verification reruns,
+# never generation, judging, tuning, or a new evaluation of the locked scripted seeds.
+CORE_EVAL = [
+    (["-m", "experiments.llm_eval", "eval", "--name", "llm_v1", "--B", "200"], ["results/eval/llm_v1.json"]),
+    (["-m", "experiments.llm_eval", "eval", "--name", "llm_long", "--B", "200"], ["results/eval/llm_long.json"]),
+    (["-m", "experiments.llm_eval", "mixed", "--name", "llm_mixed2", "--B", "200"], ["results/eval/llm_mixed2_mixed.json"]),
+    (["-m", "experiments.ext_llm_v3"], ["results/eval/llm_v3_ext.json", "results/eval/llm_v3_ext_report.md"]),
+    (["-m", "experiments.diag_llm_v1"], ["results/eval/llm_v1_diag.json"]),
+    (["-m", "experiments.diag_llm_v3"], ["results/eval/llm_v3_diag.json"]),
+]
 
 RECOMPUTE = [
     (["scripts/injection_mde.py"], ["results/eval/injection_mde.json"]),
@@ -100,15 +115,17 @@ def static_checks(dest):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--core-eval", action="store_true")
     ap.add_argument("--recompute", action="store_true")
     ap.add_argument("--export", action="store_true")
     args = ap.parse_args()
-    evidence = {"schema_version": 1, "started_utc": dt.datetime.now(dt.UTC).isoformat(),
+    evidence = {"schema_version": 2, "started_utc": dt.datetime.now(dt.UTC).isoformat(),
                 "source_revision": git("rev-parse", "HEAD").strip(),
                 "source_worktree_dirty": bool(git("status", "--porcelain").strip()),
                 "python_version": sys.version,
                 "packages": {p: importlib.metadata.version(p) for p in ["numpy", "scipy", "matplotlib", "scikit-learn"]},
-                "recompute": args.recompute, "export": args.export, "checks": [], "passed": False}
+                "core_eval": args.core_eval, "recompute": args.recompute, "export": args.export,
+                "checks": [], "passed": False}
     try:
         with tempfile.TemporaryDirectory(prefix="c14-release-", dir="/var/tmp") as td:
             dest = Path(td)
@@ -119,7 +136,7 @@ def main():
             env = {k: v for k, v in os.environ.items() if k not in {"PYTHONPATH", "PYTHONHOME"}}
             env["MPLCONFIGDIR"] = str(dest / ".mplconfig")
             env["PYTHONUNBUFFERED"] = "1"
-            steps = (RECOMPUTE if args.recompute else []) + RENDER + [(["scripts/tables.py", "--check"], [])]
+            steps = (CORE_EVAL if args.core_eval else []) + (RECOMPUTE if args.recompute else []) + RENDER + [(["scripts/tables.py", "--check"], [])]
             if args.export:
                 steps.append((["scripts/export_pdf.py"], ["REPORT.html"]))
             expected_outputs = {p: sha(dest / p) for _, outputs in steps for p in outputs}
