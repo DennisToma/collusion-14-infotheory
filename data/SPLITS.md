@@ -20,7 +20,7 @@ are the confirmatory set**; the k ≥ 6 subset is reported as a robustness check
 ## Phase 2 LLM datasets (declared 2026-10-24 06:33 UTC, before generation; E43–E45; amended 06:35 before any result)
 No detector setting is tuned on these datasets: all detectors use the frozen v1 configuration, so **every game is
 confirmatory** (no dev split needed). `llm_p2_<variant>` (seed 43, A/C, n=6, T=20 — amended from 8 before any result; variants v0/para/template/order/noreason),
-`llm_long_p2` (seed 50, A/C, n=20, T=60 — amended from 80 before any result), `llm_ds_p2` (deepseek-v4.1-flash via Go, thinking disabled, seed 10, A/C, n=15, T=20).
+`llm_long_p2` (seed 50, A/C, n=20, T=60 — amended from 80 before any result), `llm_ds_p2` (deepseek-v4.1-flash via Go, thinking disabled, seed 10, A/C, n=15, T=20). `llm_ds_p2pub` (E59: deepseek, condition A + public board, seed 10 = same seeds as `llm_ds_p2` A, n=15, T=20; confirmatory/exploratory, no tuning).
 If a later analysis needs tuning, it must use a new seed range declared here first.
 
 ## Phase 2 scripted gaps 5/6/8 (declared 2026-10-24 07:03 UTC, after dev runs, before any test run; E49–E51)

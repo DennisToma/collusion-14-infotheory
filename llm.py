@@ -110,7 +110,19 @@ def _claude(msgs, model, temperature, max_tokens):
     return r.stdout.strip(), m
 
 
-BACKENDS = {"keyed": _keyed, "go": _go, "codex": _codex, "claude": _claude}
+def _qwen(msgs, model, temperature, max_tokens):
+    # Abliterated Qwen3.8-27B on Modal (QWEN_BASE_URL / QWEN_API_KEY in ~/collusion/compute.env).
+    # Explicit-only (backend="qwen"), never a silent fallback. Cold start after idle: up to ~10 min.
+    # Budget-capped: read ~/collusion/QWEN_BUDGET.txt before launching batches.
+    env = _env()
+    m = model or "qwen-abliterated"
+    body = {"model": m, "messages": msgs, "temperature": temperature, "max_tokens": max_tokens,
+            "chat_template_kwargs": {"enable_thinking": False}}
+    url = env["QWEN_BASE_BASE_URL"] if m == "qwen-base" else env["QWEN_BASE_URL"]  # model="qwen-base" = C3 control
+    return _post(f"{url}/v1/chat/completions", env["QWEN_API_KEY"], body, timeout=900), m
+
+
+BACKENDS = {"keyed": _keyed, "go": _go, "codex": _codex, "claude": _claude, "qwen": _qwen}
 
 
 def chat(prompt, system=None, model=None, temperature=0.7, max_tokens=512, backend=None, retries=3,

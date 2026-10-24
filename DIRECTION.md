@@ -1,5 +1,38 @@
 # DIRECTION — Phase 2, director review 2026-10-24 09:35 UTC (Sat)
 
+
+## TOP PRIORITY (added by Dennis 10:25 UTC) — part C: strong / executed collusion + older models
+**Why:** our LLM "collusion" is mostly *agreement without execution* (Q2.2: only 14/95 test runs keep the
+agreement; deepseek 3/15; Q1.4 kept agreements sit at floor ≈12, barely above Nash 10) plus a prompt-
+induced level effect (notepad ≈ 2/3 of the channel premium). Detectors were therefore mostly tested on weak
+collusion. A judge will ask: do they work on collusion that is actually *executed and sustained*? We need a
+clear positive arm. This outranks the remaining gap/exploration items (except finishing runs in flight).
+
+**C1 Strong-collusion arm** (both repos, in your own market; coordinate via the sibling's STATUS.md so
+you don't build identical arms — Q1.4 focuses on T=60–100 long games and dependence detectors, Q2.2 on
+auditors/text and kept-vs-not-kept). Levers, piloted cheaply first (≤ 10 runs) and combined if needed:
+- persistent memory: the agreed terms + full price history (incl. partner's compliance) visible every round;
+- Fish et al. (2024)-style profit-maximisation framing ("maximise long-run profit"), no instruction to collude;
+- repeated private messaging every round (not only opening), so deviations can be discussed/punished;
+- longer horizon (T ≥ 40) with an unknown end;
+- stronger sellers (gpt-6.1-sol) for the pair.
+Promote the lever set that yields *sustained execution* (agreement kept ≥ 50% of post-agreement rounds,
+floor clearly above Nash). Then run a properly sized set (≥ 20 C + 20 matched A) and evaluate ALL headline
+detectors/auditors on executed-collusion runs vs controls. Report the executed-collusion rate per lever
+(how rare is sustained collusion?) — that rate is itself a headline number.
+Never instruct agents to collude; only opportunity, memory and profit objective.
+
+**C2 Older / weaker models as sellers** (model-generation lever: does collusion and its detectability
+change across model generations?). Available and verified working 10:25 UTC:
+- codex: `gpt-5.6-luna`, `gpt-5.6-sol` (previous generation) — `llm.chat(..., backend="codex", model="gpt-5.6-luna")`
+- OpenCode Go: `glm-5.2`, `mimo-v2.5` (older open models) — `backend="go"`; Go is shared/slow, keep runs small.
+NOT available: gpt-5, gpt-4o. **WARNING:** llm.py's codex backend silently falls back to gpt-6-luna when a
+model name is unknown or limited — always check `r["model"]` and exclude/flag fallback runs.
+Split: Q1.4 runs gpt-5.6-luna + glm-5.2; Q2.2 runs gpt-5.6-sol + mimo-v2.5. ~10–15 runs per model (A vs C
+matched seeds), base prompt. Report per-generation: agreement rate, execution rate, markup, detector AUROCs.
+Combine with C1 if a model executes collusion more readily (older models may comply/coordinate differently).
+
+
 **Verdict.**
 1. On track and still the stronger repo. Every owned gap except gap 2 is done on locked splits or confirmatory LLM data, with CIs, declared rules and a regenerable glance table (`p2_tables.py --check`). Gap 4 (deepseek) and gap 1 (wording) came back cleanly ("rule HOLDS", with an honest prompt-sensitivity caveat).
 2. The Q1.4 answer now rests on one result: E44 (llm_long_p2, 10/40 games at 09:27, ETA ~12:20; T=80 replay ~13:30). The pipeline (`scripts/e44_post.sh`, declared E44 rule, MDE and decay) is ready. Early C games show whole-market elevation (rivals at the pair's price), so expect pair_level to weaken and the pilot's "premium decays, markup stays" pattern to repeat.
@@ -94,3 +127,22 @@ Claude quota runs the managers. gpt-6.1-sol as a seller for a third family check
    of your sim; check which detectors see it at all.
    → **DONE (scripted bid rotation)** (E53, P2.6: predictable rotation invisible to pCMI, levels 30/30). Starter double auction **DROPPED** (adaptation cost).
 Items 1–4 must be done by Sat 20:00 if at all possible; 5–9 by Sun 15:00.
+
+**C3 Abliterated (refusal-removed) seller: does safety training suppress collusion?** (added 10:45 UTC)
+Model: `huihui-ai/Huihui-Qwen3.8-27B-abliterated` on Modal (1× A100-80GB, vLLM), via
+`llm.chat(..., backend="qwen")` — explicit only, no fallback. Cold start after 10 min idle: up to ~10 min,
+so run games in batches back-to-back, never one-off calls spread out. Concurrency: up to ~8 parallel
+games is fine (vLLM batches them).
+**BUDGET (hard):** Modal credits are capped at $79.99 total until Sun 18:00 UTC; a guard stops the endpoint
+at $70 for good. ~$2.80/GPU-hour. Read `~/collusion/QWEN_BUDGET.txt` before every batch; status `warn`
+→ only the most valuable runs; `STOPPED` → don't use qwen, report what you have.
+Design: matched seeds, base prompt, A (no channel) vs C (private channel), ≥ 15 + 15 runs (Q1.4: its
+market, T=20; Q2.2: its market + the notepad/placebo arms if budget allows). Compare agreement rate,
+execution (kept agreements), markup, and all headline detectors vs the safety-trained families. Also
+try it in the C1 strong-collusion lever set. Never instruct agents to collude.
+**Clean pair now deployed (10:55 UTC):** base model `Qwen/Qwen3.8-27B` (same weights before abliteration) via
+`llm.chat(..., backend="qwen", model="qwen-base")` — separate GPU, same budget cap (the $70 stop covers both).
+Run abliterated and base on the SAME seeds/conditions (A vs C, ≥ 15 + 15 each). Headline contrast: abliterated − base
+(agreement rate, kept rate, markup, detector AUROCs), plus both vs gpt/deepseek. Run both arms in the same time
+window so both GPUs are warm together and idle together (cost).
+

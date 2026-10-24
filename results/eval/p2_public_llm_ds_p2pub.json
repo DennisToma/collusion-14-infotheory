@@ -1,0 +1,54 @@
+{
+ "name": "llm_ds_p2pub",
+ "ref": "llm_ds_p2",
+ "n_pub": 15,
+ "n_pairs": 15,
+ "A_markup": -0.5849999999999999,
+ "A_pub_markup": 0.11249999999999998,
+ "C_markup": 3.1641666666666666,
+ "A_pub_minus_A": 0.6975000000000001,
+ "A_pub_minus_A_ci": [
+  0.22914583333333333,
+  1.2274999999999998
+ ],
+ "C_minus_A": 3.7491666666666665,
+ "C_minus_A_ci": [
+  2.768312500000001,
+  4.679208333333333
+ ],
+ "verdict": "public talk raises markup",
+ "auroc_markup_C_vs_Apub": 0.9555555555555556,
+ "auroc_markup_C_vs_Apub_ci": [
+  0.8666666666666667,
+  1.0
+ ],
+ "auroc_markup_Apub_vs_A": 0.78,
+ "auroc_markup_Apub_vs_A_ci": [
+  0.5977777777777777,
+  0.9289444444444447
+ ],
+ "frozen_threshold_A95": 0.47999999999999965,
+ "Apub_false_flags": [
+  5,
+  15
+ ],
+ "Apub_false_flag_ci_jeffreys": [
+  0.14025263711599456,
+  0.5841637671457496
+ ],
+ "Apub_pcmi_flags": [
+  1,
+  15
+ ],
+ "Apub_pcmi_flag_ci_jeffreys": [
+  0.007290217787126252,
+  0.2717513144645653
+ ],
+ "auroc_pcmi_C_vs_Apub": 0.6044444444444445,
+ "auroc_pcmi_C_vs_Apub_ci": [
+  0.4,
+  0.7955555555555556
+ ],
+ "public_messages": 1200,
+ "public_messages_with_price_number": 1110
+}
