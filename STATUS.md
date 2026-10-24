@@ -1,4 +1,4 @@
-# STATUS (top = current state; updated 2026-10-24 05:43 UTC (VM clock), iteration 25)
+# STATUS (top = current state; updated 2026-10-24 05:58 UTC (VM clock), iteration 26)
 
 **All declared analyses DONE** (§4.3 (i)–(v) filled). Scripted half done; LLM: llm_v1 (E18/E19), llm_v3 ext (E13), llm_long (E20), llm_mixed2 (E22).
 Level stats run AUROC 0.87/0.98/0.95; pCMI 0.45/0.52/0.45. pCMI adds nothing detectable to markup. T=50 does not meet rescue rule (CI wide).
@@ -25,6 +25,7 @@ attempted coordination", framing confounded. REPORT §4.3.10 + abstract/README/d
 **E39 (iter 25, exploratory, no LLM calls):** sibling found round-1 prices alone give AUROC .90 → our analogue: cache-only replay (40/40 exact)
 recovers pre-play provisional prices (`data/*/preplay.jsonl`). First sender (no partner msg read) − rivals r0: +0.94 [0.38,1.59] (llm_v1) vs whole-game +0.45;
 llm_long +2.19 [0.56,3.94]. Codex P0 (pre-play sequential → first-sender split) + Opus review (first sender's price = its own proposal → fits willingness-to-coordinate, §4.3.10 reconciled) applied; descriptive, not causal. REPORT §4.3.11 + abstract/table row 8/§5/§7.
+**E40 (iter 26):** new short judge-facing abstract (~300 words) in REPORT; the old 700-word abstract kept verbatim as '### Detailed summary'. Numbers copied from it; codex review (results/reviews/codex_short_abstract_iter26.md) 3 P1 applied (14% is the common-shock set; +1.8 is llm_v1 only; 'at chance' → 'not distinguishable', mechanism unresolved). tables.py clean; PDFs re-exported (REPORT 20 pp).
 (Note: iter-20 header timestamp 05:10 was ahead of the VM clock; real ~04:50.)
 **Next:** no new experiments (E39 was the last; nothing else worth starting before the 06:30 cutoff). At 08:15: re-run tables.py, headline_fig.py, slides.py,
 then export_pdf.py LAST (PDFs must match final REPORT/PRESENTATION .md); check README renders; push.
@@ -67,3 +68,4 @@ then export_pdf.py LAST (PDFs must match final REPORT/PRESENTATION .md); check R
 - iter 22 05:00–05:15: E36 key-findings table in REPORT, numbers verified vs JSON; README snapshot list; regen check clean.
 - iter 23 05:05: E37 offline exports (scripts/export_pdf.py -> REPORT.pdf/.html, PRESENTATION.pdf); no results changed.
 - iter 24 05:05–05:27: E38 consistency review + fixes; PDFs re-exported.
+- iter 26 05:43–05:58: E40 short abstract + codex check; PDFs re-exported.

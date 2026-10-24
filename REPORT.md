@@ -30,6 +30,22 @@ chance (0.5, dashed), while a price-level statistic separates channel from no-ch
 | 8 | The first pair member's provisional price is above rivals' before it reads any partner message | `llm_v1` first-sender provisional price − rivals +0.94 [0.38, 1.59] vs whole game +0.45 [0.34, 0.57] (exploratory, descriptive) | §4.3.11 |
 
 ## Abstract
+Can a detector that reads only prices and public market state find colluding pricing agents without accusing agents that
+merely share a public shock or a policy? We test pairwise dependence detectors (|Pearson|, MI, CMI given public state, pCMI =
+Gaussian CMI given state and all lagged prices, lagged CMI/TE) against a within-run shift null and a no-channel control-surrogate
+null in a 4-seller repeated price market. **Scripted agents (locked test seeds, T=100, 50 runs/group):** every contemporaneous
+detector flags and names a planted shared-signal pair in 100% of runs. Raw MI also flags 100% of markets whose sellers share only a public shock;
+pCMI flags 14% of common-shock markets under the shift null and 4% [1, 13] of held-out shared-policy-plus-shock markets under the surrogate null. Policy copies sharing a
+random seed (44–100%) and, for TE, public leader-follower pricing (100%) remain confounds. Dependence detects coordinated *variation*, not agreement.
+**LLM sellers (gpt-6-luna; our market, 74 games, T=20; sibling market, 125 runs, T=12):** in our market (`llm_v1`) a private channel raises markup over Nash
+by +1.8 versus matched no-channel markets (C − A [1.2, 2.3]), but mainly as a price **level**. Level statistics separate channel from control runs (run AUROC 0.87–0.98);
+pCMI is not distinguishable from chance (0.45–0.52), and neither longer games (T=50, 8 vs 8) nor same-model pairs revealed pCMI signal (both underpowered);
+whether this reflects mainly the level effect or low power at short T remains unresolved.
+Level screens are not collusion-specific: they rank legitimate public partnerships above controls (0.75) and respond to an offered-but-undelivered
+placebo channel in the sibling market. Practical reading (a hypothesis, not tested as a pipeline): a cheap level screen as an always-on first stage, with dependence and text audits as second-stage evidence;
+the detectability of LLM collusion depends on the market and its framing.
+
+### Detailed summary (all headline numbers with their caveats)
 We build a 4-seller repeated differentiated-price market with public demand/cost shocks and ask whether pairwise
 dependence detectors that read **prices and public market state only** (no messages) can find colluding pairs without accusing sellers that merely share
 a shock or a policy. Detectors: |Pearson|, mutual information (MI), CMI given public state, Gaussian CMI given state
