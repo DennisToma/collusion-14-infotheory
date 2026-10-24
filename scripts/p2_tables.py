@@ -4,7 +4,7 @@ No experiments or LLM calls; nothing is written. Every number in a cell comes fr
 only row labels / annotation words are literal text here.
     uv run python scripts/p2_tables.py          # print regenerated tables
     uv run python scripts/p2_tables.py --check  # compare cell by cell with REPORT.md (exit 1 on failure)
-Tables: P2.1 prevalence, P2.3 same-model, P2.4 coalitions/cost asymmetry, P2.5 market robustness, P2.6 rotation, P2.7 prompt wording, P2.9 family, P2.10 sibling arms, P2.11 part C.
+Tables: P2.1 prevalence, P2.3 same-model, P2.4 coalitions/cost asymmetry, P2.5 market robustness, P2.6 rotation, P2.7 prompt wording, P2.9 family, P2.10 sibling arms, P2.11 part C, P2.12 D2 CDA (once e68_cda.json exists), P2.13 denominators, P2.14 E70 grid (once e70_grid.json exists).
 """
 from __future__ import annotations
 
@@ -259,6 +259,19 @@ def p211b():
     return table(["pair (market, serving abl. / base)", "agreement", "executed", "(C − A) markup diff", "A-arm markup diff"], rows)
 
 
+def p212(path="results/eval/e68_cda.json"):
+    """E68 (D2) external CDA: declared manipulation check, then comms vs nocomms per statistic."""
+    d = jl(path)
+    m = d["manipulation_check"]
+    f = lambda x: f"{x:+.2f}".replace("-", "−")
+    rows = [["mean ask − 80, all rounds (manipulation check)", f"{f(m['mean_comms'])} / {f(m['mean_nocomms'])}",
+             f"diff {f(m['diff'])} [{f(m['ci'][0])}, {f(m['ci'][1])}]"]]
+    for k, v in d["auroc"].items():
+        rows.append([k, f"{d['mean'][k][0]:.2f} / {d['mean'][k][1]:.2f}",
+                     f"{v['auroc']:.2f} [{v['ci'][0]:.2f}, {v['ci'][1]:.2f}] (n {v['n'][0]} + {v['n'][1]})"])
+    return table(["statistic", "mean comms / nocomms", "AUROC comms vs nocomms [95% CI]"], rows)
+
+
 def p213():
     d = jl("results/eval/claims_denominators.json")
     rows = [[r["text"], r["group"], f"{r['k']}/{r['K']}", str(len(r["models_where_holds"])), ", ".join(r["fails"]) or "–"]
@@ -274,7 +287,10 @@ def p214(path="results/eval/e70_grid.json"):
     return table(["factor", "low → high", "main effect on C − A markup [95% CI]"], rows)
 
 
-BUILDERS = {"P2.1": p21, "P2.3": p23, "P2.4": p24, "P2.5": p25, "P2.6": p26, "P2.7": p27, "P2.9": p29, "P2.10": p210, "P2.11": p211, "P2.11b": p211b, "P2.13": p213}
+BUILDERS = {"P2.1": p21, "P2.3": p23, "P2.4": p24, "P2.5": p25, "P2.6": p26, "P2.7": p27, "P2.9": p29, "P2.10": p210, "P2.11": p211, "P2.11b": p211b}
+if (ROOT / "results/eval/e68_cda.json").exists():  # registered once the declared E68 analysis has run (REPORT order)
+    BUILDERS["P2.12"] = p212
+BUILDERS["P2.13"] = p213
 if (ROOT / "results/eval/e70_grid.json").exists():  # registered once the declared E70 analysis has run
     BUILDERS["P2.14"] = p214
 
