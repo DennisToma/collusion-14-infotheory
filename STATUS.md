@@ -1,15 +1,16 @@
-# STATUS (top = current state; updated 2026-10-24 01:10 UTC, iteration 9)
+# STATUS (top = current state; updated 2026-10-24 02:15 UTC, iteration 9)
 
-**Scripted half DONE.** llm_v1 FINAL (E18/E19) and llm_v3 ext FINAL (E13) are in REPORT §4.3. Channel raises markup by +1.8.
-Level stats run AUROC 0.87/0.98; pCMI 0.45/0.52 (not distinguishable from chance); pCMI adds nothing to markup.
-**iter 9:** E20 declared before eval: llm_long T-prefix analysis + directive-4 rule (extra T=50 batch iff AUROC(pCMI,50) ≥ .65
-and ≥ AUROC(T=20)+.15). REPORT §4.4 umbrella synthesis with Q2.2 (premium_llm_v3.py: private +1.65 [1.38,1.93] vs +0.45 here).
-Opus full-REPORT claims review (/var/tmp/c14_review_opus/review.md) applied: shared-seed 48–100%, stay-high TE flags market
-but not pair, 74 games/E17 note, overlapping market ranges, legit pair_level top-1 only 6/20 (wrong pair), expanded Limitations.
-**Running:** queue2 llm_long (ETA ≈01:20) → llm_mixed (≈02:00) → labels/eval.
-**Next:** label+eval llm_long as soon as it lands → apply E20 rule → §4.3 (v); mixed eval → (iv); codex claims review once
-codex is free (after mixed); abstract rewrite ONCE after (iv)/(v); fill E20 commit hash.
-**Risks:** llm_long/mixed n=8/12 → only large effects testable.
+**Scripted half DONE.** In REPORT: llm_v1 (E18/E19), llm_v3 ext (E13), llm_long (E20).
+Level stats run AUROC 0.87/0.98/0.95; pCMI 0.45/0.52/0.45. pCMI adds nothing to markup.
+**llm_long (E20) final:** T=50 does NOT rescue pCMI (0.45 [.16,.75] vs T=20 0.39; markup 0.95). Rule not met → no extra batch.
+Collusion here is a stable level (markup C−A +2.28; the pair gap shrinks as rivals follow). Shift null over-rejects on A (3/8).
+**E21 bug:** llm.chat(tier=big, backend=codex) silently used luna, so llm_mixed was all-luna (invalid, discarded). Fixed
+llm.py and added a mixed_eval guard. **llm_mixed2 running** (scripts/llm_queue3.sh, verified sol+luna; ETA gen ≈02:35, then eval
+→ queue.log 'llm_mixed2 evaluated').
+**Next:** (1) mixed2 → §4.3 (iv) with CI (TE same−cross is the one to watch; treat as one of 5 detectors, unadjusted);
+(2) codex claims review of full REPORT after mixed2 (codex free); (3) abstract rewrite ONCE; (4) fill ledger hashes
+(E20, E20-final, E21); (5) tables.py: add llm tables? optional. Opus review already applied.
+**Risks:** the per-seller `model` field is the last call's model (a sol→luna fallback mid-game would be invisible); low n.
 
 ## Log
 - 20:24 smoke test ok.
@@ -30,3 +31,4 @@ codex is free (after mixed); abstract rewrite ONCE after (iv)/(v); fill E20 comm
 - iter 8 00:04–00:45: waited for queue2; llm_v1 label+eval done 00:26 → llm_report, llm_fig, REPORT §4.3 llm_v1 results + abstract LLM sentence (E18); ledger hashes filled; codex review of the new text started.
 - iter 8 00:45–01:15: codex review of llm_v1 text (numbers all OK; P0s on inference: incremental-value untested, surrogate pool per family not pooled, 'flat vs T' false) → E19 diag_llm_v1 (incremental logistic + detrend/diff) → §4.3 + abstract rewritten accordingly.
 - iter 9 01:02–01:10: E20 declared; §4.4 umbrella; Opus claims review applied (P0s + limitations).
+- iter 9 01:10–02:15: llm_long label+eval (I accidentally pkilled the queue's eval and reran it) → E20 final in §4.3 (v); found E21 mixed-tier bug, fixed, llm_mixed2 launched.
