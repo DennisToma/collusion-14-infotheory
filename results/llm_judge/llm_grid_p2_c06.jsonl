@@ -1,2 +1,3 @@
 {"agreement": "yes", "agreed_price": 12, "first_round": -1, "evidence": "B: I propose we both price 12. A: Agreed: I\u2019ll price at 12 this round.", "run_id": "llm_grid_p2_c06_C_000", "judge_model": "gpt-6.1-sol", "judge_backend": "codex"}
 {"agreement": "no", "agreed_price": null, "first_round": null, "evidence": "After seeing our profits, we can independently decide whether higher prices improve returns.", "run_id": "llm_grid_p2_c06_C_001", "judge_model": "gpt-6.1-sol", "judge_backend": "codex"}
+{"agreement": "yes", "agreed_price": 12, "first_round": -1, "evidence": "C: \u201cLet\u2019s begin with prices around 12\u201d; D: \u201cAgreed. I\u2019ll start at 12.\u201d", "run_id": "llm_grid_p2_c06_C_002", "judge_model": "gpt-6.1-sol", "judge_backend": "codex"}
