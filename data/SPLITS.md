@@ -10,7 +10,7 @@
 
 ## LLM market (`sim/llm_market.py --name llm_v1 --seed 10`)
 **Revised 2026-10-23 22:00 UTC, before any detector output on llm_v1 was computed** (after Opus review): no
-detector setting is tuned on LLM data — all settings are frozen from the scripted work — so **all 64 games
+detector setting is tuned on LLM data — all settings are frozen from the scripted work — so **all 74 games (64 planned + 10 extra A/B controls added 23:53 before any detector output, E17)
 are the confirmatory set**; the k ≥ 6 subset is reported as a robustness check. The original plan was:
 - Run ids `llm_v1_<cond>_<k>`. **Dev:** k ∈ 0–5 (6 per condition, 24 games). **Locked test:** k ∈ 6–15
   (10 per condition, 40 games). Detector/label choices for LLM data (event-based detector, tacit threshold,
