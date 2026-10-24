@@ -921,8 +921,9 @@ uv run python scripts/strongF_ext.py [--snapshot]        # E66 frozen detectors 
 uv run python scripts/p2_partc.py                       # P2.11 part C table + E64 executed-subset AUROCs (results/eval/p2_partc.{json,md})
 uv run python scripts/e67_sticky.py                     # P2.11(e) E67 price-stickiness screen (results/eval/e67_sticky.{json,md})
 uv run python scripts/claims_denominators.py            # P2.13 claims x denominators (results/eval/claims_denominators.{json,md})
-uv run python scripts/e1_grid.py cells                  # E70 grid: 16-cell manifest (data/llm_grid_p2_manifest.json); 'run --sweeps 3' generates (LLM calls)
+uv run python scripts/e1_grid.py cells                  # E70 grid: 16-cell manifest (data/llm_grid_p2_manifest.json); 'run --sweeps 6' generates (LLM calls)
 uv run python scripts/e70_grid.py [--label --eval]      # E70 declared analysis on complete sweeps (results/eval/e70_grid.{json,md})
+bash scripts/e70_post.sh                                # E70 analysis once, then the declared follow-up (e70_followup_rule.py, e1_grid.py followup, e70_followup.py)
 uv run python scripts/p2_tables.py --check              # Phase 2 tables (P2.1–P2.13) vs JSON
 ```
 For E39, the recovered provisional prices are committed in `data/{llm_v1,llm_long}/preplay.jsonl`; no cache is needed for the analysis. The optional provenance replay `uv run python scripts/preplay_extract.py` requires the original gitignored `cache/llm_market/*.jsonl` files and aborts on a cache miss. Only the first sender's provisional price precedes receipt of any partner message (§4.3.11).

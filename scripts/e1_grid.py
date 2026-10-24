@@ -41,11 +41,22 @@ def cells():
     return out
 
 
-def command(c, sweep, prefix, dry):
+def followup_cells(factor):
+    """E70 amendment 2 (c): c00 base levels (all low) with `factor` at low and at high; fresh seeds 8000/8001."""
+    out = []
+    for j, sgn in enumerate((-1, 1)):
+        x = {f: -1 for f in FACTORS}
+        x[factor] = sgn
+        out.append(dict(cell=f'f{factor}{j}', signs=x, levels={f: FACTORS[f][(v + 1) // 2] for f, v in x.items()},
+                        seed=8000 + j))
+    return out
+
+
+def command(c, sweep, prefix, dry, n=None, workers=2):
     lv = c['levels']
     cmd = ['uv', 'run', 'python', '-m', 'sim.llm_market', '--name', f"{prefix}_{c['cell']}",
-           '--conds', 'B,D' if lv['shocks'] == 'random' else 'A,C', '--n', str(sweep + 1), '--T', '20',
-           '--seed', str(c['seed']), '--public', '--grid', c['cell'], '--channel', lv['channel'], '--workers', '2']
+           '--conds', 'B,D' if lv['shocks'] == 'random' else 'A,C', '--n', str(n or sweep + 1), '--T', '20',
+           '--seed', str(c['seed']), '--public', '--grid', c['cell'], '--channel', lv['channel'], '--workers', str(workers)]
     cmd += ['--backend', 'codex', '--model', 'gpt-6-luna'] if lv['model'] == 'gpt-6-luna' else \
            ['--backend', 'aqueduct', '--model', 'qwen-3.6-35b']
     cmd += ['--no-private-cost'] if lv['cost'] == 'public' else []
@@ -84,7 +95,9 @@ def lane(cs, sweeps, prefix, dry, parallel):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('what', choices=['cells', 'run'])
+    ap.add_argument('what', choices=['cells', 'run', 'followup'])
+    ap.add_argument('--factor', choices=list(FACTORS), help='followup: the E70 factor with the largest |main effect|')
+    ap.add_argument('--n', type=int, default=12, help='followup: games per arm per level')
     ap.add_argument('--sweeps', type=int, default=3)
     ap.add_argument('--prefix', default='llm_grid_p2')
     ap.add_argument('--dry', action='store_true')
@@ -98,6 +111,17 @@ def main():
         (ROOT / 'data' / f'{a.prefix}_manifest.json').write_text(json.dumps(manifest, indent=1))
         for c in cs:
             print(c['cell'], c['levels'])
+        return
+    if a.what == 'followup':  # two levels in parallel; luna 2 workers each (4 codex), qwen 2 on the gateway
+        prefix = f'{a.prefix}_fu'
+        log(f'start followup {prefix} factor={a.factor} n={a.n} dry={a.dry}')
+        def go(c):
+            cmd = command(c, 0, prefix, a.dry, n=a.n)
+            with open(f'/var/tmp/c14/{prefix}_{c["cell"]}.log', 'a') as out:
+                r = subprocess.run(cmd, cwd=ROOT, stdout=out, stderr=subprocess.STDOUT)
+            log(f'followup {prefix} {c["cell"]} rc={r.returncode}')
+        with ThreadPoolExecutor(2) as pool:
+            list(pool.map(go, followup_cells(a.factor)))
         return
     luna = [c for c in cs if c['levels']['model'] == 'gpt-6-luna']
     qwen = [c for c in cs if c['levels']['model'] != 'gpt-6-luna']

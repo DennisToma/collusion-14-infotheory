@@ -266,7 +266,17 @@ def p213():
     return table(["claim", "sets", "holds in", "seller models where it holds", "fails in"], rows)
 
 
+def p214(path="results/eval/e70_grid.json"):
+    """E70 grid main effects on d = C − A markup (declared analysis 2), plus the amendment-2 rows."""
+    d = jl(path)
+    f = lambda e, c: f"{e:+.2f} [{c[0]:+.2f}, {c[1]:+.2f}]".replace("-", "−").replace("[+", "[").replace(", +", ", ")
+    rows = [[k, f"{v['low']} → {v['high']}", f(v["effect"], v["ci"])] for k, v in d["main_effects"].items()]
+    return table(["factor", "low → high", "main effect on C − A markup [95% CI]"], rows)
+
+
 BUILDERS = {"P2.1": p21, "P2.3": p23, "P2.4": p24, "P2.5": p25, "P2.6": p26, "P2.7": p27, "P2.9": p29, "P2.10": p210, "P2.11": p211, "P2.11b": p211b, "P2.13": p213}
+if (ROOT / "results/eval/e70_grid.json").exists():  # registered once the declared E70 analysis has run
+    BUILDERS["P2.14"] = p214
 
 
 def check(report):

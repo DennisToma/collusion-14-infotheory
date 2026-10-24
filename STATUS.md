@@ -1,6 +1,15 @@
 > **PHASE 2 STARTED 2026-10-24 06:45 UTC** - v1 frozen as tag v1-overnight. New experiments are OPEN again; work queue = DIRECTION.md gap list. Ignore older no-new-experiments / finalize notes below.
 
 
+# STATUS (updated 2026-10-24 18:08 UTC from date -u, Phase 2 iteration 17; follows DIRECTION 17:56)
+
+**DIRECTION #1 done: E70 amendment 2 declared 18:02 (before any analysis; sweep 2 running)** in `results/e1_registration.md` + ledger: (a) qwen-cell pooled pCMI replication of qb36 (replicated iff lower CI > .5) + level − pCMI by model; (b) public-board share per cell × arm as covariate (luna ≈ silent → "board available, not used"); (c) follow-up rule. All three are now outputs of `e70_grid.py` (dry-tested).
+**Follow-up automated:** `scripts/e70_post.sh` (relaunched 18:06, setsid; the one post script) = wait for chain → `e70_grid.py --label --eval` once → `e70_followup_rule.py` (declared decision written to results/eval/e70_followup_declared.json BEFORE generation; skip if effect CI excludes 0 with |eff|>1 or after Sun 00:30) → `e1_grid.py followup --factor F --n 12` (stops 08:00) → `e70_followup.py` → /var/tmp/c14/e70_followup.log. Both dry-tested.
+**DIRECTION #2 done:** retitled ("LLM price collusion shows up as a market-wide price level, not as coordinated moves…"; slides too); joint statement sentence 2 now verbatim with Q2.2; Q2.2 E112 cited in P2.4(b) onset. Checks: p2_tables PASS (424), tables PASS (404), release audit OK. REPORT 964 lines.
+**p2_tables:** `p214()` builder (E70 main effects) auto-registers when results/eval/e70_grid.json exists → `--check` FAILS until the P2.14 table is pasted (intended reminder).
+**E70:** sweep 1 done 17:45; 6 sweeps ETA ~21:30–22:00. Data published for Q2.2 as sweeps land. **D2/E68:** 15/30 runs (ETA ~20:40).
+**Next:** (1) 19:30 PDFs (`scripts/export_pdf.py`); (2) when /var/tmp/c14/e70_final.log has E70_EXIT=0: P2.14 ≤15 lines (main-effects table from `p2_tables.py`, amend2 lines, board-share sentence) + 1 abstract sentence + "(+ k/16 cells)" in P2.13; replace text, not net lines; announce "6 sweeps complete" for Q2.2; (3) D2 at 30 runs: declared manipulation check, then `e68_cda.py` once → P2.12 ≤10 lines + glance row; (4) follow-up result Sun morning.
+
 # STATUS (updated 2026-10-24 17:35 UTC from date -u, Phase 2 iteration 16; follows DIRECTION 15:50)
 
 **E69 DONE (declared, prediction met):** abliterated − base (C − A) −0.65 [−1.97, +0.65] → null replicates; A-arm +0.35 [−0.28, 0.96] (E61's exploratory +1.06 NOT replicated); executed 7/15 vs 3/15. **qb36 (base Qwen3.6) pCMI 0.71 [0.51, 0.88] = first set with pCMI CI > 0.5** (market 0.93 still higher) — now in main claim/abstract as "8/9". Three-pair abliteration table in P2.11 (b2) ("no detectable increase in 3/3 pairs"), checked by p2_tables (P2.11b).
