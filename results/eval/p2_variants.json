@@ -1,0 +1,27 @@
+{
+ "arms": {
+  "v0": {
+   "n_A": 4,
+   "n_C": 2,
+   "models": [
+    "gpt-6-luna"
+   ],
+   "C_minus_A_markup": 0.5437500000000001,
+   "C_minus_A_ci": [
+    -0.55,
+    1.6375
+   ],
+   "A_markup": 0.74375,
+   "C_markup": 1.2875
+  }
+ },
+ "pooled_C_minus_A": 0.5437500000000001,
+ "pooled_ci": [
+  -0.55,
+  1.6375
+ ],
+ "pooled_n": [
+  2,
+  4
+ ]
+}

@@ -13,8 +13,8 @@ Throughput: codex ~0.4 calls/s → variants ≈ 3 h, long ≈ 6–7 h (done ≈ 
 coalition 3-of-4/4-of-4 + Gaussian total correlation (`score_groups`), onset k∈{25,50} + level CUSUM vs expanding-window pCMI, cost asymmetry hard negative;
 defaults must stay byte-identical (compat check in its REPORT_codex.md). Nothing merged yet.
 **Next:** (1) review codex's p2-scripted diff + REPORT_codex.md, merge, declare locked seeds (e.g. seed0 2001–2003) in SPLITS + ledger, run test once → REPORT P2.x;
-(2) evaluate each finished variant arm (`uv run python -m experiments.llm_eval eval --name llm_p2_<v>`) → per-arm C−A markup + AUROC table (E43 rule);
-(3) llm_eval `evaluate` Ts stops at 50 → add 60/80 for llm_long_p2; (4) gap 3 same-model mitigations on llm_mixed2/llm_v1; (5) gap 7 (N=2/6, elasticity: detectors hard-code 4 sellers);
+(2) when all 5 arms are done: `uv run python scripts/p2_variants.py --run-eval` (frozen evaluator + per-arm C−A markup/AUROC + declared E43 verdict; script reproduces llm_v1 C−A +1.76 [1.22, 2.31]) → REPORT P2.3;
+(3) llm_long_p2: `uv run python -m experiments.llm_eval eval --name llm_long_p2_T60 --Ts 10,20,30,40,50,60` (new --Ts flag); (4) gap 3 same-model mitigations on llm_mixed2/llm_v1; (5) gap 7 (N=2/6, elasticity: detectors hard-code 4 sellers);
 (6) gap 9 non-price (exploration). ETAs at 0.83 codex calls/s: variants ≈ 08:20, long T=60 ≈ 11:35, T=80 ≈ 12:40; deepseek (Go ~0.08/s) ≈ 15:00.
 **Risks:** codex throughput; Go contention; E44 may not finish 20+20 before 20:00 (n=10 stage first).
 

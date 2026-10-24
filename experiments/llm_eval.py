@@ -361,6 +361,8 @@ if __name__ == "__main__":
     ap.add_argument("cmd", choices=["label", "eval", "mixed"])
     ap.add_argument("--name", required=True)
     ap.add_argument("--B", type=int, default=200)
+    ap.add_argument("--Ts", default="5,10,15,20,25,30,40,50", help="prefix lengths (Phase 2 long games: add 60,80)")
     a = ap.parse_args()
-    {"label": lambda: label(a.name), "eval": lambda: evaluate(a.name, B=a.B),
+    Ts = tuple(int(x) for x in a.Ts.split(","))
+    {"label": lambda: label(a.name), "eval": lambda: evaluate(a.name, Ts=Ts, B=a.B),
      "mixed": lambda: mixed_eval(a.name, B=a.B)}[a.cmd]()
