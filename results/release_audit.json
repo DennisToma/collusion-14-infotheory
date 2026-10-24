@@ -1,8 +1,15 @@
 {
   "schema_version": 1,
-  "started_utc": "2026-10-24T05:54:20.679730+00:00",
-  "source_revision": "23261e04443937f1957a5f7c02c8999bcf963c14",
+  "started_utc": "2026-10-24T05:57:32.757998+00:00",
+  "source_revision": "5952bdbec92871d81c5e15c68fc514c8d7cc6ac4",
   "source_worktree_dirty": true,
+  "python_version": "3.12.15 (main, Oct 21 2026, 17:47:06) [Clang 23.1.3 ]",
+  "packages": {
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "matplotlib": "3.11.2",
+    "scikit-learn": "1.9.1"
+  },
   "recompute": true,
   "export": true,
   "checks": [
@@ -11,7 +18,7 @@
         "python",
         "scripts/injection_mde.py"
       ],
-      "seconds": 65.44,
+      "seconds": 64.43,
       "exit_code": 0,
       "outputs": {
         "results/eval/injection_mde.json": "2bef2be60729c7a7e5b101312bb05d15e65f13adedcafa63213240466d1e97f3"
@@ -24,7 +31,7 @@
         "python",
         "scripts/placebo_rep_ext.py"
       ],
-      "seconds": 33.07,
+      "seconds": 32.28,
       "exit_code": 0,
       "outputs": {
         "results/eval/placebo_rep_ext.json": "369d06187804facdfd8510aa4087339c055ed181c8d0ac21a1f91ce4a9d49b09",
@@ -38,7 +45,7 @@
         "python",
         "scripts/nonagreement_ext.py"
       ],
-      "seconds": 17.05,
+      "seconds": 17.39,
       "exit_code": 0,
       "outputs": {
         "results/eval/nonagreement_ext.json": "95acd4b354777061951c55953cb0c95c74ba0ab88bc107fb1d6e2e1a419986ac",
@@ -52,7 +59,7 @@
         "python",
         "scripts/preplay_offer.py"
       ],
-      "seconds": 1.61,
+      "seconds": 1.58,
       "exit_code": 0,
       "outputs": {
         "results/eval/preplay_offer.json": "d7c58ca4465b199f3d0421785b06a2c45c9c3752169bfa34d522067053a0262a"
@@ -65,7 +72,7 @@
         "python",
         "scripts/mixed_price_by_model.py"
       ],
-      "seconds": 0.09,
+      "seconds": 0.1,
       "exit_code": 0,
       "outputs": {
         "results/eval/llm_mixed2_price_by_model.json": "8375e7047b08d01ae818e638ee715a86144f76dedc4a33680a9053fc5304cff3"
@@ -92,7 +99,7 @@
         "-m",
         "experiments.premium_llm_v3"
       ],
-      "seconds": 0.21,
+      "seconds": 0.22,
       "exit_code": 0,
       "outputs": {
         "results/eval/llm_v3_premium.json": "9a8461a4cafad5b5b2b1e9e02ad7f7b5205bbb08080ce21f695ce819ac3a9604"
@@ -108,7 +115,7 @@
         "--name",
         "llm_v1"
       ],
-      "seconds": 1.85,
+      "seconds": 1.81,
       "exit_code": 0,
       "outputs": {
         "results/eval/llm_v1_report.md": "7253838a5e32b4f22b9cb08c8c9601ba0265aa194391dc3d452bdf61f92d2c38",
@@ -127,7 +134,7 @@
         "--name",
         "llm_long"
       ],
-      "seconds": 1.69,
+      "seconds": 1.63,
       "exit_code": 0,
       "outputs": {
         "results/eval/llm_long_report.md": "47f6ed86b3ba704747112f498966953a0a2f5ac2860e0df59de33752974c931c",
@@ -143,7 +150,7 @@
         "python",
         "scripts/mixed_fig.py"
       ],
-      "seconds": 0.48,
+      "seconds": 0.44,
       "exit_code": 0,
       "outputs": {
         "figures/llm_mixed2_same_vs_cross.png": "6323cd1d7177458517979b5754b41dc9caf92bdfc41d46eac7008c1ff1aebf54"
@@ -157,7 +164,7 @@
         "-m",
         "experiments.llm_fig"
       ],
-      "seconds": 0.51,
+      "seconds": 0.49,
       "exit_code": 0,
       "outputs": {
         "figures/llm_auroc_both.png": "ffdb7cdfe4b3a5551b1b565d19a5dc5c261dcbf9504b27e134ffb0ad9a10b552"
@@ -170,7 +177,7 @@
         "python",
         "scripts/headline_fig.py"
       ],
-      "seconds": 0.61,
+      "seconds": 0.58,
       "exit_code": 0,
       "outputs": {
         "figures/headline.png": "661207ee102b4a67b9267893b3b01a597b7a2c905834e0cc53a25ae4ff9200d0"
@@ -183,7 +190,7 @@
         "python",
         "scripts/slides.py"
       ],
-      "seconds": 0.59,
+      "seconds": 0.57,
       "exit_code": 0,
       "outputs": {
         "PRESENTATION.md": "01b3d81bf0f57b7e0fe69624b28725ed7b0e33a187a7f935e36facea4d17010d"
@@ -197,7 +204,7 @@
         "scripts/tables.py",
         "--check"
       ],
-      "seconds": 1.02,
+      "seconds": 1.0,
       "exit_code": 0,
       "outputs": {},
       "byte_mismatches": [],
@@ -209,9 +216,11 @@
         "python",
         "scripts/export_pdf.py"
       ],
-      "seconds": 4.21,
+      "seconds": 4.37,
       "exit_code": 0,
-      "outputs": {},
+      "outputs": {
+        "REPORT.html": "5d56a3c3ab6334f195973b0a1ead18bbb834f5aa5263c6a87b4518958e1019ac"
+      },
       "byte_mismatches": [],
       "passed": true,
       "diagnostics": "slide base font (pt): [14, 14, 10.5, 14, 13, 14]\n[ok] REPORT headings: all 25 fragments found in PDF text\n[ok] REPORT table cells: all 520 fragments found in PDF text\n[ok] deck: 6 PDF pages for 6 slides\n[ok] slide titles: all 6 fragments found in PDF text\nREPORT.pdf pages: 21\n"
@@ -219,7 +228,7 @@
   ],
   "passed": true,
   "input_sha256": {
-    "EXPERIMENTS.tsv": "cd25d0f7c50c3c40cb489306da2826ebb8eded581e5ecdcd790d80d2f7b7de9f",
+    "EXPERIMENTS.tsv": "227afae87c97d23ff0eaeb8d5f4dcf22443edd8ededba74d7c0c6747561ae103",
     "PRESENTATION.md": "01b3d81bf0f57b7e0fe69624b28725ed7b0e33a187a7f935e36facea4d17010d",
     "README.md": "cc553cd328c0d8f09186ed45e77ea1471c6192d0c98be4a6ffd7ad0664deeaf2",
     "REPORT.md": "845800fa5a6f8135aeb4195c9934bfd8fd509698728be04bf825b2c48269f883",
@@ -319,7 +328,7 @@
     "results/sweeps/power_test.json": "efa37a67138e40205783c69df897fb1c356070014ab0fea54c7156c8dd278bdb",
     "results/te/gate_test.jsonl": "90b664027f85d67ba94657a1e977b6bb772b7092f991a276a11125e00dd7aea6",
     "results/te/gate_v2.jsonl": "e8c2d3618a6714f94a9f8ab670b4ae778ee3a43ba25ce1f6e92afeacd76bdf43",
-    "scripts/export_pdf.py": "e5c5422c62051962e1f83fea0ed8103ff627f9a282e28467e028b75c58590aa2",
+    "scripts/export_pdf.py": "a3a7dbf60190bd80ce6bb8b4f97b8cfe4ce80de9f57e38af978e840e13db9900",
     "scripts/headline_fig.py": "610d9718321f58b72e1173337c1b175ef8689d0bf057174f29b9d88f887257df",
     "scripts/injection_mde.py": "71efe4a828afe0be51ed0c1b1c094a274cb064098b4c41ed6be3eeb7dac5c709",
     "scripts/market_mean_ranges.py": "d4d4f08817d4cb6800184865ee37d0cf825e5112c735a2684278cb4483d5472c",
@@ -333,7 +342,7 @@
     "scripts/slides.py": "24537e1e4d15f2530bf976ec0b7ddb62ca1b004778e1ab320ff85e0abcac26f2",
     "scripts/tables.py": "2dbc1ba202a169e8a4233bcd887f230ebb3709dfbef676b4abe85280061ae688",
     "scripts/test_release_audit.py": "f06568038a0b48071e3e410a25c9aaa0486d1d266d4027aa3f21ba2faa3463d0",
-    "scripts/verify_release.py": "b5ca6437e1fed11b1aa02b6f952d0f595050cd853019e95126be948dcc81e428",
+    "scripts/verify_release.py": "25941408e76416007509b529f559fbb28eda51a141b3ecaa441df80f46f080cf",
     "sim/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "sim/check_llm_market.py": "f92b655e274fc303a748ee397922cc9a55c23e83b8c3fb8c2e61502f1e4d0ef4",
     "sim/llm_market.py": "1c795b5cd5f0bbc1d4409e98ca50a4d75af55831e2f0ceb8981c3989a5f80d39",
@@ -345,5 +354,5 @@
     "local_links": 14,
     "cache_present": false
   },
-  "finished_utc": "2026-10-24T05:56:29.297198+00:00"
+  "finished_utc": "2026-10-24T05:59:39.877527+00:00"
 }

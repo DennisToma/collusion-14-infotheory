@@ -1,14 +1,14 @@
-# STATUS (updated 2026-10-24 05:57 UTC, iteration 27)
+# STATUS (updated 2026-10-24 06:00 UTC, iteration 27)
 
-**Current:** all declared analyses complete; no new experiments or LLM calls in E41. Scripted work remains frozen.
+**Current:** all declared analyses complete; no new experiments or seller/judge calls in E41. Scripted work remains frozen.
 **Headline:** level AUROC 0.87/0.98 in the two LLM markets; pCMI 0.45/0.52. T=50 and same-model comparisons remain underpowered.
 **Calibration:** scripted pCMI common-shock FPR 14% (shift null); 4% on held-out policy + shock (surrogate); shared-seed confound remains.
 **Exploratory:** placebo/delivery mechanism unresolved; first sender already has a provisional premium (+0.94 [0.38,1.59], descriptive).
 **E41:** tables.py --report/--check now covers headers + 404 body cells of all 11 quantitative results tables (overview/pilot history excluded).
-**Verified:** disposable-copy reproduction without caches/sibling files: 21 outputs byte-identical; six failure-path tests pass; 15 snapshot checksums match.
+**Verified:** disposable-copy reproduction without caches/sibling files: 22 outputs byte-identical (including HTML); six failure-path tests pass; 15 snapshot checksums match.
 **Exports:** REPORT.pdf 21 pages; all 25 headings/520 table fragments preserved; six slides/titles, no detected overflow; updated pages visually checked.
 **Review:** independent Codex review passed; fixed TE summary bound .175→≤.18, TFT MI range, CI rounding 1.625→1.62; raw analysis JSON unchanged.
-**Next:** finish final audit with HTML byte check + horizontal overflow check, commit/push; then only respond to concrete verification failures.
+**Next:** no new experiments; preserve frozen results. Fix only concrete verification failures; finalization instructions below.
 **Finalization:** at 08:15 run tables.py --check, headline_fig.py, slides.py, export_pdf.py LAST; verify_release.py --export checks a disposable copy.
 **Risks:** small LLM n, OpenAI-family sellers only, no own-market placebo; surplus dependence is not proof of an agreement.
 
@@ -85,3 +85,5 @@ then export_pdf.py LAST (PDFs must match final REPORT/PRESENTATION .md); check R
 **Risks:** low n everywhere on LLM; only OpenAI-family sellers; no placebo arm in llm_v1 (placebo only in sibling market, n=15).
 
 - iter 27 (2026-10-24 05:57 UTC): E41 reproducibility audit (DIRECTION directive 5, no experiments/tuning/LLM calls). Added exact quantitative-result-table render/check, saved-data disposable-copy release check, and six failure-path tests. Initial audit caught stale deck ledger range E39 vs E40; retained results/release_audit_initial_iter27.json, refreshed deck to E41. Later E30/E32/E35/E39/descriptive JSON and figures reproduce byte-identically (21 outputs); REPORT/README reproduction instructions now include E39, stored preplay input, and the cache-only provenance boundary. Fixed three display discrepancies only; escaped Pearson pipes in generated supporting tables. Codex review results/reviews/codex_repro_iter27.md: no remaining material issues (sweep constant check strengthened during review). PDF exporter now fails on missing text/page count/overflow; refreshed report/deck exports, inspected report p18 and slide 6. Final rerun also checks HTML bytes and horizontal slide overflow. Previous current-state summary moved below the append-only log to restore the <=15-line top-section rule.
+
+- iter 27 completion (2026-10-24 06:00 UTC): final committed-code release audit PASS (results/release_audit.json, source 5952bdb): 22 files byte-identical, 15 snapshot checksums, 14 local links, all 11 result-table headers/404 body cells, REPORT HTML byte match, PDF 25 headings/520 table fragments and six slides/titles, vertical + horizontal slide overflow checks. Six audit failure-path tests pass. No seller/judge calls or new experiments; the independent Codex code review used one reviewer invocation. Code milestone 5952bdb pushed; final evidence/status/ledger update committed next.
