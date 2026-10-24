@@ -850,6 +850,8 @@ This extends E32/E35 (placebo, monitor/firm framing): pair-specific prompting al
 | agreements executed in <= 50% of channel games | main | 8/9 | 7 | llm_qa_p2 |
 | no-channel markets rarely tacit-high (<= 10%) | main | 8/9 | 6 | llm_g56l_p2 |
 
+**P2.14 Factorial grid (E70, Part E1; registered 17:10 in `results/e1_registration.md` before any data; generating, results pending).** 2^(7−3) resolution IV, 16 cells × 6 sweeps × (no-channel + channel), T = 20, public board on: model (gpt-6-luna / qwen-3.6-35b), cost (private / public; substitutes for 2 vs 4 firms), rivals' prices (visible / hidden), channel timing (every round / opening only), memory (short / full), shocks (none / random), framing (base / + long-run sentence). Declared outputs: cells with C − A > 0 (sign test vs 8/16), main effect of each factor on C − A, cells where market level beats pCMI, pooled TE (secondary), qwen-cell pCMI replication of qb36, public-board share per cell × arm (prior: gpt-6-luna rarely posts, so for luna cells the board is available but mostly unused), and one declared confirmatory follow-up of the largest main effect (`scripts/e70_post.sh`).
+
 ## 5. Limitations
 * Scripted colluders are stylised; `signal` collusion with fresh shared randomness every round is the
   easiest possible case for dependence detectors.
