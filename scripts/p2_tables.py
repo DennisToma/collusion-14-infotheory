@@ -220,7 +220,8 @@ def p210():
 P211_SETS = (("gpt-6-luna (`llm_v1`, 20)", "llm_v1"), ("gpt-6-luna (`llm_long`, 50)", "llm_long"),
              ("gpt-6-luna (E44 `llm_long_p2_T60`, 60)", "llm_long_p2_T60"), ("deepseek-v4.1-flash (`llm_ds_p2`, 20)", "llm_ds_p2"),
              ("Qwen3.8-27B **abliterated** (`llm_qa_p2`, 20)", "llm_qa_p2"), ("Qwen3.8-27B base (`llm_qb_p2`, 20)", "llm_qb_p2"),
-             ("gpt-5.6-luna, older (`llm_g56l_p2`, 20)", "llm_g56l_p2"))
+             ("gpt-5.6-luna, older (`llm_g56l_p2`, 20)", "llm_g56l_p2"),
+             ("E65 Qwen3.8-27B abliterated + memory (`llm_strong_qa`, 40)", "llm_strong_qa"))
 
 
 def p211():
@@ -228,6 +229,8 @@ def p211():
     j = lambda k, n, ci: f"{k}/{n} [{ci[0]:.2f}, {ci[1]:.2f}]".replace("[0.00,", "[0,").replace(", 1.00]", ", 1]")
     rows = []
     for lab, name in P211_SETS:
+        if name not in d:  # declared set not complete yet (p2_partc.COMPLETE_N)
+            continue
         r, b = d[name], d[name]["behaviour"]
         rows.append([lab, f"{r['n_C']}/{r['n_A']}", f"{r['A_markup']:+.2f}".replace("-", "−"),
                      f"{r['C_minus_A_markup']:+.2f} [{r['C_minus_A_ci'][0]:.2f}, {r['C_minus_A_ci'][1]:.2f}]",

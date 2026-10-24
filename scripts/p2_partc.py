@@ -33,7 +33,21 @@ SETS = [  # (label, dataset, requested model or None)
     ("strong pilot: qwen abliterated, memory, T=40", "llm_strong_qa_pilot", "qwen-abliterated"),
     ("strong pilot: qwen base, memory, T=40", "llm_strong_qb_pilot", "qwen-base"),
     ("strong pilot: gpt-6-luna, memory, T=40", "llm_strong_luna_pilot", None),
+    ("E65 strong arm: qwen abliterated, memory, T=40", "llm_strong_qa", "qwen-abliterated"),
 ]
+# declared confirmatory sets that are read only when complete (no peeking at a partial set; E65 declared 20 + 20)
+COMPLETE_N = {"llm_strong_qa": 40, "llm_strong_luna_pilot": 10}
+
+
+def e65_verdict(r):
+    """E65 declared rule (13:38): 'moves appear' iff pCMI AUROC(executed C vs A, T=40) >= .65 with lower CI > .5;
+    'still a level' iff upper CI < .65; else inconclusive."""
+    x = r.get("auroc_pcmi_executed_vs_A")
+    if not x:
+        return dict(verdict="no executed games", pcmi_executed_vs_A=None)
+    a, (lo, hi) = x["auroc"], x["ci"]
+    v = "moves appear" if a >= .65 and lo > .5 else ("still a level" if hi < .65 else "inconclusive")
+    return dict(verdict=v, pcmi_executed_vs_A=x)
 
 
 def jeffreys(k, n):
@@ -187,6 +201,9 @@ def main():
     for label, name, req in SETS:
         if not (ROOT / "data" / name / "ground_truth.jsonl").exists():
             continue
+        if name in COMPLETE_N and sum(1 for _ in open(ROOT / "data" / name / "ground_truth.jsonl")) < COMPLETE_N[name]:
+            print(f"skip {name}: incomplete (< {COMPLETE_N[name]} games)")
+            continue
         if name.startswith(("llm_qa", "llm_qb", "llm_g56l", "llm_glm", "llm_strong")):
             T = json.loads(open(ROOT / "data" / name / "ground_truth.jsonl").readline())["T"]
             if a.label:
@@ -219,6 +236,8 @@ def main():
             lines.append(f"| {r['label']} | {b['executed']}/{b['n_C_labelled']} | "
                          + " | ".join(f"{g(r.get(f'auroc_{k}_executed_vs_A'))} / {g(r.get(f'auroc_{k}_not_executed_vs_A'))}" for k in DETS) + " |")
     res["E64_pooled"] = pooled_exec(res)
+    if "llm_strong_qa" in res:
+        res["E65_verdict"] = e65_verdict(res["llm_strong_qa"])
     for k, d in res["E64_pooled"].items():
         lines.append(f"| **pooled within set** ({k}) | {d['n_executed']} executed / {d['n_not_executed']} not | "
                      + " | ".join(f"{g(d[det]['executed'])} / {g(d[det]['not_executed'])}" for det in DETS) + " |")
@@ -226,6 +245,8 @@ def main():
     if "contrast_abliterated_minus_base_C_minus_A" in res:
         c = res["contrast_abliterated_minus_base_C_minus_A"]
         lines.append(f"\nAbliterated − base, (C − A) markup: {c[0]:+.2f} [{c[1][0]:.2f}, {c[1][1]:.2f}]")
+    if "E65_verdict" in res:
+        lines.append(f"\nE65 declared rule (pCMI AUROC executed C vs A, T=40): **{res['E65_verdict']['verdict']}** {res['E65_verdict']['pcmi_executed_vs_A']}")
     (ROOT / "results" / "eval" / "p2_partc.md").write_text("\n".join(lines) + "\n")
     print("\n".join(lines))
 
