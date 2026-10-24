@@ -9,6 +9,8 @@
 **Risks:** generation should end ≈ 00:00–00:30 (well before the 08:00 stop). Iteration 34's STATUS header said 23:05, but it was written ≈ 22:40 (clock typo).
 **Iteration 36 (22:52):** nothing landed. The E70 follow-up is still generating: 4 + 6 of 24 + 24 games done (fmodel0 luna / fmodel1 qwen), and the processes are healthy. FOLLOWUP_EXIT is not written yet, so the ETA is ≈ 00:00–00:30. The qwen budget is $18.13 (ok). No edits besides this line, as DIRECTION's STOP list requires.
 
+**Iteration 37 (2026-10-24 22:49 UTC, VM clock):** no result landed; follow-up still generating (fmodel0 luna 5/24, fmodel1 qwen 6/24; 100/120 saved trajectory rows), generator and post chain alive, no FOLLOWUP_EXIT/log yet. Completion metadata only; no outcomes inspected. REPORT remains current; ending early per DIRECTION 22:05 STOP rule. Prior iteration 36’s 22:52 timestamp is ahead of the VM clock; this entry uses `date -u`.
+
 ## Dated log (prior state summaries retained verbatim)
 
 # STATUS (updated 2026-10-24 23:05 UTC, Phase 2 iteration 34; follows DIRECTION 22:05)
