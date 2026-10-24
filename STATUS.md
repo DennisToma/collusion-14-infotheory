@@ -9,7 +9,8 @@
 **E68/D2:** manipulation check declared in ledger (17:12) before reading asks; ~11/30 runs. Analyse at 15+15 or Sun 10:00.
 **Claims × denominators** (`scripts/claims_denominators.py`, REPORT P2.13, in p2_tables --check): premium 9/9 sets (7 models), level>pCMI 9/9, pCMI null 8/9, executed ≤50% 8/9, tacit rare 8/9.
 **19:30 consolidation done early:** main claim = 2 sentences; abstract 246 words with denominators; P2.3–P2.6 prose −32 lines (REPORT 959 lines < 968). Checks: p2_tables PASS (424), tables PASS, release audit PASS (PRESENTATION regenerated; slides.py ledger-ID parse fixed by naming the grid E70).
-**Next:** (1) when sweep 1 completes: publish data/llm_grid_p2_* + manifest for Q2.2 (already in repo); (2) after 3 sweeps: `uv run python scripts/e70_grid.py --label --eval` once → ≤15 lines + main-effects table + 1 abstract sentence; (3) PDFs at 19:30; (4) D2 analysis Sun.
+**E70 update 17:58:** sweep 1 complete 17:45 (42 min) → data/llm_grid_p2_c00..c15 + manifest committed for Q2.2. **Amended to 6 sweeps (192 games), declared 17:48 before analysis.** Chain: `scripts/e70_chain.sh` (waits for 3-sweep runner, then `--sweeps 6`), `scripts/e70_post.sh` (when chain exits: `e70_grid.py --label --eval` once → /var/tmp/c14/e70_final.log, results/eval/e70_grid.{json,md}). ETA analysis ~21:30. Analysis pipeline dry-tested on fake-LLM data (gitignored).
+**Next:** (1) read /var/tmp/c14/e70_final.log (E70_EXIT=0) → P2.14 ≤15 lines + main-effects table (add builder to p2_tables) + 1 abstract sentence + '(+ k/16 cells)' in P2.13; if chain stalls, run e70_grid.py at Sun 08:00 on complete sweeps; (2) PDFs at 19:30 (`scripts/export_pdf.py`); (3) D2 analysis at 15+15 or Sun 10:00.
 
 # STATUS (updated 2026-10-24 15:53 UTC from date -u, Phase 2 iteration 15; follows DIRECTION 13:45)
 

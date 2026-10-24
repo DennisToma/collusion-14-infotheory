@@ -12,6 +12,7 @@ import json
 from pathlib import Path
 import subprocess
 import sys
+from concurrent.futures import ThreadPoolExecutor
 
 import numpy as np
 from scipy.stats import binomtest
@@ -75,6 +76,7 @@ def main():
     ap.add_argument("--eval", action="store_true")
     ap.add_argument("--label", action="store_true")
     ap.add_argument("--B", type=int, default=2000)
+    ap.add_argument("--jobs", type=int, default=3)
     ap.add_argument("--out", default="e70_grid")
     ap.add_argument("--dry", action="store_true", help="pipeline test on fake-LLM data (model 'dry')")
     a = ap.parse_args()
@@ -93,14 +95,17 @@ def main():
     print(f"complete sweeps: {S}")
     if S == 0:
         sys.exit("no complete sweep yet")
-    for c in cs:
+    def prep(c):
         name = data[c["cell"]]["name"]
         if a.label:
-            subprocess.run([sys.executable, "-m", "experiments.llm_eval", "label", "--name", name], cwd=ROOT, check=True)
+            subprocess.run([sys.executable, "-m", "experiments.llm_eval", "label", "--name", name], cwd=ROOT, check=True,
+                           stdout=subprocess.DEVNULL)
         evf, gtf = ROOT / "results" / "eval" / f"{name}.json", ROOT / "data" / name / "ground_truth.jsonl"
         if a.eval and not (evf.exists() and evf.stat().st_mtime > gtf.stat().st_mtime):  # skip up-to-date evals
             subprocess.run([sys.executable, "-m", "experiments.llm_eval", "eval", "--name", name, "--Ts", "20"],
-                           cwd=ROOT, check=True)
+                           cwd=ROOT, check=True, stdout=subprocess.DEVNULL)
+    with ThreadPoolExecutor(a.jobs) as pool:  # judge calls: <= jobs parallel codex calls
+        list(pool.map(prep, cs))
     games = []  # one dict per analysed game
     for c in cs:
         dc = data[c["cell"]]
