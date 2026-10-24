@@ -110,6 +110,28 @@ def _claude(msgs, model, temperature, max_tokens):
     return r.stdout.strip(), m
 
 
+def _modal_post(url, key, body, timeout=900):
+    # Modal web endpoints answer requests running > ~150 s (e.g. GPU cold start) with 303 + Location;
+    # the result is fetched by GET on that Location (repeat while it keeps redirecting).
+    try:
+        return _post(url, key, body, timeout=timeout)
+    except urllib.error.HTTPError as e:
+        if e.code != 303:
+            raise
+        loc = e.headers["Location"]
+    deadline = time.time() + timeout
+    while time.time() < deadline:
+        req = urllib.request.Request(loc, headers={"Authorization": f"Bearer {key}"})
+        try:
+            d = json.load(urllib.request.urlopen(req, timeout=300))
+            return d["choices"][0]["message"].get("content") or ""
+        except urllib.error.HTTPError as e:
+            if e.code != 303:
+                raise
+            loc = e.headers["Location"]
+    raise TimeoutError("modal result not ready")
+
+
 def _qwen(msgs, model, temperature, max_tokens):
     # Abliterated Qwen3.8-27B on Modal (QWEN_BASE_URL / QWEN_API_KEY in ~/collusion/compute.env).
     # Explicit-only (backend="qwen"), never a silent fallback. Cold start after idle: up to ~10 min.
@@ -118,11 +140,24 @@ def _qwen(msgs, model, temperature, max_tokens):
     m = model or "qwen-abliterated"
     body = {"model": m, "messages": msgs, "temperature": temperature, "max_tokens": max_tokens,
             "chat_template_kwargs": {"enable_thinking": False}}
-    url = env["QWEN_BASE_BASE_URL"] if m == "qwen-base" else env["QWEN_BASE_URL"]  # model="qwen-base" = C3 control
-    return _post(f"{url}/v1/chat/completions", env["QWEN_API_KEY"], body, timeout=900), m
+    if m == "qwen-base":  # C3 control: base Qwen3.8-27B now via the Aqueduct gateway
+        return _aqueduct(msgs, "qwen-3.8-27b", temperature, max_tokens)[0], "qwen-base(aqueduct qwen-3.8-27b)"
+    url = env["QWEN_BASE_URL"]
+    return _modal_post(f"{url}/v1/chat/completions", env["QWEN_API_KEY"], body), m
 
 
-BACKENDS = {"keyed": _keyed, "go": _go, "codex": _codex, "claude": _claude, "qwen": _qwen}
+def _aqueduct(msgs, model, temperature, max_tokens):
+    # TU Wien Aqueduct gateway (AQUEDUCT_BASE_URL / AQUEDUCT_API_KEY in compute.env). Explicit only.
+    # Models: qwen-3.8-27b (base Qwen3.8-27B, FP8 = C3 control for the abliterated model), qwen-3.6-35b,
+    # glm-5.3-744b-experimental, deepseek-v4-vision-exp-284b.
+    env = _env()
+    m = model or "qwen-3.8-27b"
+    body = {"model": m, "messages": msgs, "temperature": temperature, "max_tokens": max_tokens,
+            "chat_template_kwargs": {"enable_thinking": False}}
+    return _post(f"{env['AQUEDUCT_BASE_URL']}/v1/chat/completions", env["AQUEDUCT_API_KEY"], body, timeout=300), m
+
+
+BACKENDS = {"keyed": _keyed, "go": _go, "codex": _codex, "claude": _claude, "qwen": _qwen, "aqueduct": _aqueduct}
 
 
 def chat(prompt, system=None, model=None, temperature=0.7, max_tokens=512, backend=None, retries=3,

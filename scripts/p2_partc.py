@@ -44,7 +44,8 @@ def jeffreys(k, n):
 def load(name, req):
     d = ROOT / "data" / name
     gt = {g["run_id"]: g for g in map(json.loads, open(d / "ground_truth.jsonl"))}
-    bad = sorted(r for r, g in gt.items() if req and set((g.get("model") or {}).values()) != {req})
+    # served-model names may carry a suffix (qwen-base -> "qwen-base(aqueduct qwen-3.8-27b)"); a fallback model has another prefix
+    bad = sorted(r for r, g in gt.items() if req and not all(m.startswith(req) for m in (g.get("model") or {}).values()))
     rows = {}
     for line in open(d / "trajectories.jsonl"):
         r = json.loads(line)

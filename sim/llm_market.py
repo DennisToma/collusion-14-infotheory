@@ -55,8 +55,15 @@ class Cache:
         else:
             # glm-5.2 (Go) reasons by default and can spend the 512-token default before answering (empty text)
             extra = dict(max_tokens=4000) if (model or '').startswith('glm') else {}
-            response = llm.chat(prompt, system=system, tier=tier, backend=backend,
-                                temperature=TEMPERATURE, model=model, **extra)
+            for wait in ([30, 60, 120, 240, 300, 300, 300] if backend == 'qwen' else []) + [None]:
+                try:  # Modal qwen endpoint: cold starts / transient 404-429 -> wait instead of failing the game
+                    response = llm.chat(prompt, system=system, tier=tier, backend=backend,
+                                        temperature=TEMPERATURE, model=model, **extra)
+                    break
+                except RuntimeError:
+                    if wait is None:
+                        raise
+                    time.sleep(wait)
         with self.lock:
             with self.path.open('a') as f:
                 f.write(json.dumps(dict(key=key, response=response)) + '\n')

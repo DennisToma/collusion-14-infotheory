@@ -140,9 +140,11 @@ Design: matched seeds, base prompt, A (no channel) vs C (private channel), ≥ 1
 market, T=20; Q2.2: its market + the notepad/placebo arms if budget allows). Compare agreement rate,
 execution (kept agreements), markup, and all headline detectors vs the safety-trained families. Also
 try it in the C1 strong-collusion lever set. Never instruct agents to collude.
-**Clean pair now deployed (10:55 UTC):** base model `Qwen/Qwen3.8-27B` (same weights before abliteration) via
-`llm.chat(..., backend="qwen", model="qwen-base")` — separate GPU, same budget cap (the $70 stop covers both).
-Run abliterated and base on the SAME seeds/conditions (A vs C, ≥ 15 + 15 each). Headline contrast: abliterated − base
-(agreement rate, kept rate, markup, detector AUROCs), plus both vs gpt/deepseek. Run both arms in the same time
-window so both GPUs are warm together and idle together (cost).
+**Clean pair (updated 11:20 UTC):** control = base `Qwen/Qwen3.8-27B` (FP8) via the TU Wien Aqueduct gateway:
+`llm.chat(..., backend="qwen", model="qwen-base")` (routes to the gateway) — free, fast, no Modal cost. Abliterated stays on
+Modal (bf16; note the FP8-vs-bf16 precision difference as a caveat). Run both on the SAME seeds/conditions (A vs C,
+≥ 15 + 15 each). Headline: abliterated − base (agreement, kept rate, markup, detector AUROCs), plus vs gpt/deepseek.
+Gateway also serves `qwen-3.6-35b`, `glm-5.3-744b-experimental`, `deepseek-v4-vision-exp-284b` via
+`llm.chat(..., backend="aqueduct", model=...)` — extra seller families for C2/robustness (shared university
+gateway: keep ≤ 4 parallel calls, back off on 429).
 

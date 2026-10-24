@@ -1,5 +1,17 @@
 > **PHASE 2 STARTED 2026-10-24 06:45 UTC** - v1 frozen as tag v1-overnight. New experiments are OPEN again; work queue = DIRECTION.md gap list. Ignore older no-new-experiments / finalize notes below.
 
+# STATUS (updated 2026-10-24 11:34 UTC from date -u, Phase 2 iteration 8)
+
+**Phase 2 running; PART C (DIRECTION top priority) launched.** E44 llm_long_p2 25/40 at 11:13 (do NOT peek; `bash scripts/e44_post.sh` on `llm_long_p2_T60` when 40).
+**Part C (E61–E63 declared in ledger + SPLITS before generation; `scripts/p2_partc.py` → results/eval/p2_partc.{json,md}):**
+- Executed collusion (agreement + E56 followed + pair ≥ Nash+2 in 2nd half) on existing sets: gpt-6-luna llm_v1 6/16 [.17,.62], deepseek 2/15 [.03,.36] → REPORT P2.11 stub + glance row C.
+- E61 qwen: `llm_qb_p2` (base) generating (~11:24 start after cold start; ~6 games/25 min); `llm_qa_p2` (abliterated) endpoint has NOT answered since 11:00 (no call returned; budget $2.55 at 11:15). Retry/wait loop added for qwen (sim). Then `llm_queue_partc2.sh` runs E63 qwen memory pilots (T=40, 5+5 each).
+- E62: `llm_glm_p2` on Go (slow, shared lock; ~19% empty glm replies retried; max_tokens 4000); gpt-5.6-luna + E63 luna memory pilot queued in `llm_queue_p2c.sh` AFTER E44 (replaced p2b; T=80 replay moved last).
+- sim: `--backend qwen`, `--model` (cache key unchanged when unset), `--memory` (full price history + chat[-60:]).
+**Next:** (1) when qa/qb done: `uv run python scripts/p2_partc.py --run-eval --label` → P2.11 numbers (abl − base contrast); (2) E44 → P2.8 (directive 1); (3) choose E63 promoted arm (executed rate) → declare full arm ≥20+20 new seed; (4) 19:30 checkpoint.
+**Risks:** abliterated endpoint down; Go glm too slow (report n); codex load (E44 5 + sibling).
+**Gotcha:** never `pkill -f <pattern>` from a shell whose own command line contains the pattern (killed my shell twice); never edit a running queue .sh (bash reads by offset).
+
 # STATUS (updated 2026-10-24 09:56 UTC from date -u, Phase 2 iteration 7)
 
 **Phase 2 running.** Only gap 2 (E44) open + E59 (directive 3). REPORT restructured per directive 2: main claim (v1+P2) → Abstract (250 words, combined) → Phase 2 glance + 7 takeaways → v1 key findings → v1 abstract/details → §1–4 → **Phase 2 details (P2.1–P2.10)** → §5.
