@@ -39,6 +39,26 @@
    "distinct_prices_median": 4.0
   },
   "behaviour": {
+   "executed_ids": [
+    "llm_v1_C_000",
+    "llm_v1_C_004",
+    "llm_v1_C_005",
+    "llm_v1_C_009",
+    "llm_v1_C_012",
+    "llm_v1_C_013"
+   ],
+   "not_executed_ids": [
+    "llm_v1_C_001",
+    "llm_v1_C_002",
+    "llm_v1_C_003",
+    "llm_v1_C_006",
+    "llm_v1_C_007",
+    "llm_v1_C_008",
+    "llm_v1_C_010",
+    "llm_v1_C_011",
+    "llm_v1_C_014",
+    "llm_v1_C_015"
+   ],
    "n_C_labelled": 16,
    "agreement": 14,
    "followed": 12,
@@ -53,6 +73,60 @@
     0.174,
     0.617
    ]
+  },
+  "auroc_market_level_executed_vs_A": {
+   "auroc": 0.984,
+   "ci": [
+    0.929,
+    1.0
+   ],
+   "n_pos": 6,
+   "n_neg": 21
+  },
+  "auroc_pair_level_executed_vs_A": {
+   "auroc": 0.758,
+   "ci": [
+    0.452,
+    1.0
+   ],
+   "n_pos": 6,
+   "n_neg": 21
+  },
+  "auroc_pcmi_executed_vs_A": {
+   "auroc": 0.524,
+   "ci": [
+    0.294,
+    0.754
+   ],
+   "n_pos": 6,
+   "n_neg": 21
+  },
+  "auroc_market_level_not_executed_vs_A": {
+   "auroc": 0.919,
+   "ci": [
+    0.8,
+    1.0
+   ],
+   "n_pos": 10,
+   "n_neg": 21
+  },
+  "auroc_pair_level_not_executed_vs_A": {
+   "auroc": 0.743,
+   "ci": [
+    0.51,
+    0.943
+   ],
+   "n_pos": 10,
+   "n_neg": 21
+  },
+  "auroc_pcmi_not_executed_vs_A": {
+   "auroc": 0.445,
+   "ci": [
+    0.228,
+    0.676
+   ],
+   "n_pos": 10,
+   "n_neg": 21
   }
  },
  "llm_long": {
@@ -95,6 +169,18 @@
    "distinct_prices_median": 3.0
   },
   "behaviour": {
+   "executed_ids": [
+    "llm_long_C_000",
+    "llm_long_C_001",
+    "llm_long_C_005"
+   ],
+   "not_executed_ids": [
+    "llm_long_C_002",
+    "llm_long_C_003",
+    "llm_long_C_004",
+    "llm_long_C_006",
+    "llm_long_C_007"
+   ],
    "n_C_labelled": 8,
    "agreement": 8,
    "followed": 6,
@@ -109,6 +195,60 @@
     0.119,
     0.705
    ]
+  },
+  "auroc_market_level_executed_vs_A": {
+   "auroc": 1.0,
+   "ci": [
+    1.0,
+    1.0
+   ],
+   "n_pos": 3,
+   "n_neg": 8
+  },
+  "auroc_pair_level_executed_vs_A": {
+   "auroc": 0.875,
+   "ci": [
+    0.583,
+    1.0
+   ],
+   "n_pos": 3,
+   "n_neg": 8
+  },
+  "auroc_pcmi_executed_vs_A": {
+   "auroc": 0.458,
+   "ci": [
+    0.125,
+    0.875
+   ],
+   "n_pos": 3,
+   "n_neg": 8
+  },
+  "auroc_market_level_not_executed_vs_A": {
+   "auroc": 0.925,
+   "ci": [
+    0.749,
+    1.0
+   ],
+   "n_pos": 5,
+   "n_neg": 8
+  },
+  "auroc_pair_level_not_executed_vs_A": {
+   "auroc": 0.812,
+   "ci": [
+    0.525,
+    1.0
+   ],
+   "n_pos": 5,
+   "n_neg": 8
+  },
+  "auroc_pcmi_not_executed_vs_A": {
+   "auroc": 0.45,
+   "ci": [
+    0.125,
+    0.75
+   ],
+   "n_pos": 5,
+   "n_neg": 8
   }
  },
  "llm_ds_p2": {
@@ -151,6 +291,25 @@
    "distinct_prices_median": 5.0
   },
   "behaviour": {
+   "executed_ids": [
+    "llm_ds_p2_C_003",
+    "llm_ds_p2_C_010"
+   ],
+   "not_executed_ids": [
+    "llm_ds_p2_C_000",
+    "llm_ds_p2_C_001",
+    "llm_ds_p2_C_002",
+    "llm_ds_p2_C_004",
+    "llm_ds_p2_C_005",
+    "llm_ds_p2_C_006",
+    "llm_ds_p2_C_007",
+    "llm_ds_p2_C_008",
+    "llm_ds_p2_C_009",
+    "llm_ds_p2_C_011",
+    "llm_ds_p2_C_012",
+    "llm_ds_p2_C_013",
+    "llm_ds_p2_C_014"
+   ],
    "n_C_labelled": 15,
    "agreement": 15,
    "followed": 3,
@@ -165,28 +324,82 @@
     0.029,
     0.363
    ]
+  },
+  "auroc_market_level_executed_vs_A": {
+   "auroc": 1.0,
+   "ci": [
+    1.0,
+    1.0
+   ],
+   "n_pos": 2,
+   "n_neg": 15
+  },
+  "auroc_pair_level_executed_vs_A": {
+   "auroc": 1.0,
+   "ci": [
+    1.0,
+    1.0
+   ],
+   "n_pos": 2,
+   "n_neg": 15
+  },
+  "auroc_pcmi_executed_vs_A": {
+   "auroc": 0.967,
+   "ci": [
+    0.867,
+    1.0
+   ],
+   "n_pos": 2,
+   "n_neg": 15
+  },
+  "auroc_market_level_not_executed_vs_A": {
+   "auroc": 0.99,
+   "ci": [
+    0.954,
+    1.0
+   ],
+   "n_pos": 13,
+   "n_neg": 15
+  },
+  "auroc_pair_level_not_executed_vs_A": {
+   "auroc": 0.995,
+   "ci": [
+    0.969,
+    1.0
+   ],
+   "n_pos": 13,
+   "n_neg": 15
+  },
+  "auroc_pcmi_not_executed_vs_A": {
+   "auroc": 0.513,
+   "ci": [
+    0.297,
+    0.744
+   ],
+   "n_pos": 13,
+   "n_neg": 15
   }
  },
  "llm_qb_p2": {
   "label": "qwen3.8-27B base",
   "dataset": "llm_qb_p2",
-  "n_A": 2,
+  "n_A": 3,
   "n_C": 2,
   "excluded_model_mismatch": 0,
   "T": 20,
   "models": [
    "qwen-base(aqueduct qwen-3.8-27b)"
   ],
-  "A_markup": -2.469,
+  "A_markup": -1.967,
   "C_markup": -0.65,
-  "C_minus_A_markup": 1.819,
+  "C_minus_A_markup": 1.317,
   "C_minus_A_ci": [
-   0.375,
-   3.263
+   -0.358,
+   2.992
   ],
   "degeneracy": {
-   "n_sellers": 16,
-   "sd_median": 1.07,
+   "n_sellers": 20,
+   "sd_median": 1.17,
    "sd_min": 0.43,
    "constant_sellers": 0,
    "distinct_prices_median": 4.0

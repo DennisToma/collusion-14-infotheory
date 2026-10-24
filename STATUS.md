@@ -1,5 +1,11 @@
 > **PHASE 2 STARTED 2026-10-24 06:45 UTC** - v1 frozen as tag v1-overnight. New experiments are OPEN again; work queue = DIRECTION.md gap list. Ignore older no-new-experiments / finalize notes below.
 
+# STATUS (updated 2026-10-24 11:42 UTC from date -u, Phase 2 iteration 9, interim)
+
+**Fix:** two `llm_qb_p2` generators were running at once since 11:25 (manual retry loop + queue retry 3) → duplicated run_ids with different content (A_000 twice). Killed both, deduped keeping the FIRST complete record per run_id (backup `/var/tmp/c14/llm_qb_p2_dup_backup`), relaunched ONE loop (`/var/tmp/c14/qb_loop.sh`). Abliterated endpoint answering again since ~11:36 (qa cache growing ~65 calls/min → ETA ~12:30).
+**E64 declared (11:38, before E44 output):** detectors on executed-C vs A and not-executed-C vs A (`p2_partc.py`, second table); llm_long_p2_T60 added to SETS. Existing sets: market_level exec .98/1.00/1.00 vs not-exec .92/.93/.99; pCMI exec .52 (luna, 6) / .46 (T=50, 3) / .97 (deepseek, n=2!) vs not-exec .45/.45/.51.
+**Waiting:** E44 30/40 at 11:41 → `bash scripts/e44_post.sh` then `p2_partc.py` (adds E44 executed row).
+
 # STATUS (updated 2026-10-24 11:34 UTC from date -u, Phase 2 iteration 8)
 
 **Phase 2 running; PART C (DIRECTION top priority) launched.** E44 llm_long_p2 25/40 at 11:13 (do NOT peek; `bash scripts/e44_post.sh` on `llm_long_p2_T60` when 40).

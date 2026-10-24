@@ -146,6 +146,25 @@ def _qwen(msgs, model, temperature, max_tokens):
     return _modal_post(f"{url}/v1/chat/completions", env["QWEN_API_KEY"], body), m
 
 
+AQ_RATE = 45  # gateway limit is 50 req/min per key, shared by every process on the VM
+AQ_STATE = HOME / "collusion" / ".aqueduct_calls"
+
+
+def _aq_wait():
+    # Cross-process sliding window: block until fewer than AQ_RATE calls in the last 60 s.
+    while True:
+        with open(AQ_STATE, "a+") as f:
+            fcntl.flock(f, fcntl.LOCK_EX)
+            f.seek(0)
+            now = time.time()
+            ts = [float(x) for x in f.read().split() if now - float(x) < 60]
+            if len(ts) < AQ_RATE:
+                f.seek(0); f.truncate(); f.write("\n".join(map(str, ts + [now])))
+                return
+            wait = 60 - (now - min(ts)) + 0.1
+        time.sleep(wait)
+
+
 def _aqueduct(msgs, model, temperature, max_tokens):
     # TU Wien Aqueduct gateway (AQUEDUCT_BASE_URL / AQUEDUCT_API_KEY in compute.env). Explicit only.
     # Models: qwen-3.8-27b (base Qwen3.8-27B, FP8 = C3 control for the abliterated model), qwen-3.6-35b,
@@ -154,7 +173,15 @@ def _aqueduct(msgs, model, temperature, max_tokens):
     m = model or "qwen-3.8-27b"
     body = {"model": m, "messages": msgs, "temperature": temperature, "max_tokens": max_tokens,
             "chat_template_kwargs": {"enable_thinking": False}}
-    return _post(f"{env['AQUEDUCT_BASE_URL']}/v1/chat/completions", env["AQUEDUCT_API_KEY"], body, timeout=300), m
+    for _ in range(8):
+        _aq_wait()
+        try:
+            return _post(f"{env['AQUEDUCT_BASE_URL']}/v1/chat/completions", env["AQUEDUCT_API_KEY"], body, timeout=300), m
+        except urllib.error.HTTPError as e:
+            if e.code != 429:
+                raise
+            time.sleep(float(e.headers.get("Retry-After") or 30))
+    raise RuntimeError("aqueduct: still rate-limited after 8 tries")
 
 
 BACKENDS = {"keyed": _keyed, "go": _go, "codex": _codex, "claude": _claude, "qwen": _qwen, "aqueduct": _aqueduct}
