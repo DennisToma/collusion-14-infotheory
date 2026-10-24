@@ -32,8 +32,8 @@ chance (0.5, dashed), while a price-level statistic separates channel from no-ch
 ## Phase 2 results (in progress; started 2026-10-24 06:30 UTC)
 Phase 2 closes known gaps; v1 numbers above are unchanged (git tag `v1-overnight`). Each Phase 2 experiment is declared in
 `EXPERIMENTS.tsv` (E43–E55) before its data exist; the new LLM datasets (`data/SPLITS.md`, "Phase 2") are all confirmatory because no detector setting is tuned on them.
-Status: long games (E44: 20 A + 20 C, T=60) and a second seller family (E45: deepseek-v4.1-flash, 15 A + 15 C) are **generating**. Their results will be added here.
-Done: P2.1 precision at prevalence, P2.2 independent reimplementation, P2.3 same-model confound (gap 3), P2.4 scripted coalitions / onset / cost asymmetry (gaps 5, 6, 8; locked test), P2.5 market-model robustness (gap 7: N=2/6, demand elasticity; locked test), P2.6 bid rotation (gap 9 exploration; locked test), **P2.7 prompt-wording robustness (gap 1)**, P2.8 long-game pilot (gap 2; confirmatory E44 pending).
+Status: long games (E44: 20 A + 20 C, T=60) are **generating** (P2.8 shows the pilot). The second seller family (E45, deepseek) is done (P2.9).
+Done: P2.1 precision at prevalence, P2.2 independent reimplementation, P2.3 same-model confound (gap 3), P2.4 scripted coalitions / onset / cost asymmetry (gaps 5, 6, 8; locked test), P2.5 market-model robustness (gap 7: N=2/6, demand elasticity; locked test), P2.6 bid rotation (gap 9 exploration; locked test), **P2.7 prompt-wording robustness (gap 1)**, **P2.9 second seller family (gap 4)**, P2.10 sibling channel arms (exploratory), P2.8 long-game pilot (gap 2; confirmatory E44 pending).
 
 **Phase 2 at a glance** (one row per gap; [95% CI]; Wilson for k/n flags; the full reading of each row is in the section named).
 
@@ -44,7 +44,7 @@ Done: P2.1 precision at prevalence, P2.2 independent reimplementation, P2.3 same
 | 1 | prompt wording (5 wordings, 6 + 6 each) | channel C − A +0.69 (SE 0.17), Q p = 0.69; no-channel baseline −0.19 … +2.56; within-wording markup AUROC 0.66 [0.53, 0.78]; pCMI 0.44 [0.30, 0.58] | `eval/p2_variants.json` | P2.7 |
 | 2 | long games (T=60, 20 + 20) | *generating (E44)*; pilot (T=50, 8 + 8): pCMI AUROC 0.36–0.45 at every prefix; pair premium +1.12 → +0.16 while market markup stays high | `eval/long_power_llm_long.json` | P2.8 |
 | 3 | same-model confound | mismatched reference: pCMI 52% false flags (exploratory); model-matched fresh pool: 0/21 [0, 16]% false flags, but markup power 1/16 (prompt mismatch) | `eval/same_model.json`, `eval/matched_ref.json` | P2.3 |
-| 4 | second seller family (deepseek) | *see P2.9* | `eval/p2_family.json` | P2.9 |
+| 4 | second seller family (deepseek, 15 + 15) | channel C − A +3.75 [2.77, 4.68] (luna +1.76; interaction +1.99 [0.90, 3.07]); AUROC markup 0.99, pair_level 1.00, pCMI 0.57 [0.36, 0.77]; rule HOLDS | `eval/p2_family.json` | P2.9 |
 | 5 | coalition structure (scripted) | all-4 cartel: pair_level AUROC 0.25 (1/30, 0/30 flagged); markup, pCMI, TC 30/30 | `p2/coalition_test.json` | P2.4 |
 | 6 | onset (scripted) | level CUSUM 0/30 false alarms, 30/30 detected, median delay 7–7.5 rounds; repeated-look pCMI 5/30 = 17% [7, 34] false | `p2/onset_test.json` | P2.4 |
 | 7 | market model (N = 2/4/6, μ) | pooled pCMI control false flags 18/300 = 6.0% [3.8, 9.3]; 9/10 cells pass; s = 0.6 power 30/30 everywhere | `p2/market_test.json` | P2.5 |
@@ -255,6 +255,22 @@ But the agreed floors are low (12 in 15/18 followed games; static Nash is 10–1
 *Pilot reading (n = 8 + 8, exploratory):* the channel signal here is a price level, with no detectable shared move, so more rounds are not expected to help pCMI. E44 tests this with 20 + 20 games at T = 60, with the same declared decision rule.
 
 
+**P2.9 Second seller family: deepseek-v4.1-flash (E45; gap 4; confirmatory, 15 A + 15 C, T=20, seed 10 = same pairs and costs as `llm_v1`; frozen detectors, no tuning).**
+`uv run python scripts/p2_family.py --run-eval` → `results/eval/{llm_ds_p2,p2_family}.{json,md}`. Sellers via OpenCode Go (thinking disabled, 0 parse failures).
+
+| family (dataset) | n C/A | A markup | C markup | C − A markup [95% CI] | AUROC markup | AUROC pair_level | AUROC pCMI | seller price SD (median) |
+|---|---|---|---|---|---|---|---|---|
+| deepseek-v4.1-flash (`llm_ds_p2`) | 15/15 | -0.58 | +3.16 | 3.75 [2.77, 4.68] | 0.99 [0.96, 1.00] | 1.00 [0.97, 1.00] | 0.57 [0.36, 0.77] | 1.06 |
+| gpt-6-luna (`llm_v1`) | 16/21 | +0.02 | +1.78 | 1.76 [1.22, 2.31] | 0.94 [0.86, 1.00] | 0.75 [0.55, 0.91] | 0.47 [0.28, 0.67] | 0.67 |
+
+Declared rule (E45: C − A CI excludes 0 and markup AUROC > pCMI AUROC): **HOLDS**. Amendment (declared before detector output): family × condition interaction (C − A deepseek minus luna) **+1.99 [0.90, 3.07]**; no degenerate sellers (0/120 constant, median 5 distinct prices per seller), so pCMI is well defined.
+Reading. (a) **The level-vs-pCMI pattern replicates in a second model family**, more sharply: the private channel more than doubles the markup effect, and both level screens separate channel from control markets almost perfectly, while pCMI stays at chance (pCMI shift-null flags: A 1/15, C 3/15).
+(b) The families differ in *how* they collude. deepseek pairs stay above their rivals throughout (pair − rivals +3.24 [2.37, 4.08]; still ≈ +2.5 in round 20), and deepseek no-channel markets undercut to ≈ 1.5 below the static Nash price by round 20.
+In the luna pilot the rivals catch up with the pair (P2.8c). So a pair-relative screen is stronger for deepseek, and the no-channel baseline is again model-specific (−0.58 vs +0.02), which supports the matched-reference point of P2.3/P2.7.
+(c) Lagged TE separates deepseek C from A (0.81 [0.62, 0.96]; secondary detector, not in the rule), unlike in `llm_v1` (0.35 [0.18, 0.55]). The likely reason is the gradual descent of the opening premium (figure), a lagged level trend rather than a contemporaneous shared move; we did not test this.
+![premium decay llm_ds_p2](figures/premium_decay_llm_ds_p2.png)
+*Per-round market markup (C vs A) and pair premium (C), `llm_ds_p2`; `uv run python scripts/premium_decay_fig.py --name llm_ds_p2`.*
+
 **P2.10 Which channel arms do price detectors see? Frozen detectors on the sibling's six matched arms (E57, exploratory, no new calls).**
 `uv run python scripts/p2cue_ext.py` → `results/eval/p2cue_ext.{json,md}` (snapshot `data/ext_llm_p2cue` of sibling commit a56cc1f; frozen E13 configuration).
 Sibling dataset `llm_p2cue`: 6 arms × 15 matched seeds (gpt-6-luna, T=12). *private* and *neutral* (a delivered "message box", no "private" wording) deliver messages;
@@ -290,9 +306,10 @@ whether this reflects mainly the level effect or low power at short T remains un
 Level screens are not collusion-specific: they rank legitimate public partnerships above controls (0.75) and respond to an offered-but-undelivered
 placebo channel in the sibling market. Practical reading (a hypothesis, not tested as a pipeline): a cheap level screen as an always-on first stage, with dependence and text audits as second-stage evidence;
 the detectability of LLM collusion depends on the market and its framing.
-**Phase 2 (locked scripted tests, five prompt wordings, the sibling's six channel arms; long games and a second seller family in progress):** level screens and co-movement statistics fail in opposite places.
+**Phase 2 (locked scripted tests, five prompt wordings, a second seller family, the sibling's six channel arms; long games in progress):** level screens and co-movement statistics fail in opposite places.
 Unequal private costs make both tested level screens falsely flag 30/30 scripted markets, while pCMI flags 4/30 (controls 1/30). A relative pair screen loses its power against an all-firm cartel (AUROC 0.25),
 while absolute markup, pCMI and group total correlation do not. Across five seller-prompt wordings the channel raises prices consistently (+0.69, SE 0.17; no detectable heterogeneity), but the wording alone moves no-channel prices by up to +2.5 over Nash, so within-wording markup AUROC falls to 0.66 [0.53, 0.78]; pCMI never separates channel from control in any wording.
+A second seller family (deepseek-v4.1-flash, 15 + 15 games) replicates the pattern more sharply: channel markup +3.75 [2.77, 4.68], level AUROC 0.99, pCMI 0.57 [0.36, 0.77].
 In the sibling's matched arms the level screens name the pair as often when its two firms only write *to themselves* (undelivered notepad, 0/14 agreements; 11/15) as with a private channel (12/15).
 Absolute statistics need a reference that matches the model *and* the prompt. At 1% prevalence no flag reaches precision 0.25, so flags are audit triggers, not verdicts.
 

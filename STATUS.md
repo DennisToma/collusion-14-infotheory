@@ -1,14 +1,15 @@
 > **PHASE 2 STARTED 2026-10-24 06:45 UTC** - v1 frozen as tag v1-overnight. New experiments are OPEN again; work queue = DIRECTION.md gap list. Ignore older no-new-experiments / finalize notes below.
 
-# STATUS (updated 2026-10-24 08:45 UTC, Phase 2 iteration 5)
+# STATUS (updated 2026-10-24 09:30 UTC, Phase 2 iteration 5)
 
-**Phase 2 running.** REPORT "Phase 2 results": P2.1–P2.8 + **P2.10 (new) frozen detectors on sibling llm_p2cue**; P2.9 (deepseek, gap 4) pending this iteration.
-**E57 (p2cue, exploratory):** level screens fire on an UNDELIVERED notepad with 0/14 agreements (pair_level top-1 11/15, AUROC vs none .89) about as on private (12/15, .91): they track the pair-addressed prompt, not coordination. pCMI top-1 only above chance in private (6/15, p=.03 uncorrected); randpartner: no localisation, highest markup +2.74.
-**E45 deepseek interim (8C/9A):** C−A markup +3.78 [2.81, 4.75] (luna llm_v1 +1.76), non-degenerate (median seller price SD 1.1, 0 constant sellers); detectors not yet run; Go now ~2 games/7 min → 30/30 ~09:25. Analysis declared (E45-analysis-amendment): `uv run python scripts/p2_family.py --run-eval`.
-**Gap 1 (E43) DONE**, P2.7 AUROC comparison fixed (v1 C-vs-A markup AUROC is 0.94; 0.87 = CD vs AB).
-**Generating:** E44 llm_long_p2 (A/C × 20, T=60; started 08:30 → ~12:30), then p2b T=80. Opus review of P2.7/P2.10 running.
-**Next:** (1) deepseek done → p2_family.py --run-eval → P2.9 + abstract; (2) E44 done: `llm_eval eval --name llm_long_p2 --Ts 10,20,30,40,50,60`, `scripts/long_power.py`, `scripts/matched_ref.py` (final), `behaviour_split.py` → replace P2.8 pilot; (3) abstract rewrite + takeaways-as-table by 19:30.
-**Risks:** E44 ~12:30; codex parallelism (5 queue workers + sibling) — reviews via Opus subagent.
+**Phase 2 running.** REPORT has "Phase 2 at a glance" table (one row per gap), P2.1–P2.10; abstract Phase 2 paragraph rewritten (checkpoint-ready except E44).
+**Gap 4 (E45) DONE:** deepseek 15+15: C−A markup +3.75 [2.77, 4.68] (luna +1.76; interaction +1.99 [0.90, 3.07]); AUROC markup .99, pair_level 1.00, pCMI .57 [.36,.77] → rule HOLDS. deepseek pairs keep their lead (+3.24), no-channel undercuts Nash (−0.58).
+**E57 (p2cue, exploratory) → P2.10:** level screens fire on an undelivered notepad (0/14 agreements; pair_level 11/15, AUROC .89) as on private (12/15, .91). pCMI prediction partly failed (below-chance AUROC in notes/placebo).
+**Gaps 1, 3, 5–9 + shared DONE.** Only gap 2 (E44) open. Opus review of P2.7/P2.10 applied (wording only).
+**Checks:** `scripts/p2_tables.py --check` PASS (8 tables, 264 cells).
+**Generating:** E44 llm_long_p2 (A/C × 20, T=60; started 08:30, 0 games at 08:51; ETA ~12:30), then p2b T=80 replay. Go queue finished (deepseek) — free for nothing else planned.
+**Next:** (1) E44 done: `uv run python -m experiments.llm_eval eval --name llm_long_p2 --Ts 10,20,30,40,50,60`, `scripts/long_power.py --name llm_long_p2` (E44 rule primary), `scripts/premium_decay_fig.py --name llm_long_p2`, `scripts/matched_ref.py` (final), `behaviour_split.py` (needs `llm_eval label --name llm_long_p2`) → replace P2.8 pilot + glance row 2; (2) codex/Opus review of P2.9 + final claims before 19:30; (3) optional: judge labels for llm_ds_p2 (agreement rate, behaviour split).
+**Risks:** E44 timing; nothing else blocking.
 
 # STATUS (updated 2026-10-24 08:38 UTC, Phase 2 iteration 4)
 
@@ -48,7 +49,7 @@ Codex review of P2.4–P2.5 applied (1 P0 summary-only bug, no reported number c
 **Risks:** small LLM n, OpenAI-family sellers only, no own-market placebo; surplus dependence is not proof of an agreement.
 
 ## Log
-- P2 iter 5 08:35–: E45 analysis script declared + interim markup; E57 p2cue frozen detectors → P2.10; P2.7 AUROC fix.
+- P2 iter 5 08:35–09:30: E45 analysis declared → deepseek done → P2.9 (HOLDS); E57 p2cue → P2.10; Opus review applied; at-a-glance table; abstract rewrite; premium-decay figure.
 - P2 iter 4 08:20–08:38: E43 noreason done → P2.7 (gap 1 HOLDS, baseline prompt-sensitive); E54 interim2 pool 30; p2_tables.py covers P2.7.
 - P2 iter 4 08:10–08:20: codex review E55 → E44 rule primary, script P0 fixes; p2_tables.py (sonnet) found stale P2.3 CIs → fixed.
 - P2 iter 4 07:53–08:10: declared E54/E55/E43-amendment/E56; E54 interim; E55 pipeline pilot on llm_long; E56 behaviour split; E43 interim with heterogeneity; P2.3 rewritten+trimmed, P2.8 added; release-audit test fixed.

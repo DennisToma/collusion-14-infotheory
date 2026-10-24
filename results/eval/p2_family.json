@@ -1,20 +1,38 @@
 {
  "deepseek": {
-  "n_A": 9,
-  "n_C": 8,
+  "n_A": 15,
+  "n_C": 15,
   "models": [
    "deepseek-v4.1-flash"
   ],
-  "A_markup": -0.606,
-  "C_markup": 3.17,
-  "C_minus_A_markup": 3.776,
+  "A_markup": -0.585,
+  "C_markup": 3.164,
+  "C_minus_A_markup": 3.749,
   "C_minus_A_ci": [
-   2.812,
-   4.748
+   2.768,
+   4.679
   ],
+  "auroc_market_level": 0.9911111111111112,
+  "auroc_market_level_ci": [
+   0.9600000000000001,
+   1.0
+  ],
+  "flag_rate_market_level": null,
+  "auroc_pair_level": 0.9955555555555556,
+  "auroc_pair_level_ci": [
+   0.9733333333333333,
+   1.0
+  ],
+  "flag_rate_pair_level": null,
+  "auroc_pcmi": 0.5733333333333334,
+  "auroc_pcmi_ci": [
+   0.35555555555555557,
+   0.7733333333333333
+  ],
+  "flag_rate_pcmi": null,
   "degeneracy": {
-   "n_sellers": 68,
-   "sd_median": 1.1,
+   "n_sellers": 120,
+   "sd_median": 1.06,
    "sd_min": 0.22,
    "constant_sellers": 0,
    "distinct_prices_median": 5.0
@@ -60,10 +78,16 @@
   }
  },
  "interaction_C_minus_A_ds_minus_luna": [
-  2.02,
+  1.994,
   [
-   0.904,
-   3.121
+   0.895,
+   3.068
   ]
- ]
+ ],
+ "rule": {
+  "markup_ci_excludes_0": true,
+  "level_beats_pcmi": true,
+  "n_ok_for_auroc": true,
+  "verdict": "HOLDS"
+ }
 }

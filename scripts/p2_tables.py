@@ -181,6 +181,18 @@ def p27():
     return table(["wording", "n C/A", "no-channel markup (A)", "C − A markup [95% CI]", "AUROC markup", "AUROC pair_level", "AUROC pCMI"], rows)
 
 
+# ---------------------------------------------------------------- P2.9
+def p29():
+    d = jl("results/eval/p2_family.json")
+    f = lambda x, ci: f"{x:.2f} [{ci[0]:.2f}, {ci[1]:.2f}]"
+    rows = []
+    for lab, r in (("deepseek-v4.1-flash (`llm_ds_p2`)", d["deepseek"]), ("gpt-6-luna (`llm_v1`)", d["luna_llm_v1"])):
+        rows.append([lab, f"{r['n_C']}/{r['n_A']}", f"{r['A_markup']:+.2f}", f"{r['C_markup']:+.2f}", f(r["C_minus_A_markup"], r["C_minus_A_ci"]),
+                     *(f(r[f"auroc_{k}"], r[f"auroc_{k}_ci"]) for k in ("market_level", "pair_level", "pcmi")), str(r["degeneracy"]["sd_median"])])
+    return table(["family (dataset)", "n C/A", "A markup", "C markup", "C − A markup [95% CI]", "AUROC markup", "AUROC pair_level",
+                  "AUROC pCMI", "seller price SD (median)"], rows)
+
+
 # ---------------------------------------------------------------- P2.10
 def p210():
     d = jl("results/eval/p2cue_ext.json")["detectors"]
@@ -204,7 +216,7 @@ def p210():
                   "AUROC max-pair score vs none: private / neutral / notes / placebo"], rows)
 
 
-BUILDERS = {"P2.1": p21, "P2.3": p23, "P2.4": p24, "P2.5": p25, "P2.6": p26, "P2.7": p27, "P2.10": p210}
+BUILDERS = {"P2.1": p21, "P2.3": p23, "P2.4": p24, "P2.5": p25, "P2.6": p26, "P2.7": p27, "P2.9": p29, "P2.10": p210}
 
 
 def check(report):
