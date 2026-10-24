@@ -21,7 +21,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from report_tables import normalized, parse_tables, table  # noqa: E402
 
 # Cells in the Phase 2 tables that cannot be derived from JSON (none at present).
-UNCHECKED: list[str] = []
+UNCHECKED: list[str] = ["P2.11b rows 3-4: Q2.2 sibling numbers (their p2_qwen_cmp.json / p2_qwen9_pilot.json), quoted"]
 # Not tables: P2.4 onset (E50, results/p2/onset_test.json) is reported in prose only, so it is not checked here.
 
 
@@ -221,7 +221,8 @@ P211_SETS = (("gpt-6-luna (`llm_v1`, 20)", "llm_v1"), ("gpt-6-luna (`llm_long`, 
              ("gpt-6-luna (E44 `llm_long_p2_T60`, 60)", "llm_long_p2_T60"), ("deepseek-v4.1-flash (`llm_ds_p2`, 20)", "llm_ds_p2"),
              ("Qwen3.8-27B **abliterated** (`llm_qa_p2`, 20)", "llm_qa_p2"), ("Qwen3.8-27B base (`llm_qb_p2`, 20)", "llm_qb_p2"),
              ("gpt-5.6-luna, older (`llm_g56l_p2`, 20)", "llm_g56l_p2"),
-             ("E65 Qwen3.8-27B abliterated + memory (`llm_strong_qa`, 40)", "llm_strong_qa"))
+             ("E65 Qwen3.8-27B abliterated + memory (`llm_strong_qa`, 40)", "llm_strong_qa"),
+             ("E69 Qwen3.6-35B **abliterated** (`llm_qa36_p2`, 20)", "llm_qa36_p2"), ("E69 Qwen3.6-35B base (`llm_qb36_p2`, 20)", "llm_qb36_p2"))
 
 
 def p211():
@@ -240,7 +241,32 @@ def p211():
                   "executed (C)", "tacit (A)"], rows)
 
 
-BUILDERS = {"P2.1": p21, "P2.3": p23, "P2.4": p24, "P2.5": p25, "P2.6": p26, "P2.7": p27, "P2.9": p29, "P2.10": p210, "P2.11": p211}
+def p211b():
+    """Three-pair abliteration table: our two pairs from JSON; Q2.2 rows are sibling numbers (literal, UNCHECKED)."""
+    d = jl("results/eval/p2_partc.json")
+    f = lambda c: f"{c[0]:+.2f} [{c[1][0]:+.2f}, {c[1][1]:+.2f}]".replace("-", "−").replace("[+", "[").replace(", +", ", ")
+    rows = []
+    for lab, a, b, key in (("Qwen3.8-27B (ours E61, T=20; bf16 / FP8)", "llm_qa_p2", "llm_qb_p2", "contrast_abliterated_minus_base"),
+                           ("Qwen3.6-35B (ours E69, T=20; FP8 / AWQ 4-bit)", "llm_qa36_p2", "llm_qb36_p2", "E69_abliterated_minus_base")):
+        ba, bb = d[a]["behaviour"], d[b]["behaviour"]
+        am = f(d[f"{key}_A_markup"]) + (" (exploratory)" if a == "llm_qa_p2" else "")
+        rows.append([lab, f"{ba['agreement']}/{ba['n_C_labelled']} vs {bb['agreement']}/{bb['n_C_labelled']}",
+                     f"{ba['executed']}/{ba['n_C_labelled']} vs {bb['executed']}/{bb['n_C_labelled']}",
+                     f(d[f"{key}_C_minus_A"]), am])
+    rows.append(["Qwen3.8-27B (Q2.2 E100, their market, T=12; bf16 / FP8)", "15/15 vs 15/15", "13/15 vs 13/15",
+                 "premium −1.24 [−2.41, −0.03]", "–"])
+    rows.append(["Qwen3.5-9B (Q2.2 C3c E109)", "dropped at the registered pilot (base prices below Nash)", "", "", ""])
+    return table(["pair (market, serving abl. / base)", "agreement", "executed", "(C − A) markup diff", "A-arm markup diff"], rows)
+
+
+def p213():
+    d = jl("results/eval/claims_denominators.json")
+    rows = [[r["text"], r["group"], f"{r['k']}/{r['K']}", str(len(r["models_where_holds"])), ", ".join(r["fails"]) or "–"]
+            for r in d["claims"]]
+    return table(["claim", "sets", "holds in", "seller models where it holds", "fails in"], rows)
+
+
+BUILDERS = {"P2.1": p21, "P2.3": p23, "P2.4": p24, "P2.5": p25, "P2.6": p26, "P2.7": p27, "P2.9": p29, "P2.10": p210, "P2.11": p211, "P2.11b": p211b, "P2.13": p213}
 
 
 def check(report):

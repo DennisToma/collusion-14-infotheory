@@ -1,4 +1,4 @@
-# E1 — factorial grid (Part E1), REGISTERED 2026-10-24 ~17:10 UTC before any real data
+# E70 — factorial grid (Part E1), REGISTERED 2026-10-24 ~17:10 UTC before any real data
 
 **Question.** Across 16 market designs, does (i) the channel raise prices (C − A > 0) and (ii) does the price
 *level* separate channel from no-channel games better than the *dependence* statistic (pCMI)? Which design

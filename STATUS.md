@@ -1,6 +1,16 @@
 > **PHASE 2 STARTED 2026-10-24 06:45 UTC** - v1 frozen as tag v1-overnight. New experiments are OPEN again; work queue = DIRECTION.md gap list. Ignore older no-new-experiments / finalize notes below.
 
 
+# STATUS (updated 2026-10-24 17:35 UTC from date -u, Phase 2 iteration 16; follows DIRECTION 15:50)
+
+**E69 DONE (declared, prediction met):** abliterated − base (C − A) −0.65 [−1.97, +0.65] → null replicates; A-arm +0.35 [−0.28, 0.96] (E61's exploratory +1.06 NOT replicated); executed 7/15 vs 3/15. **qb36 (base Qwen3.6) pCMI 0.71 [0.51, 0.88] = first set with pCMI CI > 0.5** (market 0.93 still higher) — now in main claim/abstract as "8/9". Three-pair abliteration table in P2.11 (b2) ("no detectable increase in 3/3 pairs"), checked by p2_tables (P2.11b).
+**Bug fixed:** the E69 rerun evaluated the 3 memory pilots (declared judge-only) and E64 silently pooled them (59/164). Pilots now excluded in p2_partc.py; E64 pooled = 10 sets, 48/149 executed, pCMI exec .42 [.33,.53] vs .52.
+**E70 = Part E1 grid REGISTERED (results/e1_registration.md, 17:10) and RUNNING** (`scripts/e1_grid.py run --sweeps 3`, setsid; log /var/tmp/c14/e1_grid.log). 2^(7−3) res IV, factor 2 substituted by private-vs-public cost (N=2 not implemented; declared before data). Sim switches all-off = v0 byte-identical (tested). ~23 games/30 min → 3 sweeps (96 games) ETA ~19:30–20:00. Analysis `scripts/e70_grid.py --label --eval` (declared analysis, pipeline being dry-tested on fake-LLM data). **Disclosure:** the manager saw the per-game mean-price lines of 4 sweep-1 games in runner logs (c00/c01/c08/c09) while checking throughput; no analysis was computed; the analysis is fixed in the registration.
+**E68/D2:** manipulation check declared in ledger (17:12) before reading asks; ~11/30 runs. Analyse at 15+15 or Sun 10:00.
+**Claims × denominators** (`scripts/claims_denominators.py`, REPORT P2.13, in p2_tables --check): premium 9/9 sets (7 models), level>pCMI 9/9, pCMI null 8/9, executed ≤50% 8/9, tacit rare 8/9.
+**19:30 consolidation done early:** main claim = 2 sentences; abstract 246 words with denominators; P2.3–P2.6 prose −32 lines (REPORT 959 lines < 968). Checks: p2_tables PASS (424), tables PASS, release audit PASS (PRESENTATION regenerated; slides.py ledger-ID parse fixed by naming the grid E70).
+**Next:** (1) when sweep 1 completes: publish data/llm_grid_p2_* + manifest for Q2.2 (already in repo); (2) after 3 sweeps: `uv run python scripts/e70_grid.py --label --eval` once → ≤15 lines + main-effects table + 1 abstract sentence; (3) PDFs at 19:30; (4) D2 analysis Sun.
+
 # STATUS (updated 2026-10-24 15:53 UTC from date -u, Phase 2 iteration 15; follows DIRECTION 13:45)
 
 **Adversarial review (DIRECTION #5) DONE early** (Opus subagent; record `results/reviews/opus_review_p2_iter15.md`): 3 P0 fixed: E64 declared prediction only PARTLY met (pair_level executed 0.84 [0.75,0.92] < 0.9); circularity applies to market_level only; "max-pair markup 0.94/0.95/0.99" was market_level → renamed. 9 P1 applied (minority not rare, T20→60 decline n.s., E61 CI wording, T=80 cancellation, E65 populations, Nash cost-dependent, etc.).

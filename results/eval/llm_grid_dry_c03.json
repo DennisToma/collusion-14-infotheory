@@ -1,0 +1,1034 @@
+{
+ "by_T": {
+  "20": {
+   "pearson": {
+    "A": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ]
+    },
+    "AB_competitive": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ]
+    },
+    "dev:A": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ]
+    },
+    "dev:AB_competitive": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ]
+    },
+    "C": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1_binom_p_vs_1/6": 1.0
+    },
+    "CD_ambiguous": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1_binom_p_vs_1/6": 1.0
+    },
+    "dev:C": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1_binom_p_vs_1/6": 1.0
+    },
+    "dev:CD_ambiguous": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1_binom_p_vs_1/6": 1.0
+    },
+    "auroc_CD_vs_AB": 0.0,
+    "auroc_ci": [
+     0.0,
+     0.0
+    ],
+    "auroc_C_vs_A": 0.0,
+    "auroc_ci_C_vs_A": [
+     0.0,
+     0.0
+    ],
+    "dev:auroc_CD_vs_AB": 0.0,
+    "dev:auroc_ci": [
+     0.0,
+     0.0
+    ],
+    "dev:auroc_C_vs_A": 0.0,
+    "dev:auroc_ci_C_vs_A": [
+     0.0,
+     0.0
+    ]
+   },
+   "pearson_diff": {
+    "A": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ]
+    },
+    "AB_competitive": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ]
+    },
+    "dev:A": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ]
+    },
+    "dev:AB_competitive": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ]
+    },
+    "C": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1_binom_p_vs_1/6": 1.0
+    },
+    "CD_ambiguous": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1_binom_p_vs_1/6": 1.0
+    },
+    "dev:C": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1_binom_p_vs_1/6": 1.0
+    },
+    "dev:CD_ambiguous": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1_binom_p_vs_1/6": 1.0
+    },
+    "auroc_CD_vs_AB": 0.0,
+    "auroc_ci": [
+     0.0,
+     0.0
+    ],
+    "auroc_C_vs_A": 0.0,
+    "auroc_ci_C_vs_A": [
+     0.0,
+     0.0
+    ],
+    "dev:auroc_CD_vs_AB": 0.0,
+    "dev:auroc_ci": [
+     0.0,
+     0.0
+    ],
+    "dev:auroc_C_vs_A": 0.0,
+    "dev:auroc_ci_C_vs_A": [
+     0.0,
+     0.0
+    ]
+   },
+   "mi": {
+    "A": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ]
+    },
+    "AB_competitive": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ]
+    },
+    "dev:A": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ]
+    },
+    "dev:AB_competitive": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ]
+    },
+    "C": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1_binom_p_vs_1/6": 1.0
+    },
+    "CD_ambiguous": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1_binom_p_vs_1/6": 1.0
+    },
+    "dev:C": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1_binom_p_vs_1/6": 1.0
+    },
+    "dev:CD_ambiguous": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1_binom_p_vs_1/6": 1.0
+    },
+    "auroc_CD_vs_AB": 1.0,
+    "auroc_ci": [
+     1.0,
+     1.0
+    ],
+    "auroc_C_vs_A": 1.0,
+    "auroc_ci_C_vs_A": [
+     1.0,
+     1.0
+    ],
+    "dev:auroc_CD_vs_AB": 1.0,
+    "dev:auroc_ci": [
+     1.0,
+     1.0
+    ],
+    "dev:auroc_C_vs_A": 1.0,
+    "dev:auroc_ci_C_vs_A": [
+     1.0,
+     1.0
+    ]
+   },
+   "cmi_state": {
+    "A": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ]
+    },
+    "AB_competitive": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ]
+    },
+    "dev:A": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ]
+    },
+    "dev:AB_competitive": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ]
+    },
+    "C": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1_binom_p_vs_1/6": 1.0
+    },
+    "CD_ambiguous": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1_binom_p_vs_1/6": 1.0
+    },
+    "dev:C": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1_binom_p_vs_1/6": 1.0
+    },
+    "dev:CD_ambiguous": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1_binom_p_vs_1/6": 1.0
+    },
+    "auroc_CD_vs_AB": 1.0,
+    "auroc_ci": [
+     1.0,
+     1.0
+    ],
+    "auroc_C_vs_A": 1.0,
+    "auroc_ci_C_vs_A": [
+     1.0,
+     1.0
+    ],
+    "dev:auroc_CD_vs_AB": 1.0,
+    "dev:auroc_ci": [
+     1.0,
+     1.0
+    ],
+    "dev:auroc_C_vs_A": 1.0,
+    "dev:auroc_ci_C_vs_A": [
+     1.0,
+     1.0
+    ]
+   },
+   "pcmi": {
+    "A": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ]
+    },
+    "AB_competitive": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ]
+    },
+    "dev:A": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ]
+    },
+    "dev:AB_competitive": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ]
+    },
+    "C": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1_binom_p_vs_1/6": 1.0
+    },
+    "CD_ambiguous": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1_binom_p_vs_1/6": 1.0
+    },
+    "dev:C": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1_binom_p_vs_1/6": 1.0
+    },
+    "dev:CD_ambiguous": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1_binom_p_vs_1/6": 1.0
+    },
+    "auroc_CD_vs_AB": 0.0,
+    "auroc_ci": [
+     0.0,
+     0.0
+    ],
+    "auroc_C_vs_A": 0.0,
+    "auroc_ci_C_vs_A": [
+     0.0,
+     0.0
+    ],
+    "dev:auroc_CD_vs_AB": 0.0,
+    "dev:auroc_ci": [
+     0.0,
+     0.0
+    ],
+    "dev:auroc_C_vs_A": 0.0,
+    "dev:auroc_ci_C_vs_A": [
+     0.0,
+     0.0
+    ]
+   },
+   "te": {
+    "A": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ]
+    },
+    "AB_competitive": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ]
+    },
+    "dev:A": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ]
+    },
+    "dev:AB_competitive": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ]
+    },
+    "C": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1_binom_p_vs_1/6": 1.0
+    },
+    "CD_ambiguous": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1_binom_p_vs_1/6": 1.0
+    },
+    "dev:C": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1_binom_p_vs_1/6": 1.0
+    },
+    "dev:CD_ambiguous": {
+     "n": 1,
+     "flag_rate": 0.0,
+     "flag_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1_binom_p_vs_1/6": 1.0
+    },
+    "auroc_CD_vs_AB": 1.0,
+    "auroc_ci": [
+     1.0,
+     1.0
+    ],
+    "auroc_C_vs_A": 1.0,
+    "auroc_ci_C_vs_A": [
+     1.0,
+     1.0
+    ],
+    "dev:auroc_CD_vs_AB": 1.0,
+    "dev:auroc_ci": [
+     1.0,
+     1.0
+    ],
+    "dev:auroc_C_vs_A": 1.0,
+    "dev:auroc_ci_C_vs_A": [
+     1.0,
+     1.0
+    ]
+   },
+   "ni_pcmi": {
+    "A": {
+     "n": 1
+    },
+    "AB_competitive": {
+     "n": 1
+    },
+    "dev:A": {
+     "n": 1
+    },
+    "dev:AB_competitive": {
+     "n": 1
+    },
+    "C": {
+     "n": 1,
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1_binom_p_vs_1/6": 1.0
+    },
+    "CD_ambiguous": {
+     "n": 1,
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1_binom_p_vs_1/6": 1.0
+    },
+    "dev:C": {
+     "n": 1,
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1_binom_p_vs_1/6": 1.0
+    },
+    "dev:CD_ambiguous": {
+     "n": 1,
+     "top1": 0.0,
+     "top1_ci": [
+      0.0,
+      0.7934567085261071
+     ],
+     "top1_binom_p_vs_1/6": 1.0
+    },
+    "auroc_CD_vs_AB": 0.0,
+    "auroc_ci": [
+     0.0,
+     0.0
+    ],
+    "auroc_C_vs_A": 0.0,
+    "auroc_ci_C_vs_A": [
+     0.0,
+     0.0
+    ],
+    "dev:auroc_CD_vs_AB": 0.0,
+    "dev:auroc_ci": [
+     0.0,
+     0.0
+    ],
+    "dev:auroc_C_vs_A": 0.0,
+    "dev:auroc_ci_C_vs_A": [
+     0.0,
+     0.0
+    ]
+   },
+   "pair_level": {
+    "A": {
+     "n": 1
+    },
+    "AB_competitive": {
+     "n": 1
+    },
+    "dev:A": {
+     "n": 1
+    },
+    "dev:AB_competitive": {
+     "n": 1
+    },
+    "C": {
+     "n": 1,
+     "top1": 1.0,
+     "top1_ci": [
+      0.20654329147389294,
+      1.0
+     ],
+     "top1_binom_p_vs_1/6": 0.16666666666666666
+    },
+    "CD_ambiguous": {
+     "n": 1,
+     "top1": 1.0,
+     "top1_ci": [
+      0.20654329147389294,
+      1.0
+     ],
+     "top1_binom_p_vs_1/6": 0.16666666666666666
+    },
+    "dev:C": {
+     "n": 1,
+     "top1": 1.0,
+     "top1_ci": [
+      0.20654329147389294,
+      1.0
+     ],
+     "top1_binom_p_vs_1/6": 0.16666666666666666
+    },
+    "dev:CD_ambiguous": {
+     "n": 1,
+     "top1": 1.0,
+     "top1_ci": [
+      0.20654329147389294,
+      1.0
+     ],
+     "top1_binom_p_vs_1/6": 0.16666666666666666
+    },
+    "auroc_CD_vs_AB": 0.0,
+    "auroc_ci": [
+     0.0,
+     0.0
+    ],
+    "auroc_C_vs_A": 0.0,
+    "auroc_ci_C_vs_A": [
+     0.0,
+     0.0
+    ],
+    "dev:auroc_CD_vs_AB": 0.0,
+    "dev:auroc_ci": [
+     0.0,
+     0.0
+    ],
+    "dev:auroc_C_vs_A": 0.0,
+    "dev:auroc_ci_C_vs_A": [
+     0.0,
+     0.0
+    ]
+   },
+   "market_level": {
+    "A": {
+     "n": 1
+    },
+    "AB_competitive": {
+     "n": 1
+    },
+    "dev:A": {
+     "n": 1
+    },
+    "dev:AB_competitive": {
+     "n": 1
+    },
+    "C": {
+     "n": 1,
+     "top1": 1.0,
+     "top1_ci": [
+      0.20654329147389294,
+      1.0
+     ],
+     "top1_binom_p_vs_1/6": 0.16666666666666666
+    },
+    "CD_ambiguous": {
+     "n": 1,
+     "top1": 1.0,
+     "top1_ci": [
+      0.20654329147389294,
+      1.0
+     ],
+     "top1_binom_p_vs_1/6": 0.16666666666666666
+    },
+    "dev:C": {
+     "n": 1,
+     "top1": 1.0,
+     "top1_ci": [
+      0.20654329147389294,
+      1.0
+     ],
+     "top1_binom_p_vs_1/6": 0.16666666666666666
+    },
+    "dev:CD_ambiguous": {
+     "n": 1,
+     "top1": 1.0,
+     "top1_ci": [
+      0.20654329147389294,
+      1.0
+     ],
+     "top1_binom_p_vs_1/6": 0.16666666666666666
+    },
+    "auroc_CD_vs_AB": 0.0,
+    "auroc_ci": [
+     0.0,
+     0.0
+    ],
+    "auroc_C_vs_A": 0.0,
+    "auroc_ci_C_vs_A": [
+     0.0,
+     0.0
+    ],
+    "dev:auroc_CD_vs_AB": 0.0,
+    "dev:auroc_ci": [
+     0.0,
+     0.0
+    ],
+    "dev:auroc_C_vs_A": 0.0,
+    "dev:auroc_ci_C_vs_A": [
+     0.0,
+     0.0
+    ]
+   },
+   "market_level_raw": {
+    "A": {
+     "n": 1
+    },
+    "AB_competitive": {
+     "n": 1
+    },
+    "dev:A": {
+     "n": 1
+    },
+    "dev:AB_competitive": {
+     "n": 1
+    },
+    "C": {
+     "n": 1,
+     "top1": 1.0,
+     "top1_ci": [
+      0.20654329147389294,
+      1.0
+     ],
+     "top1_binom_p_vs_1/6": 0.16666666666666666
+    },
+    "CD_ambiguous": {
+     "n": 1,
+     "top1": 1.0,
+     "top1_ci": [
+      0.20654329147389294,
+      1.0
+     ],
+     "top1_binom_p_vs_1/6": 0.16666666666666666
+    },
+    "dev:C": {
+     "n": 1,
+     "top1": 1.0,
+     "top1_ci": [
+      0.20654329147389294,
+      1.0
+     ],
+     "top1_binom_p_vs_1/6": 0.16666666666666666
+    },
+    "dev:CD_ambiguous": {
+     "n": 1,
+     "top1": 1.0,
+     "top1_ci": [
+      0.20654329147389294,
+      1.0
+     ],
+     "top1_binom_p_vs_1/6": 0.16666666666666666
+    },
+    "auroc_CD_vs_AB": 0.0,
+    "auroc_ci": [
+     0.0,
+     0.0
+    ],
+    "auroc_C_vs_A": 0.0,
+    "auroc_ci_C_vs_A": [
+     0.0,
+     0.0
+    ],
+    "dev:auroc_CD_vs_AB": 0.0,
+    "dev:auroc_ci": [
+     0.0,
+     0.0
+    ],
+    "dev:auroc_C_vs_A": 0.0,
+    "dev:auroc_ci_C_vs_A": [
+     0.0,
+     0.0
+    ]
+   }
+  }
+ },
+ "run_scores": {
+  "20": {
+   "pearson": {
+    "llm_grid_dry_c03_A_000": 0.40731464910285703,
+    "llm_grid_dry_c03_C_000": 0.27754047104482554
+   },
+   "pearson_diff": {
+    "llm_grid_dry_c03_A_000": 0.4375764501961732,
+    "llm_grid_dry_c03_C_000": 0.2585515306554574
+   },
+   "mi": {
+    "llm_grid_dry_c03_A_000": 2.002524281149391,
+    "llm_grid_dry_c03_C_000": 2.0933779257532876
+   },
+   "cmi_state": {
+    "llm_grid_dry_c03_A_000": 2.002524281149391,
+    "llm_grid_dry_c03_C_000": 2.0933779257532876
+   },
+   "pcmi": {
+    "llm_grid_dry_c03_A_000": 0.12181551831481682,
+    "llm_grid_dry_c03_C_000": 0.05358119895640123
+   },
+   "te": {
+    "llm_grid_dry_c03_A_000": 0.10519664872296383,
+    "llm_grid_dry_c03_C_000": 0.25965705968591624
+   },
+   "ni_pcmi": {
+    "llm_grid_dry_c03_A_000": 0.0912079901927701,
+    "llm_grid_dry_c03_C_000": 0.03080477309116184
+   },
+   "pair_level": {
+    "llm_grid_dry_c03_A_000": 2.2750000000000004,
+    "llm_grid_dry_c03_C_000": 0.9499999999999993
+   },
+   "market_level": {
+    "llm_grid_dry_c03_A_000": 6.25,
+    "llm_grid_dry_c03_C_000": 5.125
+   },
+   "market_level_raw": {
+    "llm_grid_dry_c03_A_000": 16.25,
+    "llm_grid_dry_c03_C_000": 15.125
+   }
+  }
+ },
+ "auroc_diff": {
+  "20": {}
+ },
+ "price_level": {
+  "within_family_markup": {
+   "C_minus_A": {
+    "markup_C": 4.65,
+    "markup_A": 5.1125,
+    "n": [
+     1,
+     1
+    ],
+    "diff": -0.46249999999999947,
+    "diff_ci": [
+     -0.46249999999999947,
+     -0.46249999999999947
+    ],
+    "mannwhitney_p": 1.0
+   },
+   "pair_minus_rivals_C": {
+    "mean": 0.9499999999999993,
+    "n": 1,
+    "ci": [
+     0.9499999999999993,
+     0.9499999999999993
+    ]
+   }
+  },
+  "market_mean_CD": 14.65,
+  "market_mean_AB": 15.1125,
+  "n_CD": 1,
+  "n_AB": 1,
+  "diff": -0.46250000000000036,
+  "diff_ci": [
+   -0.46250000000000036,
+   -0.46250000000000036
+  ],
+  "mannwhitney_p": 1.0,
+  "pair_minus_rivals_CD": 0.9499999999999993,
+  "pair_minus_rivals_ci": [
+   0.9499999999999993,
+   0.9499999999999993
+  ]
+ }
+}
