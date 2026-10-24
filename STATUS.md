@@ -7,8 +7,9 @@ markup 0.87 [.78,.94], pair_level 0.74; pCMI−markup −0.42 [−.56,−.27]. R
 common-trend artefact). top-1 pCMI 9/32 vs level 27/32. Shift null over-rejects on LLM A controls (0.19) → surrogate null only.
 **External llm_v3 FINAL n=125 (E13):** pCMI 0.52 [.39,.64], pair_level 0.98; top-1 pCMI 18/70 vs 63/70. In REPORT.
 **Running:** queue2 → llm_long (A,C T=50, 16 games, ETA ≈01:40) → llm_mixed (≈02:10) → label/eval llm_long + mixed eval
-(queue.log 'queue finished'). codex review of llm_v1 §4.3 text → /var/tmp/c14/review_llm_v1.md (started 00:42).
-**Next:** (1) apply review_llm_v1 fixes; (2) when queue finished: `llm_report --name llm_long`, mixed eval → §4.3 (iv),(v);
+(queue.log 'queue finished'). codex review of llm_v1 text DONE (/var/tmp/c14/review_llm_v1.md, 3 P0 wording/inference, all applied);
+E19 diag: LOO logistic markup+pCMI −0.025 [−.079,+.006] (no incremental value); D-vs-B MI flip = drift (diff-MI 0.51), C-vs-A partly.
+**Next:** (2) when queue finished: `llm_report --name llm_long`, mixed eval → §4.3 (iv),(v);
 (3) directive 4: extra T=50 batch only if llm_long pCMI grows with T, launch before 04:00, else skip; (4) 04:00+: full-REPORT
 claims review (codex + Opus), abstract rewrite ONCE, umbrella paragraph with sibling test numbers (pending in their repo).
 **Risks:** no pCMI positive control at T=12; llm_long may not finish before 04:00 decision if codex slows.
@@ -30,3 +31,4 @@ claims review (codex + Opus), abstract rewrite ONCE, umbrella paragraph with sib
 - iter 7 22:49–00:00: E16 mixed-eval CI; found backend drift (E17) → killed queue, queue2 with codex pinned; llm_v3 final n=125 → REPORT §4.3, figure.
 - iter 6 22:34–22:52: scripts/tables.py (sonnet worker; verified), ext_llm_v3 rerun n=74 → REPORT, T=10 scripted top-1 as nearest positive control, E15 co-movement diag.
 - iter 8 00:04–00:45: waited for queue2; llm_v1 label+eval done 00:26 → llm_report, llm_fig, REPORT §4.3 llm_v1 results + abstract LLM sentence (E18); ledger hashes filled; codex review of the new text started.
+- iter 8 00:45–01:15: codex review of llm_v1 text (numbers all OK; P0s on inference: incremental-value untested, surrogate pool per family not pooled, 'flat vs T' false) → E19 diag_llm_v1 (incremental logistic + detrend/diff) → §4.3 + abstract rewritten accordingly.
