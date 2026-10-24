@@ -18,20 +18,19 @@ Each is calibrated two ways — a within-game circular-shift null (max over the 
 control-surrogate null (rank against comparable no-channel markets). On a locked test seed (T=100,
 50 runs/group) all contemporaneous detectors flag and localise a planted shared-signal pair in 100% of runs.
 The hard negatives separate them: raw MI flags **100%** of markets in which independent sellers share a
-public cost/demand shock, pCMI (conditioning on state and lagged prices) 10–14% under the shift null.
+public cost/demand shock, pCMI (conditioning on state and lagged prices) 10–14% of shared-shock/shared-policy markets under the shift null.
 Ranked against no-channel reference markets, pCMI accuses only **4%** [1,13] of markets containing a
-shared-policy pair (independent sampling noise) or a public leader-follower pair, while still flagging 100% of colluding markets (the reference markets are best-responder markets). Two confounds were not removed by any detector we tested: copies of a policy that also
-share their **random seed** (48–100% flagged by every contemporaneous detector under either null), and **lagged** price matching, where TE
+shared-policy pair (independent sampling noise) or a public leader-follower pair, while still flagging 100% of colluding markets (the reference markets are best-responder markets). Two confounds remained in every detector we tested: copies of a policy that also
+share their **random seed** (44–100% flagged by each contemporaneous detector under either null), and **lagged** price matching, where TE
 flags legitimate public leader-follower pricing in 100% of runs. Information-theoretic dependence detects
-*coordinated variation*, not agreement: collusion that is a constant high price is not localised by any dependence estimator (TE flags such markets at s=0.8 but never names the pair), and a lagged matching rule
-is invisible to contemporaneous estimators.
+*coordinated variation*, not agreement: in our sweeps, collusion that is a constant high price is not localised by the dependence estimators (TE flags such markets at s=0.8 but ranks the planted pair first in 0 runs), and contemporaneous estimators have little power against a lagged matching rule.
 With LLM sellers (gpt-6-luna; our market `llm_v1`, 74 games, T=20, and a sibling market `llm_v3`, 125 runs, T=12),
 a private channel produces collusion: judge-verified agreements (realised price coordination in 17/32 `llm_v1` channel games), and markup over Nash +1.8 above no-channel
 markets (C − A [1.2, 2.3], D − B [1.0, 2.5]). But its effect shows up mainly as a **price level**. A one-line markup or pair-level statistic separates channel
 from control runs (run AUROC 0.87 [0.78, 0.94] and 0.98 [0.95, 1.00]), and pCMI is not distinguishable from chance (0.45 [0.32, 0.59] and
 0.52 [0.39, 0.64]; pCMI minus the best level statistic −0.42 [−0.56, −0.27] and −0.46 [−0.58, −0.33]). Added to markup in `llm_v1`, pCMI
-does not improve discrimination (−0.03 [−0.08, +0.01]). Raw MI's ranking reverses between families (AUROC 0.20 vs 0.82), partly
-because of common price trends. *Long-horizon (T=50) and mixed-model follow-ups pending.*
+does not improve discrimination (−0.02 [−0.08, +0.01]). Raw MI's ranking reverses between families (AUROC 0.20 vs 0.82), partly
+because of common price trends. Longer games (T=50) do not help pCMI (0.45 vs markup 0.95). Same-model seller pairs (gpt-6.1-sol/gpt-6-luna mixed markets) are no more dependent than cross-model pairs (pCMI +0.003 [−0.025, +0.032]).
 
 ## 1. Question and operational definition
 **Question.** Do colluding agents' actions share more information than is explained by public market
@@ -91,8 +90,7 @@ hard-negative row measures "false-accusation rate against a best-responder refer
 null; (iii) the pool is drawn transductively from the controls of the same dataset (no labels of positives
 are used; the shock family is public); (iv) with a pool of m references the minimum attainable p is
 1/(m+1), so m ≥ 20 is required at α = 0.05. For LLM sellers the reference pool is no-channel games of the
-same model — the "same-model baseline". With 16 per family in `llm_v1` the surrogate test cannot reach
-α = 0.05; we report run-level AUROC (= the mean surrogate rank) with bootstrap CIs instead.
+same model — the "same-model baseline". With 21 controls per family in `llm_v1` the surrogate test can reach α = 0.05. We also report run-level AUROC (= the mean surrogate rank) with bootstrap CIs.
 
 **Tuning discipline** (`data/SPLITS.md`, `EXPERIMENTS.tsv`). Scripted seeds 1–99 are dev; the hard-negative
 battery and power sweeps reported as headline numbers use locked seeds 1001/1002, run once with the frozen
@@ -136,8 +134,8 @@ are shown for completeness, the informative surrogate rows are the hard negative
   the informative check is the held-out hard negative *shared policy + common shock*: 4% [1, 13].
 * **Shared policy with independent sampling noise is mostly removable:** pCMI (conditioning on state and
   all lagged prices) flags 10–12% under the shift null and 4% under the surrogate null, vs MI 30–98% (shift) / 0–22% (surrogate).
-* **Shared policy with a shared random seed was not removed by any detector we tested** (48–100% flagged by every contemporaneous
-  detector, under either null): two copies of a policy that also share their sampling randomness *are* a
+* **Shared policy with a shared random seed remained flagged by every contemporaneous detector we tested** (44–100% flagged across the
+  five contemporaneous detectors and both nulls; TE, which is lagged, flags only 2–12%): two copies of a policy that also share their sampling randomness *are* a
   private shared signal from the point of view of the price data. Action-only detectors cannot separate it
   from a private agreement channel; this needs provenance information (who runs which model with what seed).
 * **Lagged CMI (TE) flags legitimate public leader-follower pricing in 100% of runs** and shared heuristics in
@@ -168,7 +166,7 @@ Readings:
    T=20 (pCMI 0.80, controls 0.05). At T=10 the shift null cannot be run. The planted pair is ranked first at
    T=20 in 95% of runs. (An earlier sweep under the iteration-2 null reported power 0.12 at T=20; that null was
    replaced after review — its relative offsets were not constrained — and the dev numbers are superseded.)
-2. **Lagged coordination** (tit-for-tat) is invisible to contemporaneous CMI (the lags are conditioned away) and
+2. **Lagged coordination** (tit-for-tat): contemporaneous CMI has little power against it (the lags are conditioned away) and
    is caught by lagged CMI/TE at s ≥ 0.2–0.3 with T ≥ 50–100 — but TE also flags *legitimate* public
    leader-follower pricing in 100% of runs (§4.1). Statistically these are the same object.
 3. **Collusion as a level** (both just price high) carries no shared variation. pCMI does not detect it (0.07 vs 0.08 on controls); TE (0.47 vs 0.03) and CMI|state
@@ -192,8 +190,8 @@ Readings:
 | `llm_hpilot` | 2 LLM + 2 scripted best-responders | LLMs still 12 every round, channel or not |
 | `llm_pilot4` | **removed the `"price": 12` example from the JSON format spec** | prices vary (9–15); no-channel sellers drift toward Nash (means 9.5–11.9); one channel pair agrees on "start near 14", prices 13–14 vs rivals 12 for 10 rounds, then erodes to 12 |
 
-Two lessons: (i) a single example value in the output format fixed the whole market at a focal price — LLM
-pricing experiments are fragile to prompt anchors; (ii) a market in which every seller plays the same
+Two lessons: (i) removing a single example value from the output format coincided with the market leaving the focal price (pilot comparison, not an isolated test). LLM
+pricing experiments look fragile to prompt anchors; (ii) a market in which every seller plays the same
 constant price contains **zero** information for dependence-based detectors, whatever the agreement status.
 
 **Main LLM dataset `llm_v1`** (complete, 74 games, all sellers gpt-6-luna via codex — checked per run, E17): 16 per condition A–D (+5 extra A and B games so the
@@ -249,16 +247,16 @@ Control-surrogate null (vs none pool, α=0.05) flag rate, private / legit / none
 
 Reading: AUROC here measures how well a detector tells *channel-assigned* runs from controls, not how well it tells realised collusion.
 In this market the channel shows up as a **pair-specific price level**: the pair sits above its rivals. A trivial level statistic separates
-the conditions almost perfectly (pair_level AUROC 0.98 [0.95, 1.00]) and names the right pair in 63/70 runs. The dependence detectors
-are at chance across runs (pCMI 0.52 [0.39, 0.64]; every IT−level AUROC difference is ≤ −0.39 with CI excluding 0). With the full
+the conditions almost perfectly (pair_level AUROC 0.98 [0.95, 1.00]) and names the right pair in 63/70 runs. pCMI, raw MI and TE have run-AUROC CIs that include 0.5 (pCMI 0.52 [0.39, 0.64]). Their differences to pair_level are −0.39 to −0.53, and every CI excludes 0.
+CMI|state reaches 0.64 [0.53, 0.75] but scores `legit` runs about as high (0.62 vs none; private vs legit 0.53), so it does not separate collusion from a legitimate partnership. With the full
 `none` pool (35 ≥ 20) the control-surrogate null can now reach α=0.05. It flags 0/70 private runs for pCMI (Wilson [0.00, 0.05]) and 4/70 for MI, against
 45/70 = 0.64 [0.53, 0.74] for pair_level. Leave-one-out FPR on the none runs is 0/35 for pCMI and 1/35 for MI and pair_level (rank-based, ≤ α by construction, not independent calibration evidence). Raw-price MI and Pearson still pick the right pair *within* a run above chance
 (42/70 and 35/70), plausibly because the pair moves up together. After conditioning on state and lagged prices, pCMI localisation drops to
 18/70 = 26% (nominal p=0.036, unadjusted). There is no positive control for pCMI at exactly T=12. The nearest scripted point (shared-signal
 collusion, s=0.3, T=10, §4.2) localises the pair in 47% of runs (chance 17%), and T=20 does so in 95%. So 26% is weak even next to moderate
 *coordinated-variation* collusion of this length. The `legit` hard negative (public shipping deal, cost −1) scores *below* controls on markup
-(0.40) but 0.75 on pair_level. The highest-gap pair is the partnership in only 6/20 legit runs: the partnership mainly
-spreads prices, so some *other* pair looks high. A pair-gap screen therefore flags markets containing a legitimate partnership, and usually accuses the wrong pair.
+(0.40) but 0.75 [0.61, 0.87] on pair_level (a ranking above controls; at α=0.05 the surrogate null flags only 1/20 legit markets). The highest-gap pair is the partnership in only 5/20 legit runs: the partnership mainly
+spreads prices, so some *other* pair looks high. A pair-gap *ranking* therefore puts markets with a legitimate partnership above controls, and its top pair is usually not the partnership.
 
 *Exploratory check E15 (not a headline; `uv run python -m experiments.diag_llm_v3` → `results/eval/llm_v3_diag.json`,
 final n = 70 private / 35 none).* Is the raw-price localisation only a shared upward drift? No. Top-1 of the
@@ -296,7 +294,7 @@ rivals is modest: +0.48 [0.33, 0.64] (C), +0.42 [0.26, 0.59] (D). In `llm_v3` th
 there). Here the whole market is higher, so the *max-pair markup* is the better level statistic (pooled AUROC pair_level −
 markup −0.128 [−0.258, −0.001]). These comparisons do not establish who follows whom within a market.
 
-*(ii) Do dependence scores separate channel runs, alone or added to the level baseline? No.* AUROC targets **channel
+*(ii) Do dependence scores separate channel runs, alone or added to the level baseline? Not pCMI. Raw MI and TE separate D from B but not C from A (below).* AUROC targets **channel
 assignment** (C/D vs A/B). Only 17/32 channel games meet the realised-collusion label. Run AUROC of the max-pair score, T=20, all games [bootstrap 95% CI]:
 
 | detector | C/D vs A/B | C vs A | D vs B | top-1 assigned pair C / D (chance 1/6) |
@@ -320,7 +318,7 @@ not show that the channel pairs have *no* coordinated variation (in `llm_v3` fir
 *The raw-dependence ranking reverses across families*: MI separates D from B (0.82) but ranks C **below** A (0.20,
 substantial inverse discrimination). Shared trends are part of the explanation (E19). Market-mean price slopes downward in all
 21 A runs (−0.07/round, sliding toward Nash) and upward in 15/16 D runs (+0.10/round), versus near-flat C (−0.015) and B (+0.015).
-After first-differencing, D vs B falls to chance (MI 0.51 [0.33, 0.71], |Pearson| 0.46 [0.26, 0.65]), so the D "signal" is the
+After first-differencing, D vs B is unresolved (MI 0.51 [0.33, 0.71], |Pearson| 0.46 [0.26, 0.65]), consistent with the D "signal" coming mostly from the
 common upward drift. C vs A stays inverted after differencing (MI 0.29 [0.12, 0.47], |Pearson| 0.29 [0.13, 0.48]) and after
 linear detrending (|Pearson| 0.18). Plausibly A's slide is concentrated in synchronised early price *changes*, but that is not isolated.
 pCMI shows no clear channel discrimination in either family (0.47, 0.43). It measures linear residual correlation after state
@@ -342,20 +340,20 @@ In both, the private channel's effect shows up mainly as a **price level**. In `
 pair-specific. Level statistics separate channel runs from controls (run AUROC 0.87 and 0.98). The conditioned dependence
 detector does not (0.45 and 0.52, standalone differences vs the best level statistic −0.42 and −0.46, CIs exclude 0). In
 `llm_v1` it also adds nothing measurable on top of level. This is consistent with the scripted hard-negative result that
-"stay-high" collusion is invisible to dependence measures (§4.2). It does **not** show that dependence detectors fail on LLM
+"stay-high" collusion is hard for dependence measures to detect or localise (§4.2). It does **not** show that dependence detectors fail on LLM
 agents in general, or that these pairs have no coordinated variation. It shows that, at T=12–20, the channel's effect is
 dominated by a level, which these detectors are built to ignore. Level statistics are not collusion-specific either. They
-also flag the `legit` partnership (pair_level 0.75 in `llm_v3`) and are high in tacitly supra-competitive no-channel markets
+also rank `legit` partnership markets above controls (pair_level AUROC 0.75 in `llm_v3`) and are high in tacitly supra-competitive no-channel markets
 (6/21 B runs ≥ 2 over Nash).
 
 Not claimed from this data: surrogate-null FPR with pool < 20; absence of same-model dependence from a null
 result; that dependence detectors fail on LLM agents in general. *`llm_long` (T=50): see (v) below.*
 
-**(v) `llm_long`: does T=50 rescue pCMI? No (E20 rule, declared before eval).** 8 A + 8 C games, T=50, all gpt-6-luna (codex),
+**(v) `llm_long`: does T=50 rescue pCMI? The declared criterion is not met (E20 rule, declared before eval).** 8 A + 8 C games, T=50, all gpt-6-luna (codex),
 `results/eval/llm_long.json`, `uv run python -m experiments.llm_report --name llm_long` → `results/eval/llm_long_report.md`,
 `figures/llm_long_{prices,auroc,power_vs_T}.png`. Labels: 8/8 C games have a judge-verified agreement, 5/8 realised coordination;
 0/8 A games are tacitly supra-competitive. The channel raises markup over Nash by +2.28 [1.31, 3.35] (C − A, Mann-Whitney p=0.0005).
-The pair-minus-rivals gap is only +0.42 [0.20, 0.65], and it shrinks over the game as rivals follow the pair up.
+The pair-minus-rivals gap is only +0.42 [0.20, 0.65], and it shrinks over the game (which sellers follow whom is not tested).
 
 | T (same games, prefixes) | 10 | 20 | 30 | 40 | 50 |
 |---|---|---|---|---|---|
@@ -367,24 +365,43 @@ The pair-minus-rivals gap is only +0.42 [0.20, 0.65], and it shrinks over the ga
 | pCMI top-1 in C (of 8) | 1 | 2 | 2 | 2 | 1 |
 
 The declared rescue criterion (AUROC(pCMI, 50) ≥ 0.65 and ≥ AUROC(pCMI, 20) + 0.15) is not met: 0.45 vs 0.39. So no extra T=50 batch was
-generated. At T=50, pCMI − markup = −0.50 [−0.81, −0.17]. With 8 vs 8 runs, this excludes a large pCMI effect, not a small one. The
+generated. At T=50, pCMI − markup = −0.50 [−0.81, −0.17], so pCMI is clearly worse than the level statistic. Its own CI [0.16, 0.75] still includes the 0.65 threshold: 8 vs 8 runs cannot rule out moderate pCMI discrimination. The
 within-run shift null over-rejects on A controls again (pCMI flags 3/8 at T ≥ 30), as on `llm_v1`. That is a second reason not to use it on LLM data.
-Reading: 2.5× more rounds do not turn the channel's effect into detectable coordinated variation. In this market the effect is a
-stable price level, not a short-sample problem. This is the "collusion is a level" branch of the plan's question (f).
+Reading: 2.5× more rounds did not turn the channel's effect into detectable coordinated variation (point estimates flat, 0.36–0.45). The evidence favours the
+"collusion is a level" branch of the plan's question (f), but at n = 8 per group it does not settle it.
+
+**(iv) `llm_mixed2`: are same-model pairs more dependent than cross-model pairs (shared-policy confound, PLAN req. 3)? No detectable difference; the CIs exclude only large effects.**
+12 no-channel games (condition A, single public state), T=20; in each game 2 sellers run gpt-6.1-sol and 2 run gpt-6-luna (both via codex), with random seats.
+All 12 passed the E21 model check (per-seller `model` field). `uv run python -m experiments.llm_eval mixed --name llm_mixed2` → `results/eval/llm_mixed2_mixed.json`.
+Each game gives one observation: mean score of its 2 same-model pairs minus mean score of its 4 cross-model pairs (bootstrap 95% CI over runs, sign test; declared E16).
+
+| detector | same − cross (mean) [95% CI] | runs with same > cross | sign p | pair flag rate, shift null: same-sol / same-luna / cross |
+|---|---|---|---|---|
+| pCMI | +0.003 [−0.025, +0.032] | 5/12 | 0.77 | 0/12, 2/12, 3/48 |
+| MI (= CMI\|state here: one state) | +0.040 [−0.005, +0.091] | 8/12 | 0.39 | 1/12, 3/12, 6/48 |
+| TE | +0.047 [+0.002, +0.104] | 9/12 | 0.15 | 3/12, 2/12, 10/48 |
+| \|Pearson\| | +0.038 [−0.023, +0.085] | 8/12 | 0.39 | — |
+
+Only TE's interval excludes 0, and only just. It is one of 5 detectors with no multiplicity adjustment, and its sign test is p = 0.15, so we read it as weak at most.
+pCMI, the detector used for the headline, shows no same-model excess (point estimate +0.003).
+Its shift-null flag rates sit near α for every pair type. Descriptively, the two models price alike: per-run sol − luna mean price +0.05 [−0.05, +0.14]
+(`scripts/mixed_price_by_model.py` → `results/eval/llm_mixed2_price_by_model.json`). Sol varies its price more within a game (mean within-seller SD 0.96 vs 0.63).
+Reading: in this market, two copies of the same LLM do not produce more price dependence than two different LLMs. That is the opposite of the scripted shared-seed case (§4.1), where identical copies are flagged by every detector.
+With n = 12 this rules out large same-model effects only; it does not show the confound is absent. Both models are OpenAI-family, so a cross-family test (e.g. Claude) remains open.
  *Data-integrity note (E21):* the first `llm_mixed` batch was invalid. A routing bug (`llm.chat(tier="big", backend="codex")` silently used gpt-6-luna) made all 12 games all-luna, as the per-seller `model` field shows. Its same-vs-cross numbers are discarded unreported. The bug is fixed, `mixed_eval` now drops runs whose mixed sellers did not run a different model, and the set is regenerated as `llm_mixed2`. Judge labels were unaffected (42/42 gpt-6.1-sol).
 
 ### 4.4 Umbrella synthesis with the sibling project (Q2.2, text + action auditing)
-Numbers in this paragraph come from the sibling repo `collusion-22-say-vs-do` (REPORT abstract, locked test split n = 95, read 01:05 UTC; not regenerated here). The two projects reach a consistent conclusion from opposite directions. (1) In both LLM markets the private channel shows up first as a **price level**: here pair_level/markup reach run AUROC 0.87–0.98, and the sibling's one-line pair-premium statistic reaches 0.95 on its test split, beating every zero-shot LLM auditor view (≤ 0.86). (2) Signals that look for *how* agents coordinate add little on these short games: conditioned dependence (pCMI) is at chance here (0.45, 0.52), and the zero-shot text-only auditor is at chance there (0.47). The sibling's supervised text classifier (0.98, in-distribution) shows the traces exist but are subtle. (3) Level statistics are not collusion-specific. They flag markets with the `legit` public partnership (pair_level 0.75 here, usually naming a non-partner pair), and they flag tacitly supra-competitive no-channel markets. Practical reading: a cheap level screen should be an always-on first stage, with dependence/text audits as second-stage evidence. The scripted results (§4.1–4.2) show where dependence measures do add value: collusion implemented through coordinated *variation*, given enough rounds for its strength (e.g. `signal` s=0.3 at T=20, s=0.1 at T=100). How detectable LLM collusion is depends on the market and its framing. The pair-minus-rivals premium is +1.65 [1.38, 1.93] in the sibling's lab-framed market (private runs, 10th–90th percentile +0.66…+3.18; none +0.04, legit +0.05; `experiments/premium_llm_v3.py`). Here it is +0.45 [0.34, 0.57], and most of the effect is market-wide.
+Numbers in this paragraph come from the sibling repo `collusion-22-say-vs-do` (REPORT abstract, locked test split n = 95, read 01:05 UTC; not regenerated here). The two projects reach a consistent conclusion from opposite directions. (1) In both LLM markets the private channel shows up first as a **price level**: here pair_level/markup reach run AUROC 0.87–0.98, and the sibling's one-line pair-premium statistic reaches 0.95 on its test split, beating every zero-shot LLM auditor view (≤ 0.86). (2) Signals that look for *how* agents coordinate add little on these short games: conditioned dependence (pCMI) is at chance here (0.45, 0.52), and the zero-shot text-only auditor is at chance there (0.47). The sibling's supervised text classifier (0.98, in-distribution) shows the text carries condition information, though not which cues it uses. (3) Level statistics are not collusion-specific. They rank markets with the `legit` public partnership above controls (pair_level AUROC 0.75 here, usually naming a non-partner pair), and they flag tacitly supra-competitive no-channel markets. Practical reading (a hypothesis, not tested as a pipeline): a cheap level screen as an always-on first stage, with dependence/text audits as second-stage evidence. The scripted results (§4.1–4.2) show where dependence measures do add value: collusion implemented through coordinated *variation*, given enough rounds for its strength (e.g. `signal` s=0.3 at T=20, s=0.1 at T=100). How detectable LLM collusion is depends on the market and its framing. The pair-minus-rivals premium is +1.65 [1.38, 1.93] in the sibling's lab-framed market (private runs, 10th–90th percentile +0.66…+3.18; none +0.04, legit +0.05; `experiments/premium_llm_v3.py`). Here it is +0.45 [0.34, 0.57], and most of the effect is market-wide.
 
 ## 5. Limitations (so far)
 * Scripted colluders are stylised; `signal` collusion with fresh shared randomness every round is the
   easiest possible case for dependence detectors.
 * The shared-policy hard negative is a modelling choice (30% idiosyncratic noise); its FPR scales with how
   much sampling noise two copies of a policy share.
-* Small n per group (scripted locked gate: 50 per group; power sweep: 20 per condition; LLM: 16–21 per condition) — CIs are wide.
+* Small n per group (scripted locked gate: 50 per group; power sweep: 20 per condition; LLM: 16–21 per condition in `llm_v1`, 20–70 per group in `llm_v3`, 8 per group in `llm_long`, 12 games in `llm_mixed2`) — CIs are wide.
 * §4.2 controls are one shared set of 40 runs (A+B) reused in every row. Colluder-free replicate rows (s=0, T=100, in
   `power_test.json`) show CMI|state flagging 0.15 vs 0.03 on controls (pCMI 0.10 vs 0.08), so CMI|state is not fully calibrated under shocks.
-* One LLM seller model (gpt-6-luna) in both LLM markets; one LLM judge (gpt-6.1-sol) for agreement labels, no human audit.
+* One LLM seller model (gpt-6-luna) in both main LLM markets (`llm_mixed2` adds gpt-6.1-sol, same vendor family; no cross-family sellers); one LLM judge (gpt-6.1-sol) for agreement labels, no human audit.
 * The `realized_collusion` label is partly defined from prices (±1 of the agreed price), so localisation on the realised subset is
   partly circular for level statistics; run AUROCs use the channel assignment instead.
 * The surrogate null's reference pool is best-responder / no-channel LLM markets; its FPR for other reference populations

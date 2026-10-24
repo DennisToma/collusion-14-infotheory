@@ -1,0 +1,22 @@
+{
+ "n_states": 1,
+ "gpt-6.1-sol": {
+  "n_sellers": 24,
+  "mean_price": 10.472916666666666,
+  "mean_within_sd": 0.9553168433078912
+ },
+ "gpt-6-luna": {
+  "n_sellers": 24,
+  "mean_price": 10.427083333333334,
+  "mean_within_sd": 0.6292584659968717
+ },
+ "sol_minus_luna_per_run": {
+  "n_runs": 12,
+  "mean": 0.045833333333332504,
+  "ci": [
+   -0.05208333333333379,
+   0.1395833333333322
+  ],
+  "n_positive": 7
+ }
+}
