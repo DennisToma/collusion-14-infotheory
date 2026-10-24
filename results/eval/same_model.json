@@ -1,0 +1,1123 @@
+{
+ "T": 20,
+ "n_runs": {
+  "luna-luna": 41,
+  "bystander": 24,
+  "channel_realized": 17,
+  "channel_all": 24,
+  "channel_other": 7,
+  "sol-sol": 12,
+  "cross": 12
+ },
+ "n_pairs": {
+  "luna-luna": 186,
+  "bystander": 120,
+  "channel_realized": 17,
+  "channel_all": 24,
+  "channel_other": 7,
+  "sol-sol": 12,
+  "cross": 48
+ },
+ "mean_score": {
+  "luna-luna": {
+   "pcmi": 0.183,
+   "pcmi_ownlag": 0.162,
+   "mi": 0.328,
+   "te": 0.126,
+   "pair_level": -0.003,
+   "pair_markup": 0.138
+  },
+  "bystander": {
+   "pcmi": 0.109,
+   "pcmi_ownlag": 0.054,
+   "mi": 0.156,
+   "te": 0.089,
+   "pair_level": -0.113,
+   "pair_markup": 1.971
+  },
+  "channel_realized": {
+   "pcmi": 0.064,
+   "pcmi_ownlag": 0.041,
+   "mi": 0.099,
+   "te": 0.089,
+   "pair_level": 0.421,
+   "pair_markup": 1.943
+  },
+  "channel_all": {
+   "pcmi": 0.074,
+   "pcmi_ownlag": 0.051,
+   "mi": 0.231,
+   "te": 0.121,
+   "pair_level": 0.566,
+   "pair_markup": 2.31
+  },
+  "channel_other": {
+   "pcmi": 0.099,
+   "pcmi_ownlag": 0.076,
+   "mi": 0.553,
+   "te": 0.198,
+   "pair_level": 0.918,
+   "pair_markup": 3.204
+  },
+  "sol-sol": {
+   "pcmi": 0.023,
+   "pcmi_ownlag": 0.018,
+   "mi": 0.32,
+   "te": 0.15,
+   "pair_level": 0.046,
+   "pair_markup": 0.473
+  },
+  "cross": {
+   "pcmi": 0.037,
+   "pcmi_ownlag": 0.023,
+   "mi": 0.246,
+   "te": 0.087,
+   "pair_level": 0.0,
+   "pair_markup": 0.45
+  }
+ },
+ "pcmi_shift_flag": {
+  "luna-luna": [
+   37,
+   186
+  ],
+  "bystander": [
+   15,
+   120
+  ],
+  "channel_realized": [
+   3,
+   17
+  ],
+  "channel_all": [
+   5,
+   24
+  ],
+  "channel_other": [
+   2,
+   7
+  ],
+  "sol-sol": [
+   0,
+   12
+  ],
+  "cross": [
+   4,
+   48
+  ]
+ },
+ "auroc": {
+  "channel_all|luna-luna": {
+   "pcmi": [
+    0.493,
+    [
+     0.377,
+     0.627
+    ]
+   ],
+   "pcmi_ownlag": [
+    0.438,
+    [
+     0.313,
+     0.578
+    ]
+   ],
+   "mi": [
+    0.314,
+    [
+     0.174,
+     0.461
+    ]
+   ],
+   "te": [
+    0.495,
+    [
+     0.363,
+     0.629
+    ]
+   ],
+   "pair_level": [
+    0.933,
+    [
+     0.889,
+     0.973
+    ]
+   ],
+   "pair_markup": [
+    0.958,
+    [
+     0.902,
+     0.996
+    ]
+   ]
+  },
+  "channel_all|sol-sol": {
+   "pcmi": [
+    0.722,
+    [
+     0.531,
+     0.885
+    ]
+   ],
+   "pcmi_ownlag": [
+    0.653,
+    [
+     0.451,
+     0.837
+    ]
+   ],
+   "mi": [
+    0.274,
+    [
+     0.118,
+     0.441
+    ]
+   ],
+   "te": [
+    0.431,
+    [
+     0.247,
+     0.608
+    ]
+   ],
+   "pair_level": [
+    0.892,
+    [
+     0.774,
+     0.974
+    ]
+   ],
+   "pair_markup": [
+    0.997,
+    [
+     0.979,
+     1.0
+    ]
+   ]
+  },
+  "channel_all|cross": {
+   "pcmi": [
+    0.584,
+    [
+     0.432,
+     0.728
+    ]
+   ],
+   "pcmi_ownlag": [
+    0.57,
+    [
+     0.419,
+     0.72
+    ]
+   ],
+   "mi": [
+    0.36,
+    [
+     0.196,
+     0.53
+    ]
+   ],
+   "te": [
+    0.545,
+    [
+     0.387,
+     0.694
+    ]
+   ],
+   "pair_level": [
+    0.931,
+    [
+     0.874,
+     0.974
+    ]
+   ],
+   "pair_markup": [
+    0.997,
+    [
+     0.982,
+     1.0
+    ]
+   ]
+  },
+  "channel_all|bystander": {
+   "pcmi": [
+    0.574,
+    [
+     0.44,
+     0.702
+    ]
+   ],
+   "pcmi_ownlag": [
+    0.547,
+    [
+     0.398,
+     0.691
+    ]
+   ],
+   "mi": [
+    0.562,
+    [
+     0.411,
+     0.71
+    ]
+   ],
+   "te": [
+    0.57,
+    [
+     0.424,
+     0.707
+    ]
+   ],
+   "pair_level": [
+    0.939,
+    [
+     0.894,
+     0.975
+    ]
+   ],
+   "pair_markup": [
+    0.608,
+    [
+     0.445,
+     0.77
+    ]
+   ]
+  },
+  "channel_realized|luna-luna": {
+   "pcmi": [
+    0.473,
+    [
+     0.331,
+     0.616
+    ]
+   ],
+   "pcmi_ownlag": [
+    0.424,
+    [
+     0.271,
+     0.579
+    ]
+   ],
+   "mi": [
+    0.138,
+    [
+     0.055,
+     0.254
+    ]
+   ],
+   "te": [
+    0.423,
+    [
+     0.275,
+     0.571
+    ]
+   ],
+   "pair_level": [
+    0.912,
+    [
+     0.845,
+     0.964
+    ]
+   ],
+   "pair_markup": [
+    0.954,
+    [
+     0.893,
+     0.995
+    ]
+   ]
+  },
+  "channel_realized|sol-sol": {
+   "pcmi": [
+    0.701,
+    [
+     0.495,
+     0.887
+    ]
+   ],
+   "pcmi_ownlag": [
+    0.637,
+    [
+     0.417,
+     0.853
+    ]
+   ],
+   "mi": [
+    0.064,
+    [
+     0.0,
+     0.186
+    ]
+   ],
+   "te": [
+    0.358,
+    [
+     0.162,
+     0.578
+    ]
+   ],
+   "pair_level": [
+    0.853,
+    [
+     0.694,
+     0.961
+    ]
+   ],
+   "pair_markup": [
+    0.995,
+    [
+     0.971,
+     1.0
+    ]
+   ]
+  },
+  "channel_realized|cross": {
+   "pcmi": [
+    0.569,
+    [
+     0.382,
+     0.755
+    ]
+   ],
+   "pcmi_ownlag": [
+    0.559,
+    [
+     0.381,
+     0.743
+    ]
+   ],
+   "mi": [
+    0.159,
+    [
+     0.043,
+     0.3
+    ]
+   ],
+   "te": [
+    0.464,
+    [
+     0.294,
+     0.641
+    ]
+   ],
+   "pair_level": [
+    0.907,
+    [
+     0.829,
+     0.964
+    ]
+   ],
+   "pair_markup": [
+    0.996,
+    [
+     0.974,
+     1.0
+    ]
+   ]
+  },
+  "channel_realized|bystander": {
+   "pcmi": [
+    0.557,
+    [
+     0.409,
+     0.705
+    ]
+   ],
+   "pcmi_ownlag": [
+    0.535,
+    [
+     0.37,
+     0.697
+    ]
+   ],
+   "mi": [
+    0.421,
+    [
+     0.261,
+     0.578
+    ]
+   ],
+   "te": [
+    0.498,
+    [
+     0.338,
+     0.659
+    ]
+   ],
+   "pair_level": [
+    0.92,
+    [
+     0.863,
+     0.966
+    ]
+   ],
+   "pair_markup": [
+    0.57,
+    [
+     0.394,
+     0.746
+    ]
+   ]
+  },
+  "luna-luna|cross": {
+   "pcmi": [
+    0.591,
+    [
+     0.516,
+     0.667
+    ]
+   ],
+   "pcmi_ownlag": [
+    0.643,
+    [
+     0.551,
+     0.726
+    ]
+   ],
+   "mi": [
+    0.623,
+    [
+     0.482,
+     0.764
+    ]
+   ],
+   "te": [
+    0.556,
+    [
+     0.47,
+     0.643
+    ]
+   ],
+   "pair_level": [
+    0.496,
+    [
+     0.483,
+     0.507
+    ]
+   ],
+   "pair_markup": [
+    0.355,
+    [
+     0.201,
+     0.524
+    ]
+   ]
+  },
+  "sol-sol|cross": {
+   "pcmi": [
+    0.326,
+    [
+     0.137,
+     0.519
+    ]
+   ],
+   "pcmi_ownlag": [
+    0.37,
+    [
+     0.194,
+     0.559
+    ]
+   ],
+   "mi": [
+    0.651,
+    [
+     0.436,
+     0.833
+    ]
+   ],
+   "te": [
+    0.667,
+    [
+     0.512,
+     0.818
+    ]
+   ],
+   "pair_level": [
+    0.564,
+    [
+     0.39,
+     0.735
+    ]
+   ],
+   "pair_markup": [
+    0.51,
+    [
+     0.275,
+     0.737
+    ]
+   ]
+  }
+ },
+ "reference": {
+  "pair_markup": {
+   "alpha0.05": {
+    "C_vs_lunaA(matched)": {
+     "n": 16,
+     "flags": 5,
+     "rate": 0.312,
+     "pool_n": 21,
+     "min_p": 0.045,
+     "mean_p": 0.099
+    },
+    "C_vs_longA(matched,other batch)": {
+     "n": 16,
+     "flags": 0,
+     "rate": 0.0,
+     "pool_n": 8,
+     "min_p": 0.111,
+     "mean_p": 0.194
+    },
+    "C_vs_mixed(mismatched)": {
+     "n": 16,
+     "flags": 0,
+     "rate": 0.0,
+     "pool_n": 12,
+     "min_p": 0.077,
+     "mean_p": 0.082
+    },
+    "lunaA_LOO(matched)": {
+     "n": 21,
+     "flags": 1,
+     "rate": 0.048,
+     "pool_n": 21,
+     "min_p": 0.048,
+     "mean_p": 0.526
+    },
+    "lunaA_vs_mixed(mismatched)": {
+     "n": 21,
+     "flags": 0,
+     "rate": 0.0,
+     "pool_n": 12,
+     "min_p": 0.077,
+     "mean_p": 0.714
+    },
+    "mixed_vs_lunaA(mismatched)": {
+     "n": 12,
+     "flags": 0,
+     "rate": 0.0,
+     "pool_n": 21,
+     "min_p": 0.045,
+     "mean_p": 0.345
+    },
+    "mixed_LOO(matched)": {
+     "n": 12,
+     "flags": 0,
+     "rate": 0.0,
+     "pool_n": 12,
+     "min_p": 0.083,
+     "mean_p": 0.549
+    },
+    "longA_vs_lunaA(matched,other batch)": {
+     "n": 8,
+     "flags": 0,
+     "rate": 0.0,
+     "pool_n": 21,
+     "min_p": 0.045,
+     "mean_p": 0.432
+    }
+   },
+   "alpha0.1": {
+    "C_vs_lunaA(matched)": {
+     "n": 16,
+     "flags": 13,
+     "rate": 0.812,
+     "pool_n": 21,
+     "min_p": 0.045,
+     "mean_p": 0.099
+    },
+    "C_vs_longA(matched,other batch)": {
+     "n": 16,
+     "flags": 0,
+     "rate": 0.0,
+     "pool_n": 8,
+     "min_p": 0.111,
+     "mean_p": 0.194
+    },
+    "C_vs_mixed(mismatched)": {
+     "n": 16,
+     "flags": 15,
+     "rate": 0.938,
+     "pool_n": 12,
+     "min_p": 0.077,
+     "mean_p": 0.082
+    },
+    "lunaA_LOO(matched)": {
+     "n": 21,
+     "flags": 2,
+     "rate": 0.095,
+     "pool_n": 21,
+     "min_p": 0.048,
+     "mean_p": 0.526
+    },
+    "lunaA_vs_mixed(mismatched)": {
+     "n": 21,
+     "flags": 4,
+     "rate": 0.19,
+     "pool_n": 12,
+     "min_p": 0.077,
+     "mean_p": 0.714
+    },
+    "mixed_vs_lunaA(mismatched)": {
+     "n": 12,
+     "flags": 0,
+     "rate": 0.0,
+     "pool_n": 21,
+     "min_p": 0.045,
+     "mean_p": 0.345
+    },
+    "mixed_LOO(matched)": {
+     "n": 12,
+     "flags": 1,
+     "rate": 0.083,
+     "pool_n": 12,
+     "min_p": 0.083,
+     "mean_p": 0.549
+    },
+    "longA_vs_lunaA(matched,other batch)": {
+     "n": 8,
+     "flags": 1,
+     "rate": 0.125,
+     "pool_n": 21,
+     "min_p": 0.045,
+     "mean_p": 0.432
+    }
+   }
+  },
+  "pair_level": {
+   "alpha0.05": {
+    "C_vs_lunaA(matched)": {
+     "n": 16,
+     "flags": 9,
+     "rate": 0.562,
+     "pool_n": 21,
+     "min_p": 0.045,
+     "mean_p": 0.295
+    },
+    "C_vs_longA(matched,other batch)": {
+     "n": 16,
+     "flags": 0,
+     "rate": 0.0,
+     "pool_n": 8,
+     "min_p": 0.111,
+     "mean_p": 0.361
+    },
+    "C_vs_mixed(mismatched)": {
+     "n": 16,
+     "flags": 0,
+     "rate": 0.0,
+     "pool_n": 12,
+     "min_p": 0.077,
+     "mean_p": 0.341
+    },
+    "lunaA_LOO(matched)": {
+     "n": 21,
+     "flags": 1,
+     "rate": 0.048,
+     "pool_n": 21,
+     "min_p": 0.048,
+     "mean_p": 0.556
+    },
+    "lunaA_vs_mixed(mismatched)": {
+     "n": 21,
+     "flags": 0,
+     "rate": 0.0,
+     "pool_n": 12,
+     "min_p": 0.077,
+     "mean_p": 0.604
+    },
+    "mixed_vs_lunaA(mismatched)": {
+     "n": 12,
+     "flags": 1,
+     "rate": 0.083,
+     "pool_n": 21,
+     "min_p": 0.045,
+     "mean_p": 0.527
+    },
+    "mixed_LOO(matched)": {
+     "n": 12,
+     "flags": 0,
+     "rate": 0.0,
+     "pool_n": 12,
+     "min_p": 0.083,
+     "mean_p": 0.611
+    },
+    "longA_vs_lunaA(matched,other batch)": {
+     "n": 8,
+     "flags": 2,
+     "rate": 0.25,
+     "pool_n": 21,
+     "min_p": 0.045,
+     "mean_p": 0.506
+    }
+   },
+   "alpha0.1": {
+    "C_vs_lunaA(matched)": {
+     "n": 16,
+     "flags": 10,
+     "rate": 0.625,
+     "pool_n": 21,
+     "min_p": 0.045,
+     "mean_p": 0.295
+    },
+    "C_vs_longA(matched,other batch)": {
+     "n": 16,
+     "flags": 0,
+     "rate": 0.0,
+     "pool_n": 8,
+     "min_p": 0.111,
+     "mean_p": 0.361
+    },
+    "C_vs_mixed(mismatched)": {
+     "n": 16,
+     "flags": 7,
+     "rate": 0.438,
+     "pool_n": 12,
+     "min_p": 0.077,
+     "mean_p": 0.341
+    },
+    "lunaA_LOO(matched)": {
+     "n": 21,
+     "flags": 1,
+     "rate": 0.048,
+     "pool_n": 21,
+     "min_p": 0.048,
+     "mean_p": 0.556
+    },
+    "lunaA_vs_mixed(mismatched)": {
+     "n": 21,
+     "flags": 0,
+     "rate": 0.0,
+     "pool_n": 12,
+     "min_p": 0.077,
+     "mean_p": 0.604
+    },
+    "mixed_vs_lunaA(mismatched)": {
+     "n": 12,
+     "flags": 1,
+     "rate": 0.083,
+     "pool_n": 21,
+     "min_p": 0.045,
+     "mean_p": 0.527
+    },
+    "mixed_LOO(matched)": {
+     "n": 12,
+     "flags": 1,
+     "rate": 0.083,
+     "pool_n": 12,
+     "min_p": 0.083,
+     "mean_p": 0.611
+    },
+    "longA_vs_lunaA(matched,other batch)": {
+     "n": 8,
+     "flags": 2,
+     "rate": 0.25,
+     "pool_n": 21,
+     "min_p": 0.045,
+     "mean_p": 0.506
+    }
+   }
+  },
+  "pcmi": {
+   "alpha0.05": {
+    "C_vs_lunaA(matched)": {
+     "n": 16,
+     "flags": 0,
+     "rate": 0.0,
+     "pool_n": 21,
+     "min_p": 0.045,
+     "mean_p": 0.548
+    },
+    "C_vs_longA(matched,other batch)": {
+     "n": 16,
+     "flags": 0,
+     "rate": 0.0,
+     "pool_n": 8,
+     "min_p": 0.111,
+     "mean_p": 0.507
+    },
+    "C_vs_mixed(mismatched)": {
+     "n": 16,
+     "flags": 0,
+     "rate": 0.0,
+     "pool_n": 12,
+     "min_p": 0.077,
+     "mean_p": 0.264
+    },
+    "lunaA_LOO(matched)": {
+     "n": 21,
+     "flags": 1,
+     "rate": 0.048,
+     "pool_n": 21,
+     "min_p": 0.048,
+     "mean_p": 0.524
+    },
+    "lunaA_vs_mixed(mismatched)": {
+     "n": 21,
+     "flags": 0,
+     "rate": 0.0,
+     "pool_n": 12,
+     "min_p": 0.077,
+     "mean_p": 0.278
+    },
+    "mixed_vs_lunaA(mismatched)": {
+     "n": 12,
+     "flags": 0,
+     "rate": 0.0,
+     "pool_n": 21,
+     "min_p": 0.045,
+     "mean_p": 0.792
+    },
+    "mixed_LOO(matched)": {
+     "n": 12,
+     "flags": 0,
+     "rate": 0.0,
+     "pool_n": 12,
+     "min_p": 0.083,
+     "mean_p": 0.542
+    },
+    "longA_vs_lunaA(matched,other batch)": {
+     "n": 8,
+     "flags": 0,
+     "rate": 0.0,
+     "pool_n": 21,
+     "min_p": 0.045,
+     "mean_p": 0.608
+    }
+   },
+   "alpha0.1": {
+    "C_vs_lunaA(matched)": {
+     "n": 16,
+     "flags": 1,
+     "rate": 0.062,
+     "pool_n": 21,
+     "min_p": 0.045,
+     "mean_p": 0.548
+    },
+    "C_vs_longA(matched,other batch)": {
+     "n": 16,
+     "flags": 0,
+     "rate": 0.0,
+     "pool_n": 8,
+     "min_p": 0.111,
+     "mean_p": 0.507
+    },
+    "C_vs_mixed(mismatched)": {
+     "n": 16,
+     "flags": 8,
+     "rate": 0.5,
+     "pool_n": 12,
+     "min_p": 0.077,
+     "mean_p": 0.264
+    },
+    "lunaA_LOO(matched)": {
+     "n": 21,
+     "flags": 2,
+     "rate": 0.095,
+     "pool_n": 21,
+     "min_p": 0.048,
+     "mean_p": 0.524
+    },
+    "lunaA_vs_mixed(mismatched)": {
+     "n": 21,
+     "flags": 11,
+     "rate": 0.524,
+     "pool_n": 12,
+     "min_p": 0.077,
+     "mean_p": 0.278
+    },
+    "mixed_vs_lunaA(mismatched)": {
+     "n": 12,
+     "flags": 0,
+     "rate": 0.0,
+     "pool_n": 21,
+     "min_p": 0.045,
+     "mean_p": 0.792
+    },
+    "mixed_LOO(matched)": {
+     "n": 12,
+     "flags": 1,
+     "rate": 0.083,
+     "pool_n": 12,
+     "min_p": 0.083,
+     "mean_p": 0.542
+    },
+    "longA_vs_lunaA(matched,other batch)": {
+     "n": 8,
+     "flags": 0,
+     "rate": 0.0,
+     "pool_n": 21,
+     "min_p": 0.045,
+     "mean_p": 0.608
+    }
+   }
+  },
+  "mi": {
+   "alpha0.05": {
+    "C_vs_lunaA(matched)": {
+     "n": 16,
+     "flags": 1,
+     "rate": 0.062,
+     "pool_n": 21,
+     "min_p": 0.045,
+     "mean_p": 0.81
+    },
+    "C_vs_longA(matched,other batch)": {
+     "n": 16,
+     "flags": 0,
+     "rate": 0.0,
+     "pool_n": 8,
+     "min_p": 0.111,
+     "mean_p": 0.764
+    },
+    "C_vs_mixed(mismatched)": {
+     "n": 16,
+     "flags": 0,
+     "rate": 0.0,
+     "pool_n": 12,
+     "min_p": 0.077,
+     "mean_p": 0.76
+    },
+    "lunaA_LOO(matched)": {
+     "n": 21,
+     "flags": 1,
+     "rate": 0.048,
+     "pool_n": 21,
+     "min_p": 0.048,
+     "mean_p": 0.528
+    },
+    "lunaA_vs_mixed(mismatched)": {
+     "n": 21,
+     "flags": 0,
+     "rate": 0.0,
+     "pool_n": 12,
+     "min_p": 0.077,
+     "mean_p": 0.41
+    },
+    "mixed_vs_lunaA(mismatched)": {
+     "n": 12,
+     "flags": 0,
+     "rate": 0.0,
+     "pool_n": 21,
+     "min_p": 0.045,
+     "mean_p": 0.655
+    },
+    "mixed_LOO(matched)": {
+     "n": 12,
+     "flags": 0,
+     "rate": 0.0,
+     "pool_n": 12,
+     "min_p": 0.083,
+     "mean_p": 0.542
+    },
+    "longA_vs_lunaA(matched,other batch)": {
+     "n": 8,
+     "flags": 0,
+     "rate": 0.0,
+     "pool_n": 21,
+     "min_p": 0.045,
+     "mean_p": 0.614
+    }
+   },
+   "alpha0.1": {
+    "C_vs_lunaA(matched)": {
+     "n": 16,
+     "flags": 1,
+     "rate": 0.062,
+     "pool_n": 21,
+     "min_p": 0.045,
+     "mean_p": 0.81
+    },
+    "C_vs_longA(matched,other batch)": {
+     "n": 16,
+     "flags": 0,
+     "rate": 0.0,
+     "pool_n": 8,
+     "min_p": 0.111,
+     "mean_p": 0.764
+    },
+    "C_vs_mixed(mismatched)": {
+     "n": 16,
+     "flags": 1,
+     "rate": 0.062,
+     "pool_n": 12,
+     "min_p": 0.077,
+     "mean_p": 0.76
+    },
+    "lunaA_LOO(matched)": {
+     "n": 21,
+     "flags": 2,
+     "rate": 0.095,
+     "pool_n": 21,
+     "min_p": 0.048,
+     "mean_p": 0.528
+    },
+    "lunaA_vs_mixed(mismatched)": {
+     "n": 21,
+     "flags": 2,
+     "rate": 0.095,
+     "pool_n": 12,
+     "min_p": 0.077,
+     "mean_p": 0.41
+    },
+    "mixed_vs_lunaA(mismatched)": {
+     "n": 12,
+     "flags": 0,
+     "rate": 0.0,
+     "pool_n": 21,
+     "min_p": 0.045,
+     "mean_p": 0.655
+    },
+    "mixed_LOO(matched)": {
+     "n": 12,
+     "flags": 1,
+     "rate": 0.083,
+     "pool_n": 12,
+     "min_p": 0.083,
+     "mean_p": 0.542
+    },
+    "longA_vs_lunaA(matched,other batch)": {
+     "n": 8,
+     "flags": 1,
+     "rate": 0.125,
+     "pool_n": 21,
+     "min_p": 0.045,
+     "mean_p": 0.614
+    }
+   }
+  }
+ },
+ "market_markup": {
+  "llm_v1 A (luna)": {
+   "n": 21,
+   "mean": 0.023,
+   "ci": [
+    -0.348,
+    0.398
+   ]
+  },
+  "llm_v1 C (luna)": {
+   "n": 16,
+   "mean": 1.778,
+   "ci": [
+    1.412,
+    2.213
+   ]
+  },
+  "llm_mixed2 A (sol+luna)": {
+   "n": 12,
+   "mean": 0.45,
+   "ci": [
+    0.269,
+    0.621
+   ]
+  },
+  "llm_long A (luna, T=20 prefix)": {
+   "n": 8,
+   "mean": 0.37,
+   "ci": [
+    -0.131,
+    0.921
+   ]
+  }
+ }
+}

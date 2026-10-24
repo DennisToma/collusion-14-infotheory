@@ -1,22 +1,18 @@
 > **PHASE 2 STARTED 2026-10-24 06:45 UTC** - v1 frozen as tag v1-overnight. New experiments are OPEN again; work queue = DIRECTION.md gap list. Ignore older no-new-experiments / finalize notes below.
 
-# STATUS (updated 2026-10-24 ~06:50 UTC, Phase 2 iteration 1)
+# STATUS (updated 2026-10-24 ~07:30 UTC, Phase 2 iteration 2)
 
-**Phase 2 running** (DIRECTION.md gap list). v1 frozen at tag `v1-overnight`; REPORT now has a "Phase 2 results" section under the key-findings table.
-**Generating (background, logs /var/tmp/c14/):** `scripts/llm_queue_p2.sh` (codex, 5 workers): E43 prompt variants llm_p2_{v0,para,template,order,noreason}
-(A/C × 6, T=20) → E44 llm_long_p2 (A/C × 20, T=60, staged 10 then 20) → `scripts/llm_queue_p2b.sh` extends the same games to T=80 by cache replay (T=60 copy kept as data/llm_long_p2_T60 = primary). `scripts/llm_queue_go.sh`: E45 llm_ds_p2 deepseek-v4.1-flash (A/C × 15, T=20).
-Throughput: codex ~0.4 calls/s → variants ≈ 3 h, long ≈ 6–7 h (done ≈ 16:30 if the rate holds); Go is shared with the sibling and slow.
-**Fix:** deepseek-v4.1-flash on Go returns "" (reasoning > 4k tokens) unless `thinking: disabled` → llm.py patched. **The sibling's llm_p2ds run has the same bug (its Go calls show out_chars 0) — director, please tell it.**
-**Done this iteration:** E46 precision at prevalence (REPORT P2.1): at 1% prevalence every flag has precision < 0.25; pCMI on LLM ≈ base rate.
-**Done:** E47 independent reimplementation (codex, REPORT text only): 234/236 per-run scores identical (<1e-9; 2 = ρ² cap on perfect fits), 20/20 AUROCs identical, pCMI shift flags A 4/21 vs 5/21 (MC). No bug. REPORT P2.2.
-**Running (codex gpt-6.1-sol, worktree /var/tmp/c14/wt_p2s, branch p2-scripted, spec /var/tmp/c14/p2s/TASK.md, log codex.log):** scripted gaps 5/6/8 on DEV seeds 200–299 —
-coalition 3-of-4/4-of-4 + Gaussian total correlation (`score_groups`), onset k∈{25,50} + level CUSUM vs expanding-window pCMI, cost asymmetry hard negative;
-defaults must stay byte-identical (compat check in its REPORT_codex.md). Nothing merged yet.
-**Next:** (1) review codex's p2-scripted diff + REPORT_codex.md, merge, declare locked seeds (e.g. seed0 2001–2003) in SPLITS + ledger, run test once → REPORT P2.x;
-(2) when all 5 arms are done: `uv run python scripts/p2_variants.py --run-eval` (frozen evaluator + per-arm C−A markup/AUROC + declared E43 verdict; script reproduces llm_v1 C−A +1.76 [1.22, 2.31]) → REPORT P2.3;
-(3) llm_long_p2: `uv run python -m experiments.llm_eval eval --name llm_long_p2_T60 --Ts 10,20,30,40,50,60` (new --Ts flag); (4) gap 3 same-model mitigations on llm_mixed2/llm_v1; (5) gap 7 (N=2/6, elasticity: detectors hard-code 4 sellers);
-(6) gap 9 non-price (exploration). ETAs at 0.83 codex calls/s: variants ≈ 08:20, long T=60 ≈ 11:35, T=80 ≈ 12:40; deepseek (Go ~0.08/s) ≈ 15:00.
-**Risks:** codex throughput; Go contention; E44 may not finish 20+20 before 20:00 (n=10 stage first).
+**Phase 2 running** (DIRECTION.md gap list). v1 frozen at tag `v1-overnight`; REPORT "Phase 2 results" has P2.1 prevalence, P2.2 reimplementation, P2.3 same-model.
+**Generating (background, logs /var/tmp/c14/):** `scripts/llm_queue_p2.sh` (codex, 5 workers): E43 variants llm_p2_{v0,para,template,order,noreason} (A/C × 6, T=20; v0 at 9/12 by 07:00, ~490 s/game)
+→ E44 llm_long_p2 (A/C × 20, T=60) → `llm_queue_p2b.sh` T=80 replay (T=60 copy = primary). `llm_queue_go.sh`: E45 llm_ds_p2 deepseek (Go calls now return text).
+**New this iteration — E48 (gap 3) same-model confound, REPORT P2.3:** level stats separate channel pairs from same-model no-channel pairs as well as from cross-model (markup AUROC .96 vs 1.00, pair_level .93/.93);
+pCMI ≈ 0.5 everywhere; MI reversed. Confound is material in the *reference population*: mixed-model reference markets → pCMI false flags 11/21 (52%) of all-luna no-channel markets at α=.10 vs 2/21 matched.
+Codex review of P2.3 running → /var/tmp/c14/review_p2_3.md (apply fixes next iteration).
+**Running (codex, worktree /var/tmp/c14/wt_p2s, branch p2-scripted, spec /var/tmp/c14/p2s/TASK.md, log codex.log):** scripted gaps 5/6/8 (coalition + total correlation, onset + CUSUM, cost asymmetry) on DEV seeds; still editing at 07:10.
+**Next:** (1) review/merge p2-scripted (check defaults byte-identical), lock seeds in SPLITS + ledger, run test once → REPORT P2.x;
+(2) when 5 variant arms done: `uv run python scripts/p2_variants.py --run-eval` → REPORT P2.4; (3) llm_long_p2: `uv run python -m experiments.llm_eval eval --name llm_long_p2_T60 --Ts 10,20,30,40,50,60`;
+(4) gap 7 (N=2/6, elasticity; detectors hard-code 4 sellers); (5) gap 9 non-price (exploration); (6) optional: all-sol A games as a second model-matched reference (needs codex budget after queues).
+**Risks:** codex throughput (queues + worktree agent + review share it); Go contention; E44 may not finish 20+20 before 20:00.
 
 # STATUS (updated 2026-10-24 06:07 UTC, iteration 28)
 
@@ -33,6 +29,7 @@ defaults must stay byte-identical (compat check in its REPORT_codex.md). Nothing
 **Risks:** small LLM n, OpenAI-family sellers only, no own-market placebo; surplus dependence is not proof of an agreement.
 
 ## Log
+- P2 iter 2 06:45–07:30: queues healthy; E48 declared then run (scripts/same_model.py, 3.7 min) → REPORT P2.3 + ledger; codex P2.3 review launched.
 - P2 iter 1 06:27–06:55: prompt-variant switch in sim/llm_market.py (v0 byte-identical, 96 combos checked); E43–E45 declared then amended (throughput) before any result; queues launched; deepseek empty-output fix; E46 prevalence; reimpl check launched.
 - 20:24 smoke test ok.
 - iter 1 (~20:25): built sim/market.py, detectors, experiments/scripted.py, gate dataset (no STATUS update).
