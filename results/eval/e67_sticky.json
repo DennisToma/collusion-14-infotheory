@@ -70,6 +70,77 @@
    }
   }
  },
+ "llm_strong_qa": {
+  "name": "llm_strong_qa",
+  "status": "confirmatory",
+  "T": 40,
+  "n_C": 20,
+  "n_A": 20,
+  "auroc": {
+   "sticky_max": {
+    "auroc": 0.897,
+    "ci": [
+     0.792,
+     0.971
+    ]
+   },
+   "sticky_mean": {
+    "auroc": 0.86,
+    "ci": [
+     0.73,
+     0.955
+    ]
+   },
+   "lowvar": {
+    "auroc": 0.842,
+    "ci": [
+     0.696,
+     0.958
+    ]
+   }
+  },
+  "mean": {
+   "sticky_max": {
+    "C": 0.829,
+    "A": 0.461
+   },
+   "sticky_mean": {
+    "C": 0.643,
+    "A": 0.314
+   },
+   "lowvar": {
+    "C": -0.082,
+    "A": -0.229
+   }
+  },
+  "verdict": "works",
+  "rho_sticky_pcmi": {
+   "rho": 0.002,
+   "ci": [
+    -0.341,
+    0.372
+   ],
+   "n": 40
+  },
+  "mechanism": "not supported",
+  "pcmi_by_sticky_tercile": {
+   "t1": {
+    "n_C": 2,
+    "n_A": 12,
+    "pcmi_auroc": 0.625
+   },
+   "t2": {
+    "n_C": 5,
+    "n_A": 8,
+    "pcmi_auroc": 0.225
+   },
+   "t3": {
+    "n_C": 13,
+    "n_A": 0,
+    "pcmi_auroc": null
+   }
+  }
+ },
  "llm_v1": {
   "name": "llm_v1",
   "status": "exploratory",

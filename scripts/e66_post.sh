@@ -7,9 +7,13 @@ L=/var/tmp/c14; S=../collusion-22-say-vs-do
 ready() {
   pgrep -f "[d]s llm_p2strongF " > /dev/null && return 1
   [ "$(wc -l < $S/data/llm_p2strongF/ground_truth.jsonl 2>/dev/null || echo 0)" -ge 40 ] || return 1
+  pgrep -f "[p]2_label.py --ds llm_p2strongF" > /dev/null && return 1      # sibling still labelling (iter 14 fix)
+  [ "$(wc -l < $S/data/llm_p2strongF/labels.jsonl 2>/dev/null || echo 0)" -ge 40 ] || return 1
+  # class file must be written after the last label (otherwise it may be stale)
+  [ $S/results/analysis/p2_strong_classes_llm_p2strongF.json -nt $S/data/llm_p2strongF/labels.jsonl ] || return 1
   python3 -c "import json,sys; sys.exit(0 if len(json.load(open('$S/results/analysis/p2_strong_classes_llm_p2strongF.json'))['runs'])>=40 else 1)" 2>/dev/null
 }
-until ready; do sleep 120; done
+until ready; do sleep 60; done
 echo "$(date -u) E66 inputs ready" >> $L/queue_partc.log
 uv run python scripts/strongF_ext.py --snapshot > $L/e66.log 2>&1 &&
 uv run python scripts/strongF_ext.py >> $L/e66.log 2>&1 &&
