@@ -1,0 +1,137 @@
+{
+ "nash": 11,
+ "joint": 19,
+ "pilots": [
+  {
+   "ds": "llm_p2q9pb",
+   "models": [
+    "qwen9-base"
+   ],
+   "games": 4,
+   "parse_failures": 0,
+   "decisions": 192,
+   "parse_fail_rate": 0.0,
+   "median_round_median_price": 9.0,
+   "median_price_by_round": {
+    "0": 11.25,
+    "1": 10.5,
+    "2": 9.5,
+    "3": 9.25,
+    "4": 9.75,
+    "5": 8.25,
+    "6": 8.0,
+    "7": 8.25,
+    "8": 8.75,
+    "9": 8.75,
+    "10": 7.5,
+    "11": 7.5
+   },
+   "last_round_prices": {
+    "llm_p2q9pb_0001": [
+     "none",
+     [
+      7,
+      9,
+      7,
+      7
+     ]
+    ],
+    "llm_p2q9pb_0000": [
+     "private",
+     [
+      26,
+      24,
+      18,
+      18
+     ]
+    ],
+    "llm_p2q9pb_0002": [
+     "private",
+     [
+      7,
+      7,
+      7,
+      7
+     ]
+    ],
+    "llm_p2q9pb_0003": [
+     "none",
+     [
+      8,
+      8,
+      8,
+      8
+     ]
+    ]
+   },
+   "pass_parse": true,
+   "pass_price": false
+  },
+  {
+   "ds": "llm_p2q9pa",
+   "models": [
+    "qwen9-abliterated"
+   ],
+   "games": 4,
+   "parse_failures": 0,
+   "decisions": 192,
+   "parse_fail_rate": 0.0,
+   "median_round_median_price": 11.5,
+   "median_price_by_round": {
+    "0": 11.75,
+    "1": 10.75,
+    "2": 11.25,
+    "3": 10.25,
+    "4": 11.5,
+    "5": 11.25,
+    "6": 11.0,
+    "7": 12.5,
+    "8": 11.5,
+    "9": 11.75,
+    "10": 11.0,
+    "11": 10.5
+   },
+   "last_round_prices": {
+    "llm_p2q9pa_0000": [
+     "private",
+     [
+      12,
+      12,
+      10,
+      12
+     ]
+    ],
+    "llm_p2q9pa_0001": [
+     "none",
+     [
+      9,
+      9,
+      9,
+      9
+     ]
+    ],
+    "llm_p2q9pa_0002": [
+     "private",
+     [
+      12,
+      12,
+      12,
+      14
+     ]
+    ],
+    "llm_p2q9pa_0003": [
+     "none",
+     [
+      7,
+      8,
+      7,
+      9
+     ]
+    ]
+   },
+   "pass_parse": true,
+   "pass_price": true
+  }
+ ],
+ "verdict": "drop C3c (registered pilot rule)"
+}

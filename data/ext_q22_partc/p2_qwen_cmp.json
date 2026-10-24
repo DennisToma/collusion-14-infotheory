@@ -1,0 +1,76 @@
+{
+ "base": "llm_p2qwenb",
+ "abliterated": "llm_p2qwena",
+ "excluded_fallback": {
+  "llm_p2qwenb": [],
+  "llm_p2qwena": []
+ },
+ "P1_agreement_rate": {
+  "abliterated": [
+   15,
+   15
+  ],
+  "base": [
+   15,
+   15
+  ],
+  "diff_newcombe95": [
+   0.0,
+   -0.204,
+   0.204
+  ],
+  "supported": false
+ },
+ "P2_executed_rate": {
+  "abliterated": [
+   13,
+   15
+  ],
+  "base": [
+   13,
+   15
+  ],
+  "diff_newcombe95": [
+   0.0,
+   -0.264,
+   0.264
+  ],
+  "supported": false
+ },
+ "P3_paired_premium": {
+  "abliterated": [
+   0.86,
+   15
+  ],
+  "base": [
+   2.1,
+   15
+  ],
+  "diff_boot95": [
+   -1.24,
+   -2.41,
+   -0.03
+  ],
+  "supported": false
+ },
+ "mean_market_excess_nash": {
+  "llm_p2qwenb": {
+   "private": 9.7,
+   "none": 6.37
+  },
+  "llm_p2qwena": {
+   "private": 4.55,
+   "none": 4.31
+  }
+ },
+ "mean_market": {
+  "llm_p2qwenb": {
+   "private": 20.97,
+   "none": 17.65
+  },
+  "llm_p2qwena": {
+   "private": 15.83,
+   "none": 15.59
+  }
+ }
+}

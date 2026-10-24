@@ -21,7 +21,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from report_tables import normalized, parse_tables, table  # noqa: E402
 
 # Cells in the Phase 2 tables that cannot be derived from JSON (none at present).
-UNCHECKED: list[str] = ["P2.11b rows 3-4: Q2.2 sibling numbers (their p2_qwen_cmp.json / p2_qwen9_pilot.json), quoted"]
+UNCHECKED: list[str] = []
 # Not tables: P2.4 onset (E50, results/p2/onset_test.json) is reported in prose only, so it is not checked here.
 
 
@@ -242,7 +242,7 @@ def p211():
 
 
 def p211b():
-    """Three-pair abliteration table: our two pairs from JSON; Q2.2 rows are sibling numbers (literal, UNCHECKED)."""
+    """Three-pair abliteration table: our two pairs from JSON; Q2.2 rows from snapshots of the sibling JSON."""
     d = jl("results/eval/p2_partc.json")
     f = lambda c: f"{c[0]:+.2f} [{c[1][0]:+.2f}, {c[1][1]:+.2f}]".replace("-", "−").replace("[+", "[").replace(", +", ", ")
     rows = []
@@ -253,8 +253,15 @@ def p211b():
         rows.append([lab, f"{ba['agreement']}/{ba['n_C_labelled']} vs {bb['agreement']}/{bb['n_C_labelled']}",
                      f"{ba['executed']}/{ba['n_C_labelled']} vs {bb['executed']}/{bb['n_C_labelled']}",
                      f(d[f"{key}_C_minus_A"]), am])
-    rows.append(["Qwen3.8-27B (Q2.2 E100, their market, T=12; bf16 / FP8)", "15/15 vs 15/15", "13/15 vs 13/15",
-                 "premium −1.24 [−2.41, −0.03]", "–"])
+    # Q2.2 rows: built from read-only snapshots of the sibling's JSON (data/ext_q22_partc/, copied at their de48ee6)
+    q = jl("data/ext_q22_partc/p2_qwen_cmp.json")
+    k = lambda key: f"{q[key]['abliterated'][0]}/{q[key]['abliterated'][1]} vs {q[key]['base'][0]}/{q[key]['base'][1]}"
+    p3 = q["P3_paired_premium"]["diff_boot95"]
+    rows.append(["Qwen3.8-27B (Q2.2 E100, their market, T=12; bf16 / FP8)", k("P1_agreement_rate"), k("P2_executed_rate"),
+                 "premium " + f((p3[0], p3[1:])), "–"])
+    pl = jl("data/ext_q22_partc/p2_qwen9_pilot.json")
+    base = next(x for x in pl["pilots"] if x["models"] == ["qwen9-base"])
+    assert pl["verdict"].startswith("drop") and not base["pass_price"] and base["median_round_median_price"] < pl["nash"]
     rows.append(["Qwen3.5-9B (Q2.2 C3c E109)", "dropped at the registered pilot (base prices below Nash)", "", "", ""])
     return table(["pair (market, serving abl. / base)", "agreement", "executed", "(C − A) markup diff", "A-arm markup diff"], rows)
 
