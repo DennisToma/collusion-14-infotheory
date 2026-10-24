@@ -134,6 +134,37 @@ def sub_auroc(s, pos, neg, B=2000, seed=0):
                 n_pos=len(pos), n_neg=len(neg))
 
 
+def pooled_exec(res, B=2000, seed=0):
+    """E64 pooled: AUROC over all (positive, A) pairs WITHIN each set (no cross-set comparisons), bootstrap = resample games within sets."""
+    groups = {"all sets": [n for n, r in res.items() if isinstance(r, dict) and r.get("behaviour")],
+              "gpt-6-luna sets": [n for n in ("llm_v1", "llm_long", "llm_long_p2_T60") if n in res and res[n].get("behaviour")]}
+    out = {}
+    for gname, names in groups.items():
+        if not names:
+            continue
+        data = {}
+        for n in names:
+            r = res[n]
+            sc = json.load(open(ROOT / "results" / "eval" / f"{n}.json"))["run_scores"].get(str(r["T"]), {})
+            gt = {g["run_id"]: g for g in map(json.loads, open(ROOT / "data" / n / "ground_truth.jsonl"))}
+            data[n] = (sc, [x for x in gt if gt[x]["condition"] == "A"], r["behaviour"])
+        o = dict(sets=names, n_executed=sum(len(b["executed_ids"]) for _, _, b in data.values()),
+                 n_not_executed=sum(len(b["not_executed_ids"]) for _, _, b in data.values()))
+        for det in DETS:
+            o[det] = {}
+            for sub in ("executed", "not_executed"):
+                arrs = [(np.array([sc[det][x] for x in b[f"{sub}_ids"]], float), np.array([sc[det][x] for x in A], float))
+                        for sc, A, b in data.values() if det in sc and b[f"{sub}_ids"]]
+                def au(arrs):
+                    num = sum(((p[:, None] > q[None]).sum() + .5 * (p[:, None] == q[None]).sum()) for p, q in arrs)
+                    return float(num / sum(len(p) * len(q) for p, q in arrs))
+                rng = np.random.default_rng(seed)
+                bs = [au([(rng.choice(p, len(p)), rng.choice(q, len(q))) for p, q in arrs]) for _ in range(B)]
+                o[det][sub] = dict(auroc=round(au(arrs), 3), ci=[round(float(np.quantile(bs, .025)), 3), round(float(np.quantile(bs, .975)), 3)])
+        out[gname] = o
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--run-eval", action="store_true", help="run frozen detectors on part C datasets (llm_eval eval)")
@@ -173,6 +204,11 @@ def main():
             b = r["behaviour"]
             lines.append(f"| {r['label']} | {b['executed']}/{b['n_C_labelled']} | "
                          + " | ".join(f"{g(r.get(f'auroc_{k}_executed_vs_A'))} / {g(r.get(f'auroc_{k}_not_executed_vs_A'))}" for k in DETS) + " |")
+    res["E64_pooled"] = pooled_exec(res)
+    for k, d in res["E64_pooled"].items():
+        lines.append(f"| **pooled within set** ({k}) | {d['n_executed']} executed / {d['n_not_executed']} not | "
+                     + " | ".join(f"{g(d[det]['executed'])} / {g(d[det]['not_executed'])}" for det in DETS) + " |")
+    json.dump(res, open(ROOT / "results" / "eval" / "p2_partc.json", "w"), indent=1)
     if "contrast_abliterated_minus_base_C_minus_A" in res:
         c = res["contrast_abliterated_minus_base_C_minus_A"]
         lines.append(f"\nAbliterated − base, (C − A) markup: {c[0]:+.2f} [{c[1][0]:.2f}, {c[1][1]:.2f}]")

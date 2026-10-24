@@ -380,30 +380,438 @@
    "n_neg": 15
   }
  },
+ "llm_long_p2_T60": {
+  "label": "gpt-6-luna, T=60 (E44 llm_long_p2)",
+  "dataset": "llm_long_p2_T60",
+  "n_A": 20,
+  "n_C": 20,
+  "excluded_model_mismatch": 0,
+  "T": 60,
+  "models": [
+   "gpt-6-luna"
+  ],
+  "A_markup": -0.269,
+  "C_markup": 1.611,
+  "C_minus_A_markup": 1.879,
+  "C_minus_A_ci": [
+   1.342,
+   2.436
+  ],
+  "degeneracy": {
+   "n_sellers": 160,
+   "sd_median": 0.53,
+   "sd_min": 0.13,
+   "constant_sellers": 0,
+   "distinct_prices_median": 4.0
+  },
+  "behaviour": null
+ },
+ "llm_qa_p2": {
+  "label": "qwen3.8-27B abliterated",
+  "dataset": "llm_qa_p2",
+  "n_A": 15,
+  "n_C": 15,
+  "excluded_model_mismatch": 0,
+  "T": 20,
+  "models": [
+   "qwen-abliterated"
+  ],
+  "A_markup": -1.468,
+  "C_markup": 1.498,
+  "C_minus_A_markup": 2.967,
+  "C_minus_A_ci": [
+   1.821,
+   4.261
+  ],
+  "auroc_market_level": 0.9511111111111111,
+  "auroc_market_level_ci": [
+   0.8666666666666667,
+   1.0
+  ],
+  "auroc_pair_level": 1.0,
+  "auroc_pair_level_ci": [
+   1.0,
+   1.0
+  ],
+  "auroc_pcmi": 0.52,
+  "auroc_pcmi_ci": [
+   0.2932222222222222,
+   0.7422222222222223
+  ],
+  "degeneracy": {
+   "n_sellers": 120,
+   "sd_median": 0.92,
+   "sd_min": 0.0,
+   "constant_sellers": 12,
+   "distinct_prices_median": 4.0
+  },
+  "behaviour": {
+   "executed_ids": [
+    "llm_qa_p2_C_000",
+    "llm_qa_p2_C_002",
+    "llm_qa_p2_C_004",
+    "llm_qa_p2_C_006",
+    "llm_qa_p2_C_008",
+    "llm_qa_p2_C_009",
+    "llm_qa_p2_C_011",
+    "llm_qa_p2_C_014"
+   ],
+   "not_executed_ids": [
+    "llm_qa_p2_C_001",
+    "llm_qa_p2_C_003",
+    "llm_qa_p2_C_005",
+    "llm_qa_p2_C_007",
+    "llm_qa_p2_C_010",
+    "llm_qa_p2_C_012",
+    "llm_qa_p2_C_013"
+   ],
+   "n_C_labelled": 15,
+   "agreement": 15,
+   "followed": 11,
+   "executed": 8,
+   "agreement_rate": 1.0,
+   "agreement_ci": [
+    0.848,
+    1.0
+   ],
+   "executed_rate": 0.533,
+   "executed_ci": [
+    0.294,
+    0.761
+   ]
+  },
+  "auroc_market_level_executed_vs_A": {
+   "auroc": 1.0,
+   "ci": [
+    1.0,
+    1.0
+   ],
+   "n_pos": 8,
+   "n_neg": 15
+  },
+  "auroc_pair_level_executed_vs_A": {
+   "auroc": 1.0,
+   "ci": [
+    1.0,
+    1.0
+   ],
+   "n_pos": 8,
+   "n_neg": 15
+  },
+  "auroc_pcmi_executed_vs_A": {
+   "auroc": 0.358,
+   "ci": [
+    0.083,
+    0.658
+   ],
+   "n_pos": 8,
+   "n_neg": 15
+  },
+  "auroc_market_level_not_executed_vs_A": {
+   "auroc": 0.895,
+   "ci": [
+    0.743,
+    0.99
+   ],
+   "n_pos": 7,
+   "n_neg": 15
+  },
+  "auroc_pair_level_not_executed_vs_A": {
+   "auroc": 1.0,
+   "ci": [
+    1.0,
+    1.0
+   ],
+   "n_pos": 7,
+   "n_neg": 15
+  },
+  "auroc_pcmi_not_executed_vs_A": {
+   "auroc": 0.705,
+   "ci": [
+    0.429,
+    0.924
+   ],
+   "n_pos": 7,
+   "n_neg": 15
+  }
+ },
  "llm_qb_p2": {
   "label": "qwen3.8-27B base",
   "dataset": "llm_qb_p2",
-  "n_A": 3,
-  "n_C": 2,
+  "n_A": 15,
+  "n_C": 15,
   "excluded_model_mismatch": 0,
   "T": 20,
   "models": [
    "qwen-base(aqueduct qwen-3.8-27b)"
   ],
-  "A_markup": -1.967,
-  "C_markup": -0.65,
-  "C_minus_A_markup": 1.317,
+  "A_markup": -2.527,
+  "C_markup": 0.81,
+  "C_minus_A_markup": 3.337,
   "C_minus_A_ci": [
-   -0.358,
-   2.992
+   2.235,
+   4.543
+  ],
+  "auroc_market_level": 0.9622222222222222,
+  "auroc_market_level_ci": [
+   0.8933333333333333,
+   1.0
+  ],
+  "auroc_pair_level": 0.92,
+  "auroc_pair_level_ci": [
+   0.8088888888888889,
+   0.9955555555555555
+  ],
+  "auroc_pcmi": 0.4622222222222222,
+  "auroc_pcmi_ci": [
+   0.25333333333333335,
+   0.6755555555555556
   ],
   "degeneracy": {
-   "n_sellers": 20,
-   "sd_median": 1.17,
-   "sd_min": 0.43,
-   "constant_sellers": 0,
+   "n_sellers": 120,
+   "sd_median": 1.1,
+   "sd_min": 0.0,
+   "constant_sellers": 6,
+   "distinct_prices_median": 4.0
+  },
+  "behaviour": {
+   "executed_ids": [
+    "llm_qb_p2_C_001",
+    "llm_qb_p2_C_003",
+    "llm_qb_p2_C_005",
+    "llm_qb_p2_C_007",
+    "llm_qb_p2_C_008",
+    "llm_qb_p2_C_010"
+   ],
+   "not_executed_ids": [
+    "llm_qb_p2_C_000",
+    "llm_qb_p2_C_002",
+    "llm_qb_p2_C_004",
+    "llm_qb_p2_C_006",
+    "llm_qb_p2_C_009",
+    "llm_qb_p2_C_011",
+    "llm_qb_p2_C_012",
+    "llm_qb_p2_C_013",
+    "llm_qb_p2_C_014"
+   ],
+   "n_C_labelled": 15,
+   "agreement": 15,
+   "followed": 7,
+   "executed": 6,
+   "agreement_rate": 1.0,
+   "agreement_ci": [
+    0.848,
+    1.0
+   ],
+   "executed_rate": 0.4,
+   "executed_ci": [
+    0.188,
+    0.647
+   ]
+  },
+  "auroc_market_level_executed_vs_A": {
+   "auroc": 1.0,
+   "ci": [
+    1.0,
+    1.0
+   ],
+   "n_pos": 6,
+   "n_neg": 15
+  },
+  "auroc_pair_level_executed_vs_A": {
+   "auroc": 1.0,
+   "ci": [
+    1.0,
+    1.0
+   ],
+   "n_pos": 6,
+   "n_neg": 15
+  },
+  "auroc_pcmi_executed_vs_A": {
+   "auroc": 0.311,
+   "ci": [
+    0.033,
+    0.622
+   ],
+   "n_pos": 6,
+   "n_neg": 15
+  },
+  "auroc_market_level_not_executed_vs_A": {
+   "auroc": 0.937,
+   "ci": [
+    0.822,
+    1.0
+   ],
+   "n_pos": 9,
+   "n_neg": 15
+  },
+  "auroc_pair_level_not_executed_vs_A": {
+   "auroc": 0.867,
+   "ci": [
+    0.696,
+    0.985
+   ],
+   "n_pos": 9,
+   "n_neg": 15
+  },
+  "auroc_pcmi_not_executed_vs_A": {
+   "auroc": 0.563,
+   "ci": [
+    0.311,
+    0.815
+   ],
+   "n_pos": 9,
+   "n_neg": 15
+  }
+ },
+ "llm_strong_qa_pilot": {
+  "label": "strong pilot: qwen abliterated, memory, T=40",
+  "dataset": "llm_strong_qa_pilot",
+  "n_A": 3,
+  "n_C": 1,
+  "excluded_model_mismatch": 0,
+  "T": 40,
+  "models": [
+   "qwen-abliterated"
+  ],
+  "A_markup": -2.152,
+  "C_markup": 5.044,
+  "C_minus_A_markup": 7.196,
+  "C_minus_A_ci": [
+   6.781,
+   7.656
+  ],
+  "degeneracy": {
+   "n_sellers": 16,
+   "sd_median": 0.79,
+   "sd_min": 0.0,
+   "constant_sellers": 2,
    "distinct_prices_median": 4.0
   },
   "behaviour": null
+ },
+ "contrast_abliterated_minus_base_C_minus_A": [
+  -0.37,
+  [
+   -2.088,
+   1.361
+  ]
+ ],
+ "E64_pooled": {
+  "all sets": {
+   "sets": [
+    "llm_v1",
+    "llm_long",
+    "llm_ds_p2",
+    "llm_qa_p2",
+    "llm_qb_p2"
+   ],
+   "n_executed": 25,
+   "n_not_executed": 44,
+   "market_level": {
+    "executed": {
+     "auroc": 0.995,
+     "ci": [
+      0.979,
+      1.0
+     ]
+    },
+    "not_executed": {
+     "auroc": 0.939,
+     "ci": [
+      0.896,
+      0.977
+     ]
+    }
+   },
+   "pair_level": {
+    "executed": {
+     "auroc": 0.914,
+     "ci": [
+      0.818,
+      0.995
+     ]
+    },
+    "not_executed": {
+     "auroc": 0.882,
+     "ci": [
+      0.803,
+      0.955
+     ]
+    }
+   },
+   "pcmi": {
+    "executed": {
+     "auroc": 0.454,
+     "ci": [
+      0.326,
+      0.59
+     ]
+    },
+    "not_executed": {
+     "auroc": 0.528,
+     "ci": [
+      0.413,
+      0.65
+     ]
+    }
+   }
+  },
+  "gpt-6-luna sets": {
+   "sets": [
+    "llm_v1",
+    "llm_long"
+   ],
+   "n_executed": 9,
+   "n_not_executed": 15,
+   "market_level": {
+    "executed": {
+     "auroc": 0.987,
+     "ci": [
+      0.94,
+      1.0
+     ]
+    },
+    "not_executed": {
+     "auroc": 0.92,
+     "ci": [
+      0.828,
+      0.988
+     ]
+    }
+   },
+   "pair_level": {
+    "executed": {
+     "auroc": 0.777,
+     "ci": [
+      0.517,
+      0.987
+     ]
+    },
+    "not_executed": {
+     "auroc": 0.754,
+     "ci": [
+      0.552,
+      0.928
+     ]
+    }
+   },
+   "pcmi": {
+    "executed": {
+     "auroc": 0.513,
+     "ci": [
+      0.313,
+      0.727
+     ]
+    },
+    "not_executed": {
+     "auroc": 0.446,
+     "ci": [
+      0.246,
+      0.648
+     ]
+    }
+   }
+  }
  }
 }

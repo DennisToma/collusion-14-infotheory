@@ -156,3 +156,37 @@ Claude quota runs the managers. gpt-6.1-sol as a seller for a third family check
    of your sim; check which detectors see it at all.
    → **DONE (scripted bid rotation)** (E53, P2.6). Starter double auction **DROPPED** (adaptation cost).
 Items 1–4 must be done by Sat 20:00 if at all possible; 5–9 by Sun 15:00.
+
+## Part D — EXTERNAL VALIDITY with the three proposed datasets (added by Dennis 14:05 UTC)
+**Priority:** after the important in-flight work (E44/P2.8, Part C strong arm + C3 qwen pair, the Sat 20:00
+checkpoint) — and BEFORE any remaining exploration-portfolio (part B) items. Target: results by Sun 12:00 UTC.
+**Why:** every result so far comes from our own simulated market. Judges will ask whether "price level yes,
+dependence no, words no" is an artifact of our toy market. External data is the strongest answer.
+Use FROZEN detectors/auditors (no re-tuning on external data); report agreement/disagreement with our
+findings honestly, including where they don't transfer.
+
+- **D1 SALT-NLP agent-collusion** (owner: Q2.2; Q1.4 may read the data). HF dataset `SALT-NLP/agent-collusion`
+  (public, not gated; ~27k episodes + ~2.6k longer trajectories; two-agent communication, decisions, tool traces,
+  rewards, settings). Download to `/var/tmp` (not into git; commit only a small sample + a loader + summary stats).
+  Read its README/paper for the operational definition of its collusion field; map it explicitly to our label
+  levels (opportunity / agreement / executed) and say where it differs. Stratified sample of ~200–300 episodes.
+  Run the frozen auditor views (text, action, combined, action_stats where defined) + simple non-LLM baselines.
+  Headline: Δ_hybrid on external data with bootstrap CI. Note: two-agent episodes → no pairwise net-influence;
+  Q1.4 can still test pCMI/MI between the two agents over trajectories if they are long enough (optional).
+- **D2 Double auction** (owner: Q1.4). Starter `~/collusion/collusion_hackathon/llm-agent-collusion`
+  (Agrawal et al. 2025, continuous double auction; 3 sellers + 3 buyers, seller communication optional). Copy the
+  code into this repo (don't modify the starter), and write a small adapter so its model wrapper calls our
+  `llm.chat` (it expects a Nebius/OpenRouter key; route to codex luna/sol, Go deepseek, or the Aqueduct gateway
+  qwen-3.6-35b — record the model per run). Conditions: seller communication on vs off, ≥ 15 + 15 runs. Apply
+  the frozen level screen, pCMI and dependence detectors on seller ask series. Does price-level-not-dependence hold
+  in a different market mechanism?
+- **D3 LLM trust-breaking** (owner: Q2.2, lowest priority of the three). Starter
+  `~/collusion/collusion_hackathon/llm-trust-breaking` (private plans, public announcements, actions, outcomes in
+  repeated games). Measures promise-breaking, NOT collusion — use it only to validate our say-vs-do machinery
+  (claim–action consistency table, text-vs-action auditors) on someone else's data. Same adapter approach;
+  small n (~20–40 trials) is enough.
+
+Budget: D1 is auditor calls only (sol, ~1–2k calls); D2/D3 generation can use the Aqueduct gateway (45/min cap
+handled by llm.py) or codex luna. Register each in EXPERIMENTS.tsv first; write each up once as a short
+"External validity" subsection (≤ 15 lines + 1 table).
+
