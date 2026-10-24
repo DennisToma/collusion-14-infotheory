@@ -1,7 +1,7 @@
 > **PHASE 2 STARTED 2026-10-24 06:45 UTC** - v1 frozen as tag v1-overnight. New experiments are OPEN again; work queue = DIRECTION.md gap list. Ignore older no-new-experiments / finalize notes below.
 
 
-# STATUS (updated 2026-10-24 18:20 UTC from date -u, Phase 2 iteration 18; follows DIRECTION 17:56)
+# STATUS (updated 2026-10-24 18:09 UTC from date -u, Phase 2 iteration 18; iteration-17 header "18:08" was written ~18:05; follows DIRECTION 17:56)
 
 **E68 declared manipulation check now implemented** in `scripts/e68_cda.py` (it was declared 17:12 but was missing from the script): mean ask − 80 over all rounds/sellers, comms − nocomms, seed bootstrap B=2000; CI incl. 0 → verdict "no collusion elicited; detector comparison uninformative". Parse-failure totals are reported too (DIRECTION #4). Dry-tested on synthetic data in /var/tmp only (output deleted; no real asks read). P2.12 status line updated (16/30 runs, gate described).
 **p2_tables:** new `p212()` builder (E68 manip check + statistics table) auto-registers when results/eval/e68_cda.json exists → paste its output (`uv run python scripts/p2_tables.py`) into P2.12, or `--check` fails (intended).
