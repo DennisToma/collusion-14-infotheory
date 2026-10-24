@@ -25,6 +25,11 @@ wordings (pooled +0.69, SE 0.17), but wording alone moves no-channel prices from
 prompt-matched references; in the sibling market, level screens also name a pair that only writes notes to itself (11/15). Long games (pre-registered E44, T=60, 20 + 20): pCMI 0.34 [0.18, 0.52], falling from 0.52 at T=20, so the verdict is
 "level, not short"; the market level stays at 0.94. Agreements are rarely executed (4/20 at T=60; 38/119 across eight sets), and restricting to executed agreements does not raise pCMI (0.42 [0.31, 0.52] vs 0.50 for non-executed). Giving sellers memory (pre-registered E65, abliterated Qwen, T=40, 20 + 20) does not change this: markup AUROC 0.85, pCMI 0.49. The declared executed-only pCMI test is inconclusive (0.33 [0.02, 0.66], 5/20 executed). At 1% prevalence no flag reaches precision 0.25: flags are audit triggers.
 
+*Joint statement with Q2.2 (verbatim in both reports):* "Detectability of LLM collusion by any price statistic is a property of the (seller
+model × prompt) pair. Relative screens survive a shared model but fail under market-wide spillover; absolute screens need model- and prompt-matched references." "With memory and a profit objective, LLM sellers
+raise prices market-wide without any channel (19/20 no-channel markets ≥ Nash + 2); agreements are then often kept (13/20) but add no
+detectable price, so channel labels stop being ground truth." (Second sentence: Q2.2's strong-framing gpt-6-luna arm, re-scored here as E66 with 0 class mismatches. In our own memory arm with abliterated Qwen, E65, the channel still adds +2.13 [1.28, 3.00] and only 5/20 agreements are executed, so the sentence is specific to that seller × prompt pair, as the first sentence predicts.)
+
 ## Phase 2 at a glance (started 2026-10-24 06:30 UTC; details in [Phase 2 details](#phase-2-details-p21p210))
 Phase 2 closes known gaps; v1 numbers (below) are unchanged (git tag `v1-overnight`). Each Phase 2 experiment is declared in
 `EXPERIMENTS.tsv` (E43–E60) before its data exist; the new LLM datasets (`data/SPLITS.md`, "Phase 2") are all confirmatory because no detector setting is tuned on them.
