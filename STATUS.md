@@ -9,7 +9,7 @@
 **E66 ready:** `scripts/strongF_ext.py` (classes copied from sibling p2_strong; smoke-tested on sibling pilot only). Sibling `llm_p2strongF` 18/40 at 13:45 → when 40: `uv run python scripts/strongF_ext.py --snapshot && uv run python scripts/strongF_ext.py` (~5 min) → P2.11(e) + glance.
 **Running:** E65 `llm_strong_qa` 6/40 games at 13:45 (~65 calls/min → ETA ~15:30; Modal $8.76). `llm_queue_p2d.sh` → gpt-6-luna memory pilot (started 13:26). glm on Go slow.
 **Checks:** p2_tables --check PASS (327 cells), tables --check PASS, test_release_audit OK.
-**Next:** (1) E65 at 40: `llm_eval label` + `eval --Ts 40` (detached, setsid) → add `llm_strong_qa` to p2_partc SETS (full arm) + P211_SETS → declared verdict in P2.11 + glance + takeaway 7; (2) E66 when sibling done; (3) luna pilot labels; (4) 19:30 checkpoint PDFs; codex review of P2.11 after E65/E66.
+**Next:** (1) E65 at 40: watcher `scripts/e65_post.sh` (setsid, running) auto-runs `llm_eval label` + `eval --Ts 40` (check `/var/tmp/c14/queue_partc.log` for 'E65 label+eval done'); then → add `llm_strong_qa` to p2_partc SETS (full arm) + P211_SETS → declared verdict in P2.11 + glance + takeaway 7; (2) E66 when sibling done; (3) luna pilot labels; (4) 19:30 checkpoint PDFs; codex review of P2.11 after E65/E66.
 **Gotcha (again!):** `until ! pgrep -f "<pattern>"` loops match their OWN command line → never exit; and `pkill/kill $(pgrep -f ...)` from such a shell kills yourself. Use `pgrep -f "[l]lm_eval ..."` bracket trick.
 
 # STATUS (updated 2026-10-24 13:45 UTC from date -u, Phase 2 iteration 10)
