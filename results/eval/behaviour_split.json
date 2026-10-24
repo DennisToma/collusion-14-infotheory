@@ -82,5 +82,46 @@
     18
    ]
   }
+ },
+ "llm_ds_p2": {
+  "T": "full",
+  "n_A": 15,
+  "abandoned": {
+   "n": 12,
+   "premium": 3.233,
+   "markup": 4.569,
+   "pcmi": 0.067,
+   "auroc_premium_vs_A_maxpair": 0.994,
+   "auroc_markup_vs_A_maxpair": 0.989,
+   "auroc_pcmi_vs_A_maxpair": 0.211,
+   "agreed_prices": [
+    12,
+    14,
+    15,
+    15,
+    19,
+    20,
+    20,
+    20,
+    20,
+    20,
+    21,
+    22
+   ]
+  },
+  "followed": {
+   "n": 3,
+   "premium": 3.242,
+   "markup": 5.633,
+   "pcmi": 2.187,
+   "auroc_premium_vs_A_maxpair": 1.0,
+   "auroc_markup_vs_A_maxpair": 1.0,
+   "auroc_pcmi_vs_A_maxpair": 0.333,
+   "agreed_prices": [
+    12,
+    18,
+    19
+   ]
+  }
  }
 }

@@ -12,4 +12,4 @@ uv run python -m experiments.llm_eval eval --name $N --Ts 10,20,30,40,50,60
 uv run python scripts/long_power.py --name $N --Ts 10,20,30,40,50,60 --mde-Ts 20,40,60
 uv run python scripts/premium_decay_fig.py --name $N
 uv run python scripts/matched_ref.py
-uv run python scripts/behaviour_split.py --names llm_v1,llm_long,$N
+uv run python scripts/behaviour_split.py --names llm_v1,llm_long,llm_ds_p2,$N
