@@ -27,6 +27,7 @@ and judge labels are committed. `uv run python scripts/tables.py --report` repri
 `--check` compares them with REPORT (overview and pilot history excluded).
 Run `uv run --group export python scripts/verify_release.py --recompute --export` to check the later analyses, tables, figures,
 deck and PDF export in a disposable copy without LLM caches or a live sibling repo (export dependencies: REPORT §6).
-The check records input/output hashes and failures in `results/release_audit.json`.
+The check includes both v1 and Phase 2 REPORT tables and all external snapshot manifests; it records input/output hashes and failures in `results/release_audit.json`.
+Use `uv run python scripts/verify_release.py --phase2-recompute` to verify saved run scores against trajectories and regenerate finalized Phase 2 summaries, bootstrap intervals and figures (E68/E70 excluded).
 Add `--core-eval` to also regenerate the main LLM scores, prefix analyses, confidence intervals, mixed-model comparison and
 trend/incremental diagnostics from committed trajectories and labels; all seven additional outputs must match exactly.

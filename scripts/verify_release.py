@@ -2,6 +2,7 @@
 
 uv run --group export python scripts/verify_release.py --recompute --export
 uv run --group export python scripts/verify_release.py --core-eval --recompute --export
+uv run python scripts/verify_release.py --phase2-recompute
 
 Always checks REPORT tables and snapshot checksums, then regenerates presentation/figures
 and LLM report tables. --recompute also re-runs E30/E32/E35/E39 and the small descriptive
@@ -14,6 +15,11 @@ All regenerated outputs except PDFs must match the source bytes exactly. The sou
 worktree is untouched except for results/release_audit.json (including failure evidence).
 Uses the current Python environment; sync dependencies (plus the export group if needed)
 and install Chromium first, as documented in REPORT §6.
+
+--phase2-recompute regenerates finalized Phase 2 summaries, bootstrap intervals and
+figures from saved trajectories, judge labels and detector scores. This is a fixed
+allowlist: it never analyses the pending E68/E70 experiments or runs new scripted
+test seeds. Phase 2 REPORT tables are checked on every audit when available.
 """
 from __future__ import annotations
 
@@ -53,6 +59,31 @@ RECOMPUTE = [
     (["scripts/market_mean_ranges.py"], ["results/eval/llm_v1_market_mean_ranges.json"]),
     (["-m", "experiments.premium_llm_v3"], ["results/eval/llm_v3_premium.json"]),
 ]
+# Fixed, reviewed commands: no --label, --run-eval, --snapshot, generation, or
+# discovery of unfinished datasets. Dependencies precede their consumers.
+PHASE2_RECOMPUTE = [
+    (["scripts/check_saved_scores.py"], []),
+    (["scripts/prevalence.py"], ["results/eval/prevalence.json", "results/eval/prevalence.md"]),
+    (["scripts/reimpl_compare.py"], ["results/reimpl/compare.json"]),
+    (["scripts/same_model.py"], ["results/eval/same_model.json", "results/eval/same_model.md"]),
+    (["scripts/matched_ref.py"], ["results/eval/matched_ref.json", "results/eval/matched_ref.md"]),
+    (["scripts/p2_variants.py"], ["results/eval/p2_variants.json", "results/eval/p2_variants.md"]),
+    (["scripts/p2_family.py"], ["results/eval/p2_family.json", "results/eval/p2_family.md"]),
+    (["scripts/p2_public.py"], ["results/eval/p2_public_llm_ds_p2pub.json"]),
+    (["scripts/p2cue_ext.py"], ["results/eval/p2cue_ext.json", "results/eval/p2cue_ext.md"]),
+    (["scripts/strongF_ext.py"], ["results/eval/strongF_ext.json", "results/eval/strongF_ext.md"]),
+    (["scripts/p2_partc.py"], ["results/eval/p2_partc.json", "results/eval/p2_partc.md"]),
+    (["scripts/e67_sticky.py"], ["results/eval/e67_sticky.json", "results/eval/e67_sticky.md"]),
+    (["scripts/e44_decline.py"], ["results/eval/e44_decline.json"]),
+    (["scripts/long_power.py", "--name", "llm_long_p2_T60"],
+     ["results/eval/long_power_llm_long_p2_T60.json", "results/eval/long_power_llm_long_p2_T60.md"]),
+    *[(["scripts/spillover.py", "--name", name],
+       [f"results/eval/spillover_{name}.json", f"results/eval/spillover_{name}.md"])
+      for name in ["llm_v1", "llm_ds_p2", "llm_long_p2_T60", "llm_strong_qa"]],
+    (["scripts/claims_denominators.py"], ["results/eval/claims_denominators.json", "results/eval/claims_denominators.md"]),
+    (["scripts/premium_decay_fig.py", "--name", "llm_long_p2_T60"], ["figures/premium_decay_llm_long_p2_T60.png"]),
+]
+
 RENDER = [
     (["-m", "experiments.llm_report", "--name", "llm_v1"], ["results/eval/llm_v1_report.md", "figures/llm_v1_prices.png", "figures/llm_v1_auroc.png", "figures/llm_v1_power_vs_T.png"]),
     (["-m", "experiments.llm_report", "--name", "llm_long"], ["results/eval/llm_long_report.md", "figures/llm_long_prices.png", "figures/llm_long_auroc.png", "figures/llm_long_power_vs_T.png"]),
@@ -93,8 +124,13 @@ def snapshot(dest):
 
 def static_checks(dest):
     checksums = 0
-    manifests = [dest / "data" / f"ext_llm_v3{suffix}" / "SHA256SUMS" for suffix in ["", "rep", "plc", "mon", "fp"]]
-    for manifest in manifests:
+    manifests = {dest / "data" / f"ext_llm_v3{suffix}" / "SHA256SUMS" for suffix in ["", "rep", "plc", "mon", "fp"]}
+    # Globbing alone would silently accept deletion of a required manifest.
+    for result, dataset in [("p2cue_ext", "ext_llm_p2cue"), ("strongF_ext", "ext_llm_p2strongF")]:
+        if (dest / "results/eval" / f"{result}.json").exists():
+            manifests.add(dest / "data" / dataset / "SHA256SUMS")
+    manifests.update((dest / "data").glob("*/SHA256SUMS"))
+    for manifest in sorted(manifests):
         for line in manifest.read_text().splitlines():
             digest, name = line.split(maxsplit=1)
             p = manifest.parent / name.lstrip("*")
@@ -110,21 +146,23 @@ def static_checks(dest):
             if not (dest / target).is_file():
                 raise ValueError(f"Broken local link in {name}: {target}")
             links += 1
-    return {"snapshot_checksums": checksums, "local_links": links, "cache_present": False}
+    return {"snapshot_checksums": checksums, "snapshot_manifests": len(manifests), "local_links": links, "cache_present": False}
 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--core-eval", action="store_true")
     ap.add_argument("--recompute", action="store_true")
+    ap.add_argument("--phase2-recompute", action="store_true")
     ap.add_argument("--export", action="store_true")
     args = ap.parse_args()
-    evidence = {"schema_version": 2, "started_utc": dt.datetime.now(dt.UTC).isoformat(),
+    evidence = {"schema_version": 3, "started_utc": dt.datetime.now(dt.UTC).isoformat(),
                 "source_revision": git("rev-parse", "HEAD").strip(),
                 "source_worktree_dirty": bool(git("status", "--porcelain").strip()),
                 "python_version": sys.version,
                 "packages": {p: importlib.metadata.version(p) for p in ["numpy", "scipy", "matplotlib", "scikit-learn"]},
-                "core_eval": args.core_eval, "recompute": args.recompute, "export": args.export,
+                "core_eval": args.core_eval, "recompute": args.recompute,
+                "phase2_recompute": args.phase2_recompute, "export": args.export,
                 "checks": [], "passed": False}
     try:
         with tempfile.TemporaryDirectory(prefix="c14-release-", dir="/var/tmp") as td:
@@ -136,7 +174,11 @@ def main():
             env = {k: v for k, v in os.environ.items() if k not in {"PYTHONPATH", "PYTHONHOME"}}
             env["MPLCONFIGDIR"] = str(dest / ".mplconfig")
             env["PYTHONUNBUFFERED"] = "1"
-            steps = (CORE_EVAL if args.core_eval else []) + (RECOMPUTE if args.recompute else []) + RENDER + [(["scripts/tables.py", "--check"], [])]
+            table_checks = [(["scripts/tables.py", "--check"], [])]
+            if (dest / "scripts/p2_tables.py").exists():
+                table_checks.append((["scripts/p2_tables.py", "--check"], []))
+            steps = ((CORE_EVAL if args.core_eval else []) + (RECOMPUTE if args.recompute else [])
+                     + (PHASE2_RECOMPUTE if args.phase2_recompute else []) + RENDER + table_checks)
             if args.export:
                 steps.append((["scripts/export_pdf.py"], ["REPORT.html"]))
             expected_outputs = {p: sha(dest / p) for _, outputs in steps for p in outputs}

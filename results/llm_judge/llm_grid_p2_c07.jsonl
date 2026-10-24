@@ -1,1 +1,2 @@
 {"agreement": "yes", "agreed_price": 15, "first_round": -1, "evidence": "Agreed: I\u2019ll start at 15.", "run_id": "llm_grid_p2_c07_D_000", "judge_model": "gpt-6.1-sol", "judge_backend": "codex"}
+{"agreement": "yes", "agreed_price": 14, "first_round": -1, "evidence": "A: Agreed. I\u2019ll price at 14 in round 0.", "run_id": "llm_grid_p2_c07_D_001", "judge_model": "gpt-6.1-sol", "judge_backend": "codex"}

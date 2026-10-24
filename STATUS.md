@@ -1,3 +1,11 @@
+# STATUS (updated 2026-10-24 18:43 UTC from date -u, Phase 2 iteration 21; follows DIRECTION 17:56)
+
+**Chunk: finalized Phase 2 reproducibility.** 9,490/9,490 saved scores across 16 datasets reproduce exactly (`results/saved_scores_check.json`); initial disposable-copy P2 audit PASS: 19 analysis commands, 34 analysis outputs + 12 render outputs byte-identical, 404 v1 + 424 P2 table cells, 23 checksums in seven manifests (`results/release_audit_iter21_phase2.json`). 13 failure-path tests pass. REPORT §6 + README updated; REPORT stays at 966 lines; scientific findings unchanged (premium/level advantage 9/9 sets, pCMI CI includes .5 in 8/9).
+**Full E42 completion audit running:** `verify_release.py --core-eval --recompute --phase2-recompute`, log `/var/tmp/c14/iter21_full_release.log`; includes the new raw-score check. V1 permutation evaluation is active; its previous completion was never recorded. Do not confuse the already-passing P2 audit with this pending full run. No new LLM calls or E68/E70 analyses launched here.
+**Experiments remain sealed:** E70 chain/post/prelabel and D2 queue continue; latest count-only check 18:36: E70 71 done lines, D2 19/30. All amendments/follow-up rules were already registered.
+**Next:** finish full audit and archive evidence; at 19:30 export PDFs; E70_EXIT=0 → figure + replace P2.14 stub/table/abstract/P2.13 (+ k/16), board-use caveat, announce six sweeps complete; D2 at 30 → declared manipulation check/e68_cda.py once + replace P2.12 stub/glance row. Follow-up result Sun morning.
+**Open risks:** E70/D2 results pending; one quoted sibling comparison remains explicitly unchecked by our table audit. No new arms, reviews or early exports.
+
 > **PHASE 2 STARTED 2026-10-24 06:45 UTC** - v1 frozen as tag v1-overnight. New experiments are OPEN again; work queue = DIRECTION.md gap list. Ignore older no-new-experiments / finalize notes below.
 
 
