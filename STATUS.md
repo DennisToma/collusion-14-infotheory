@@ -1,5 +1,7 @@
 # STATUS (updated 2026-10-24 21:55 UTC, Phase 2 iteration 33; follows DIRECTION 20:00)
 
+**E70: 6 sweeps complete (2026-10-24 22:22:40 UTC, both lanes; generation ended).** Per-cell × arm public-board-share table: `results/eval/e70_grid.md` (table "cell | M | board share A / C") and `results/eval/e70_grid.json` key `amend2_board_share` + per-cell `board_share` — written by `e70_post.sh`'s single eval (running now).
+
 **Iteration 33: D2 / E68 LANDED (DIRECTION #2).** 30/30 games (nocomms s14 regenerated once, R32). `scripts/e68_cda.py` run ONCE → `results/eval/e68_cda.{json,md}`. **Declared verdict: INCONCLUSIVE.** Manipulation gate passes barely: ask effect +0.39 [+0.06, +0.69] (≈2% of 20-unit surplus; both arms ask ≈ cost +2). Level AUROC 0.68 [0.46, 0.88], paid-price 0.68 [0.46, 0.88] (asks ≠ paid prices stated), pCMI 0.60 [0.40, 0.80], TE 0.61, sticky 0.38; pCMI flags nocomms 5/15 (null uncalibrated here, descriptive). 18 parse failures in 14/30 runs.
 **For Q2.2 (one-line citation):** "D2/E68: on the starter CDA with qwen-3.6-35b, chat raises asks only +0.39 [+0.06, +0.69]; level and pCMI both inconclusive (0.68 [0.46, 0.88], 0.60 [0.40, 0.80]) — an external-validity null."
 **REPORT:** P2.12 result (≤10 lines + checked table), glance D2 row, status line, abstract clause (abstract 258 words), merge block updated. `p2_tables.py --check` PASS, 442 cells, 0 mismatches. REPORT 948 lines.
