@@ -370,7 +370,7 @@ Reading: 2.5× more rounds did not turn the channel's effect into detectable coo
 
 **(iv) `llm_mixed2`: are same-model pairs more dependent than cross-model pairs (shared-policy confound, PLAN req. 3)? No detectable difference; the CIs exclude only large effects.**
 12 no-channel games (condition A, single public state), T=20; in each game 2 sellers run gpt-6.1-sol and 2 run gpt-6-luna (both via codex), with random seats.
-All 12 passed the E21 model check (per-seller `model` field). `uv run python -m experiments.llm_eval mixed --name llm_mixed2` → `results/eval/llm_mixed2_mixed.json`.
+All 12 passed the E21 model check (per-seller `model` field). `uv run python -m experiments.llm_eval mixed --name llm_mixed2` → `results/eval/llm_mixed2_mixed.json`; table printed by `uv run python scripts/tables.py`.
 Each game gives one observation: mean score of its 2 same-model pairs minus mean score of its 4 cross-model pairs (bootstrap 95% CI over runs, sign test; declared E16).
 
 | detector | same − cross (mean) [95% CI] | runs with same > cross | sign p | pair flag rate, shift null: same-sol / same-luna / cross |
@@ -378,7 +378,7 @@ Each game gives one observation: mean score of its 2 same-model pairs minus mean
 | pCMI | +0.003 [−0.025, +0.032] | 5/12 | 0.77 | 0/12, 2/12, 3/48 |
 | MI (= CMI\|state here: one state) | +0.040 [−0.005, +0.091] | 8/12 | 0.39 | 1/12, 3/12, 6/48 |
 | TE | +0.047 [+0.002, +0.104] | 9/12 | 0.15 | 3/12, 2/12, 10/48 |
-| \|Pearson\| | +0.038 [−0.023, +0.085] | 8/12 | 0.39 | — |
+| \|Pearson\| | +0.038 [−0.023, +0.085] | 8/12 | 0.39 | 5/12, 6/12, 24/48 (raw \|r\| is not calibrated on trending prices) |
 
 Only TE's interval excludes 0, and only just. It is one of 5 detectors with no multiplicity adjustment, and its sign test is p = 0.15, so we read it as weak at most.
 pCMI, the detector used for the headline, shows no same-model excess (point estimate +0.003).

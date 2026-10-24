@@ -107,7 +107,29 @@ def llm():
         print(open(fn).read().rstrip() + "\n")
 
 
+def mixed(name="llm_mixed2"):
+    fn = os.path.join(ROOT, f"results/eval/{name}_mixed.json")
+    if not os.path.exists(fn):
+        return
+    d = json.load(open(fn))
+    print(f"### 4.3 (iv) {name}: per-run mean same-model pair score minus mean cross-model pair score\n")
+    print("| detector | same − cross (mean) [95% CI] | runs with same > cross | sign p | pair flag rate same-sol / same-luna / cross |")
+    print("|---|---|---|---|---|")
+    for det in ["pcmi", "mi", "te", "pearson"]:
+        r = d[det]["per_run_same_minus_cross"]
+        fl = " / ".join(f"{round(d[det][k]['pair_flag_rate'] * d[det][k]['n_pairs'])}/{d[det][k]['n_pairs']}"
+                        for k in ["same_big", "same_base", "cross"])
+        print(f"| {det} | {r['mean']:+.3f} [{r['mean_ci'][0]:+.3f}, {r['mean_ci'][1]:+.3f}] | "
+              f"{r['n_positive']}/{r['n_runs']} | {r['sign_test_p']:.2f} | {fl} |")
+    pm = os.path.join(ROOT, f"results/eval/{name}_price_by_model.json")
+    if os.path.exists(pm):
+        q = json.load(open(pm))["sol_minus_luna_per_run"]
+        print(f"\nsol − luna mean price per run: {q['mean']:+.2f} [{q['ci'][0]:+.2f}, {q['ci'][1]:+.2f}]")
+    print(f"excluded (model check): {len(d['excluded_not_mixed_model'])}\n")
+
+
 if __name__ == "__main__":
     gate()
     sweep()
     llm()
+    mixed()
