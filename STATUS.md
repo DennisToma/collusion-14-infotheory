@@ -1,5 +1,20 @@
 > **PHASE 2 STARTED 2026-10-24 06:45 UTC** - v1 frozen as tag v1-overnight. New experiments are OPEN again; work queue = DIRECTION.md gap list. Ignore older no-new-experiments / finalize notes below.
 
+# STATUS (updated 2026-10-24 ~06:50 UTC, Phase 2 iteration 1)
+
+**Phase 2 running** (DIRECTION.md gap list). v1 frozen at tag `v1-overnight`; REPORT now has a "Phase 2 results" section under the key-findings table.
+**Generating (background, logs /var/tmp/c14/):** `scripts/llm_queue_p2.sh` (codex, 5 workers): E43 prompt variants llm_p2_{v0,para,template,order,noreason}
+(A/C × 6, T=20) → E44 llm_long_p2 (A/C × 20, T=60, staged 10 then 20). `scripts/llm_queue_go.sh`: E45 llm_ds_p2 deepseek-v4.1-flash (A/C × 15, T=20).
+Throughput: codex ~0.4 calls/s → variants ≈ 3 h, long ≈ 6–7 h (done ≈ 16:30 if the rate holds); Go is shared with the sibling and slow.
+**Fix:** deepseek-v4.1-flash on Go returns "" (reasoning > 4k tokens) unless `thinking: disabled` → llm.py patched. **The sibling's llm_p2ds run has the same bug (its Go calls show out_chars 0) — director, please tell it.**
+**Done this iteration:** E46 precision at prevalence (REPORT P2.1): at 1% prevalence every flag has precision < 0.25; pCMI on LLM ≈ base rate.
+**Running:** independent reimplementation check (codex gpt-6.1-sol in /var/tmp/c14/reimpl, given only REPORT §3 + level definitions; output results.json + NOTES.md).
+**Next:** (1) compare reimpl numbers vs results/eval/llm_v1.json + llm_long.json → REPORT P2.2; (2) evaluate each finished variant arm
+(`uv run python -m experiments.llm_eval eval --name llm_p2_<v>`; labels optional) → per-arm C−A markup + AUROC table (E43 rule);
+(3) scripted gaps 5–8 (coalition 3-of-4/4-of-4 + total correlation, onset + CUSUM, N=2/6 + elasticity, cost asymmetry) — zero LLM cost, can run on CPU now;
+(4) gap 3 same-model mitigations on llm_mixed2/llm_v1. llm_eval eval needs `Ts` up to 60 for llm_long_p2 (currently stops at 50).
+**Risks:** codex throughput; Go contention; E44 may not finish 20+20 before 20:00 (n=10 stage first).
+
 # STATUS (updated 2026-10-24 06:07 UTC, iteration 28)
 
 **Current:** E42 core LLM reproducibility audit running; no new experiments, tuning, seller or judge calls. Scripted results frozen.
@@ -15,6 +30,7 @@
 **Risks:** small LLM n, OpenAI-family sellers only, no own-market placebo; surplus dependence is not proof of an agreement.
 
 ## Log
+- P2 iter 1 06:27–06:55: prompt-variant switch in sim/llm_market.py (v0 byte-identical, 96 combos checked); E43–E45 declared then amended (throughput) before any result; queues launched; deepseek empty-output fix; E46 prevalence; reimpl check launched.
 - 20:24 smoke test ok.
 - iter 1 (~20:25): built sim/market.py, detectors, experiments/scripted.py, gate dataset (no STATUS update).
 - iter 2 20:28–21:16: fixed null calibration (old Bonferroni with B=100 could never reject); gate passes; sweeps

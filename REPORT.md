@@ -29,6 +29,34 @@ chance (0.5, dashed), while a price-level statistic separates channel from no-ch
 | 7 | Level screens are not collusion-specific | legit public partnerships AUROC 0.75; sibling placebo (channel offered, not delivered) localised 13.5/15 vs 14/15 private | §4.3.3, §4.3.9 |
 | 8 | The first pair member's provisional price is above rivals' before it reads any partner message | `llm_v1` first-sender provisional price − rivals +0.94 [0.38, 1.59] vs whole game +0.45 [0.34, 0.57] (exploratory, descriptive) | §4.3.11 |
 
+## Phase 2 results (in progress; started 2026-10-24 06:30 UTC)
+Phase 2 closes known gaps; v1 numbers above are unchanged (git tag `v1-overnight`). Each Phase 2 experiment is declared in
+`EXPERIMENTS.tsv` (E43–E46) before its data exist; the new LLM datasets (`data/SPLITS.md`, "Phase 2") are all confirmatory because no detector setting is tuned on them.
+Status: prompt-wording robustness (E43: 5 wordings × A/C × 6 games, T=20), long games (E44: 20 A + 20 C, T=60) and a second
+seller family (E45: deepseek-v4.1-flash, 15 A + 15 C) are **generating**. Their results will be added here.
+
+**P2.1 Precision at realistic collusion prevalence (E46, from the saved v1 evaluations; `uv run python scripts/prevalence.py`
+→ `results/eval/prevalence.{json,md}`).** At the frozen α = 0.05 run-level flags, precision = π·TPR / (π·TPR + (1−π)·FPR), with
+95% intervals from independent Jeffreys posteriors for TPR and FPR. Selected rows (all 28 rows in `results/eval/prevalence.md`):
+
+| setting | detector (null) | TPR | FPR (negative type) | precision @ 1% | @ 5% | @ 20% |
+|---|---|---|---|---|---|---|
+| scripted, T=100 | pCMI (shift) | 50/50 | 2/50 (independent) | 0.20 [0.07, 0.54] | 0.57 [0.30, 0.86] | 0.86 [0.67, 0.97] |
+| scripted, T=100 | pCMI (shift) | 50/50 | 7/50 (common shock) | 0.07 [0.04, 0.13] | 0.27 [0.17, 0.45] | 0.64 [0.49, 0.79] |
+| scripted, T=100 | pCMI (shift) | 50/50 | 35/50 (shared-seed copies) | 0.01 [0.01, 0.02] | 0.07 [0.06, 0.08] | 0.26 [0.23, 0.30] |
+| scripted, T=100 | MI (shift) | 50/50 | 50/50 (common shock) | 0.01 | 0.05 | 0.20 |
+| `llm_v1`, T=20 | pCMI (shift) | 4/32 | 4/42 (A+B controls) | 0.01 [0.00, 0.05] | 0.06 [0.02, 0.20] | 0.25 [0.08, 0.55] |
+| `llm_v1`, T=20 | pair_level (surrogate) | 14/32 | 2/42 (A+B)\* | 0.08 [0.03, 0.31] | 0.33 [0.13, 0.70] | 0.70 [0.40, 0.92] |
+| sibling `llm_v3`, T=12 | pair_level (surrogate) | 45/70 | 1/20 (legit partnership) | 0.11 [0.03, 0.54] | 0.40 [0.13, 0.86] | 0.76 [0.42, 0.97] |
+
+\* Surrogate-null FPR on the reference controls is ≤ α by construction (leave-one-out), so that row is an optimistic bound; the
+hard-negative rows (common shock, shared seed, legit partnership) are independent evidence.
+Reading: at 1% prevalence no detector reaches precision 0.25 in any setting, so most alarms would be false; at 5% the best rows are
+around 0.3–0.6 with wide intervals. pCMI on LLM data has precision near the base rate at all three prevalences (no information),
+and raw MI against common shocks equals the base rate exactly. This supports using any of these flags as a first-stage
+screen that triggers an audit, not as evidence of collusion on its own.
+
+
 ## Abstract
 Can a detector that reads only prices and public market state find colluding pricing agents without accusing agents that
 merely share a public shock or a policy? We test pairwise dependence detectors (|Pearson|, MI, CMI given public state, pCMI =
