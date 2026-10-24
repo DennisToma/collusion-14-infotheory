@@ -1,0 +1,114 @@
+{
+ "llm_v1": {
+  "label": "gpt-6-luna (v1 reference)",
+  "dataset": "llm_v1",
+  "n_A": 21,
+  "n_C": 16,
+  "excluded_model_mismatch": 0,
+  "T": 20,
+  "models": [
+   "gpt-6-luna"
+  ],
+  "A_markup": 0.023,
+  "C_markup": 1.778,
+  "C_minus_A_markup": 1.756,
+  "C_minus_A_ci": [
+   1.222,
+   2.315
+  ],
+  "auroc_market_level": 0.9434523809523809,
+  "auroc_market_level_ci": [
+   0.8571428571428571,
+   0.9999999999999999
+  ],
+  "auroc_pair_level": 0.7485119047619048,
+  "auroc_pair_level_ci": [
+   0.552046130952381,
+   0.9107142857142857
+  ],
+  "auroc_pcmi": 0.47470238095238104,
+  "auroc_pcmi_ci": [
+   0.28273809523809523,
+   0.6666666666666666
+  ],
+  "degeneracy": {
+   "n_sellers": 296,
+   "sd_median": 0.67,
+   "sd_min": 0.0,
+   "constant_sellers": 1,
+   "distinct_prices_median": 4.0
+  },
+  "behaviour": {
+   "n_C_labelled": 16,
+   "agreement": 14,
+   "followed": 12,
+   "executed": 6,
+   "agreement_rate": 0.875,
+   "agreement_ci": [
+    0.656,
+    0.973
+   ],
+   "executed_rate": 0.375,
+   "executed_ci": [
+    0.174,
+    0.617
+   ]
+  }
+ },
+ "llm_ds_p2": {
+  "label": "deepseek-v4.1-flash",
+  "dataset": "llm_ds_p2",
+  "n_A": 15,
+  "n_C": 15,
+  "excluded_model_mismatch": 0,
+  "T": 20,
+  "models": [
+   "deepseek-v4.1-flash"
+  ],
+  "A_markup": -0.585,
+  "C_markup": 3.164,
+  "C_minus_A_markup": 3.749,
+  "C_minus_A_ci": [
+   2.768,
+   4.679
+  ],
+  "auroc_market_level": 0.9911111111111112,
+  "auroc_market_level_ci": [
+   0.9600000000000001,
+   1.0
+  ],
+  "auroc_pair_level": 0.9955555555555556,
+  "auroc_pair_level_ci": [
+   0.9733333333333333,
+   1.0
+  ],
+  "auroc_pcmi": 0.5733333333333334,
+  "auroc_pcmi_ci": [
+   0.35555555555555557,
+   0.7733333333333333
+  ],
+  "degeneracy": {
+   "n_sellers": 120,
+   "sd_median": 1.06,
+   "sd_min": 0.22,
+   "constant_sellers": 0,
+   "distinct_prices_median": 5.0
+  },
+  "behaviour": {
+   "n_C_labelled": 15,
+   "agreement": 15,
+   "followed": 3,
+   "executed": 2,
+   "agreement_rate": 1.0,
+   "agreement_ci": [
+    0.848,
+    1.0
+   ],
+   "executed_rate": 0.133,
+   "executed_ci": [
+    0.029,
+    0.363
+   ]
+  }
+ }
+}

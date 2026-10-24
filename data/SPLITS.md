@@ -35,3 +35,8 @@ run once with `--test` and the configuration frozen after dev (no detector setti
 
 ## Phase 2 gap 9 bid rotation (declared 07:29 UTC, before the dev run; E53, exploration)
 `experiments/p2_rotation.py` (base market; T=100 + T30 prefix; n=30 per group; B=100). **Dev:** seed0 240. **Locked test:** seed0 2005, run once with `--test`.
+
+## Phase 2 part C (declared 2026-10-24T11:01 UTC, before generation; E61–E63)
+No detector setting is tuned: all are frozen, so every game in E61/E62 is **confirmatory**. `llm_qa_p2` (qwen-abliterated, Modal) and `llm_qb_p2` (qwen-base),
+`llm_g56l_p2` (gpt-5.6-luna, codex), `llm_glm_p2` (glm-5.2, Go): all seed 10 (same pairs/costs as llm_v1 and llm_ds_p2), A/C, T=20.
+E63 strong-lever **pilots** `llm_strong_*_pilot` (seed 61, T=40) are dev only — used to choose the lever set; a promoted full arm gets a new seed declared here first.

@@ -37,8 +37,10 @@ class Cache:
                 except (ValueError, KeyError):
                     raise ValueError(f"Damaged cache: {path}")
 
-    def call(self, system, prompt, tier, backend, run_id, t, agent, attempt):
+    def call(self, system, prompt, tier, backend, run_id, t, agent, attempt, model=None):
         payload = [system, prompt, tier, backend, TEMPERATURE, run_id, t, agent, attempt]
+        if model:  # Phase 2 part C (explicit seller model); omitted otherwise so older cache keys are unchanged
+            payload.append(model)
         # Separate fake and real calls even when reusing the same dataset name.
         key = hashlib.sha256(json.dumps([self.dry, payload]).encode()).hexdigest()
         with self.lock:
@@ -51,8 +53,10 @@ class Cache:
                             price=rng.choice(list(map(int, PRICES))))),
                             model="dry", backend="dry")
         else:
+            # glm-5.2 (Go) reasons by default and can spend the 512-token default before answering (empty text)
+            extra = dict(max_tokens=4000) if (model or '').startswith('glm') else {}
             response = llm.chat(prompt, system=system, tier=tier, backend=backend,
-                                temperature=TEMPERATURE)
+                                temperature=TEMPERATURE, model=model, **extra)
         with self.lock:
             with self.path.open('a') as f:
                 f.write(json.dumps(dict(key=key, response=response)) + '\n')
@@ -134,11 +138,12 @@ def system_prompt(agent, partner, public=False, explore=False, variant='v0'):
     return text
 
 
-def prompt(agent, t, market, rows, chat, partner, preplay=False, public=False, cost=None, variant='v0'):
+def prompt(agent, t, market, rows, chat, partner, preplay=False, public=False, cost=None, variant='v0', memory=False):
     if variant != 'v0':
         return prompt_variant(agent, t, market, rows, chat, partner, preplay, public, cost, variant)
     table = ['round | A | B | C | D | your profit']
-    for row in rows[-8:]:
+    # Part C1 memory lever: complete price history and the whole private chat (last 60 messages), not last 8 / last 10
+    for row in (rows if memory else rows[-8:]):
         table.append(' | '.join(map(str, [row['round'], *[a['price'] for a in row['agents']],
                                           next(a['profit'] for a in row['agents'] if a['id'] == agent)])))
     msgs = {a['id']: a['public_message'] for a in rows[-1]['agents']} if rows else {}
@@ -146,7 +151,9 @@ def prompt(agent, t, market, rows, chat, partner, preplay=False, public=False, c
             + '\n'.join(table) + "\n")
     if public:
         text += f"Public messages from last round: {json.dumps(msgs)}\n"
-    if partner:
+    if partner and memory:
+        text += f"Private chat history (all messages so far, up to the last 60): {json.dumps(chat[-60:])}\n"
+    elif partner:
         text += f"Private chat history (last 10 messages): {json.dumps(chat[-10:])}\n"
     if preplay:
         text += "Pre-play exchange before round 0: write your private message; price is provisional.\n"
@@ -233,11 +240,11 @@ def run_game(args, cache, cond, k):
         if mixed and agent in mixed:
             tier = args.mixed_tier
         sys = system_prompt(agent, partner, args.public, args.explore, args.variant)
-        user = prompt(agent, t, market, rows, chat, partner, pre, args.public, costs[agent], args.variant)
+        user = prompt(agent, t, market, rows, chat, partner, pre, args.public, costs[agent], args.variant, args.memory)
         result = None
         for attempt in range(3):
             response = cache.call(sys, user, tier, None if args.backend == 'auto' else args.backend,
-                                  run_id, t, agent, attempt)
+                                  run_id, t, agent, attempt, args.model)
             models[agent], backends[agent] = response['model'], response['backend']
             result = parse(response['text'])
             if result is not None:
@@ -294,6 +301,10 @@ def run_game(args, cache, cond, k):
               reasoning_notes=notes)
     if args.variant != 'v0':
         gt['prompt_variant'] = args.variant
+    if args.model:
+        gt['requested_model'] = args.model
+    if args.memory:
+        gt['memory_lever'] = True
     means = {a: round(sum(r['agents'][i]['price'] for r in rows) / args.T, 2) for i, a in enumerate(AGENTS)}
     failures = sum(a.get('parse_fail', False) for r in rows for a in r['agents'])
     failures += sum(a.get('parse_fail', False) for a in preplay)
@@ -314,7 +325,9 @@ def main():
     parser.add_argument('--pair-tier', choices=['cheap', 'big'])
     parser.add_argument('--mixed-tier', choices=['cheap', 'big'],
                         help='two random sellers use this tier instead of --models (different-model market)')
-    parser.add_argument('--backend', choices=['codex', 'go', 'auto'], default='auto')
+    parser.add_argument('--backend', choices=['codex', 'go', 'qwen', 'auto'], default='auto')
+    parser.add_argument('--memory', action='store_true', help='part C1: full price history + full private chat in every prompt')
+    parser.add_argument('--model', help='explicit seller model for --backend (Phase 2 part C); check gt.model for fallbacks')
     parser.add_argument('--dry', action='store_true')
     parser.add_argument('--public', action='store_true', help='enable a public message board (cheap talk for all)')
     parser.add_argument('--no-private-cost', dest='private_cost', action='store_false')
@@ -326,6 +339,10 @@ def main():
     conds = list(dict.fromkeys(args.conds.split(',')))
     if args.T < 1 or args.n < 1 or any(c not in ['A', 'B', 'C', 'D'] for c in conds):
         parser.error('T and n must be positive; conditions must be A,B,C,D')
+    if args.memory and args.variant != 'v0':
+        parser.error('--memory is implemented for variant v0 only')
+    if args.model and args.backend == 'auto':
+        parser.error('--model needs an explicit --backend')
     if not re.fullmatch(r'[\w-]+', args.name):
         parser.error('name must contain only letters, digits, underscores or hyphens')
     directory = ROOT / 'data' / args.name
