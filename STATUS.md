@@ -1,3 +1,15 @@
+# STATUS (updated 2026-10-24 22:50 UTC, Phase 2 iteration 35; follows DIRECTION 22:05)
+
+**Iteration 35: adversarial review (DIRECTION #4) DONE early, because E70 had already landed.** Two independent read-only critics reviewed the REPORT top ~60 lines + P2.12/P2.14: codex gpt-6.1-sol (14 findings, 3 P0) and an Opus subagent (15 findings, 0 P0; it rechecked every number against `results/eval/*.json`). All P0s and P1s were fixed as wording only (ledger R35). **P0:** glance gap-3 row read pCMI 0/21 but the source is 2/21 (`matched_ref.json`); "declared before data" was too broad (E60/E64/E67/E71 reuse data); 2FIs alias in groups of three, not pairs. **P1:** title is now "LLM private pricing channels raise the price level, with no detected contemporaneous co-movement" ("market-wide" holds only for the luna sets; the behavioural absence rested on detector nulls). `market_level` is now named max-pair markup. A *Terms* line under the main claim defines C/A, C − A, level, pCMI, TE, executed (our rule, not Q2.2's), tacit-high, co-move excess and q. 9/9 and 13/16, 12/16 are labelled point-estimate counts. The executed-only result now states the level circularity. The scope sentence adds T=20 planting sensitivity 0.62 [0.52, 0.71]. TE is called "lagged dependence", not "following". Qwen replication reads "does not generalise to E70's conditions; model-specificity unresolved". E68 reads "inconclusive external check". Sign tests are labelled one-sided, and M is noted as confounded with board use.
+**Verified:** p2_tables PASS (463 cells), tables PASS (404); abstract 260 words; PRESENTATION regenerated; README synced. No numbers regenerated; `e68_cda.json` untouched.
+**For Q2.2 (one line):** our title and terms changed (above). TE is now "lagged dependence", and the qwen-pCMI non-replication is "not generalising to E70's design", not "not a model property". Please mirror this in any joint sentence.
+**Research numbers unchanged:** E70 13/0/3, level > pCMI 12/1/3, TE 0.62 [0.54, 0.70], qwen pCMI 0.46 [0.35, 0.58]; executed 0.42 [0.33, 0.53]; E44 0.34 [0.18, 0.52].
+**Running:** E70 follow-up (factor M, 12 + 12 per level) generating since 22:36. At 22:48: 4 + 5 of 24 + 24 games done (≈ 3 min/game per lane). Auto-analysis → `/var/tmp/c14/e70_followup.log`. Don't touch.
+**Next:** when FOLLOWUP_EXIT appears: ≤6 lines in P2.14, an abstract clause (needs a matching cut; abstract is at 260), merge block and glance "pending" → result, all by 07:30. Freeze the top at 07:30; after 08:00, log changes under the merge block.
+**Risks:** generation should end ≈ 00:00–00:30 (well before the 08:00 stop). Iteration 34's STATUS header said 23:05, but it was written ≈ 22:40 (clock typo).
+
+## Dated log (prior state summaries retained verbatim)
+
 # STATUS (updated 2026-10-24 23:05 UTC, Phase 2 iteration 34; follows DIRECTION 22:05)
 
 **E70: 6 sweeps complete (2026-10-24 22:22:40 UTC, both lanes; generation ended).** Per-cell × arm public-board-share table: `results/eval/e70_grid.md` ("cell | M | board share A / C") and `results/eval/e70_grid.json` (`amend2_board_share`, per-cell `board_share`).
@@ -8,8 +20,6 @@
 **Running:** E70 follow-up generation (`/var/tmp/c14/e1_grid.log`, `e1_grid.out`), then auto analysis → `/var/tmp/c14/e70_followup.log` (FOLLOWUP_EXIT). Don't touch.
 **Next:** adversarial review 02:00–05:00 (Opus subagent + codex sol, read-only, top ~60 lines + P2.12/P2.14); follow-up result → ≤6 lines P2.14 + abstract clause by 07:30; freeze top 07:30; after 08:00, log changes under the merge block.
 **Risks:** follow-up must finish before the 08:00 stop (48 games; qwen ≈ 5 min/game with 2 workers). Abstract is at the 260-word cap; the follow-up clause needs a matching cut.
-
-## Dated log (prior state summaries retained verbatim)
 
 # STATUS (updated 2026-10-24 21:55 UTC, Phase 2 iteration 33; follows DIRECTION 20:00)
 
