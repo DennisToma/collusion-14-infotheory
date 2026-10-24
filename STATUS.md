@@ -1,4 +1,4 @@
-# STATUS (top = current state; updated 2026-10-24 05:30 UTC, iteration 21)
+# STATUS (top = current state; updated 2026-10-24 05:00 UTC (VM clock), iteration 21)
 
 **All declared analyses DONE** (§4.3 (i)–(v) filled). Scripted half done; LLM: llm_v1 (E18/E19), llm_v3 ext (E13), llm_long (E20), llm_mixed2 (E22).
 Level stats run AUROC 0.87/0.98/0.95; pCMI 0.45/0.52/0.45. pCMI adds nothing detectable to markup. T=50 does not meet rescue rule (CI wide).
@@ -56,4 +56,4 @@ check that README renders; push.
 - iter 18 04:30–04:40: E32 sibling replication+placebo with frozen detectors (scripts/placebo_rep_ext.py, data/ext_llm_v3{rep,plc} snapshots) → REPORT §4.3.9, §7, abstract clause, deck bullet; codex review (results/reviews/review_e32_codex.md) applied: randomisation p for tie-averaged hits, paired AUROC CI, no-equivalence wording, module state restored.
 - iter 19 04:40–04:52: E33 regen check + codex final claims review + Opus consistency review → wording fixes in REPORT/README/deck (slides.py).
 - iter 20 04:52–05:10: E34 REPORT §8 related work/references; codex citation review applied; tables.py still runs.
-- iter 21 04:55–05:30: hygiene (ledger hashes, figures exist, tracked 37 MB); E35 declared (8b2e726) then computed; §4.3.10; codex review applied.
+- iter 21 04:55–05:00 (VM clock): hygiene (ledger hashes, figures exist, tracked 37 MB); E35 declared (8b2e726) then computed; §4.3.10; codex review applied.
