@@ -108,23 +108,16 @@ Pair AUROCs have 95% CIs from resampling games jointly. Detectors frozen; rule d
 (a) **Level contrasts are not hurt by sharing a model; the dependence statistics are.** Declared rule: the confound is "material" if AUROC(channel vs
 same-model) is ≥ 0.10 below AUROC(channel vs cross). Differences (joint game bootstrap): pair_level +0.00 [−0.03, +0.04] (luna), −0.04 [−0.12, +0.03] (sol);
 markup −0.04 [−0.10, −0.00] (luna); pCMI −0.09 [−0.17, −0.01] (luna, borderline); own-lag-only pCMI −0.13 [−0.23, −0.04] (luna, material).
-MI is *reversed* (< 0.5): channel pairs hold prices still and carry less price information than independent pairs. (The sol–sol pCMI 0.72 is one of many
-unadjusted comparisons and is discounted.)
-(b) Among no-channel pairs, same-model luna pairs look more dependent than cross pairs (pCMI AUROC 0.59 [0.51, 0.67]; shift-null flags 37/186 = 20% [13, 28] vs 4/48 = 8% [0, 17]).
-This mixes model and market composition; the within-market comparison (§4.3.5) found no difference. Conditioning on all firms' lags does not remove it.
-A plausible driver: luna sellers vary prices less (within-seller SD 0.71 vs 0.96 for sol; 34/140 luna vs 0/24 sol sellers have SD < 0.5), giving degenerate residuals (untested).
-(c) **Reference markets: a fresh model-matched pool meets the declared false-flag criterion, but the prompt moves the price level as much as the model does (E54, declared before running; interim).**
-Run-level reference-market (surrogate) screens rank a market's max-pair score against a pool of no-channel markets.
-With a *mismatched* pool (12 mixed sol+luna markets, α = 0.10 because 12 games cannot reject at 0.05), pCMI falsely flagged 11/21 = 52% [32, 72] of the `llm_v1` no-channel markets (E48, exploratory).
-E54 uses a **fresh, independently generated** pool of luna no-channel markets: the Phase 2 A games (E43, five prompt wordings × 6 games, seed 43; interim pool n = 30; the 20 `llm_long_p2` A prefixes will be added).
-Out-of-sample false flags on the 21 `llm_v1` A markets at α = 0.05 are 0/21 [0, 16]% for pair markup, pair_level, pCMI and MI (at α = 0.10: pCMI 2/21, MI 1/21, levels 0/21).
-The declared criterion (false-flag rate ≤ 0.10 and Wilson upper bound < 52%) is met for all four. A conservative reference meets it trivially, so power matters: it **collapses** for the level screens. At α = 0.05 pair markup flags 1/16 `llm_v1` channel markets, pair_level 4/16, pCMI 0/16 (for comparison, markup flagged 15/16 at α = 0.10 against the 12-game mismatched pool, which cannot reject at 0.05).
-The reason is the price level of the reference: same model, different instructions. Mean no-channel markup over Nash is +0.02 [−0.35, +0.40] in `llm_v1` A and +0.26 [−0.38, +0.87] with the identical (v0) wording in E43,
-−0.19 [−0.83, +0.58] with reordered information, +0.75 [0.60, 0.86] with a paraphrase, +1.97 [1.24, 2.54] without a reasoning field and **+2.56 [2.07, 3.05] with a different JSON template**, the last two above the `llm_v1` *channel* markets (+1.78 [1.41, 2.23]). The per-wording channel effects are in P2.7.
-Reversed, the `llm_v1` A pool falsely flags 10/30 [19, 51]% of the fresh markets on pair markup.
-*Deployer reading:* a pair standing out from its own market (pair_level, P2.3a) is robust to everyone running the same model. Absolute statistics (markup, pCMI, MI)
-need reference markets with the same model **and comparable instructions**, with ≥ 20 games for α = 0.05. In these data, matching on model alone kept false alarms down but left almost no level-screen power when prompts differed.
-Pending: the final E54 run adds the 20 `llm_long_p2` A prefixes, which gives a prompt-matched (v0) pool of 26.
+MI is *reversed* (< 0.5): channel pairs hold prices still. (Other rows, e.g. sol–sol pCMI 0.72, are unadjusted exploratory comparisons.)
+(b) *Exploratory:* among no-channel pairs, same-model luna pairs look more dependent than cross pairs (pCMI AUROC 0.59 [0.51, 0.67]; shift-null flags 37/186 = 20% [13, 28] vs 4/48 = 8% [0, 17]),
+which mixes model with market composition (§4.3.5 found no within-market difference); luna sellers vary prices less (within-seller SD 0.71 vs 0.96 for sol), a plausible but untested driver.
+(c) **Reference markets: a fresh model-matched pool meets the declared false-flag criterion, but the prompt moves the price level as much as the model does (E54, declared; interim).**
+Run-level reference-market screens rank a market's max-pair score against a pool of no-channel markets. With a *mismatched* 12-game sol+luna pool (α = 0.10), pCMI falsely flagged 11/21 = 52% [32, 72] of `llm_v1` no-channel markets (E48).
+E54 uses a **fresh, independently generated** luna pool (E43 A games, five wordings × 6, n = 30): false flags on the 21 `llm_v1` A markets at α = 0.05 are 0/21 [0, 16]% for pair markup, pair_level, pCMI and MI — criterion (≤ 0.10, Wilson upper < 52%) met for all four.
+But power **collapses** for the level screens: pair markup flags 1/16 `llm_v1` channel markets, pair_level 4/16, pCMI 0/16 (vs markup 15/16 against the mismatched pool at α = 0.10).
+The reason is the reference's price level: same model, different instructions. No-channel markup over Nash ranges from −0.19 [−0.83, +0.58] (reordered information) to **+2.56 [2.07, 3.05]** (different JSON template), the latter above the `llm_v1` *channel* markets (+1.78 [1.41, 2.23]); see P2.7.
+*Deployer reading:* a pair standing out from its own market (pair_level) is robust to everyone running the same model. Absolute statistics (markup, pCMI, MI)
+need reference markets with the same model **and comparable instructions**, with ≥ 20 games for α = 0.05. Pending: the final E54 run adds the 20 `llm_long_p2` A prefixes (prompt-matched v0 pool of 26).
 
 **P2.4 Scripted coalitions, collusion onset and cost asymmetry (E49–E51; locked test, run once).** Simulator options, the group statistic
 `score_groups` and `experiments/p2_scripted.py` were written by codex (gpt-6.1-sol) on dev seeds (`results/p2/*_dev.json`, `results/p2/REPORT_codex.md`).

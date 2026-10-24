@@ -72,7 +72,9 @@ def main():
     ap.add_argument("--interim", action="store_true", help="label the output as an interim run (pool incomplete)")
     a = ap.parse_args()
     v1A, v1C, mixed = score("llm_v1", "A"), score("llm_v1", "C"), score("llm_mixed2", "A")
-    longA = score("llm_long_p2", "A")
+    # the T=80 replay (llm_queue_p2b.sh) rewrites data/llm_long_p2; the frozen T=60 copy is the E44 primary dataset
+    long_name = "llm_long_p2_T60" if (ROOT / "data" / "llm_long_p2_T60" / "ground_truth.jsonl").exists() else "llm_long_p2"
+    longA = score(long_name, "A")
     var = {v: score(f"llm_p2_{v}", "A") for v in VARIANTS}
     if not a.interim:
         need = {**{f"llm_p2_{v}": 6 for v in VARIANTS}, "llm_long_p2": 20}

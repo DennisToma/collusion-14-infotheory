@@ -1,5 +1,14 @@
 > **PHASE 2 STARTED 2026-10-24 06:45 UTC** - v1 frozen as tag v1-overnight. New experiments are OPEN again; work queue = DIRECTION.md gap list. Ignore older no-new-experiments / finalize notes below.
 
+# STATUS (updated 2026-10-24 09:50 UTC, Phase 2 iteration 6)
+
+**Phase 2 running.** Gaps 1, 3–9 + shared DONE; only gap 2 (E44) open. REPORT checkpoint-ready apart from P2.8 (pilot) + glance row 2.
+**E44 progress:** llm_long_p2 5/40 games at 09:25 (~27 min per 5-game batch, 5 workers) → ETA ~12:10; then p2b T=80 replay snapshots `data/llm_long_p2_T60` first.
+**This iteration:** P2.3 trimmed (20 → 13 lines of text, no numbers changed, `p2_tables.py --check` PASS); **race fixed**: `matched_ref.py` now reads `llm_long_p2_T60` (p2b rewrites `data/llm_long_p2`); new one-shot `scripts/e44_post.sh` (label → eval T10..60 → long_power → premium_decay_fig → matched_ref final → behaviour_split), all on the T60 copy.
+codex gpt-6.1-sol adversarial review of glance table / P2.9 / P2.10 / abstract → `/var/tmp/c14/review_p29.md`.
+**Next:** (1) when `data/llm_long_p2_T60` has 40 games: `bash scripts/e44_post.sh` → rewrite P2.8 (E44 rule decision, MDE bound, decay), glance row 2, abstract sentence; (2) Opus review of the final P2.8 + abstract before 19:30; (3) optional judge labels for llm_ds_p2 when codex parallelism allows.
+**Risks:** E44 timing (~12:10 + T80 ~14:30); codex parallelism (queue uses 5).
+
 # STATUS (updated 2026-10-24 09:25 UTC, Phase 2 iteration 5)
 
 **Phase 2 running.** REPORT has "Phase 2 at a glance" table (one row per gap), P2.1–P2.10; abstract Phase 2 paragraph rewritten (checkpoint-ready except E44).
