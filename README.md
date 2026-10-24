@@ -8,7 +8,7 @@ that merely share a public shock or a policy?
 
 Short answer (details and CIs in REPORT): pCMI separates coordinated price *variation* from shared shocks and shared
 policies in a scripted market. In two LLM pricing markets, though, the private channel shows up mainly as a price *level*.
-Dependence measures ignore levels by construction, so simple level scores do much better there: markup (price above the competitive Nash benchmark) or pair premium (a pair's average price above its rivals').
+Dependence measures ignore levels by construction, so simple level scores do much better there: markup (price above the competitive Nash benchmark) or pair premium (a pair's average price above its rivals'). But level scores are not collusion-specific: they also rank legitimate public partnerships above controls and, in the sibling's placebo runs (channel offered, messages never delivered), name the pair about as often (13.5/15 vs 14/15).
 
 ![Figure 1](figures/headline.png)
 
@@ -17,7 +17,7 @@ Dependence measures ignore levels by construction, so simple level scores do muc
 | `sim/` | scripted market (`market.py`) and LLM-seller market (`llm_market.py`) |
 | `detectors/infotheory.py` | detectors; they read `trajectories.jsonl` only |
 | `experiments/`, `scripts/` | generation, evaluation, reports, figures (commands in REPORT §6) |
-| `data/` | trajectories (schema: `SCHEMA.md`), splits (`data/SPLITS.md`), external snapshot `data/ext_llm_v3/` |
+| `data/` | trajectories (schema: `SCHEMA.md`), splits (`data/SPLITS.md`), external sibling snapshots `data/ext_llm_v3/`, `data/ext_llm_v3rep/`, `data/ext_llm_v3plc/` (SHA256SUMS) |
 | `results/` | every number in REPORT (`results/eval/*.json`), LLM judge labels, reviews |
 | `figures/` | all figures |
 | `EXPERIMENTS.tsv` | ledger of every experiment, including discarded and negative ones |

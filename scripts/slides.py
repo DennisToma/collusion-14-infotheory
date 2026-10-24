@@ -116,7 +116,7 @@ from a private signal. TE (not shown) flags legitimate public leader-follower pr
     s.append(f"""## What this means
 * **Dependence detectors respond to coordinated *variation*, not to agreement as such.** They are built to ignore a constant
   high price. In these two markets LLM collusion shows up mainly as a level shift, so it falls largely outside what they
-  measure. Some coordinated variation is present: on first differences, MI localises the `llm_v3` channel pair above chance (REPORT §4.3.3, exploratory).
+  measure. Some coordinated variation is present: on first differences, MI localises the `llm_v3` channel pair above chance (REPORT §4.3.3, exploratory); in a 15-seed placebo replication it names the pair in {plc['mi_diff']['top1_private']['hits']:.0f}/15 runs with delivered messages vs {plc['mi_diff']['top1_placebo']['hits']:.0f}/15 without (sign-flip p={plc['mi_diff']['top1_private_minus_placebo']['p_signflip_exact']:.3f}, unadjusted; suggestive only, §4.3.9).
 * **Level screens separate channel assignment but are not collusion-specific.** They also rank markets with a *legitimate* public
   partnership above controls (AUROC {legit['auroc']:.2f}), naming the partner pair in only {v3['pair_level']['top1_legit']['k']}/{v3['pair_level']['top1_legit']['n']} runs. In the sibling
   project, *offering* a private channel that never delivered messages raised prices about as much as delivering them
@@ -131,8 +131,8 @@ from a private signal. TE (not shown) flags legitimate public leader-follower pr
   same-direction moves (T=50: {inj50['observed']['C']['comove_excess_mean']:+.3f} [{inj50['observed']['C']['ci'][0]:+.3f}, {inj50['observed']['C']['ci'][1]:+.3f}]). This fits the level reading for one planted alternative; it does not settle the question.""")
 
     s.append(f"""## Limitations & next steps
-* Small LLM n: `llm_v1` 74, `llm_v3` 125 (70 private / 35 none / 20 legit), `llm_long` 16, `llm_mixed2` 12. Sellers are OpenAI-family only. There is no placebo arm in `llm_v1`. Markup needs a market model (Nash).
-* Next: longer LLM games (T ≥ 100) to separate level from power; a placebo channel in our market; level-adjusted
+* Small LLM n: `llm_v1` 74, `llm_v3` 125 (70 private / 35 none / 20 legit), `llm_long` 16, `llm_mixed2` 12, sibling replication 30 + placebo 15. Sellers are OpenAI-family only. There is no placebo arm in `llm_v1`. Markup needs a market model (Nash).
+* Next: a placebo arm in our market and a larger one in the sibling's; longer LLM games (T ≥ 50, more games per arm); level-adjusted
   dependence (residualise each seller's own level); non-OpenAI sellers.
 * Full write-up: `REPORT.md`. Ledger of every experiment (E01–E{n_exp:02d}), including discarded ones: `EXPERIMENTS.tsv`.""")
 
