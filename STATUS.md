@@ -1,6 +1,6 @@
 > **PHASE 2 STARTED 2026-10-24 06:45 UTC** - v1 frozen as tag v1-overnight. New experiments are OPEN again; work queue = DIRECTION.md gap list. Ignore older no-new-experiments / finalize notes below.
 
-# STATUS (updated 2026-10-24 09:30 UTC, Phase 2 iteration 5)
+# STATUS (updated 2026-10-24 09:25 UTC, Phase 2 iteration 5)
 
 **Phase 2 running.** REPORT has "Phase 2 at a glance" table (one row per gap), P2.1–P2.10; abstract Phase 2 paragraph rewritten (checkpoint-ready except E44).
 **Gap 4 (E45) DONE:** deepseek 15+15: C−A markup +3.75 [2.77, 4.68] (luna +1.76; interaction +1.99 [0.90, 3.07]); AUROC markup .99, pair_level 1.00, pCMI .57 [.36,.77] → rule HOLDS. deepseek pairs keep their lead (+3.24), no-channel undercuts Nash (−0.58).
@@ -49,7 +49,7 @@ Codex review of P2.4–P2.5 applied (1 P0 summary-only bug, no reported number c
 **Risks:** small LLM n, OpenAI-family sellers only, no own-market placebo; surplus dependence is not proof of an agreement.
 
 ## Log
-- P2 iter 5 08:35–09:30: E45 analysis declared → deepseek done → P2.9 (HOLDS); E57 p2cue → P2.10; Opus review applied; at-a-glance table; abstract rewrite; premium-decay figure.
+- P2 iter 5 08:35–09:25: E45 analysis declared → deepseek done → P2.9 (HOLDS); E57 p2cue → P2.10; Opus review applied; at-a-glance table; abstract rewrite; premium-decay figure.
 - P2 iter 4 08:20–08:38: E43 noreason done → P2.7 (gap 1 HOLDS, baseline prompt-sensitive); E54 interim2 pool 30; p2_tables.py covers P2.7.
 - P2 iter 4 08:10–08:20: codex review E55 → E44 rule primary, script P0 fixes; p2_tables.py (sonnet) found stale P2.3 CIs → fixed.
 - P2 iter 4 07:53–08:10: declared E54/E55/E43-amendment/E56; E54 interim; E55 pipeline pilot on llm_long; E56 behaviour split; E43 interim with heterogeneity; P2.3 rewritten+trimmed, P2.8 added; release-audit test fixed.
