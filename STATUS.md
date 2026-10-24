@@ -9,10 +9,13 @@ Throughput: codex ~0.4 calls/s → variants ≈ 3 h, long ≈ 6–7 h (done ≈ 
 **Fix:** deepseek-v4.1-flash on Go returns "" (reasoning > 4k tokens) unless `thinking: disabled` → llm.py patched. **The sibling's llm_p2ds run has the same bug (its Go calls show out_chars 0) — director, please tell it.**
 **Done this iteration:** E46 precision at prevalence (REPORT P2.1): at 1% prevalence every flag has precision < 0.25; pCMI on LLM ≈ base rate.
 **Done:** E47 independent reimplementation (codex, REPORT text only): 234/236 per-run scores identical (<1e-9; 2 = ρ² cap on perfect fits), 20/20 AUROCs identical, pCMI shift flags A 4/21 vs 5/21 (MC). No bug. REPORT P2.2.
-**Next:** (2) evaluate each finished variant arm
-(`uv run python -m experiments.llm_eval eval --name llm_p2_<v>`; labels optional) → per-arm C−A markup + AUROC table (E43 rule);
-(3) scripted gaps 5–8 (coalition 3-of-4/4-of-4 + total correlation, onset + CUSUM, N=2/6 + elasticity, cost asymmetry) — zero LLM cost, can run on CPU now;
-(4) gap 3 same-model mitigations on llm_mixed2/llm_v1. llm_eval eval needs `Ts` up to 60 for llm_long_p2 (currently stops at 50).
+**Running (codex gpt-6.1-sol, worktree /var/tmp/c14/wt_p2s, branch p2-scripted, spec /var/tmp/c14/p2s/TASK.md, log codex.log):** scripted gaps 5/6/8 on DEV seeds 200–299 —
+coalition 3-of-4/4-of-4 + Gaussian total correlation (`score_groups`), onset k∈{25,50} + level CUSUM vs expanding-window pCMI, cost asymmetry hard negative;
+defaults must stay byte-identical (compat check in its REPORT_codex.md). Nothing merged yet.
+**Next:** (1) review codex's p2-scripted diff + REPORT_codex.md, merge, declare locked seeds (e.g. seed0 2001–2003) in SPLITS + ledger, run test once → REPORT P2.x;
+(2) evaluate each finished variant arm (`uv run python -m experiments.llm_eval eval --name llm_p2_<v>`) → per-arm C−A markup + AUROC table (E43 rule);
+(3) llm_eval `evaluate` Ts stops at 50 → add 60/80 for llm_long_p2; (4) gap 3 same-model mitigations on llm_mixed2/llm_v1; (5) gap 7 (N=2/6, elasticity: detectors hard-code 4 sellers);
+(6) gap 9 non-price (exploration). ETAs at 0.83 codex calls/s: variants ≈ 08:20, long T=60 ≈ 11:35, T=80 ≈ 12:40; deepseek (Go ~0.08/s) ≈ 15:00.
 **Risks:** codex throughput; Go contention; E44 may not finish 20+20 before 20:00 (n=10 stage first).
 
 # STATUS (updated 2026-10-24 06:07 UTC, iteration 28)
