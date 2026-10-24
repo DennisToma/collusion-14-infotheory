@@ -55,7 +55,7 @@ class Cache:
         else:
             # glm-5.2 (Go) reasons by default and can spend the 512-token default before answering (empty text)
             extra = dict(max_tokens=4000) if (model or '').startswith('glm') else {}
-            for wait in ([30, 60, 120, 240, 300, 300, 300] if backend == 'qwen' else []) + [None]:
+            for wait in ([30, 60, 120, 240, 300, 300, 300] if backend in ('qwen', 'aqueduct') else []) + [None]:
                 try:  # Modal qwen endpoint: cold starts / transient 404-429 -> wait instead of failing the game
                     response = llm.chat(prompt, system=system, tier=tier, backend=backend,
                                         temperature=TEMPERATURE, model=model, **extra)
@@ -332,7 +332,7 @@ def main():
     parser.add_argument('--pair-tier', choices=['cheap', 'big'])
     parser.add_argument('--mixed-tier', choices=['cheap', 'big'],
                         help='two random sellers use this tier instead of --models (different-model market)')
-    parser.add_argument('--backend', choices=['codex', 'go', 'qwen', 'auto'], default='auto')
+    parser.add_argument('--backend', choices=['codex', 'go', 'qwen', 'aqueduct', 'auto'], default='auto')
     parser.add_argument('--memory', action='store_true', help='part C1: full price history + full private chat in every prompt')
     parser.add_argument('--model', help='explicit seller model for --backend (Phase 2 part C); check gt.model for fallbacks')
     parser.add_argument('--dry', action='store_true')

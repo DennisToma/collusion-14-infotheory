@@ -34,9 +34,11 @@ SETS = [  # (label, dataset, requested model or None)
     ("strong pilot: qwen base, memory, T=40", "llm_strong_qb_pilot", "qwen-base"),
     ("strong pilot: gpt-6-luna, memory, T=40", "llm_strong_luna_pilot", None),
     ("E65 strong arm: qwen abliterated, memory, T=40", "llm_strong_qa", "qwen-abliterated"),
+    ("E69 qwen3.6-35B abliterated", "llm_qa36_p2", "qwen36-abliterated"),
+    ("E69 qwen3.6-35B base (gateway AWQ)", "llm_qb36_p2", "qwen-3.6-35b"),
 ]
 # declared confirmatory sets that are read only when complete (no peeking at a partial set; E65 declared 20 + 20)
-COMPLETE_N = {"llm_strong_qa": 40, "llm_strong_luna_pilot": 10}
+COMPLETE_N = {"llm_strong_qa": 40, "llm_strong_luna_pilot": 10, "llm_qa36_p2": 30, "llm_qb36_p2": 30}
 
 
 def e65_verdict(r):
@@ -204,7 +206,7 @@ def main():
         if name in COMPLETE_N and sum(1 for _ in open(ROOT / "data" / name / "ground_truth.jsonl")) < COMPLETE_N[name]:
             print(f"skip {name}: incomplete (< {COMPLETE_N[name]} games)")
             continue
-        if name.startswith(("llm_qa", "llm_qb", "llm_g56l", "llm_glm", "llm_strong")):
+        if name.startswith(("llm_qa", "llm_qb", "llm_g56l", "llm_glm", "llm_strong")):  # includes llm_qa36/qb36 (E69)
             T = json.loads(open(ROOT / "data" / name / "ground_truth.jsonl").readline())["T"]
             if a.label:
                 subprocess.run([sys.executable, "-m", "experiments.llm_eval", "label", "--name", name], cwd=ROOT, check=True)
@@ -215,6 +217,10 @@ def main():
         res["contrast_abliterated_minus_base_C_minus_A"] = interaction(bys["llm_qa_p2"], bys["llm_qb_p2"])
         d, ci = boot_diff(bys["llm_qa_p2"]["A"], bys["llm_qb_p2"]["A"])  # DIRECTION 13:45 #1: does abliteration raise NO-channel prices?
         res["contrast_abliterated_minus_base_A_markup"] = [round(d, 3), [round(x, 3) for x in ci]]
+    if "llm_qa36_p2" in bys and "llm_qb36_p2" in bys:  # E69 (C3b) declared primary + A-arm secondary
+        res["E69_abliterated_minus_base_C_minus_A"] = interaction(bys["llm_qa36_p2"], bys["llm_qb36_p2"])
+        d, ci = boot_diff(bys["llm_qa36_p2"]["A"], bys["llm_qb36_p2"]["A"])
+        res["E69_abliterated_minus_base_A_markup"] = [round(d, 3), [round(x, 3) for x in ci]]
     json.dump(res, open(ROOT / "results" / "eval" / "p2_partc.json", "w"), indent=1)
     f = lambda x, ci: "–" if x is None else (f"{x:.2f} [{ci[0]:.2f}, {ci[1]:.2f}]" if ci else f"{x:.2f}")
     lines = ["| seller (dataset) | T | n C/A (excl.) | A markup | C − A markup [95% CI] | AUROC markup | AUROC pair_level | AUROC pCMI | agreement (judge) | executed C [Jeffreys 95%] | tacit A [Jeffreys 95%] |",

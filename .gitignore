@@ -7,3 +7,4 @@ __pycache__/
 /.p2_cache/
 /.p2_venv/
 data/gate_test/trajectories.jsonl
+data/ext_cda*/llm_cache.jsonl
