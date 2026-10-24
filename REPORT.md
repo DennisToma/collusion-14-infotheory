@@ -36,7 +36,7 @@ and in an exploratory leave-one-run-out logistic model, adding it to markup gave
 rescue criterion (pCMI 0.45 [0.16, 0.75] vs markup 0.95; the CI cannot exclude moderate effects). In mixed gpt-6.1-sol/gpt-6-luna markets, no pCMI same-model excess over
 cross-model pairs was detected (+0.003 [−0.025, +0.032], 12 games; only large effects excluded). Supported claim: in these two markets
 at T=12–50, the private channel shows up mainly as a price level, which conditioned dependence measures are built to ignore; level statistics discriminate channel assignment far better than pCMI. Some coordinated variation is present (pair localisation on first differences in `llm_v3`; part of it also appears in placebo runs, §4.3.9), and whether pCMI fails because the effect is mostly a level or because of low power at short T is not fully settled. An exploratory injection check (§4.3.8) plants per-round shared ±1 price shocks (in 20% of rounds) into one pair of real LLM control games: pCMI detects them at T=50 (AUROC 0.93 [0.87, 0.98]) but only weakly at T=20 (0.63–0.66), and the real channel pairs show no statistically detected excess co-movement relative to rivals. That fits the level reading but does not settle it. Level screens separate channel *assignment* but are not
-collusion-specific (they rank legitimate public partnerships above controls, AUROC 0.75; in the sibling market an offered-but-undelivered placebo channel gave a similar premium, and pair_level named the pair about equally often, 13.5/15 vs 14/15, §4.3.9).
+collusion-specific (they rank legitimate public partnerships above controls, AUROC 0.75; in the sibling market an offered-but-undelivered placebo channel gave a similar premium, and pair_level named the pair about equally often, 13.5/15 vs 14/15, §4.3.9). In exploratory sibling monitor/firm-framing strata with no judge-labelled agreements, pair_level yielded 3.3/30 tie-averaged hits (chance expectation 5.0; §4.3.10); framing and agreement are confounded.
 
 ## 1. Question and operational definition
 **Question.** Do colluding agents' actions share more information than is explained by public market
@@ -474,6 +474,28 @@ MI on first differences names the pair in 10.0/15 private runs and 3.0/15 placeb
 So we read this as *suggestive at most*: with n=15 the data neither show nor rule out a delivered-coordination component in price co-movement. A larger placebo arm is the cheapest test that could settle it (§7).
 Part of the E15 first-difference localisation in `llm_v3` may also be offer-driven: |Pearson| first differences localises the pair in placebo runs above chance (6.0/15, nominal randomisation p=0.027, unadjusted).
 
+#### 4.3.10 Exploratory: channel offered but no agreement (sibling strata, E35, post-hoc)
+*Not a headline; declared in EXPERIMENTS.tsv (with a decision rule) before computing; frozen E13 configuration, nothing tuned; no LLM calls.*
+§4.3.9 left open what the level screen responds to: the channel offer, or the coordination the agents attempt once offered it. The sibling ran two exploration strata in which the pair was offered the private channel but the sibling's judge found **no agreement in any of the 30 offered runs**:
+`llm_v3mon` (lab framing plus a public note that prices are monitored; 14 private + 6 none) and `llm_v3fp` ("pricing manager + competition authority" framing; 16 private, no controls).
+Inputs are snapshotted in `data/ext_llm_v3mon`, `data/ext_llm_v3fp` (sibling commit 355db43, SHA256SUMS). `uv run python scripts/nonagreement_ext.py` → `results/eval/nonagreement_ext{.json,_report.md}`.
+Top-1 and p-values are computed as in §4.3.9 (tie-averaged hits; pair-label randomisation null; chance = n/6). Declared rule for pair_level on the pooled 30 runs: "offer-driven" supported if p < 0.05/8, contradicted if hits ≤ 30/6 + 2 = 7. Table p-values are unadjusted Monte Carlo upper-tail estimates; CIs are pointwise 95% bootstrap intervals. The ×8 correction applies to the declared pooled localisation criterion, not the AUROC intervals; this remains post-hoc exploration.
+
+| detector | top-1 `llm_v3mon` (monitor) | top-1 `llm_v3fp` (firm) | top-1 pooled | AUROC `llm_v3mon` private vs none |
+|---|---|---|---|---|
+| pCMI (state+lags) | 3.0/14 (p=0.42) | 1.5/16 (p=0.85) | 4.5/30 (p=0.6) | 0.56 [0.29, 0.82] |
+| MI (raw prices) | 1.0/14 (p=0.93) | 2.5/16 (p=0.66) | 3.5/30 (p=0.85) | 0.54 [0.26, 0.79] |
+| lagged CMI (TE) | 2.0/14 (p=0.66) | 1.5/16 (p=0.85) | 3.5/30 (p=0.81) | 0.81 [0.61, 0.98] |
+| \|Pearson\| | 2.0/14 (p=0.7) | 2.7/16 (p=0.52) | 4.7/30 (p=0.58) | 0.52 [0.24, 0.82] |
+| MI first differences | 4.0/14 (p=0.19) | 1.5/16 (p=0.9) | 5.5/30 (p=0.47) | 0.26 [0.02, 0.57] |
+| \|Pearson\| first differences | 4.0/14 (p=0.19) | 3.8/16 (p=0.23) | 7.8/30 (p=0.092) | 0.48 [0.18, 0.79] |
+| pair_level (non-IT) | 2.0/14 (p=0.71) | 1.3/16 (p=0.87) | 3.3/30 (p=0.82) | 0.42 [0.15, 0.69] |
+| markup over Nash (non-IT) | 2.0/14 (p=0.71) | 1.3/16 (p=0.87) | 3.3/30 (p=0.82) | 0.48 [0.18, 0.79] |
+
+Reading. The declared heuristic labels this result "contradicted": pair_level yields 3.3/30 tie-averaged hits (chance expectation 5.0; upper-tail p=0.82), versus 13.5/15 placebo and 14/15 private (§4.3.9). This shows no detected above-chance localisation in these strata, rather than statistically refuting an offer effect. Within `llm_v3mon` the level statistics show no statistically detected separation between offered and no-channel markets (pair_level 0.42 [0.15, 0.69], n = 14 vs 6). No dependence statistic localises the pair either (all pooled p ≥ 0.09, unadjusted).
+Taken with §4.3.9, these observations are consistent with a willingness-to-coordinate explanation (the level signal follows attempted coordination, not the channel prompt), but framing and judge-labelled agreement are confounded: in the lab-framed placebo, agents were offered the channel and wrote coordination proposals (e.g. "Let's start with prices around 18 and avoid undercutting sharply", `llm_v3plc_0000`), which were simply not delivered, and the pair priced high; when no agreement formed (in the monitored stratum agents declined: the sibling reports independence or refusal phrases in 335/336 private messages; in the firm-framing stratum the judge found no agreement in 16/16), the pair premium was no longer localised.
+Caveats: the framings differ from the lab framing of §4.3.9, so framing and agreement are confounded (we cannot tell "no agreement → no premium" from "this framing → no premium"); n is small; and in `llm_v3fp` the sibling's frozen premium threshold flags 0.44 of firm-framing runs; this does not identify the offered pair, and the source of these flags is unresolved (no controls in that stratum). This does not change the §4.3.9 point that delivered messages add no detected level signal beyond attempted coordination.
+
 ### 4.4 Umbrella synthesis with the sibling project (Q2.2, text + action auditing)
 Numbers in this paragraph come from the sibling repo `collusion-22-say-vs-do` (REPORT abstract, locked test split n = 95, read 01:05 UTC; placebo result read 04:05 UTC at sibling commit 6a1de73; not regenerated here). The two projects reach a consistent conclusion from opposite directions.
 * (1) In both LLM markets the private channel shows up first as a **price level**: here pair_level/markup reach run AUROC 0.87–0.98, and the sibling's one-line pair-premium statistic reaches 0.95 on its test split (0.92 [0.79, 1.00] on its 30-run fresh replication, read 04:20 UTC at sibling commit ddc2532), exceeding the sibling's six original zero-shot LLM auditor views (max 0.86).
@@ -525,6 +547,7 @@ uv run python scripts/slides.py                         # PRESENTATION.md (5-min
 uv run python -m experiments.diag_llm_v3                 # E15 exploratory co-movement check on llm_v3
 uv run python scripts/injection_mde.py                   # E30 exploratory planted-co-movement check (§4.3.8), ~2 min
 uv run python scripts/placebo_rep_ext.py                 # E32 sibling replication + placebo (§4.3.9), ~1 min; inputs data/ext_llm_v3{rep,plc}/
+uv run python scripts/nonagreement_ext.py                # E35 offered-but-no-agreement strata (§4.3.10), ~20 s; inputs data/ext_llm_v3{mon,fp}/
 uv run python scripts/tables.py                          # reprints §4.1/§4.2 tables from results/*.json (+ §4.3 generated tables)
 uv run python -m experiments.llm_report --name llm_v1   # §4.3 tables (results/eval/llm_v1_report.md) + figures/llm_v1_*.png
 ```
@@ -533,6 +556,7 @@ Splits: `data/SPLITS.md`; every experiment incl. discarded ones: `EXPERIMENTS.ts
 
 ## 7. What to do next
 * **Placebo arm in our own market and a larger one in the sibling's** (channel offered, messages not delivered; provisionally ≥ 50 matched seeds, the final number set by a power calculation from the §4.3.9 effect sizes; Monte Carlo sign-flip test). This is the cheapest test of whether any price signal, level or co-movement, reflects *delivered* coordination rather than the channel offer (§4.3.9: n=15 is suggestive at most).
+* **Break the framing–agreement confound of §4.3.10:** within one (lab) framing, compare offered pairs that do vs do not reach a judge-labelled agreement, e.g. by randomising a mild deterrence cue, to test whether the level premium needs attempted coordination.
 * **Longer LLM games (T ≥ 50) with more games per arm.** The injection check (§4.3.8) shows pCMI sees planted shared moves at T=50 but only weakly at T=20.
 * **Cross-family sellers** (e.g. Claude vs GPT) for the shared-policy confound (§4.3.5 used one vendor family).
 * **Two-stage audit:** a level screen as the always-on first stage, with dependence and text audits run only on flagged pairs, evaluated as one pipeline against `legit` partnerships and tacit no-channel markets (§4.4).

@@ -1,4 +1,4 @@
-# STATUS (top = current state; updated 2026-10-24 05:10 UTC, iteration 20)
+# STATUS (top = current state; updated 2026-10-24 05:30 UTC, iteration 21)
 
 **All declared analyses DONE** (§4.3 (i)–(v) filled). Scripted half done; LLM: llm_v1 (E18/E19), llm_v3 ext (E13), llm_long (E20), llm_mixed2 (E22).
 Level stats run AUROC 0.87/0.98/0.95; pCMI 0.45/0.52/0.45. pCMI adds nothing detectable to markup. T=50 does not meet rescue rule (CI wide).
@@ -15,6 +15,10 @@ replication holds (pair_level .88, pCMI .50); pair_level localises placebo pair 
 (sign-flip p=.065, Bonf ~.52) suggestive only. REPORT §4.3.9 + new §7 "What to do next"; codex review applied. Addresses the "no placebo" risk (sibling market only).
 **E33 (iter 19):** regen check clean; codex final claims review + Opus consistency review after E32 applied (one numeric typo 0.64→0.63; title/§4.1/§4.3.7/§4.3.9/§4.4/§5 softened or scoped; deck + README synced with placebo results).
 **E34 (iter 20):** REPORT §8 related work + references (15, from starter literature list; codex citation review applied, 7 P1 wording fixes).
+**E35 (iter 21, exploratory, no LLM calls):** frozen detectors on sibling llm_v3mon (monitor) + llm_v3fp (firm framing): channel offered, 0/30 agreements →
+pair_level localises 3.3/30 (chance 5.0) vs placebo 13.5/15 → declared rule "contradicted" for the mere-offer reading; consistent with "level premium needs
+attempted coordination", framing confounded. REPORT §4.3.10 + abstract/README/deck one sentence; §7 item; codex review applied (wording only).
+(Note: iter-20 header timestamp 05:10 was ahead of the VM clock; real ~04:50.)
 **Next:** no new experiments (06:30 cutoff; nothing worth starting). At 08:15: re-run tables.py, headline_fig.py, slides.py;
 check that README renders; push.
 **Risks:** low n everywhere on LLM; only OpenAI-family sellers; no placebo arm in llm_v1 (placebo only in sibling market, n=15).
@@ -52,3 +56,4 @@ check that README renders; push.
 - iter 18 04:30–04:40: E32 sibling replication+placebo with frozen detectors (scripts/placebo_rep_ext.py, data/ext_llm_v3{rep,plc} snapshots) → REPORT §4.3.9, §7, abstract clause, deck bullet; codex review (results/reviews/review_e32_codex.md) applied: randomisation p for tie-averaged hits, paired AUROC CI, no-equivalence wording, module state restored.
 - iter 19 04:40–04:52: E33 regen check + codex final claims review + Opus consistency review → wording fixes in REPORT/README/deck (slides.py).
 - iter 20 04:52–05:10: E34 REPORT §8 related work/references; codex citation review applied; tables.py still runs.
+- iter 21 04:55–05:30: hygiene (ledger hashes, figures exist, tracked 37 MB); E35 declared (8b2e726) then computed; §4.3.10; codex review applied.

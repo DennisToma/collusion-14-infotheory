@@ -43,6 +43,7 @@ def main():
     inj50 = inj[("llm_long", 50, "A")]
     inj20 = inj[("llm_v1", 20, "A")]
     plc = load("placebo_rep_ext.json")["detectors"]
+    nag = load("nonagreement_ext.json")["detectors"]["pair_level"]["top1_pooled"]
 
     def gr(det, grp, null=""):
         m = g[det][grp]
@@ -122,6 +123,8 @@ from a private signal. TE (not shown) flags legitimate public leader-follower pr
   project, *offering* a private channel that never delivered messages raised prices about as much as delivering them
   (exploratory, 15 seeds). Our frozen pair_level on those runs names the pair in {plc['pair_level']['top1_placebo']['hits']:.1f}/15 placebo vs
   {plc['pair_level']['top1_private']['hits']:.1f}/15 private runs; no detector separates private from placebo at n=15 (REPORT §4.3.9).
+  In exploratory sibling monitor/firm-framing strata with no judge-labelled agreements, pair_level yielded
+  {nag['hits']:.1f}/{nag['n']} tie-averaged hits, with no detected above-chance localisation (chance expectation {nag['n']/6:.1f}; REPORT §4.3.10; framing confounded).
 * Suggested pipeline (a hypothesis, untested): a cheap always-on level screen, then dependence and text audits as
   second-stage evidence.
 * Not settled: whether pCMI fails because the effect is mostly a level or because power is low at T ≤ 50.
