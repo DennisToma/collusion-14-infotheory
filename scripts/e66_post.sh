@@ -9,8 +9,8 @@ ready() {
   [ "$(wc -l < $S/data/llm_p2strongF/ground_truth.jsonl 2>/dev/null || echo 0)" -ge 40 ] || return 1
   pgrep -f "[p]2_label.py --ds llm_p2strongF" > /dev/null && return 1      # sibling still labelling (iter 14 fix)
   [ "$(wc -l < $S/data/llm_p2strongF/labels.jsonl 2>/dev/null || echo 0)" -ge 40 ] || return 1
-  # class file must be written after the last label (otherwise it may be stale)
-  [ $S/results/analysis/p2_strong_classes_llm_p2strongF.json -nt $S/data/llm_p2strongF/labels.jsonl ] || return 1
+  # class file must be written after terms.jsonl (classes come from terms; otherwise it may be stale)
+  [ $S/results/analysis/p2_strong_classes_llm_p2strongF.json -nt $S/data/llm_p2strongF/terms.jsonl ] || return 1
   python3 -c "import json,sys; sys.exit(0 if len(json.load(open('$S/results/analysis/p2_strong_classes_llm_p2strongF.json'))['runs'])>=40 else 1)" 2>/dev/null
 }
 until ready; do sleep 60; done

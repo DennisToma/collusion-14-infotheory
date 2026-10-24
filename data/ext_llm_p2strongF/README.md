@@ -1,0 +1,1 @@
+Snapshot (copied 2026-10-24 15:43 UTC, read-only use) of the sibling project's `../collusion-22-say-vs-do/data/llm_p2strongF` (sibling commit 0191d4c; 40 runs): ground_truth.jsonl, labels.jsonl, terms.jsonl, trajectories.jsonl — read by `scripts/strongF_ext.py` (E66). Integrity: `sha256sum -c SHA256SUMS`.
