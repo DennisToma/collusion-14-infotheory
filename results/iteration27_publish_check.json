@@ -1,0 +1,41 @@
+{
+  "time_utc": "2026-10-24T19:46:17.634769+00:00",
+  "scope": "staged completion/round/model/ID integrity only; no prices, asks, messages or agreement outcomes inspected",
+  "datasets": {
+    "ext_cda": {
+      "complete_runs": 24,
+      "round_rows": 720,
+      "rounds_per_run": 30,
+      "model_metadata_matches": true
+    },
+    "llm_grid_p2_c00": {
+      "complete_runs": 8,
+      "round_rows": 160,
+      "rounds_per_run": 20,
+      "model_metadata_matches": true
+    },
+    "llm_grid_p2_c01": {
+      "complete_runs": 8,
+      "round_rows": 160,
+      "rounds_per_run": 20,
+      "model_metadata_matches": true
+    },
+    "llm_grid_p2_c15": {
+      "complete_runs": 6,
+      "round_rows": 120,
+      "rounds_per_run": 20,
+      "model_metadata_matches": true
+    }
+  },
+  "input_sha256": {
+    "data/ext_cda/ground_truth.jsonl": "441e73ca7d59c187ba9325e62b5882387b9f3ea78ea580e3f7429518ca2ab325",
+    "data/ext_cda/rounds.jsonl": "1eeb58248d6cca53412fda48b1d5735d2957137be27154ada823a78ae862c06c",
+    "data/llm_grid_p2_c00/ground_truth.jsonl": "bf8e4396cc581d1cd8812c2da30392305f009e8effef9462eb79d83981458571",
+    "data/llm_grid_p2_c00/trajectories.jsonl": "e2c6fea23084fd42d3ab34d367c8db2073b40a391084636f3e10fcdc25f931b6",
+    "data/llm_grid_p2_c01/ground_truth.jsonl": "a65695f6474c3a12a6043b58cf94371b94b3180e28650e10cb9a55d54ae68c6d",
+    "data/llm_grid_p2_c01/trajectories.jsonl": "c244bf3c09da6f706eb86665d5936f36913b73a191be2c6a3a901e0c9bf12290",
+    "data/llm_grid_p2_c15/ground_truth.jsonl": "b74036bc3e1269ef722da0650e9597e39d106ab31e913dc58e3007b1a85158aa",
+    "data/llm_grid_p2_c15/trajectories.jsonl": "7f48c8390724a11373184ce4f99849dd797a103317e5aea5c774eab192cf223f"
+  },
+  "passed": true
+}

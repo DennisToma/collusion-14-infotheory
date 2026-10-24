@@ -1,0 +1,34 @@
+{
+  "time_utc": "2026-10-24T19:42:50.875530+00:00",
+  "command": "uv run python scripts/test_p2_landing.py --evidence",
+  "synthetic_only": true,
+  "tests_run": 15,
+  "failures": 0,
+  "errors": 0,
+  "passed": true,
+  "scope": "actual E70/E68 analyses on synthetic inputs \u2192 source-derived fragments \u2192 real REPORT table checker; no real outcomes",
+  "verification": {
+    "synthetic_inputs": {
+      "grid_sweeps": 6,
+      "grid_games": 192,
+      "cda_games": 30,
+      "grid_sha256": "6617be6ce052aedcdd9709a3c7421809064596a71bea6971b97c1d93cd1a52bf",
+      "cda_sha256": "7a7b78ff2e928d006bba1b6c3ea2d9ee3e36c109895ba7d00a1ddefa76c9a925"
+    },
+    "synthetic_grid_figure_sha256": "25b71a526c3897dff51659b29ce6922bba5eda738600de450fc8e6d824b93442",
+    "synthetic_report_table_check": "PASS: 13 Phase 2 tables, 463 body cells checked, 0 unchecked, 0 mismatches",
+    "section_non_table_lines": {
+      "e70": 12,
+      "e68": 6
+    },
+    "fragment_sha256": {
+      "e70": "d205ab6a55db3639910e16be4b1c05ecb5da511ed41d43c4422332457aef177a",
+      "e68": "34afd22de1f320ec2af1177f8fe275f4358f9e044008b0e8591be43cff1239c8"
+    }
+  },
+  "implementation_sha256": {
+    "scripts/p2_landing.py": "5cd4e6be13727f09d701092361edf7f964b599c0a632cc7c188a5cd4289908ab",
+    "scripts/p2_tables.py": "89b26c6e98df0def9758c7f1debd6711e77de072d8df42009dcd9465ce366318",
+    "scripts/test_p2_landing.py": "b64bbb0277cf0557c553f6bd02ecd98ebaa987c70c1b62e147dcc49b7ddb2fc7"
+  }
+}

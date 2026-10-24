@@ -266,9 +266,9 @@ def p211b():
     return table(["pair (market, serving abl. / base)", "agreement", "executed", "(C − A) markup diff", "A-arm markup diff"], rows)
 
 
-def p212(path="results/eval/e68_cda.json"):
+def p212(path="results/eval/e68_cda.json", *, data=None):
     """E68 (D2) external CDA: declared manipulation check, then comms vs nocomms per statistic."""
-    d = jl(path)
+    d = jl(path) if data is None else data
     m = d["manipulation_check"]
     f = lambda x: f"{x:+.2f}".replace("-", "−")
     rows = [["mean ask − 80, all rounds (manipulation check)", f"{f(m['mean_comms'])} / {f(m['mean_nocomms'])}",
@@ -287,9 +287,9 @@ def p213():
     return table(["claim", "sets", "holds in", "seller models where it holds", "fails in"], rows)
 
 
-def p214(path="results/eval/e70_grid.json"):
+def p214(path="results/eval/e70_grid.json", *, data=None):
     """E70 grid main effects on d = C − A markup (declared analysis 2), plus the amendment-2 rows."""
-    d = jl(path)
+    d = jl(path) if data is None else data
     f = lambda e, c: f"{e:+.2f} [{c[0]:+.2f}, {c[1]:+.2f}]".replace("-", "−").replace("[+", "[").replace(", +", ", ")
     rows = [[k, f"{v['low']} → {v['high']}", f(v["effect"], v["ci"])] for k, v in d["main_effects"].items()]
     return table(["factor", "low → high", "main effect on C − A markup [95% CI]"], rows)
