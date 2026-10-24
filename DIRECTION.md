@@ -1,35 +1,55 @@
-# DIRECTION — set by research director, 2026-10-23 22:00 UTC
-Deadline 09:00 UTC; **finalize-only from 08:15** (no new experiments after 06:30, no new LLM runs launched after 04:00).
-The binding Validity requirements in PLAN.md still apply.
+# DIRECTION — Phase 2 (set by Dennis, 2026-10-24 06:40 UTC) — overrides earlier "no new experiments"
 
-## Verdict
-1. Scripted half is publishable as is: frozen splits, locked test seeds, two nulls, Wilson CIs, a ledger with discarded experiments. Hard-negative and power results are honest, and "IT detects coordinated *variation*, not agreement" is a real finding. **Scripted work is DONE. Stop touching it.**
-2. The LLM half is the whole remaining risk. Partial llm_v1 (20/64 games, director's read of raw prices only, no detectors run) shows a per-seller price SD of about 0.6–0.9 over 20 rounds. The channel shows up as a **level** shift (C/D pair-minus-rivals premium +0.1…+0.85, and D markets at 14.6 vs B at 12.5). Your own §4.2 says level collusion is invisible to dependence measures, so expect pCMI ≈ chance on LLM data. Plan the write-up for that outcome now. It is a legitimate and interesting result if it is shown properly.
-3. On track if the queue completes (llm_v1+ctrl ≈ 23:45, llm_long ≈ 01:10, llm_mixed ≈ 01:40) and the time after that goes into analysis and a second LLM dataset. Running more scripted variants or re-polishing the abstract would not keep it on track.
+v1 (overnight result) is frozen as git tag `v1-overnight`. Phase 2 = close every known gap. Research is
+OPEN again: new experiments are wanted. Keep v1 numbers reproducible; new results go in new sections
+/ new datasets (`*_p2`), registered in EXPERIMENTS.tsv before running, decided on dev, confirmed once on a
+fresh locked split recorded in data/SPLITS.md.
 
-## Directives (priority order)
-1. **Make the market-level baseline shock-adjusted and within-family before llm_v1 eval runs** (`experiments/llm_eval.py:126-131`).
-   `market_level` is currently the raw mean price, and B/D cost shocks raise prices mechanically (partial data: A 10.0 vs B 12.5). Score it as markup over the state Nash (you already compute `nash` at l.71). Report AUROC within family (C vs A, D vs B) as well as pooled. This is a correctness fix to a baseline, not tuning, so log it in EXPERIMENTS.tsv as a pre-registered definition change *before* you look at llm_v1 detector output.
-2. **Second LLM dataset, no LLM cost: run your frozen detectors on the sibling's `../collusion-22-say-vs-do/data/llm_v3`** (read-only; same SCHEMA; 125 runs when done ≈ 00:15; 70 private / 35 none / 20 legit; T=12; public messages present; labels in `labels.jsonl`).
-   T=12 is below your shift-null minimum, so report **pair AUROC, run AUROC and top-1 localisation** of pCMI/MI/TE vs `pair_level`/`market_level`. Also report the control-surrogate null against the 35 `none` runs: that pool is ≥ 20, so here, unlike llm_v1, it can actually reach α=0.05. Treat `legit` (public shipping partnership) as a hard negative.
-   This gives you external validity (different prompt, framing, grid) and gives 22 the "cheap always-on statistic" row it needs. Write per-pair scores to `results/eval/llm_v3_ext.json` with `{run_id, pair, detector, score}` so 22 can join on it. Declare it in REPORT §4.3 as an extra confirmatory set before computing it.
-3. **Fill §4.3 strictly by the declared analysis plan when the queue finishes** (a)–(f). Headline LLM claims, in this order:
-   - (i) Does the channel raise prices: market and pair premium, within family, with bootstrap CI.
-   - (ii) Do dependence detectors add anything beyond the level baseline: AUROC difference with paired bootstrap over runs.
-   - (iii) Pair localisation vs chance 1/6, exact binomial.
-   - (iv) Same-model vs cross-model dependence from `llm_mixed`. This is binding PLAN requirement #3. Report it even if n=12 is underpowered, and give the CI, not "no effect".
-   - (v) `llm_long`: does T=50 rescue pCMI? That separates "too short" from "collusion is a level".
-   Add one LLM figure: per-condition price trajectories, plus AUROC bars with CIs for IT vs level detectors, on both LLM datasets.
-4. **Use freed codex budget (after ≈ 01:40) for at most one more LLM batch, chosen by what llm_v1 shows.** Default is **+16 C/D at T=50 with ≥ 6 extra A/B controls** if `llm_long` shows pCMI signal growing with T. Otherwise skip new generation and spend the time on directive 5. Launch nothing after 04:00.
-5. **Regenerability and claims audit (04:00–07:00).** Write `scripts/tables.py`, which prints every REPORT table from the `results/*.json` files. Diff its output against REPORT. Then run one codex/Opus adversarial review of REPORT claims only, especially words like "100%", "not removable" and "invisible". Fix stale text: §5 says n=25 per group, but the gate is n=50. EXPERIMENTS.tsv has commit `pending` entries; fill in the hashes. Write a 5-line "umbrella synthesis" paragraph with 22's headline numbers (see cross-pollination).
+**Timeline (UTC):** presentable checkpoint (REPORT.md updated with whatever is done) by **Sat 20:00**;
+all experiments done by **Sun 15:00**; finalize-only from **Sun 16:30**; hard stop **Sun 18:00**.
+Submission is Sun 23:59 AoE — Dennis submits Sunday evening from the merged repo
+(`collusion-beyond-words`, built by a third manager from Sun 08:00 using BOTH repos' REPORTs).
+Keep REPORT.md always presentable; put a "Phase 2 results" section near the top once results land.
 
-## Cross-pollination
-- **From 22:** `data/llm_v3` (directive 2). Their partial data shows private pairs at +0.8…+3.7 premium over rivals, vs your +0.1…+0.85. Their market (12 rounds, grid 6–30, lab framing) produces a much stronger pair-specific level effect. Say this explicitly: the detectability of LLM collusion depends on the market and the framing.
-- **To 22:** your pCMI/pair_level per-pair scores on llm_v3 are their zero-shot statistical baseline. Your anchor lesson ("a single example value in the format spec pins the market") is worth one line in their limitations too.
-- llm_v1 has empty public messages (`public_board: false`), so 22 cannot pool it. Don't spend effort making it poolable.
+**Ownership:** each gap below is owned by ONE repo (no duplicate work). The sibling may read your data.
 
-## STOP
-- Any further scripted runs, sweeps, null variants or estimator tweaks. Seeds 1001/1002 are spent, and new dev experiments don't change the headline.
-- Tuning anything (thresholds, the tacit cutoff, the coordinated-actions ±1 rule, the judge prompt) after looking at llm_v1 detector outputs. The definitions are frozen as of E11.
-- Calling a pCMI null on LLM data "detectors fail on LLM agents". The supported claim is narrower: "this market's LLM collusion is a level shift with low variance, and dependence measures are built to ignore that".
-- Rewriting the abstract each iteration. Rewrite it once, after §4.3 is filled.
+**Budget / models:** GPT-family sellers via `llm.chat(tier="cheap")` (gpt-6-luna). For the **second seller
+family** use OpenCode Go: `llm.chat(..., backend="go", model="deepseek-v4.1-flash")` (or glm-5.3-flash /
+kimi-k3) — Go is serialised and shared with another service; if it 429s, llm.py cools down 30 min;
+then continue with what you have. Claude Sonnet as a seller only on a small subset (≤ 10 runs) — the
+Claude quota runs the managers. gpt-6.1-sol as a seller for a third family check is fine (codex quota).
+
+**Gaps owned by BOTH repos (do in your own market):**
+- **Precision at realistic prevalence** (15 min): for every headline detector, report precision / FPR-
+  normalised alarm rates at 1%, 5%, 20% collusion prevalence at the frozen thresholds, with CIs.
+- **Independent reimplementation check:** have codex (gpt-6.1-sol, `-s workspace-write` in a scratch dir,
+  given ONLY the REPORT's method description, not your code) reimplement your headline statistic(s); compare
+  numbers on the same data. Report agreement; fix any bug found (and re-state affected numbers).
+
+## Gaps owned by THIS repo (Q1.4), in priority order
+1. **Prompt-wording robustness** (validity threat; you already saw the JSON-anchor effect). 3–5 prompt
+   variants of your seller prompt (paraphrased instructions, different JSON template / no example,
+   different order of information, reasoning on/off). Does the C − A markup and the level-vs-pCMI pattern
+   hold across variants? Report variance across variants as a robustness band.
+2. **Long LLM games**: settle whether pCMI fails for lack of data. ≥ 20 runs per condition (A, C, plus D if
+   budget) at T = 60–100. Power-vs-T curve on LLM data (subsample prefixes). This is the decisive 1.4 result.
+3. **Same-model confound as a headline**: in real deployments everyone runs the same few models. Quantify
+   on LLM data: same-model no-channel pairs vs mixed-model pairs vs colluding pairs. Test mitigations
+   (same-model surrogate null; conditioning on lagged prices of all firms; model-matched reference
+   markets). State plainly what a deployer can and cannot conclude.
+4. **Second seller family** in your market: deepseek (Go) sellers, ≥ 15 runs each for A and C (T=20 or
+   longer). Does the channel markup and the detector pattern replicate across families?
+5. **Coalition structure**: 3-of-4 colluding and all-4 colluding (scripted + small LLM set). Pairwise
+   net-influence relies on clean comparison pairs — show where it breaks and test a group-level statistic
+   (e.g. multi-information / total correlation of the coalition vs surrogates).
+6. **Collusion onset / detection delay**: collusion that starts at round k (scripted switch; LLM channel
+   opened mid-game). Rounds-to-detection for level screen vs pCMI (CUSUM-style sequential version of the
+   level screen is a good addition).
+7. **Market-model robustness**: N = 2 and 6 sellers, and a different demand elasticity; do the scripted
+   calibration (FPR) and power results hold?
+8. **Cost asymmetry hard negative** for the dependence detectors (firms with unequal private costs).
+9. **Non-price collusion (exploration)**: one condition of market/customer splitting or bid rotation —
+   simplest: run the starter double auction (`~/collusion/collusion_hackathon/llm-agent-collusion`, via our
+   llm.py — it needs adaptation since it expects a Nebius/OpenRouter key) or a quantity/territory variant
+   of your sim; check which detectors see it at all.
+Items 1–4 must be done by Sat 20:00 if at all possible; 5–9 by Sun 15:00.

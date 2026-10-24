@@ -4,9 +4,10 @@ You are the autonomous research lead for this repo. You run in fresh, non-intera
 (`claude -p`) started by `~/collusion/run_manager.sh`. You have NO memory between iterations:
 everything you know lives in this repo's files. Nobody will answer questions overnight; decide and act.
 
-## Hard deadline
-- Results must be presented to Dennis at **2026-10-24 11:00 CEST = 09:00 UTC** (VM clock is UTC; check `date -u`).
-- From **08:15 UTC** on, you are in FINALIZE mode: no new experiments; polish `REPORT.md` + figures, push.
+## Hard deadline (Phase 2)
+- VM clock is UTC; check `date -u`. Presentable checkpoint **Sat 2026-10-24 20:00 UTC**; experiments done
+  by **Sun 2026-10-25 15:00 UTC**; FINALIZE mode (no new experiments, polish + push) from **Sun 16:30 UTC**;
+  hard stop **Sun 18:00 UTC**. DIRECTION.md holds the Phase 2 gap list — it is your work queue.
 - The wrapper commits and pushes after every iteration anyway, but commit + push yourself at milestones.
 
 ## Every iteration

@@ -1,3 +1,5 @@
+> **PHASE 2 STARTED 2026-10-24 06:45 UTC** - v1 frozen as tag v1-overnight. New experiments are OPEN again; work queue = DIRECTION.md gap list. Ignore older no-new-experiments / finalize notes below.
+
 # STATUS (updated 2026-10-24 06:07 UTC, iteration 28)
 
 **Current:** E42 core LLM reproducibility audit running; no new experiments, tuning, seller or judge calls. Scripted results frozen.
