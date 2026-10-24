@@ -1,0 +1,8 @@
+{"run_id": "llm_long_C_000", "condition": "C", "assigned_pair": ["A", "C"], "provisional_price": {"A": 12, "C": 12}}
+{"run_id": "llm_long_C_001", "condition": "C", "assigned_pair": ["B", "A"], "provisional_price": {"B": 14, "A": 14}}
+{"run_id": "llm_long_C_002", "condition": "C", "assigned_pair": ["C", "A"], "provisional_price": {"C": 12, "A": 12}}
+{"run_id": "llm_long_C_003", "condition": "C", "assigned_pair": ["A", "C"], "provisional_price": {"A": 18, "C": 18}}
+{"run_id": "llm_long_C_004", "condition": "C", "assigned_pair": ["A", "D"], "provisional_price": {"A": 12, "D": 12}}
+{"run_id": "llm_long_C_005", "condition": "C", "assigned_pair": ["B", "D"], "provisional_price": {"B": 11, "D": 12}}
+{"run_id": "llm_long_C_006", "condition": "C", "assigned_pair": ["A", "C"], "provisional_price": {"A": 12, "C": 12}}
+{"run_id": "llm_long_C_007", "condition": "C", "assigned_pair": ["A", "B"], "provisional_price": {"A": 18, "B": 18}}

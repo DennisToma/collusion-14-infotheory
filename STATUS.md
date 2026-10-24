@@ -1,4 +1,4 @@
-# STATUS (top = current state; updated 2026-10-24 05:27 UTC (VM clock), iteration 24)
+# STATUS (top = current state; updated 2026-10-24 05:55 UTC (VM clock), iteration 25)
 
 **All declared analyses DONE** (§4.3 (i)–(v) filled). Scripted half done; LLM: llm_v1 (E18/E19), llm_v3 ext (E13), llm_long (E20), llm_mixed2 (E22).
 Level stats run AUROC 0.87/0.98/0.95; pCMI 0.45/0.52/0.45. pCMI adds nothing detectable to markup. T=50 does not meet rescue rule (CI wide).
@@ -22,6 +22,9 @@ attempted coordination", framing confounded. REPORT §4.3.10 + abstract/README/d
 **E37 (iter 23):** offline exports for the talk: `REPORT.pdf` (18 pp), `REPORT.html` (self-contained), `PRESENTATION.pdf` (6 slides) via
 `uv run --group export python scripts/export_pdf.py` (checks headings/table cells/slide titles survive into PDF text; pages inspected). README + REPORT §6 link them.
 **E38 (iter 24):** codex whole-document consistency review after E35–E37 (results/reviews/codex_consistency_iter24.md): 3 P0 (offer-vs-agreement contradiction §4.3.9/§4.4, shared-seed range 44–100%, MI C-vs-A inverse), 4 P1, 1 P2, all applied; tables.py unchanged; slides + PDFs regenerated.
+**E39 (iter 25, exploratory, no LLM calls):** sibling found round-1 prices alone give AUROC .90 → our analogue: cache-only replay (40/40 exact)
+recovers pre-play provisional prices (`data/*/preplay.jsonl`). First sender (no partner msg read) − rivals r0: +0.94 [0.38,1.59] (llm_v1) vs whole-game +0.45;
+llm_long +2.19 [0.56,3.94]. Codex review P0 (pre-play is sequential → first-sender split) applied; wording descriptive, not causal. REPORT §4.3.11 + abstract/table row 8/§5/§7.
 (Note: iter-20 header timestamp 05:10 was ahead of the VM clock; real ~04:50.)
 **Next:** no new experiments (06:30 cutoff; nothing worth starting). At 08:15: re-run tables.py, headline_fig.py, slides.py,
 then export_pdf.py LAST (PDFs must match final REPORT/PRESENTATION .md); check README renders; push.

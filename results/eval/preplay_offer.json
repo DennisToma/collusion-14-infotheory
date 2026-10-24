@@ -1,0 +1,133 @@
+{
+ "llm_v1": {
+  "n_runs": 32,
+  "offer_premium_provisional_minus_rivals_r0": [
+   0.953,
+   [
+    0.406,
+    1.625
+   ]
+  ],
+  "first_sender_provisional_minus_rivals_r0": [
+   0.938,
+   [
+    0.375,
+    1.594
+   ]
+  ],
+  "second_sender_provisional_minus_rivals_r0": [
+   0.969,
+   [
+    0.406,
+    1.625
+   ]
+  ],
+  "round0_premium_pair_minus_rivals": [
+   0.812,
+   [
+    0.359,
+    1.312
+   ]
+  ],
+  "full_game_premium_pair_minus_rivals": [
+   0.452,
+   [
+    0.338,
+    0.567
+   ]
+  ],
+  "provisional_minus_own_round0": [
+   0.141,
+   [
+    -0.031,
+    0.375
+   ]
+  ],
+  "round0_market_markup_mean": {
+   "A": 1.69,
+   "B": 1.595,
+   "C": 2.172,
+   "D": 2.203
+  },
+  "round0_markup_auroc_C_vs_A": [
+   0.765,
+   [
+    0.61,
+    0.893
+   ],
+   16,
+   21
+  ],
+  "round0_markup_auroc_D_vs_B": [
+   0.682,
+   [
+    0.5,
+    0.847
+   ],
+   16,
+   21
+  ],
+  "declared_rule_verdict_pair_mean": "offer cue present in our market",
+  "declared_rule_verdict_first_sender": "offer cue present in our market"
+ },
+ "llm_long": {
+  "n_runs": 8,
+  "offer_premium_provisional_minus_rivals_r0": [
+   2.25,
+   [
+    0.625,
+    4.0
+   ]
+  ],
+  "first_sender_provisional_minus_rivals_r0": [
+   2.188,
+   [
+    0.562,
+    3.938
+   ]
+  ],
+  "second_sender_provisional_minus_rivals_r0": [
+   2.312,
+   [
+    0.812,
+    4.0
+   ]
+  ],
+  "round0_premium_pair_minus_rivals": [
+   2.188,
+   [
+    0.75,
+    3.812
+   ]
+  ],
+  "full_game_premium_pair_minus_rivals": [
+   0.42,
+   [
+    0.195,
+    0.65
+   ]
+  ],
+  "provisional_minus_own_round0": [
+   0.062,
+   [
+    -0.125,
+    0.25
+   ]
+  ],
+  "round0_market_markup_mean": {
+   "A": 1.781,
+   "C": 2.531
+  },
+  "round0_markup_auroc_C_vs_A": [
+   0.664,
+   [
+    0.375,
+    0.922
+   ],
+   8,
+   8
+  ],
+  "declared_rule_verdict_pair_mean": "offer cue present in our market",
+  "declared_rule_verdict_first_sender": "offer cue present in our market"
+ }
+}
