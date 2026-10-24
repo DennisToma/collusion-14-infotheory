@@ -1,7 +1,7 @@
 > **PHASE 2 STARTED 2026-10-24 06:45 UTC** - v1 frozen as tag v1-overnight. New experiments are OPEN again; work queue = DIRECTION.md gap list. Ignore older no-new-experiments / finalize notes below.
 
 
-# STATUS (updated 2026-10-24 15:49 UTC from date -u, Phase 2 iteration 14; follows DIRECTION 13:45)
+# STATUS (updated 2026-10-24 15:45 UTC from date -u, Phase 2 iteration 14; follows DIRECTION 13:45)
 
 **E65 DONE (declared verdict: INCONCLUSIVE):** pCMI AUROC executed C vs A 0.33 [0.02, 0.66], n=5 exec/20 A (upper CI touches .65 → not "still a level"). Pilot did NOT replicate: executed 5/20 (pilot 5/5), C−A +2.13 [1.28,3.00] (pilot +6.54). All C vs A T=40: markup .85, pair .80, pCMI .49; TE .71 [.53,.87] = only dependence stat with CI > .5 (exploratory, uncorrected, flagged as such). Spillover market-wide (+1.54 of +2.98). E64 pooled now 8 sets: pCMI exec .42 [.31,.52] vs .50 (38/119 executed). E67 confirmatory on E65: WORKS .90 [.79,.97] → tally 1/2; mechanism still unsupported (ρ +0.00). Written into main claim, abstract, glance (status+row C), takeaway 7, P2.11 table row + (a)(c)(d)(e) + new (f). Checks: p2_tables PASS (336), tables PASS, release audit OK.
 **E66 DONE (declared verdict: NOT EVALUABLE):** class check 40/40, 0 mismatches. Executed 13/20, but no-channel tacit-high 19/20 → competitive n=1. Private vs none: pCMI .46, market level .44, TE .61 (nothing separates; channel adds no price effect under strong framing). E67 on it fails .42 → confirmatory tally 1/3. Written: P2.11(e)+(g), glance status + row C. (Watcher criterion was wrong — classes come from terms.jsonl, not labels; fixed in e66_post.sh and run manually 15:43.)
