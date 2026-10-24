@@ -69,39 +69,43 @@ A controls is 4/21 for us and 5/21 for the reimplementation (C: 2/16 for both). 
 **P2.3 Same-model confound: what a deployer can conclude when everyone runs the same model (E48; no new LLM calls;
 `uv run python scripts/same_model.py` → `results/eval/same_model.{json,md}`).** All no-shock T=20 games (`llm_long`: first 20 rounds)
 are pooled by pair type: luna–luna no-channel pairs (186 pairs / 41 games: `llm_v1` A, `llm_mixed2` same-luna, `llm_long` A),
-sol–sol (12 / 12, `llm_mixed2`), luna–sol cross (48 / 12), and the `llm_v1` C channel pair (24 games incl. 17 judge-verified realized;
-all-luna markets). Pair AUROCs have 95% CIs from resampling games (pairs in a game are not independent). Detectors frozen; rule declared in the ledger before running.
+sol–sol (12 / 12, `llm_mixed2`), luna–sol cross (48 / 12), and the channel pair of all-luna C games (24 games: 16 `llm_v1` C + 8 `llm_long` C
+prefixes; 17 judge-verified realized = 12 + 5). The reference-market rows in (c) use only the 16 `llm_v1` C games. Pair AUROCs have 95% CIs from resampling games (pairs in a game are not independent). Detectors frozen; rule declared in the ledger before running.
 
-| channel pair vs … | pCMI | pCMI, own lag only | MI | pair_level | pair markup over Nash |
+| channel-assigned pair vs … | pCMI | pCMI, own lag only | MI | pair_level | pair markup over Nash |
 |---|---|---|---|---|---|
 | luna–luna, no channel (same model as colluders) | 0.49 [0.38, 0.63] | 0.44 [0.31, 0.58] | 0.31 [0.17, 0.46] | 0.93 [0.89, 0.97] | 0.96 [0.90, 1.00] |
 | sol–sol, no channel | 0.72 [0.53, 0.89] | 0.65 [0.45, 0.84] | 0.27 [0.12, 0.44] | 0.89 [0.77, 0.97] | 1.00 [0.98, 1.00] |
 | luna–sol cross, no channel | 0.58 [0.43, 0.73] | 0.57 [0.42, 0.72] | 0.36 [0.20, 0.53] | 0.93 [0.87, 0.97] | 1.00 [0.98, 1.00] |
 | same-market bystander pairs | 0.57 [0.44, 0.70] | 0.55 [0.40, 0.69] | 0.56 [0.41, 0.71] | 0.94 [0.89, 0.97] | 0.61 [0.45, 0.77] |
 
-Findings. (a) **Pair contrasts are not hurt by sharing a model.** Level statistics separate colluding pairs from no-channel pairs of the
-*same* model about as well as from cross-model pairs: the drop is ≤ 0.04 (declared "material" threshold 0.10). pCMI is uninformative
-against every comparison set (it is 0.72 only against the 12 sol–sol pairs, whose CI is wide). MI is *reversed* (< 0.5): colluding
-pairs hold prices still, so they carry less price information than independent pairs.
+Findings. (a) **Level contrasts are not hurt by sharing a model; the dependence statistics are.** Declared rule: the confound is "material"
+if AUROC(channel vs same-model) is ≥ 0.10 below AUROC(channel vs cross). The differences, with joint game-bootstrap CIs, are as follows.
+Pair_level: +0.00 [−0.03, +0.04] (luna) and −0.04 [−0.12, +0.03] (sol). Markup: −0.04 [−0.10, −0.00] (luna) and −0.00 (sol).
+pCMI: −0.09 [−0.17, −0.01] (luna, borderline). Own-lag-only pCMI: −0.13 [−0.23, −0.04] (luna, material).
+The realized-collusion subset (17 pairs) gives the same picture (pair_level +0.01, markup −0.04, pCMI −0.10).
+pCMI is near chance against luna and cross pairs. Against the 12 sol–sol pairs it is 0.72 [0.53, 0.89], a nominal signal that we discount:
+it is one of many unadjusted comparisons, and it comes from sol's low pCMI rather than from the channel pairs.
+MI is *reversed* (< 0.5): channel pairs hold prices still and so carry less price information than independent pairs.
 (b) **Among no-channel pairs, same-model luna pairs look more dependent than cross pairs**: pCMI AUROC luna–luna vs cross 0.59
-[0.52, 0.67]; pair-level shift-null pCMI flags 37/186 = 20% [15, 26] vs 4/48 = 8% [3, 20] cross and 0/12 sol–sol (Wilson CIs; pairs
-are clustered, so these are optimistic). Caveat: most luna–luna pairs come from all-luna markets, so this comparison mixes model and
-market composition. The within-market comparison (§4.3.5, 12 games) found no difference. Removing all-firm lag conditioning (own lag
-only) raises the same-model excess to 0.64 [0.55, 0.73], so conditioning on all firms' lagged prices helps a little but does not remove it.
-(c) **The reference population is where the confound is material** (meets the declared rule: mismatched-reference FPR > 2α). If the
-surrogate null's reference markets run a different model mix (mixed sol+luna markets as the reference for all-luna markets), pCMI flags
-11/21 = 52% [32, 72] of no-channel luna markets at α = 0.10, against 2/21 with a model-matched leave-one-out pool. The same mismatched pool
-"detects" 8/16 channel markets, i.e. no better than its false-alarm rate. The level screen is less sensitive to the mismatch:
-pair markup 4/21 [8, 40]% false flags (matched 2/21) with 15/16 channel markets flagged (matched 13/16). Model mix also moves the price level itself.
-Mean markup over Nash is +0.02 [−0.35, +0.40] in all-luna no-channel markets, +0.45 [+0.27, +0.62] in mixed sol+luna ones and
-+1.78 [+1.41, +2.21] with a channel. A reference built from a lower-priced model would therefore inflate level-screen alarms.
-The tests are coarse: with 12 mixed reference markets the smallest attainable p is 0.077, so these comparisons are run at α = 0.10.
-With the 8-game `llm_long` pool (min p 0.11) no test is possible, and the 0/16 in the JSON for that pool is not evidence.
-*Deployer reading:* a pair standing out from its own market (pair_level) is robust to everyone running the same model in these data.
-Absolute statistics (markup, pCMI, MI) are only interpretable against reference markets that run the **same model(s)**, in enough
-games (≥ 20 for α = 0.05). Matching on vendor family is not enough (sol and luna are both OpenAI). We cannot conclude anything for
-deployments whose model mix has no matched reference. Luna sellers vary their prices less (within-seller SD 0.71 in `llm_v1` A vs sol 0.96 in `llm_mixed2`; 23–28% of luna
-sellers have SD < 0.5 across the three sets vs 0/24 sol sellers). This plausibly drives the pCMI difference through degenerate residuals, but we have not tested it.
+[0.51, 0.67]. Pair-level shift-null pCMI flags are 37/186 = 20% [13, 28] for luna–luna, 4/48 = 8% [0, 17] for cross and 0/12 for sol–sol (game-bootstrap CIs).
+Most luna–luna pairs come from all-luna markets, so this comparison mixes model and market composition. The within-market comparison (§4.3.5, 12 games) found no difference.
+Without all-firm lag conditioning (own lag only), the point estimate of the same-model excess is larger (0.64 [0.54, 0.73]).
+Conditioning on all firms' lagged prices may therefore reduce the excess a little, but it does not remove it (point estimates only; no test of the difference).
+(c) **The reference population is where the confound is largest.** This analysis is at α = 0.10, chosen after the declaration because a 12-game pool cannot
+reject at α = 0.05 (min p = 1/13 = 0.077); read it as exploratory. Mismatched reference: mixed sol+luna markets used as the reference for all-luna markets.
+With it, pCMI flags 11/21 = 52% [32, 72] of no-channel luna markets, against 2/21 with the model-matched leave-one-out pool.
+The matched LOO rate is ≤ α by construction, so it is not calibration evidence. Independent matched controls would be needed to show that matching restores the FPR.
+The mismatched interval is conditional on this fixed 12-game pool. The same mismatched pool "detects" 8/16 `llm_v1` channel markets, no better than its false-alarm rate.
+The level screen is less sensitive to the mismatch: pair markup gives 4/21 [8, 40]% false flags (matched 2/21) and flags 15/16 channel markets (matched 13/16).
+The model mix also moves the price level itself. Mean markup over Nash is +0.02 [−0.35, +0.40] in all-luna no-channel markets, +0.45 [+0.27, +0.62] in mixed sol+luna ones and
++1.78 [+1.41, +2.21] with a channel, so a reference built from a lower-priced model would inflate level-screen alarms.
+With the 8-game `llm_long` pool (min p = 1/9 = 0.11) no rejection is possible at α ≤ 0.10, so its 0/16 in the JSON is not evidence.
+*Deployer reading:* in these data, a pair standing out from its own market (pair_level) is robust to everyone running the same model.
+Absolute statistics (markup, pCMI, MI) are only interpretable against reference markets running the **same model(s)**, with enough games (≥ 20 for α = 0.05).
+Matching on vendor family is not enough (sol and luna are both OpenAI). We cannot say how well a matched reference restores calibration out of sample.
+Luna sellers vary their prices less: within-seller SD 0.71 (`llm_v1` A, 84 sellers) vs 0.96 for sol (24 sellers, `llm_mixed2`).
+34/140 luna sellers but 0/24 sol sellers have SD < 0.5 (`seller_sd` in the JSON). This plausibly drives the pCMI difference through degenerate residuals; untested.
 
 
 ## Abstract

@@ -1,14 +1,14 @@
 > **PHASE 2 STARTED 2026-10-24 06:45 UTC** - v1 frozen as tag v1-overnight. New experiments are OPEN again; work queue = DIRECTION.md gap list. Ignore older no-new-experiments / finalize notes below.
 
-# STATUS (updated 2026-10-24 ~07:30 UTC, Phase 2 iteration 2)
+# STATUS (updated 2026-10-24 ~06:55 UTC, Phase 2 iteration 2)
 
 **Phase 2 running** (DIRECTION.md gap list). v1 frozen at tag `v1-overnight`; REPORT "Phase 2 results" has P2.1 prevalence, P2.2 reimplementation, P2.3 same-model.
-**Generating (background, logs /var/tmp/c14/):** `scripts/llm_queue_p2.sh` (codex, 5 workers): E43 variants llm_p2_{v0,para,template,order,noreason} (A/C × 6, T=20; v0 at 9/12 by 07:00, ~490 s/game)
+**Generating (background, logs /var/tmp/c14/):** `scripts/llm_queue_p2.sh` (codex, 5 workers): E43 variants llm_p2_{v0,para,template,order,noreason} (A/C × 6, T=20; v0 at 9/12 by 06:50, ~490 s/game)
 → E44 llm_long_p2 (A/C × 20, T=60) → `llm_queue_p2b.sh` T=80 replay (T=60 copy = primary). `llm_queue_go.sh`: E45 llm_ds_p2 deepseek (Go calls now return text).
-**New this iteration — E48 (gap 3) same-model confound, REPORT P2.3:** level stats separate channel pairs from same-model no-channel pairs as well as from cross-model (markup AUROC .96 vs 1.00, pair_level .93/.93);
+**New this iteration — E48 (gap 3) same-model confound, REPORT P2.3 (codex-reviewed, fixes applied):** level stats separate channel pairs from same-model no-channel pairs as well as from cross-model (AUROC diff pair_level +.00, markup −.04); pCMI −.09, own-lag pCMI −.13 (material);
 pCMI ≈ 0.5 everywhere; MI reversed. Confound is material in the *reference population*: mixed-model reference markets → pCMI false flags 11/21 (52%) of all-luna no-channel markets at α=.10 vs 2/21 matched.
-Codex review of P2.3 running → /var/tmp/c14/review_p2_3.md (apply fixes next iteration).
-**Running (codex, worktree /var/tmp/c14/wt_p2s, branch p2-scripted, spec /var/tmp/c14/p2s/TASK.md, log codex.log):** scripted gaps 5/6/8 (coalition + total correlation, onset + CUSUM, cost asymmetry) on DEV seeds; still editing at 07:10.
+Codex review /var/tmp/c14/review_p2_3.md applied (joint game bootstrap, α=.10 labelled post hoc). Still owed: independent model-matched controls (all-sol A games) to test whether matching restores FPR.
+**Running (codex, worktree /var/tmp/c14/wt_p2s, branch p2-scripted, spec /var/tmp/c14/p2s/TASK.md, log codex.log):** scripted gaps 5/6/8 (coalition + total correlation, onset + CUSUM, cost asymmetry) on DEV seeds; still editing at 06:53.
 **Next:** (1) review/merge p2-scripted (check defaults byte-identical), lock seeds in SPLITS + ledger, run test once → REPORT P2.x;
 (2) when 5 variant arms done: `uv run python scripts/p2_variants.py --run-eval` → REPORT P2.4; (3) llm_long_p2: `uv run python -m experiments.llm_eval eval --name llm_long_p2_T60 --Ts 10,20,30,40,50,60`;
 (4) gap 7 (N=2/6, elasticity; detectors hard-code 4 sellers); (5) gap 9 non-price (exploration); (6) optional: all-sol A games as a second model-matched reference (needs codex budget after queues).
@@ -29,7 +29,7 @@ Codex review of P2.3 running → /var/tmp/c14/review_p2_3.md (apply fixes next i
 **Risks:** small LLM n, OpenAI-family sellers only, no own-market placebo; surplus dependence is not proof of an agreement.
 
 ## Log
-- P2 iter 2 06:45–07:30: queues healthy; E48 declared then run (scripts/same_model.py, 3.7 min) → REPORT P2.3 + ledger; codex P2.3 review launched.
+- P2 iter 2 06:45–06:55: queues healthy; E48 declared then run (scripts/same_model.py, ~4 min) → REPORT P2.3 + ledger; codex review (no P0, 3 P1) → joint bootstrap + wording fixes.
 - P2 iter 1 06:27–06:55: prompt-variant switch in sim/llm_market.py (v0 byte-identical, 96 combos checked); E43–E45 declared then amended (throughput) before any result; queues launched; deepseek empty-output fix; E46 prevalence; reimpl check launched.
 - 20:24 smoke test ok.
 - iter 1 (~20:25): built sim/market.py, detectors, experiments/scripted.py, gate dataset (no STATUS update).
