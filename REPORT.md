@@ -171,8 +171,8 @@ Readings:
 3. **Collusion as a level** (both just price high) carries no shared variation. pCMI does not detect it (0.07 vs 0.08 on controls); TE (0.47 vs 0.03) and CMI|state
    (0.28 vs 0.03) flag the *market* at s=0.8 but TE never names the pair (top-1 0.00; pCMI 0.17 ≈ chance). Localising it needs a price-level benchmark, not information theory.
 4. Raw MI is uncalibrated whenever there is a common driver (control column 0.50 = 0.0 on A and 1.0 on B).
-5. Control-surrogate null (in `results/sweeps/power_test.json`, `surrogate_flag_rate`): pCMI power 0.93 at
-   s=0.1 and 0.57 at T=20 (vs 0.97 / 0.80 for the shift null). With 20 reference runs per family the minimum
+5. Control-surrogate null (in `results/sweeps/power_test.json`, `surrogate_flag_rate`): pCMI power 0.925 at
+   s=0.1 and 0.575 at T=20 (vs 0.975 / 0.80 for the shift null; pooled C+D, 40 runs). With 20 reference runs per family the minimum
    attainable p is 1/21, so it is close to its resolution limit here.
 
 ![power vs strength](figures/power_vs_strength.png)
@@ -202,7 +202,7 @@ same-model reference pool has ≥ 20 per family), T=20, design of `llm_pilot4` (
 judge (tier=big) reads the private chat → `agreement_verified`; `coordinated_actions_verified` from prices
 (both pair members within ±1 of the agreed price in ≥ 50% of rounds after the agreement; criterion fixed on `llm_pilot4`, E11); no-channel runs with mean markup ≥ 2
 over Nash are `tacit_supracompetitive`. First games (descriptive, before any detector was run): channel pairs
-lift the **whole market's** price level (market means 12.0–14.6 in C/D vs 9.2–12.3 in A/B on the first ~20 games; on all 74 the ranges overlap: C/D 10.8–16.8, A/B 8.6–13.9) — rivals follow.
+lift the **whole market's** price level — rivals follow. Per-game market means on all 74 games: C/D 10.8–16.8 (median 12.5), A/B 8.6–13.9 (median 11.3); the ranges overlap (`scripts/market_mean_ranges.py` → `results/eval/llm_v1_market_mean_ranges.json`; an earlier quote for the first ~20 games is dropped because no script regenerates it).
 
 *Analysis plan, declared before results* (after the iteration-3 review; results below are headed by question: (i) price level = plan (b), (ii) run AUROC and (iii) localisation = (c), nulls = (d, e), (iv) mixed-model and (v) long games = (f)): (a) label rates per condition with
 Wilson CIs; (b) price-level effect of the channel — market mean price C/D vs A/B (Mann-Whitney, bootstrap CI)
@@ -271,7 +271,7 @@ the same rounds, so there is coordinated *variation* as well as a level. But non
 runs from no-channel runs (run AUROC of the max-pair score 0.40–0.59, all CIs include 0.5). At T=12 with coarse
 prices, *some* pair in every control market co-moves about as strongly as the colluding pair does. So the dependence
 signal localises a pair you already suspect but cannot screen markets. pCMI's weaker within-run localisation is
-consistent with lost power: about 7 regressors on 11 usable rows. It does not show that the information is absent.
+consistent with lost power: 7 regressors (intercept, cost, demand, 4 lagged prices; `experiments/ext_llm_v3.py` `_design_numeric`) on 11 usable rows. It does not show that the information is absent.
 
 ![LLM AUROC](figures/llm_auroc_both.png)
 *Run AUROC of dependence (blue) vs level (orange) detectors on the LLM datasets (`uv run python -m experiments.llm_fig`).*
@@ -447,6 +447,7 @@ uv run python -m experiments.diag_llm_v1                  # E19 incremental-valu
 uv run python -m experiments.premium_llm_v3               # §4.4 pair premium on llm_v3
 uv run python scripts/mixed_price_by_model.py             # (iv) llm_mixed2 price by model
 uv run python scripts/mixed_fig.py                        # (iv) figures/llm_mixed2_same_vs_cross.png
+uv run python scripts/market_mean_ranges.py               # §4.3.2 llm_v1 market-mean ranges
 uv run python -m experiments.ext_llm_v3                  # external LLM set (sibling llm_v3) → results/eval/llm_v3_ext{.json,_report.md}
 uv run python -m experiments.llm_fig                     # figures/llm_auroc_both.png
 uv run python -m experiments.diag_llm_v3                 # E15 exploratory co-movement check on llm_v3

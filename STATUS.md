@@ -1,4 +1,4 @@
-# STATUS (top = current state; updated 2026-10-24 02:29 UTC, iteration 10)
+# STATUS (top = current state; updated 2026-10-24 03:12 UTC, iteration 11)
 
 **All declared analyses DONE** (§4.3 (i)–(v) filled). Scripted half done; LLM: llm_v1 (E18/E19), llm_v3 ext (E13), llm_long (E20), llm_mixed2 (E22).
 Level stats run AUROC 0.87/0.98/0.95; pCMI 0.45/0.52/0.45. pCMI adds nothing to markup. T=50 does not rescue pCMI (declared rule not met; CI wide).
@@ -6,10 +6,9 @@ Level stats run AUROC 0.87/0.98/0.95; pCMI 0.45/0.52/0.45. pCMI adds nothing to 
 TE +0.047 [+0.002, +0.104] (1 of 5 detectors, unadjusted, sign p=.15 → weak at most). No detectable same-model excess; n=12 excludes only large effects.
 **E23:** codex claims review applied (no table-number errors; fixed shared-seed 44–100%, legit top-1 5/20, CMI|state 0.64 on llm_v3 disclosed,
 softened "invisible/never/rescue/causal" wording, stale m=16). Review text: results/reviews/codex_claims_review_iter10.md. **E24:** Opus coherence review applied (order (iv)→(v), §6 repro fixed, abstract attributions).
-**Next (no new LLM runs after 04:00):** (1) abstract rewritten once (02:25) — do not rewrite again;
-(2) tables.py has mixed2 (done) — re-diff all tables vs REPORT once more in finalize; (3) optional: mixed2 same-vs-cross figure;
-(4) §4.3 now split into 4.3.1–4.3.7 (done). Remaining time: light polish only — check figure captions, render REPORT once
-(e.g. grip/pandoc) for broken tables; optional mixed2 figure. No new LLM runs. Finalize from 08:15.
+**E25 (iter 11):** full number audit (sonnet worker): 0 mismatches; dropped 1 untraceable claim, added scripts/market_mean_ranges.py; mixed2 forest figure added; table lint OK.
+**Next:** abstract frozen (do not rewrite). No new LLM batch (E20 rule not met). Remaining: optional final codex read of REPORT
+for clarity only; re-run tables.py once in finalize (08:15) and push. §4.3.1 pilot descriptives have no results file (ledger E04/E05 only) — acceptable, labelled descriptive.
 **Risks:** low n everywhere on LLM; only OpenAI-family sellers (cross-family Claude sellers not run, quota cost).
 
 ## Log
@@ -35,3 +34,4 @@ softened "invisible/never/rescue/causal" wording, stale m=16). Review text: resu
 - iter 10 02:17–02:26: llm_mixed2 finished + evaluated → §4.3 (iv), abstract sentence; scripts/mixed_price_by_model.py; codex claims review → E23 edits.
 - iter 10 02:26–02:29: tables.py mixed(); Opus coherence review → E24 edits.
 - iter 10 02:29: §4.3 restructured into subsections (no number changes).
+- iter 11 02:58–03:12: figures/llm_mixed2_same_vs_cross.png (scripts/mixed_fig.py) → §4.3.5 + §6; table lint OK; no new LLM batch (directive 4); E25 number audit + fixes.
