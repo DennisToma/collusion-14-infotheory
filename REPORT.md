@@ -556,6 +556,7 @@ uv run python -m experiments.ext_llm_v3                  # external LLM set → 
 uv run python -m experiments.llm_fig                     # figures/llm_auroc_both.png
 uv run python scripts/headline_fig.py                    # Figure 1, figures/headline.png
 uv run python scripts/slides.py                         # PRESENTATION.md (5-min talk deck, numbers from results/eval)
+uv run --group export python scripts/export_pdf.py    # REPORT.pdf/.html + PRESENTATION.pdf (export only; needs `uv run --group export playwright install chromium` once)
 uv run python -m experiments.diag_llm_v3                 # E15 exploratory co-movement check on llm_v3
 uv run python scripts/injection_mde.py                   # E30 exploratory planted-co-movement check (§4.3.8), ~2 min
 uv run python scripts/placebo_rep_ext.py                 # E32 sibling replication + placebo (§4.3.9), ~1 min; inputs data/ext_llm_v3{rep,plc}/
