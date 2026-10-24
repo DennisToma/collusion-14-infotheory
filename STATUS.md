@@ -8,7 +8,8 @@ TE +0.047 [+0.002, +0.104] (1 of 5 detectors, unadjusted, sign p=.15 → weak at
 softened "invisible/never/rescue/causal" wording, stale m=16). Review text: results/reviews/codex_claims_review_iter10.md. **E24:** Opus coherence review applied (order (iv)→(v), §6 repro fixed, abstract attributions).
 **Next (no new LLM runs after 04:00):** (1) abstract rewritten once (02:25) — do not rewrite again;
 (2) tables.py has mixed2 (done) — re-diff all tables vs REPORT once more in finalize; (3) optional: mixed2 same-vs-cross figure;
-(4) consider splitting §4.3 into #### subsections (Opus P0 suggestion; only the (iv)/(v) order fix applied). Then STOP editing content; finalize from 08:15.
+(4) §4.3 now split into 4.3.1–4.3.7 (done). Remaining time: light polish only — check figure captions, render REPORT once
+(e.g. grip/pandoc) for broken tables; optional mixed2 figure. No new LLM runs. Finalize from 08:15.
 **Risks:** low n everywhere on LLM; only OpenAI-family sellers (cross-family Claude sellers not run, quota cost).
 
 ## Log
@@ -33,3 +34,4 @@ softened "invisible/never/rescue/causal" wording, stale m=16). Review text: resu
 - iter 9 01:10–02:15: llm_long label+eval (I accidentally pkilled the queue's eval and reran it) → E20 final in §4.3 (v); found E21 mixed-tier bug, fixed, llm_mixed2 launched.
 - iter 10 02:17–02:26: llm_mixed2 finished + evaluated → §4.3 (iv), abstract sentence; scripts/mixed_price_by_model.py; codex claims review → E23 edits.
 - iter 10 02:26–02:29: tables.py mixed(); Opus coherence review → E24 edits.
+- iter 10 02:29: §4.3 restructured into subsections (no number changes).
