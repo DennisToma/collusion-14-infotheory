@@ -7,7 +7,7 @@
 **E60 (new, declared before E44 output):** `scripts/spillover.py` — rivals' markup over no-channel markets. llm_v1 rounds 11–20 +1.86 [1.25,2.48] of pair +2.14; llm_long pilot rounds 41–50 +2.29 [1.24,3.38] of +2.44 → market-wide; deepseek +2.37 of +5.03 → rule not met. In REPORT P2.8(e), glance row 2, takeaway 2, abstract.
 **E59 (declared, generating on Go since 09:51):** deepseek A + public board, same seeds as E45 A, n=15, T=20 → `llm_ds_p2pub`; analysis `uv run python scripts/p2_public.py --run-eval` (tested on dry data only). ETA unknown (~2 games/h in E45 → maybe ~17:00).
 **Checks:** p2_tables --check PASS (264; end marker now "## 5. Limitations"), tables.py --check PASS (404; report_tables excises the two Phase 2 blocks), test_release_audit OK.
-**Opus fact-check of new top text running** (background) — apply its P0/P1 next iteration if not done here.
+**Opus fact-check of new top text APPLIED** (1 P0 + 7 P1 wording; no number changed except main-claim AUROCs now like-for-like C vs A: markup .94/.95/.99, pCMI .48/.45/.57).
 **Next:** (1) E44 → P2.8 rewrite + main claim/abstract/takeaway 7 verdict; (2) E59 → P2.9(e) + one takeaway clause; (3) Sat 19:30 checkpoint exports; (4) Sun final codex review (directive 4).
 **Risks:** E44 timing; Go throughput for E59 (sibling also uses Go).
 

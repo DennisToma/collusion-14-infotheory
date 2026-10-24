@@ -5,24 +5,24 @@ Collusion Through Information Theory and Behavioral Evidence"). Every number bel
 
 **Main claim in one sentence (v1 + Phase 2).** Price-*level* screens and price-*co-movement* statistics (pCMI) fail in
 opposite places: unequal private costs make level screens falsely flag 30/30 scripted markets (pCMI 4/30), while LLM collusion
-shows up as a price level that pCMI does not see (run AUROC 0.44–0.57 in each headline LLM set vs 0.87–1.00 for level screens in the three
-main sets, 0.66 pooled within five smaller wording arms); the private-channel price effect holds across five prompt wordings and two seller families, but the no-channel
+shows up as a price level that pCMI does not see (C vs A run AUROC, same sets: pCMI 0.48 / 0.45 / 0.57 vs max-pair markup 0.94 / 0.95 / 0.99 in `llm_v1`, `llm_long`, deepseek;
+pooled over five small wording arms 0.44 vs 0.66); the private-channel price effect is consistent across five prompt wordings and two seller families, but the no-channel
 *baseline* moves with prompt and model, so absolute screens need model- and prompt-matched reference markets; whether longer
 games rescue pCMI is being settled by E44 (T=60, 20 + 20 games, generating; pilot inconclusive, P2.8).
 
 ## Abstract
-Can a detector that reads only prices and public market state find colluding pricing agents without accusing agents that
-merely share a shock or a model? We test pairwise dependence statistics (MI, CMI, pCMI = Gaussian CMI given public state and
-all lagged prices, TE) and simple price-level screens in a 4-seller repeated price market with scripted and LLM sellers. **Scripted:** pCMI flags a planted shared-signal pair in 100% of runs
+Can a detector reading only prices and public state find colluding pricing agents without accusing agents that
+share a shock or a model? We test dependence statistics (MI, CMI, pCMI = Gaussian CMI given public state and
+all lagged prices, TE) and price-level screens in a 4-seller repeated price market with scripted and LLM sellers. **Scripted:** pCMI flags a planted shared-signal pair in 100% of runs
 and cuts raw MI's common-shock false alarms from 100% to 14% (4% [1, 13] under a surrogate null); policy copies sharing a
 random seed remain a confound. Level screens and co-movement statistics fail in opposite places: unequal private costs make
 level screens flag 30/30 markets (pCMI 4/30), and a relative pair screen reverses against an all-firm cartel (AUROC 0.26).
 **LLM:** a private channel raises markup over Nash (gpt-6-luna +1.8 [1.2, 2.3]; deepseek +3.75 [2.77, 4.68]) mainly as a
-price level: level-screen AUROC 0.87–1.00 in the main sets (0.66 within wording arms), pCMI 0.44–0.57. The level also spreads to the rivals (rounds 11–20:
-non-pair sellers +1.86 [1.25, 2.48] above no-channel markets vs the pair's +2.14). The channel effect holds across five prompt
-wordings (+0.69, SE 0.17), but wording alone moves no-channel prices by up to +2.5, so absolute screens need model- and
+price level: markup AUROC 0.94–0.99, pCMI 0.45–0.57. With gpt-6-luna the level spreads to the rivals (rounds 11–20:
+non-pair sellers +1.86 [1.25, 2.48] above no-channel markets vs the pair's +2.14; deepseek pairs keep more of their lead). The channel effect is consistent across five prompt
+wordings (pooled +0.69, SE 0.17), but wording alone moves no-channel prices from −0.19 to +2.56, so absolute screens need model- and
 prompt-matched references; in the sibling market, level screens also name a pair that only writes notes to itself (11/15). Long games (T=60): *E44
-pending*. At 1% prevalence no flag reaches precision 0.25: flags are audit triggers, not verdicts.
+pending*. At 1% prevalence no flag reaches precision 0.25: flags are audit triggers.
 
 ## Phase 2 at a glance (started 2026-10-24 06:30 UTC; details in [Phase 2 details](#phase-2-details-p21p210))
 Phase 2 closes known gaps; v1 numbers (below) are unchanged (git tag `v1-overnight`). Each Phase 2 experiment is declared in
@@ -37,8 +37,8 @@ Done: P2.1 precision at prevalence, P2.2 independent reimplementation, P2.3 same
 | shared | precision at realistic prevalence | at 1% prevalence no frozen flag reaches precision 0.25 (Jeffreys intervals for TPR/FPR) | `eval/prevalence.json` | P2.1 |
 | shared | independent reimplementation | 422/424 run × statistic cells agree < 1e-9 (2 differ only in the ρ² cap); all 20 AUROCs identical; shift-null flags 4/21 vs 5/21 (Monte Carlo); no bug | `reimpl/compare.json` | P2.2 |
 | 1 | prompt wording (5 wordings, 6 + 6 each) | channel C − A +0.69 (SE 0.17), Q p = 0.69; no-channel baseline −0.19 … +2.56; within-wording markup AUROC 0.66 [0.53, 0.78]; pCMI 0.44 [0.30, 0.58] | `eval/p2_variants.json` | P2.7 |
-| 2 | long games (T=60, 20 + 20) | *generating (E44)*; pilot (T=50, 8 + 8): pCMI AUROC 0.36–0.45 at every prefix; pair premium +1.12 → +0.16 while rivals catch up (spillover +2.29 of the pair's +2.44 by rounds 41–50, E60) | `eval/long_power_llm_long.json` | P2.8 |
-| 3 | same-model confound | mismatched reference: pCMI 52% false flags (exploratory); model-matched fresh pool: 0/21 [0, 16]% false flags, but markup power 1/16 (prompt mismatch) | `eval/same_model.json`, `eval/matched_ref.json` | P2.3 |
+| 2 | long games (T=60, 20 + 20) | *generating (E44)*; pilot (T=50, 8 + 8): pCMI AUROC 0.36–0.45 at every prefix; pair premium +1.12 → +0.16 while rivals catch up (spillover +2.29 of the pair's +2.44 by rounds 41–50, E60) | `eval/long_power_llm_long.json`, `eval/spillover_*.json` | P2.8 |
+| 3 | same-model confound | mismatched reference: pCMI 52% false flags at α = 0.10 (exploratory; fresh matched pool 3/21); model-matched fresh pool at α = 0.05: 0/21 [0, 16]% false flags, but markup power 1/16 (prompt mismatch) | `eval/same_model.json`, `eval/matched_ref.json` | P2.3 |
 | 4 | second seller family (deepseek, 15 + 15) | channel C − A +3.75 [2.77, 4.68] (luna +1.76; interaction +1.99 [0.90, 3.07]); AUROC markup 0.99, pair_level 1.00, pCMI 0.57 [0.36, 0.77]; rule HOLDS; judge: 15/15 agreements, 3/15 followed | `eval/p2_family.json` | P2.9 |
 | 5 | coalition structure (scripted) | all-4 cartel: pair_level AUROC 0.26, 0.25 (A, B; 1/30, 0/30 flagged); markup, pCMI, TC 30/30 | `p2/coalition_test.json` | P2.4 |
 | 6 | onset (scripted) | level CUSUM 0/30 false alarms, 30/30 detected, median delay 7–7.5 rounds; repeated-look pCMI 5/30 = 17% [7, 34] false | `p2/onset_test.json` | P2.4 |
@@ -49,12 +49,12 @@ Done: P2.1 precision at prevalence, P2.2 independent reimplementation, P2.3 same
 
 
 **Phase 2 takeaways** (≤ 8; numbers from the rows above and the sections named).
-(1) **Opposite failure modes.** Unequal private costs: level screens 30/30 false, pCMI 4/30 (P2.4). LLM channels: a level, pCMI at chance in every wording and both families (P2.7, P2.9). A deployer needs both kinds of statistic plus cost data.
+(1) **Opposite failure modes.** Unequal private costs: level screens 30/30 false, pCMI 4/30 (P2.4). LLM channels: mostly a level; pCMI never above chance in any wording or family (template 0.17, below chance), while the level screen also fails in two wordings (markup AUROC 0.31, 0.47; P2.7, P2.9). A deployer needs both kinds of statistic plus cost data.
 (2) **Relative screens miss market-wide elevation.** pair_level reverses against an all-firm cartel (AUROC 0.26 / 0.25, P2.4), and LLM channel effects spill over to the rivals (E60: `llm_v1` rivals +1.86 of the pair's +2.14 by rounds 11–20; T=50 pilot +2.29 of +2.44; deepseek pairs keep more of their lead, +2.37 of +5.03; P2.8). Only an absolute markup sees the whole-market level.
-(3) **Absolute screens need a model- *and* prompt-matched reference.** Mismatched model: pCMI 52% false flags; matched model but other wording: markup power 1/16 (P2.3). The channel effect is robust in our five wordings (+0.69, SE 0.17), not in the sibling's terse paraphrase (Q2.2 E78: +0.24 vs +1.75); the no-channel baseline is prompt-dependent in both (ours −0.19 … +2.56, P2.7).
+(3) **Absolute screens need a model- *and* prompt-matched reference.** At α = 0.10, a mismatched-model pool gives pCMI 11/21 = 52% false flags vs 3/21 for a fresh model-matched pool (0/21 at α = 0.05); matched model but other wordings: markup power 1/16 (P2.3). The channel effect (C − A markup) is consistent in our five wordings (pooled +0.69, SE 0.17), while the sibling's pair premium vanishes under a terse paraphrase (Q2.2 E78: +0.24 vs +1.75; a different metric); the no-channel baseline is prompt-dependent in both (ours −0.19 … +2.56, P2.7).
 (4) **Level screens detect "a pair singled out by the prompt", not delivered coordination:** an undelivered notepad (0/14 agreements) is named 11/15 vs private 12/15 (P2.10); Q2.2 E77 finds notes-to-self yields 0.65 [0.34, 1.32] of the private premium. Deepseek pairs agree 15/15 but follow 3/15, and abandoned pairs still sit +3.23 above rivals (P2.9d).
-(5) **pCMI blind spots:** collusion predictable from public price history (deterministic bid rotation) is invisible to it (P2.6). Its scripted calibration holds across N = 2/4/6 and three demand elasticities (6.0% [3.8, 9.3] pooled false flags, P2.5).
-(6) **Prevalence:** at 1% no flag reaches precision 0.25 (P2.1); audit triggers, not verdicts. An independent reimplementation reproduces every headline statistic (P2.2).
+(5) **pCMI blind spots:** collusion predictable from public price history (deterministic bid rotation) is invisible to it (P2.6). Its scripted calibration mostly holds across N = 2/4/6 and three demand elasticities (6.0% [3.8, 9.3] pooled false flags; 9/10 cells pass, elastic/A fails; P2.5).
+(6) **Prevalence:** at 1% no flag reaches a point-estimate precision of 0.25 (upper CIs up to 0.54; P2.1): audit triggers, not verdicts. An independent reimplementation reproduces the per-run statistics and all 20 AUROCs (shift-null flags 4/21 vs 5/21, Monte Carlo; P2.2).
 (7) **Long games (E44, decisive for Q1.4):** *pending* (pilot inconclusive: pCMI 0.36–0.45 at every prefix, upper CI 0.75; P2.8).
 
 ## v1 (overnight) key findings
@@ -788,7 +788,7 @@ The pre-registered E44 rule ("too short" iff AUROC(pCMI) ≥ 0.65 with lower CI 
 *Per-round market markup over Nash (C vs A) and assigned-pair premium over rivals (C), `llm_long` pilot, 8 + 8 games, game-bootstrap 95% bands; `uv run python scripts/premium_decay_fig.py --name llm_long`. A markets fall to Nash within ~6 rounds, C markets stay ≈ +2.4 throughout, while the pair's lead over its rivals is mostly gone by round ~15.*
 (d) Behaviour split (E56, from the existing judge labels; no new calls). Unlike the sibling's games (36/50 agreements abandoned), most of our agreements are *followed*: 12/16 `llm_v1` C and 6/8 `llm_long` C.
 But the agreed floors are low (12 in 15/18 followed games; static Nash is 10–12). Followed pairs score *below* controls on pCMI (AUROC 0.16 and 0.06) and high on markup (0.94, 0.94). These compare the assigned pair with the A games' maximum over six pairs, which is conservative. Mean assigned-pair pCMI is 0.08 and 0.01, against markups of +1.96 and +2.51.
-(e) Market-wide spillover (E60, declared 09:52 before any E44 detector or price output was read by this analysis; the director had noted from the generation log that early C games show rivals near the pair's price; `uv run python scripts/spillover.py --name <set>` → `results/eval/spillover_<set>.{json,md}`). Per 10-round block: C rivals' markup over Nash minus A market markup (spillover) vs C pair markup minus A (pair excess); declared reading "market-wide" iff the last block's spillover CI excludes 0 and spillover ≥ 0.5 × pair excess. Pilot `llm_long` rounds 41–50: spillover +2.29 [+1.24, +3.38] vs pair excess +2.44 → market-wide; `llm_v1` rounds 11–20: +1.86 [+1.25, +2.48] vs +2.14 → market-wide; deepseek `llm_ds_p2` rounds 11–20: +2.37 [+1.59, +3.15] vs +5.03 → rule not met (rivals elevated, but the pair keeps more than half its lead). So the shrinking pair premium in (c) is the rivals catching up, not the pair falling back: a relative screen loses exactly the signal an absolute markup keeps (compare the all-firm cartel, P2.4, and the sibling's random-partner arm, market markup +2.74 over the none arm, P2.10c).
+(e) Market-wide spillover (E60, declared 09:52 before any E44 detector or price output was read by this analysis; the director had noted from the generation log that early C games show rivals near the pair's price; `uv run python scripts/spillover.py --name <set>` → `results/eval/spillover_<set>.{json,md}`). Per 10-round block: C rivals' markup over Nash minus A market markup (spillover) vs C pair markup minus A (pair excess); declared reading "market-wide" iff the last block's spillover CI excludes 0 and spillover ≥ 0.5 × pair excess. Pilot `llm_long` rounds 41–50: spillover +2.29 [+1.24, +3.38] vs pair excess +2.44 → market-wide; `llm_v1` rounds 11–20: +1.86 [+1.25, +2.48] vs +2.14 → market-wide; deepseek `llm_ds_p2` rounds 11–20: +2.37 [+1.59, +3.15] vs +5.03 → rule not met (rivals elevated, but the pair keeps more than half its lead). Relative to no-channel markets (whose own markup falls from +0.63 to −0.03), the shrinking pair premium in (c) is the rivals staying elevated while the pair drifts down (raw C markups: pair 3.09 → 2.41, rivals 1.97 → 2.26): a relative screen loses exactly the signal an absolute markup keeps (compare the all-firm cartel, P2.4, and the sibling's random-partner arm, market markup +2.74 over the none arm, P2.10c).
 *Pilot reading (n = 8 + 8, exploratory):* the channel signal here is a price level, with no detectable shared move, so more rounds are not expected to help pCMI. E44 tests this with 20 + 20 games at T = 60, with the same declared decision rule.
 
 
