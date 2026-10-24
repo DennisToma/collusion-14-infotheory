@@ -363,6 +363,9 @@ Its shift-null pair flag rates are 0/12, 2/12 and 3/48. For TE (10/48 cross pair
 Reading: in this market, two copies of the same LLM do not produce more price dependence than two different LLMs. This matches the scripted shared-policy case with independent sampling noise (§4.1: pCMI 10% shift / 4% surrogate), not the shared-seed case (44–100% flagged by every contemporaneous detector).
 With n = 12 this rules out large same-model effects only; it does not show the confound is absent. Both models are OpenAI-family, so a cross-family test (e.g. Claude) remains open.
 
+![llm_mixed2 same vs cross](figures/llm_mixed2_same_vs_cross.png)
+*Per-game same-model minus cross-model pair score, mean and bootstrap 95% CI over the 12 games (`uv run python scripts/mixed_fig.py`). Score scales differ by detector, so compare each row with 0, not rows with each other.*
+
 *Data-integrity note (E21):* the first `llm_mixed` batch was invalid. A routing bug (`llm.chat(tier="big", backend="codex")` silently used gpt-6-luna) made all 12 games all-luna, as the per-seller `model` field shows. Its same-vs-cross numbers are discarded unreported. The bug is fixed, `mixed_eval` now drops runs whose mixed sellers did not run a different model, and the set is regenerated as `llm_mixed2`. Judge labels were unaffected (42/42 gpt-6.1-sol).
 
 #### 4.3.6 Longer games (`llm_long`, T=50)
@@ -443,6 +446,7 @@ uv run python -m experiments.llm_report --name llm_long   # (v) tables (results/
 uv run python -m experiments.diag_llm_v1                  # E19 incremental-value + trend diagnostics
 uv run python -m experiments.premium_llm_v3               # §4.4 pair premium on llm_v3
 uv run python scripts/mixed_price_by_model.py             # (iv) llm_mixed2 price by model
+uv run python scripts/mixed_fig.py                        # (iv) figures/llm_mixed2_same_vs_cross.png
 uv run python -m experiments.ext_llm_v3                  # external LLM set (sibling llm_v3) → results/eval/llm_v3_ext{.json,_report.md}
 uv run python -m experiments.llm_fig                     # figures/llm_auroc_both.png
 uv run python -m experiments.diag_llm_v3                 # E15 exploratory co-movement check on llm_v3
