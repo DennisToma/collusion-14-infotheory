@@ -1,0 +1,42 @@
+{
+ "name": "llm_v1",
+ "T": 20,
+ "n_A": 21,
+ "n_C": 16,
+ "blocks": [
+  {
+   "rounds": "1-10",
+   "spillover": [
+    1.1681547619047619,
+    0.7016331845238093,
+    1.6649553571428575
+   ],
+   "pair_excess": [
+    1.8525297619047623,
+    1.3517819940476192,
+    2.3882552083333337
+   ],
+   "A_markup": 0.31309523809523815,
+   "C_rival_markup": 1.48125,
+   "C_pair_markup": 2.165625
+  },
+  {
+   "rounds": "11-20",
+   "spillover": [
+    1.8616071428571428,
+    1.2532663690476193,
+    2.482291666666667
+   ],
+   "pair_excess": [
+    2.1397321428571425,
+    1.5238020833333334,
+    2.7863132440476193
+   ],
+   "A_markup": -0.26785714285714285,
+   "C_rival_markup": 1.59375,
+   "C_pair_markup": 1.871875
+  }
+ ],
+ "verdict": "market-wide spillover",
+ "rule": "last-block spillover CI excludes 0 AND spillover >= 0.5 x pair_excess"
+}

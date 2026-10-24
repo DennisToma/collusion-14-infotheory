@@ -1,6 +1,17 @@
 > **PHASE 2 STARTED 2026-10-24 06:45 UTC** - v1 frozen as tag v1-overnight. New experiments are OPEN again; work queue = DIRECTION.md gap list. Ignore older no-new-experiments / finalize notes below.
 
-# STATUS (updated 2026-10-24 09:50 UTC, Phase 2 iteration 6)
+# STATUS (updated 2026-10-24 09:56 UTC from date -u, Phase 2 iteration 7)
+
+**Phase 2 running.** Only gap 2 (E44) open + E59 (directive 3). REPORT restructured per directive 2: main claim (v1+P2) → Abstract (250 words, combined) → Phase 2 glance + 7 takeaways → v1 key findings → v1 abstract/details → §1–4 → **Phase 2 details (P2.1–P2.10)** → §5.
+**E44:** llm_long_p2 10/40 games (unchanged since 09:45; batch of 5 in flight) → ETA ~12:00–12:30. Do NOT peek; when `data/llm_long_p2_T60` has 40: `bash scripts/e44_post.sh` (now also runs spillover).
+**E60 (new, declared before E44 output):** `scripts/spillover.py` — rivals' markup over no-channel markets. llm_v1 rounds 11–20 +1.86 [1.25,2.48] of pair +2.14; llm_long pilot rounds 41–50 +2.29 [1.24,3.38] of +2.44 → market-wide; deepseek +2.37 of +5.03 → rule not met. In REPORT P2.8(e), glance row 2, takeaway 2, abstract.
+**E59 (declared, generating on Go since 09:51):** deepseek A + public board, same seeds as E45 A, n=15, T=20 → `llm_ds_p2pub`; analysis `uv run python scripts/p2_public.py --run-eval` (tested on dry data only). ETA unknown (~2 games/h in E45 → maybe ~17:00).
+**Checks:** p2_tables --check PASS (264; end marker now "## 5. Limitations"), tables.py --check PASS (404; report_tables excises the two Phase 2 blocks), test_release_audit OK.
+**Opus fact-check of new top text running** (background) — apply its P0/P1 next iteration if not done here.
+**Next:** (1) E44 → P2.8 rewrite + main claim/abstract/takeaway 7 verdict; (2) E59 → P2.9(e) + one takeaway clause; (3) Sat 19:30 checkpoint exports; (4) Sun final codex review (directive 4).
+**Risks:** E44 timing; Go throughput for E59 (sibling also uses Go).
+
+# STATUS (updated 2026-10-24 09:46 UTC, Phase 2 iteration 6; header corrected in iter 7, was stamped 09:50 by estimate)
 
 **Phase 2 running.** Gaps 1, 3–9 + shared DONE; only gap 2 (E44) open. REPORT checkpoint-ready apart from P2.8 (pilot) + glance row 2.
 **E44 progress:** llm_long_p2 10/40 games at 09:45 (~25 min per 5-game batch) → ETA ~11:30; then p2b T=80 replay snapshots `data/llm_long_p2_T60` first.

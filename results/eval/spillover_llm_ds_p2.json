@@ -1,0 +1,42 @@
+{
+ "name": "llm_ds_p2",
+ "T": 20,
+ "n_A": 15,
+ "n_C": 15,
+ "blocks": [
+  {
+   "rounds": "1-10",
+   "spillover": [
+    1.8916666666666668,
+    1.2233333333333332,
+    2.555125000000001
+   ],
+   "pair_excess": [
+    5.704999999999999,
+    4.3466249999999995,
+    6.990291666666667
+   ],
+   "A_markup": 0.0016666666666666754,
+   "C_rival_markup": 1.8933333333333333,
+   "C_pair_markup": 5.706666666666667
+  },
+  {
+   "rounds": "11-20",
+   "spillover": [
+    2.3716666666666666,
+    1.5882916666666667,
+    3.151666666666667
+   ],
+   "pair_excess": [
+    5.028333333333333,
+    3.528249999999999,
+    6.465041666666668
+   ],
+   "A_markup": -1.1716666666666666,
+   "C_rival_markup": 1.2,
+   "C_pair_markup": 3.8566666666666665
+  }
+ ],
+ "verdict": "no market-wide spillover (declared rule not met)",
+ "rule": "last-block spillover CI excludes 0 AND spillover >= 0.5 x pair_excess"
+}

@@ -220,7 +220,7 @@ BUILDERS = {"P2.1": p21, "P2.3": p23, "P2.4": p24, "P2.5": p25, "P2.6": p26, "P2
 
 
 def check(report):
-    a, b = report.index("**P2.1 Precision"), report.index("\n## Abstract")  # the at-a-glance summary table is prose-checked, not regenerated
+    a, b = report.index("**P2.1 Precision"), report.index("\n## 5. Limitations")  # the at-a-glance summary table is prose-checked, not regenerated
     blocks = parse_tables(report[a:b], include_header=True)
     if len(blocks) != len(BUILDERS):
         print(f"FAIL: expected {len(BUILDERS)} tables in Phase 2 section, found {len(blocks)}")
