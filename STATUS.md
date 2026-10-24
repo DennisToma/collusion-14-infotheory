@@ -1,14 +1,13 @@
-# STATUS (top = current state; updated 2026-10-24 03:40 UTC, iteration 12)
+# STATUS (top = current state; updated 2026-10-24 03:58 UTC, iteration 13)
 
 **All declared analyses DONE** (§4.3 (i)–(v) filled). Scripted half done; LLM: llm_v1 (E18/E19), llm_v3 ext (E13), llm_long (E20), llm_mixed2 (E22).
 Level stats run AUROC 0.87/0.98/0.95; pCMI 0.45/0.52/0.45. pCMI adds nothing to markup. T=50 does not rescue pCMI (declared rule not met; CI wide).
 llm_mixed2: same − cross pCMI +0.003 [−0.025, +0.032]; TE +0.047 [+0.002, +0.104] (1 of 5 detectors, unadjusted) → no detectable same-model excess.
-Reviews applied: E23 (codex claims), E24 (Opus coherence), E25 (full number audit, 0 mismatches).
-**E26 (iter 12): clean-clone reproducibility verified.** Sibling llm_v3 inputs are snapshotted into data/ext_llm_v3 (SHA256SUMS), so the clone does not need the sibling.
-In a fresh git clone, every LLM eval/report/diag/figure script re-ran → results JSON + PNGs byte-identical; tables.py output identical; scripted seed-1001
-gen identical to committed .gz (except run_id prefix). Added README.md (judge entry point). No LLM calls needed for any re-analysis.
-**Next:** abstract frozen (do not rewrite). No new LLM batch (E20 rule not met; no launches after 04:00). Remaining: optional codex clarity read;
-re-run tables.py in finalize (08:15) and push. §4.3.1 pilot descriptives have no results file (ledger E04/E05 only), labelled descriptive.
+Reviews applied: E23 (codex claims), E24 (Opus coherence), E25 (full number audit, 0 mismatches), E26 clean-clone regen (byte-identical).
+**E27 (iter 13):** Figure 1 `figures/headline.png` (`scripts/headline_fig.py`, from results JSON) at top of REPORT + README;
+codex judge-clarity review applied (pCMI defined at first use, plain nulls, AUROC scale, A–D = market types, 3 softenings).
+**Next:** no new experiments/LLM launches (directive; after 04:00). Optional: Opus independent read of top 40 lines;
+at 08:15 re-run tables.py + headline_fig.py + check README renders; push. Skipped codex suggestion to reorder §4.3 (risk).
 **Risks:** low n everywhere on LLM; only OpenAI-family sellers (cross-family Claude sellers not run, quota cost).
 
 ## Log
@@ -36,3 +35,4 @@ re-run tables.py in finalize (08:15) and push. §4.3.1 pilot descriptives have n
 - iter 10 02:29: §4.3 restructured into subsections (no number changes).
 - iter 11 02:58–03:12: figures/llm_mixed2_same_vs_cross.png (scripts/mixed_fig.py) → §4.3.5 + §6; table lint OK; no new LLM batch (directive 4); E25 number audit + fixes.
 - iter 12 03:01–03:40: E26 clean-clone regeneration (all byte-identical), data/ext_llm_v3 snapshot, README.md, §6 note.
+- iter 13 03:37–04:00: E27 headline Figure 1 + codex judge-clarity edits (no number changes).

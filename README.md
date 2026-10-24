@@ -2,13 +2,15 @@
 
 **Read [`REPORT.md`](REPORT.md)** (write-up with all numbers, CIs, figures and limitations).
 
-Question: can pairwise dependence measures computed from **prices only** (|Pearson|, MI, CMI given public state,
-partial CMI given state + lagged prices = pCMI, transfer entropy) find colluding seller pairs without accusing sellers
+Question: can pairwise dependence measures computed from **prices and public market state only** (|Pearson|, MI, CMI given public state,
+partial CMI given state + lagged prices = pCMI, transfer entropy; no messages) find colluding seller pairs without accusing sellers
 that merely share a public shock or a policy?
 
 Short answer (details and CIs in REPORT): pCMI separates coordinated price *variation* from shared shocks and shared
 policies in a scripted market. In two LLM pricing markets, though, the private channel shows up mainly as a price *level*.
-Dependence measures ignore levels by construction, so a simple markup or pair-level statistic does much better there.
+Dependence measures ignore levels by construction, so simple level scores do much better there: markup (price above the competitive Nash benchmark) or pair premium (a pair's average price above its rivals').
+
+![Figure 1](figures/headline.png)
 
 | path | what |
 |---|---|
