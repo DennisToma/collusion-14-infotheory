@@ -7,7 +7,7 @@
 **This iteration:** P2.3 trimmed (20 → 13 lines of text, no numbers changed, `p2_tables.py --check` PASS); **race fixed**: `matched_ref.py` now reads `llm_long_p2_T60` (p2b rewrites `data/llm_long_p2`); new one-shot `scripts/e44_post.sh` (label → eval T10..60 → long_power → premium_decay_fig → matched_ref final → behaviour_split), all on the T60 copy.
 codex review of glance/P2.9/P2.10/abstract APPLIED: 4 P0 text fixes verified vs JSON (reimpl 422/424 cells, rotation controls 5/30,4/30, coalition AUROC .26/.25, ds CI 2.36); P1 wording; p2_family flag_rate summary bug fixed.
 **E58 (new, P2.9d):** deepseek judge: 15/15 agreements (median agreed price 20), only 3/15 followed, abandoned pairs still +3.23 over rivals → level signal does not need the agreement kept.
-**Next:** (1) when `data/llm_long_p2_T60` has 40 games: `bash scripts/e44_post.sh` → rewrite P2.8 (E44 rule decision, MDE bound, decay), glance row 2, abstract sentence; (2) Opus review of the final P2.8 + abstract before 19:30; (3) optional judge labels for llm_ds_p2 when codex parallelism allows.
+**Next:** (1) when `data/llm_long_p2_T60` has 40 games: `bash scripts/e44_post.sh` → rewrite P2.8 (E44 rule decision, MDE bound, decay), glance row 2, abstract sentence; (2) Opus review of the final P2.8 + abstract before 19:30; (3) Phase 2 work after E44: gap 9 already scripted (E53); remaining = final claims review + checkpoint polish.
 **Checks (09:46):** p2_tables --check PASS (264 cells), tables.py --check PASS (404), test_release_audit 8/8 OK.
 **Risks:** E44 timing (~11:30 + T80 ~14:30); codex parallelism (queue uses 5).
 
