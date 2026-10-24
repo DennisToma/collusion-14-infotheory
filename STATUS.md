@@ -1,6 +1,15 @@
 > **PHASE 2 STARTED 2026-10-24 06:45 UTC** - v1 frozen as tag v1-overnight. New experiments are OPEN again; work queue = DIRECTION.md gap list. Ignore older no-new-experiments / finalize notes below.
 
 
+# STATUS (updated 2026-10-24 13:53 UTC from date -u, Phase 2 iteration 12; follows DIRECTION 13:45)
+
+**E67 stickiness screen (declared e7d7375 before computing):** confirmatory gpt-5.6-luna FAILS (AUROC .46 [.30,.61]; every market sticky .97/.97). Exploratory: works where no-channel sellers undercut (qwen .99/.96, deepseek .84); fails for gpt-6-luna (E44 T=60 .35: channel markets change price MORE). Mechanism for below-chance pCMI **not supported** (ρ ≥ 0 or CI incl. 0 in 10/11 sets) → P2.11(e). Confirmatory E65/E66 rows are added automatically when they complete.
+**Text fixes (DIRECTION #2):** E64 circularity is now stated (level AUROCs on the executed subset are ≈ 1 by construction; the comparison is executed vs non-executed pCMI .43 vs .49) in the main claim, abstract, glance row C and P2.11(c). E61 now reads "no detectable effect" + A-arm contrast abliterated − base **+1.06 [0.38, 1.74]** (exploratory). glm-5.2 DROPPED (0 games; Go silent since 13:23).
+**Pre-wired:** `p2_partc.py` skips incomplete declared sets (COMPLETE_N) and computes the E65 declared verdict; P2.11 table builder lists E65 (row appears when complete). `scripts/e65_final.sh` (run after the e65_post watcher logs 'E65 label+eval done': p2_partc + spillover + decay + E67). **`scripts/e66_post.sh` watcher running** (setsid): waits for sibling 40/40 + generator exit + class file with 40 runs → snapshot (copies the sibling class file) → strongF_ext (run-by-run class check vs sibling, prints mismatches) → E67 rerun. Logs: `/var/tmp/c14/queue_partc.log`, `e66.log`.
+**Running:** E65 `llm_strong_qa` 8/40 at 13:51 (ETA ~16:30); sibling strongF 20/40; luna memory pilot 5/10 (descriptive, not promoted); D2 CDA (see below).
+**Checks:** p2_tables --check PASS (327 cells), tables --check PASS, test_release_audit OK.
+**Next:** (1) E65 → `bash scripts/e65_final.sh` → P2.11 row + verdict verbatim + glance + takeaway 7; (2) E66 done → P2.11 (e66 line, class-check result) + glance; (3) D2 per DIRECTION #4 (smoke by 18:00, drop at 20:00 if it fails); (4) 18:30 one adversarial review (Opus OR codex) of abstract+glance+P2.8+P2.11; 19:30 checks + PDFs.
+
 # STATUS (updated 2026-10-24 13:47 UTC from date -u, Phase 2 iteration 11; NB the iteration-10 header said "13:45" but was written ~13:20)
 
 **E62 gpt-5.6-luna DONE (P2.11 table row + (a)):** tacit 9/10 A [.62,.99], A markup +3.06 (opens +2.5 over Nash in round 1 and never erodes; gpt-6-luna competes to Nash by round 5) → markup AUROC .75, C−A +1.44 [0.23,2.59], pCMI .72 [.47,.92] (CI incl .5), executed 4/10. Older model = high prior price → absolute screens need model-matched refs.

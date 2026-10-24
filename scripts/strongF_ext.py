@@ -61,6 +61,12 @@ def snapshot(name):
         if (src / f).exists():
             shutil.copy2(src / f, dst / f)
             sums.append(f"{hashlib.sha256((dst / f).read_bytes()).hexdigest()}  {f}")
+    cf = SIB / "results" / "analysis" / f"p2_strong_classes_{name}.json"  # sibling's own class file (DIRECTION 13:45 #1)
+    if cf.exists():
+        shutil.copy2(cf, dst / "sibling_classes.json")
+        sums.append(f"{hashlib.sha256((dst / 'sibling_classes.json').read_bytes()).hexdigest()}  sibling_classes.json")
+    else:
+        print(f"WARNING: sibling class file {cf} missing; class check will be skipped")
     (dst / "SHA256SUMS").write_text("\n".join(sums) + "\n")
     commit = subprocess.run(["git", "-C", str(SIB), "rev-parse", "--short", "HEAD"], capture_output=True, text=True).stdout.strip()
     n = sum(1 for _ in open(dst / "ground_truth.jsonl"))
@@ -105,8 +111,24 @@ def classes(name, tol=1, frac=.5, min_floor=13):
     return out
 
 
+def class_check(name, C):
+    """Run-by-run comparison of our copied class code with the sibling's class file; mismatches are reported, not resolved."""
+    f = ROOT / "data" / f"ext_{name}" / "sibling_classes.json"
+    if not f.exists():
+        return {"checked": False}
+    sib = json.load(open(f))["runs"]
+    norm = lambda c: c.split("_")[0].replace("tacit", "tacit_high") if not c.startswith("tacit") else "tacit_high"
+    mm = [(r, C[r]["cls"], sib[r]["class"]) for r in sorted(set(C) & set(sib)) if norm(sib[r]["class"]) != C[r]["cls"]]
+    out = {"checked": True, "n_compared": len(set(C) & set(sib)), "only_ours": sorted(set(C) - set(sib)),
+           "only_sibling": sorted(set(sib) - set(C)), "mismatches": mm}
+    print(f"class check vs sibling: {out['n_compared']} compared, {len(mm)} mismatches, "
+          f"{len(out['only_ours'])} only ours, {len(out['only_sibling'])} only sibling" + (f"  MISMATCHES: {mm}" if mm else ""))
+    return out
+
+
 def main(name, B=50):
     C = classes(name)
+    chk = class_check(name, C)
     orig, src, z = it._design, ext.SRC, ext._Z["lev"]
     it._design = ext._design_numeric
     try:
@@ -122,7 +144,7 @@ def main(name, B=50):
     res = {"name": name, "n": {c: len(v) for c, v in grp.items()}, "B": B,
            "executed_rate": [len(grp["executed"]), len(grp["private"]), jeffreys(len(grp["executed"]), len(grp["private"]))],
            "tacit_rate": [len(grp["tacit_high"]), len(grp["none"]), jeffreys(len(grp["tacit_high"]), len(grp["none"]))],
-           "auroc": {}, "classes": C, "run_scores": S}  # run_scores: max-pair (market_level: mean) frozen scores, read by e67_sticky.py
+           "auroc": {}, "classes": C, "run_scores": S, "class_check": chk}  # run_scores: max-pair (market_level: mean) frozen scores, read by e67_sticky.py
     for p, n in CONTRASTS:
         key = f"{p}_vs_{n}"
         res["auroc"][key] = {}
