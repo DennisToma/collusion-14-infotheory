@@ -1,6 +1,15 @@
 > **PHASE 2 STARTED 2026-10-24 06:45 UTC** - v1 frozen as tag v1-overnight. New experiments are OPEN again; work queue = DIRECTION.md gap list. Ignore older no-new-experiments / finalize notes below.
 
 
+# STATUS (updated 2026-10-24 15:04 UTC from date -u, Phase 2 iteration 13; follows DIRECTION 13:45)
+
+**D2 / E68:** v1 smoke comms seed 0 OK (90 calls, 0 parse fails, trades every round; asks sit ≈80.5 = cost, chat is competitive: "lowering my ask to compete"). Full set launched: `scripts/d2_queue.sh` (setsid; waits for nocomms s0 smoke, then seeds 1–14 interleaved comms/nocomms, one writer, ~12 min/run → ETA ~21:30). Log `/var/tmp/c14d2/full.log`. When 30 runs: `uv run python scripts/e68_cda.py` → P2.12 (stub in REPORT). Risk: if comms never raise asks, E68 = "inconclusive / nothing to detect": report it as such.
+**E69:** `llm_qa36_p2` 30/30 done + judge-labelled (C agreement 15/15, coord 11; A 0). `llm_qb36_p2` (aqueduct, w2) only 2/30 at 15:00 (~9.5 min/game → ETA ~17:30). Declared contrast NOT computed yet. When 30: `uv run python scripts/p2_partc.py --label --run-eval`.
+**E65:** 32/40 at 15:03. `e65_post.sh` (label+eval) → new `scripts/e65_chain.sh` auto-runs `e65_final.sh` → `/var/tmp/c14/e65_final.log`. Next iteration: read the verdict there, write it verbatim into P2.11 + glance + takeaway 7.
+**E66:** sibling `llm_p2strongF` 33/40; `e66_post.sh` watcher running (log `/var/tmp/c14/e66.log`).
+**REPORT:** added P2.12 D2 stub; Limitations gained cross-repo lines (Q2.2 P2.9 no evasion arm, SALT D1 pCMI n/a + P(said|executed) 0.385, P2.10 asymmetry); seller-model limitation updated for Part C. Checks: p2_tables PASS (327), tables PASS, release audit OK.
+**Next:** (1) E65 verdict write-up; (2) E66 write-up; (3) E69 contrast when qb36 completes; (4) 18:30 one adversarial review (Opus subagent; codex saturated) of abstract+glance+P2.8+P2.11; 19:30 checks + PDFs; (5) D2 analysis when complete.
+
 # STATUS (updated 2026-10-24 13:53 UTC from date -u, Phase 2 iteration 12; follows DIRECTION 13:45)
 
 **E67 stickiness screen (declared e7d7375 before computing):** confirmatory gpt-5.6-luna FAILS (AUROC .46 [.30,.61]; every market sticky .97/.97). Exploratory: works where no-channel sellers undercut (qwen .99/.96, deepseek .84); fails for gpt-6-luna (E44 T=60 .35: channel markets change price MORE). Mechanism for below-chance pCMI **not supported** (ρ ≥ 0 or CI incl. 0 in 10/11 sets) → P2.11(e). Confirmatory E65/E66 rows are added automatically when they complete.
