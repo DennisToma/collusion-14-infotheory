@@ -1,0 +1,10 @@
+- **L9–11, L37:** “Yes,” “100%,” and “removes” overstate scope. Fix: “pCMI flagged 50/50 markets per collusive group in the easiest shared-signal case; common-shock false alarms fell to 14%, still above nominal 5%.”
+- **L29–35:** Header labels the whole table “shift null.” Fix: “Markets flagged, α=.05”; label each column’s null. Add: “B’s 4% surrogate rate is bounded by construction, not independent calibration evidence.”
+- **L10–11:** “Markup … beats every dependence measure” overstates comparisons. Fix: “Level statistics discriminate channel assignment better than pCMI in these datasets; markup’s advantage over MI/TE is unresolved within D vs B.”
+- **L10, L60–61:** “No for LLM sellers” and “invisible” conflate screening failure with absent dependence. Fix: “pCMI shows no clear run discrimination here; differenced MI localises the sibling pair above chance. Low power remains unresolved.”
+- **L43–51:** Level labels obscure different quantities. Fix: “Market-average markup effect”; table columns “Max pair-minus-rivals mean price” and “Max-pair mean markup over Nash.”
+- **L45:** Missing outcome caveat. Add: “AUROC measures channel assignment, not realised collusion; only 17/32 `llm_v1` channel games meet the realised label.”
+- **L55:** “No detectable shared-model dependence” exceeds the pCMI result. Fix: “No same-model pCMI excess detected; 12 games exclude only large effects.”
+- **L62–63:** AUROC 0.75 ranks **markets**, not partnerships. Fix: “Markets containing legitimate partnerships rank above controls; the top pair is the partnership in only 5/20 runs.”
+- **L63–64:** “Was enough” overstates exploratory placebo evidence. Fix: “In 15 matched seeds, undelivered-message placebo and private premiums were similar: difference +0.03 [−0.54, +0.49]; channel offer appears sufficient.”
+- **L72:** Sample-size list omits the sibling dataset. Fix: “LLM n: `v1` 74, `v3` 125 (70 private/35 none/20 legit), long 16, mixed 12.”

@@ -419,7 +419,7 @@ result; that dependence detectors fail on LLM agents in general. Follow-ups: mix
 
 ### 4.4 Umbrella synthesis with the sibling project (Q2.2, text + action auditing)
 Numbers in this paragraph come from the sibling repo `collusion-22-say-vs-do` (REPORT abstract, locked test split n = 95, read 01:05 UTC; placebo result read 04:05 UTC at sibling commit 6a1de73; not regenerated here). The two projects reach a consistent conclusion from opposite directions.
-* (1) In both LLM markets the private channel shows up first as a **price level**: here pair_level/markup reach run AUROC 0.87–0.98, and the sibling's one-line pair-premium statistic reaches 0.95 on its test split, beating every zero-shot LLM auditor view (≤ 0.86).
+* (1) In both LLM markets the private channel shows up first as a **price level**: here pair_level/markup reach run AUROC 0.87–0.98, and the sibling's one-line pair-premium statistic reaches 0.95 on its test split (0.92 [0.79, 1.00] on its 30-run fresh replication, read 04:20 UTC at sibling commit ddc2532), beating every zero-shot LLM auditor view (≤ 0.86).
 * (2) Signals that look for *how* agents coordinate add little on these short games: conditioned dependence (pCMI) does not resolve above-chance discrimination here (0.45 [0.32, 0.59], 0.52 [0.39, 0.64]), and the zero-shot text-only auditor is at chance there (0.47). The sibling's supervised text classifier (0.98, in-distribution) shows the text carries condition information, though not which cues it uses.
 * (3) Level statistics are not collusion-specific. They rank markets with the `legit` public partnership above controls (pair_level AUROC 0.75 here, usually naming a non-partner pair), and they flag tacitly supra-competitive no-channel markets.
 * Caveat from the sibling's later exploratory placebo study (15 matched seeds): when private messages are offered but never delivered, the designated pair's premium is about the same (rounds 2–12, placebo − private +0.03 [−0.54, +0.49]). So in `llm_v3` the level signal cannot be attributed specifically to *delivered* private coordination; being offered the channel appears to suffice. We did not run a placebo arm in `llm_v1`.
@@ -464,6 +464,7 @@ uv run python scripts/market_mean_ranges.py               # §4.3.2 llm_v1 marke
 uv run python -m experiments.ext_llm_v3                  # external LLM set → results/eval/llm_v3_ext{.json,_report.md}; input snapshot data/ext_llm_v3/ (sibling llm_v3, SHA256SUMS)
 uv run python -m experiments.llm_fig                     # figures/llm_auroc_both.png
 uv run python scripts/headline_fig.py                    # Figure 1, figures/headline.png
+uv run python scripts/slides.py                         # PRESENTATION.md (5-min talk deck, numbers from results/eval)
 uv run python -m experiments.diag_llm_v3                 # E15 exploratory co-movement check on llm_v3
 uv run python scripts/tables.py                          # reprints §4.1/§4.2 tables from results/*.json (+ §4.3 generated tables)
 uv run python -m experiments.llm_report --name llm_v1   # §4.3 tables (results/eval/llm_v1_report.md) + figures/llm_v1_*.png
