@@ -11,6 +11,18 @@
 
 ## Dated log (prior state summaries retained verbatim)
 
+# STATUS (updated 2026-10-24 21:55 UTC, Phase 2 iteration 33; follows DIRECTION 20:00)
+
+**E70: 6 sweeps complete (2026-10-24 22:22:40 UTC, both lanes; generation ended).** Per-cell × arm public-board-share table: `results/eval/e70_grid.md` (table "cell | M | board share A / C") and `results/eval/e70_grid.json` key `amend2_board_share` + per-cell `board_share` — written by `e70_post.sh`'s single eval (running now).
+
+**Iteration 33: D2 / E68 LANDED (DIRECTION #2).** 30/30 games (nocomms s14 regenerated once, R32). `scripts/e68_cda.py` run ONCE → `results/eval/e68_cda.{json,md}`. **Declared verdict: INCONCLUSIVE.** Manipulation gate passes barely: ask effect +0.39 [+0.06, +0.69] (≈2% of 20-unit surplus; both arms ask ≈ cost +2). Level AUROC 0.68 [0.46, 0.88], paid-price 0.68 [0.46, 0.88] (asks ≠ paid prices stated), pCMI 0.60 [0.40, 0.80], TE 0.61, sticky 0.38; pCMI flags nocomms 5/15 (null uncalibrated here, descriptive). 18 parse failures in 14/30 runs.
+**For Q2.2 (one-line citation):** "D2/E68: on the starter CDA with qwen-3.6-35b, chat raises asks only +0.39 [+0.06, +0.69]; level and pCMI both inconclusive (0.68 [0.46, 0.88], 0.60 [0.40, 0.80]) — an external-validity null."
+**REPORT:** P2.12 result (≤10 lines + checked table), glance D2 row, status line, abstract clause (abstract 258 words), merge block updated. `p2_tables.py --check` PASS, 442 cells, 0 mismatches. REPORT 948 lines.
+**E70 generation:** gpt-6-luna lane complete (sweeps 0–5, 20:54). qwen lane on its last sweep (c08 done 21:39, c09 running; c10–c15 left) → generation end ETA ≈ 22:30–22:45. NOT yet "6 sweeps complete". Chain/post/prelabel alive; no E70 outcome inspected.
+**Research headline unchanged:** level > pCMI 9/9 main sets (7 models); pCMI not above chance 8/9; E44 T=60 0.34 [0.18, 0.52]; executed-only 0.42 [0.33, 0.53], definition range 0.343–0.531 (E71).
+**Next:** the moment qwen lane logs "sweep 5 complete" → write "6 sweeps complete" + board-share table path in STATUS (Q2.2 E113 trigger). E70_EXIT=0 → `e70_fig.py` + `p2_landing.py e70 --part all` → ≤15-line P2.14 with design limits, k_pos/k_tie/k_neg, qwen-cell replication verdict, abstract sentence replacing "E70 … is pending" (keep ≤ 260 words), P2.13 +k/16, merge block. Then let the follow-up run untouched.
+**Risks:** E70 ETA slips if qwen/aqueduct slows. No amendments, audits, tooling or exports tonight.
+
 # STATUS (updated 2026-10-24 20:12 UTC, Phase 2 iteration 31; follows DIRECTION 20:00)
 
 **Iteration 31: no new result landed; ending early as DIRECTION requires.** Completion metadata: D2 25/30; E70 three balanced sweeps complete (cells c00–01 have five, c02–10 four, c11–15 three). Generation/post/prelabel processes alive; no E70 final log yet. **Iteration 30 handoff remains DONE (DIRECTION #5).** Main claim now states the observed co-move excess +0.004 [−0.007, +0.015] beside the injection-specific pCMI sensitivity (q=0.1, AUROC 0.79 [0.70, 0.88]), explicitly not a general power bound. Eight-line “For the merged report” block under the abstract includes three CI/denominator summaries, figure path, joint-statement location and exclusions.
