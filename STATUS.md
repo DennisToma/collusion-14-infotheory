@@ -15,6 +15,8 @@
 
 **Iteration 39 (2026-10-24 23:05 UTC, `date -u`):** nothing landed; follow-up completion metadata remains fmodel0 (luna) 12/24 and fmodel1 (qwen) 10/24 (240/200 saved trajectory rows). Generator lanes and `e70_post.sh` alive; no follow-up analysis log yet; qwen budget $18.13, status ok. No outcomes inspected or experiments changed; REPORT remains current and unchanged. Ending early per DIRECTION 22:05 STOP rule: one STATUS line when nothing lands.
 
+**Iteration 40 (2026-10-24 23:21 UTC, `date -u`):** nothing landed; follow-up ground_truth rows fmodel0 (luna) 18/24, fmodel1 (qwen) 18/24; generator lanes + `e70_post.sh` alive; no `e70_followup.log`; qwen budget $18.13 (ok). No outcomes inspected; ending per DIRECTION 22:05 STOP rule. ETA ≈ 23:45–00:15.
+
 ## Dated log (prior state summaries retained verbatim)
 
 # STATUS (updated 2026-10-24 23:05 UTC, Phase 2 iteration 34; follows DIRECTION 22:05)
