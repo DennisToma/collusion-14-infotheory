@@ -116,13 +116,13 @@ from a private signal. TE (not shown) flags legitimate public leader-follower pr
 
     s.append(f"""## What this means
 * **Dependence detectors respond to coordinated *variation*, not to agreement as such.** They are built to ignore a constant
-  high price. In these two markets LLM collusion shows up mainly as a level shift, so it falls largely outside what they
+  high price. In these two markets the private channel shows up mainly as a level shift (AUROCs target channel assignment, not realised collusion), so it falls largely outside what they
   measure. Some coordinated variation is present: on first differences, MI localises the `llm_v3` channel pair above chance (REPORT §4.3.3, exploratory); in a 15-seed placebo replication it names the pair in {plc['mi_diff']['top1_private']['hits']:.0f}/15 runs with delivered messages vs {plc['mi_diff']['top1_placebo']['hits']:.0f}/15 without (sign-flip p={plc['mi_diff']['top1_private_minus_placebo']['p_signflip_exact']:.3f}, unadjusted; suggestive only, §4.3.9).
 * **Level screens separate channel assignment but are not collusion-specific.** They also rank markets with a *legitimate* public
   partnership above controls (AUROC {legit['auroc']:.2f}), naming the partner pair in only {v3['pair_level']['top1_legit']['k']}/{v3['pair_level']['top1_legit']['n']} runs. In the sibling
   project, *offering* a private channel that never delivered messages raised prices about as much as delivering them
   (exploratory, 15 seeds). Our frozen pair_level on those runs names the pair in {plc['pair_level']['top1_placebo']['hits']:.1f}/15 placebo vs
-  {plc['pair_level']['top1_private']['hits']:.1f}/15 private runs; no detector separates private from placebo at n=15 (REPORT §4.3.9).
+  {plc['pair_level']['top1_private']['hits']:.1f}/15 private runs; no detector's private-vs-placebo AUROC CI excludes 0.5 at n=15 (REPORT §4.3.9).
   In exploratory sibling monitor/firm-framing strata with no judge-labelled agreements, pair_level yielded
   {nag['hits']:.1f}/{nag['n']} tie-averaged hits, with no detected above-chance localisation (chance expectation {nag['n']/6:.1f}; REPORT §4.3.10; framing confounded).
 * Suggested pipeline (a hypothesis, untested): a cheap always-on level screen, then dependence and text audits as

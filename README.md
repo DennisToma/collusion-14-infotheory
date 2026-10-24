@@ -6,8 +6,8 @@ Question: can pairwise dependence measures computed from **prices and public mar
 partial CMI given state + lagged prices = pCMI, transfer entropy; no messages) find colluding seller pairs without accusing sellers
 that merely share a public shock or a policy?
 
-Short answer (details and CIs in REPORT): pCMI separates coordinated price *variation* from shared shocks and shared
-policies in a scripted market. In two LLM pricing markets, though, the private channel shows up mainly as a price *level*.
+Short answer (details and CIs in REPORT): in a scripted market, pCMI detects planted coordinated price *variation* while reducing false alarms from shared shocks and
+independently sampled shared policies (policy copies sharing a random seed remain a confound). In two LLM pricing markets, though, the private channel shows up mainly as a price *level*.
 Dependence measures ignore levels by construction, so simple level scores do much better there: markup (price above the competitive Nash benchmark) or pair premium (a pair's average price above its rivals'). But level scores are not collusion-specific: they also rank legitimate public partnerships above controls and, in the sibling's placebo runs (channel offered, messages never delivered), name the pair about as often (13.5/15 vs 14/15). In exploratory sibling monitor/firm-framing strata with no judge-labelled agreements, pair_level yielded 3.3/30 tie-averaged hits, with no detected above-chance localisation (chance expectation 5.0; REPORT §4.3.10; framing confounded).
 
 ![Figure 1](figures/headline.png)
