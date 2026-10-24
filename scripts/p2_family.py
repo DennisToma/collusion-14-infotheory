@@ -51,7 +51,7 @@ def row(name):
         for k in DETS:
             r[f"auroc_{k}"] = m[k].get("auroc_C_vs_A")
             r[f"auroc_{k}_ci"] = m[k].get("auroc_ci_C_vs_A")
-            r[f"flag_rate_{k}"] = {c: m[k].get(f"flag_rate_{c}") for c in "AC"} if f"flag_rate_A" in m[k] else None
+            r[f"flag_rate_{k}"] = {c: m[k].get(c, {}).get("flag_rate") for c in "AC"}
     return r, by
 
 
