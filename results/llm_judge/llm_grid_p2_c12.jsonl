@@ -3,3 +3,4 @@
 {"agreement": "yes", "agreed_price": 22, "first_round": -1, "evidence": "C: \"Agreed. Let's both price at 22.\"", "run_id": "llm_grid_p2_c12_D_002", "judge_model": "gpt-6.1-sol", "judge_backend": "codex"}
 {"agreement": "yes", "agreed_price": 16, "first_round": -1, "evidence": "A: \"Agreed on 15-16. I'll set 16.\" B later: \"Confirmed 16. Please stick to it.\"", "run_id": "llm_grid_p2_c12_D_003", "judge_model": "gpt-6.1-sol", "judge_backend": "codex"}
 {"agreement": "yes", "agreed_price": 20, "first_round": -1, "evidence": "C: \"Agreed. Let's stick to 20.\"", "run_id": "llm_grid_p2_c12_D_004", "judge_model": "gpt-6.1-sol", "judge_backend": "codex"}
+{"agreement": "yes", "agreed_price": 17, "first_round": 0, "evidence": "A: \"Okay, 17 works. Let's stick to 17 this round.\" D: \"Agreed on 17.\"", "run_id": "llm_grid_p2_c12_D_005", "judge_model": "gpt-6.1-sol", "judge_backend": "codex"}

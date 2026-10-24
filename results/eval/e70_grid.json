@@ -1,0 +1,3932 @@
+{
+ "complete_sweeps": 6,
+ "n_games": 192,
+ "excluded_model_mismatch": {
+  "c00": 0,
+  "c01": 0,
+  "c02": 0,
+  "c03": 0,
+  "c04": 0,
+  "c05": 0,
+  "c06": 0,
+  "c07": 0,
+  "c08": 0,
+  "c09": 0,
+  "c10": 0,
+  "c11": 0,
+  "c12": 0,
+  "c13": 0,
+  "c14": 0,
+  "c15": 0
+ },
+ "primary": {
+  "cells_d_pos": 13,
+  "cells": 16,
+  "sign_test_p": 0.0106353759765625,
+  "pooled_C_minus_A": 0.976,
+  "pooled_ci": [
+   0.652,
+   1.293
+  ]
+ },
+ "main_effects": {
+  "model": {
+   "low": "gpt-6-luna",
+   "high": "qwen-3.6-35b",
+   "effect": 0.791,
+   "ci": [
+    0.099,
+    1.439
+   ]
+  },
+  "cost": {
+   "low": "private",
+   "high": "public",
+   "effect": 0.785,
+   "ci": [
+    0.123,
+    1.406
+   ]
+  },
+  "rivals": {
+   "low": "visible",
+   "high": "hidden",
+   "effect": -0.501,
+   "ci": [
+    -1.108,
+    0.153
+   ]
+  },
+  "channel": {
+   "low": "every",
+   "high": "first",
+   "effect": 0.329,
+   "ci": [
+    -0.282,
+    0.957
+   ]
+  },
+  "memory": {
+   "low": "short",
+   "high": "full",
+   "effect": 0.378,
+   "ci": [
+    -0.236,
+    1.038
+   ]
+  },
+  "shocks": {
+   "low": "none",
+   "high": "random",
+   "effect": -0.342,
+   "ci": [
+    -0.96,
+    0.285
+   ]
+  },
+  "framing": {
+   "low": "base",
+   "high": "longrun",
+   "effect": -0.122,
+   "ci": [
+    -0.771,
+    0.521
+   ]
+  }
+ },
+ "level_vs_pcmi": {
+  "cells_level_gt_pcmi": 12,
+  "ties": 1,
+  "cells": 16,
+  "sign_test_p_excl_ties": 0.017578125
+ },
+ "pooled_auroc": {
+  "market_level": {
+   "auroc": 0.737,
+   "ci": [
+    0.661,
+    0.805
+   ]
+  },
+  "pair_level": {
+   "auroc": 0.722,
+   "ci": [
+    0.649,
+    0.795
+   ]
+  },
+  "pcmi": {
+   "auroc": 0.51,
+   "ci": [
+    0.429,
+    0.589
+   ]
+  },
+  "te": {
+   "auroc": 0.619,
+   "ci": [
+    0.543,
+    0.698
+   ]
+  }
+ },
+ "te_confirmatory": {
+  "rule": "confirmed iff lower 95% CI > 0.5",
+  "auroc": 0.619,
+  "ci": [
+   0.543,
+   0.698
+  ],
+  "verdict": "confirmed"
+ },
+ "spillover": {
+  "pooled": 0.604,
+  "ci": [
+   0.297,
+   0.913
+  ]
+ },
+ "executed": {
+  "k": 44,
+  "labelled": 96
+ },
+ "per_cell": {
+  "c00": {
+   "levels": {
+    "model": "gpt-6-luna",
+    "cost": "private",
+    "rivals": "visible",
+    "channel": "every",
+    "memory": "short",
+    "shocks": "none",
+    "framing": "base"
+   },
+   "n": [
+    6,
+    6
+   ],
+   "d": 0.685,
+   "spillover": 0.531,
+   "auroc": {
+    "market_level": 0.792,
+    "pair_level": 0.694,
+    "pcmi": 0.389,
+    "te": 0.778
+   },
+   "executed": 3,
+   "labelled": 6,
+   "board_share": {
+    "no_channel": 0.0,
+    "channel": 0.0
+   }
+  },
+  "c01": {
+   "levels": {
+    "model": "gpt-6-luna",
+    "cost": "private",
+    "rivals": "visible",
+    "channel": "first",
+    "memory": "short",
+    "shocks": "random",
+    "framing": "longrun"
+   },
+   "n": [
+    6,
+    6
+   ],
+   "d": -0.106,
+   "spillover": -0.123,
+   "auroc": {
+    "market_level": 0.528,
+    "pair_level": 0.639,
+    "pcmi": 0.528,
+    "te": 0.5
+   },
+   "executed": 2,
+   "labelled": 6,
+   "board_share": {
+    "no_channel": 0.0,
+    "channel": 0.0
+   }
+  },
+  "c02": {
+   "levels": {
+    "model": "gpt-6-luna",
+    "cost": "private",
+    "rivals": "hidden",
+    "channel": "every",
+    "memory": "full",
+    "shocks": "random",
+    "framing": "longrun"
+   },
+   "n": [
+    6,
+    6
+   ],
+   "d": 0.3,
+   "spillover": -0.1,
+   "auroc": {
+    "market_level": 0.583,
+    "pair_level": 0.5,
+    "pcmi": 0.611,
+    "te": 0.472
+   },
+   "executed": 2,
+   "labelled": 6,
+   "board_share": {
+    "no_channel": 0.0,
+    "channel": 0.163
+   }
+  },
+  "c03": {
+   "levels": {
+    "model": "gpt-6-luna",
+    "cost": "private",
+    "rivals": "hidden",
+    "channel": "first",
+    "memory": "full",
+    "shocks": "none",
+    "framing": "base"
+   },
+   "n": [
+    6,
+    6
+   ],
+   "d": 0.496,
+   "spillover": 0.075,
+   "auroc": {
+    "market_level": 0.694,
+    "pair_level": 0.583,
+    "pcmi": 0.306,
+    "te": 0.458
+   },
+   "executed": 5,
+   "labelled": 6,
+   "board_share": {
+    "no_channel": 0.0,
+    "channel": 0.156
+   }
+  },
+  "c04": {
+   "levels": {
+    "model": "gpt-6-luna",
+    "cost": "public",
+    "rivals": "visible",
+    "channel": "every",
+    "memory": "full",
+    "shocks": "random",
+    "framing": "base"
+   },
+   "n": [
+    6,
+    6
+   ],
+   "d": 1.596,
+   "spillover": 1.394,
+   "auroc": {
+    "market_level": 0.944,
+    "pair_level": 0.792,
+    "pcmi": 0.361,
+    "te": 0.861
+   },
+   "executed": 3,
+   "labelled": 6,
+   "board_share": {
+    "no_channel": 0.006,
+    "channel": 0.158
+   }
+  },
+  "c05": {
+   "levels": {
+    "model": "gpt-6-luna",
+    "cost": "public",
+    "rivals": "visible",
+    "channel": "first",
+    "memory": "full",
+    "shocks": "none",
+    "framing": "longrun"
+   },
+   "n": [
+    6,
+    6
+   ],
+   "d": 1.69,
+   "spillover": 1.16,
+   "auroc": {
+    "market_level": 0.972,
+    "pair_level": 0.889,
+    "pcmi": 0.806,
+    "te": 0.694
+   },
+   "executed": 2,
+   "labelled": 6,
+   "board_share": {
+    "no_channel": 0.0,
+    "channel": 0.152
+   }
+  },
+  "c06": {
+   "levels": {
+    "model": "gpt-6-luna",
+    "cost": "public",
+    "rivals": "hidden",
+    "channel": "every",
+    "memory": "short",
+    "shocks": "none",
+    "framing": "longrun"
+   },
+   "n": [
+    6,
+    6
+   ],
+   "d": -0.002,
+   "spillover": -0.056,
+   "auroc": {
+    "market_level": 0.736,
+    "pair_level": 0.861,
+    "pcmi": 0.778,
+    "te": 0.833
+   },
+   "executed": 1,
+   "labelled": 6,
+   "board_share": {
+    "no_channel": 0.0,
+    "channel": 0.0
+   }
+  },
+  "c07": {
+   "levels": {
+    "model": "gpt-6-luna",
+    "cost": "public",
+    "rivals": "hidden",
+    "channel": "first",
+    "memory": "short",
+    "shocks": "random",
+    "framing": "base"
+   },
+   "n": [
+    6,
+    6
+   ],
+   "d": -0.012,
+   "spillover": -0.569,
+   "auroc": {
+    "market_level": 0.486,
+    "pair_level": 0.597,
+    "pcmi": 0.694,
+    "te": 0.25
+   },
+   "executed": 6,
+   "labelled": 6,
+   "board_share": {
+    "no_channel": 0.317,
+    "channel": 0.156
+   }
+  },
+  "c08": {
+   "levels": {
+    "model": "qwen-3.6-35b",
+    "cost": "private",
+    "rivals": "visible",
+    "channel": "every",
+    "memory": "full",
+    "shocks": "none",
+    "framing": "longrun"
+   },
+   "n": [
+    6,
+    6
+   ],
+   "d": 0.577,
+   "spillover": 0.413,
+   "auroc": {
+    "market_level": 0.653,
+    "pair_level": 0.861,
+    "pcmi": 0.556,
+    "te": 0.611
+   },
+   "executed": 2,
+   "labelled": 6,
+   "board_share": {
+    "no_channel": 1.0,
+    "channel": 1.0
+   }
+  },
+  "c09": {
+   "levels": {
+    "model": "qwen-3.6-35b",
+    "cost": "private",
+    "rivals": "visible",
+    "channel": "first",
+    "memory": "full",
+    "shocks": "random",
+    "framing": "base"
+   },
+   "n": [
+    6,
+    6
+   ],
+   "d": 1.177,
+   "spillover": 0.9,
+   "auroc": {
+    "market_level": 0.694,
+    "pair_level": 0.861,
+    "pcmi": 0.25,
+    "te": 0.694
+   },
+   "executed": 2,
+   "labelled": 6,
+   "board_share": {
+    "no_channel": 1.0,
+    "channel": 1.0
+   }
+  },
+  "c10": {
+   "levels": {
+    "model": "qwen-3.6-35b",
+    "cost": "private",
+    "rivals": "hidden",
+    "channel": "every",
+    "memory": "short",
+    "shocks": "random",
+    "framing": "base"
+   },
+   "n": [
+    6,
+    6
+   ],
+   "d": 0.081,
+   "spillover": -0.208,
+   "auroc": {
+    "market_level": 0.486,
+    "pair_level": 0.444,
+    "pcmi": 0.333,
+    "te": 0.639
+   },
+   "executed": 4,
+   "labelled": 6,
+   "board_share": {
+    "no_channel": 0.998,
+    "channel": 1.0
+   }
+  },
+  "c11": {
+   "levels": {
+    "model": "qwen-3.6-35b",
+    "cost": "private",
+    "rivals": "hidden",
+    "channel": "first",
+    "memory": "short",
+    "shocks": "none",
+    "framing": "longrun"
+   },
+   "n": [
+    6,
+    6
+   ],
+   "d": 1.458,
+   "spillover": 0.56,
+   "auroc": {
+    "market_level": 0.889,
+    "pair_level": 0.889,
+    "pcmi": 0.639,
+    "te": 0.389
+   },
+   "executed": 2,
+   "labelled": 6,
+   "board_share": {
+    "no_channel": 0.998,
+    "channel": 1.0
+   }
+  },
+  "c12": {
+   "levels": {
+    "model": "qwen-3.6-35b",
+    "cost": "public",
+    "rivals": "visible",
+    "channel": "every",
+    "memory": "short",
+    "shocks": "random",
+    "framing": "longrun"
+   },
+   "n": [
+    6,
+    6
+   ],
+   "d": 1.59,
+   "spillover": 1.402,
+   "auroc": {
+    "market_level": 0.722,
+    "pair_level": 0.472,
+    "pcmi": 0.333,
+    "te": 0.611
+   },
+   "executed": 4,
+   "labelled": 6,
+   "board_share": {
+    "no_channel": 1.0,
+    "channel": 1.0
+   }
+  },
+  "c13": {
+   "levels": {
+    "model": "qwen-3.6-35b",
+    "cost": "public",
+    "rivals": "visible",
+    "channel": "first",
+    "memory": "short",
+    "shocks": "none",
+    "framing": "base"
+   },
+   "n": [
+    6,
+    6
+   ],
+   "d": 2.606,
+   "spillover": 2.148,
+   "auroc": {
+    "market_level": 0.944,
+    "pair_level": 0.958,
+    "pcmi": 0.611,
+    "te": 0.889
+   },
+   "executed": 0,
+   "labelled": 6,
+   "board_share": {
+    "no_channel": 1.0,
+    "channel": 1.0
+   }
+  },
+  "c14": {
+   "levels": {
+    "model": "qwen-3.6-35b",
+    "cost": "public",
+    "rivals": "hidden",
+    "channel": "every",
+    "memory": "full",
+    "shocks": "none",
+    "framing": "base"
+   },
+   "n": [
+    6,
+    6
+   ],
+   "d": 1.669,
+   "spillover": 0.798,
+   "auroc": {
+    "market_level": 0.806,
+    "pair_level": 0.944,
+    "pcmi": 0.694,
+    "te": 0.861
+   },
+   "executed": 1,
+   "labelled": 6,
+   "board_share": {
+    "no_channel": 1.0,
+    "channel": 1.0
+   }
+  },
+  "c15": {
+   "levels": {
+    "model": "qwen-3.6-35b",
+    "cost": "public",
+    "rivals": "hidden",
+    "channel": "first",
+    "memory": "full",
+    "shocks": "random",
+    "framing": "longrun"
+   },
+   "n": [
+    6,
+    6
+   ],
+   "d": 1.817,
+   "spillover": 1.338,
+   "auroc": {
+    "market_level": 0.861,
+    "pair_level": 0.569,
+    "pcmi": 0.278,
+    "te": 0.361
+   },
+   "executed": 5,
+   "labelled": 6,
+   "board_share": {
+    "no_channel": 1.0,
+    "channel": 1.0
+   }
+  }
+ },
+ "games": [
+  {
+   "cell": "c00",
+   "run_id": "llm_grid_p2_c00_C_000",
+   "sweep": 0,
+   "channel": true,
+   "board": 0.0,
+   "markup": 2.425,
+   "rival_markup": 2.125,
+   "pair_markup": 2.725,
+   "executed": true,
+   "scores": {
+    "market_level": 2.725,
+    "pair_level": 0.5999999999999996,
+    "pcmi": 6.561181938682319,
+    "te": 0.5420918505189797
+   }
+  },
+  {
+   "cell": "c00",
+   "run_id": "llm_grid_p2_c00_A_000",
+   "sweep": 0,
+   "channel": false,
+   "board": 0.0,
+   "markup": 2.3625,
+   "rival_markup": 2.3625,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 2.45,
+    "pair_level": 0.17499999999999893,
+    "pcmi": 0.10900418212436046,
+    "te": 0.1337692011821625
+   }
+  },
+  {
+   "cell": "c00",
+   "run_id": "llm_grid_p2_c00_A_001",
+   "sweep": 1,
+   "channel": false,
+   "board": 0.0,
+   "markup": 1.9625,
+   "rival_markup": 1.9625,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 2.05,
+    "pair_level": 0.1750000000000007,
+    "pcmi": 0.18256463927778024,
+    "te": 0.1319113268482142
+   }
+  },
+  {
+   "cell": "c00",
+   "run_id": "llm_grid_p2_c00_C_001",
+   "sweep": 1,
+   "channel": true,
+   "board": 0.0,
+   "markup": 2.275,
+   "rival_markup": 2.125,
+   "pair_markup": 2.425,
+   "executed": false,
+   "scores": {
+    "market_level": 2.75,
+    "pair_level": 0.9499999999999993,
+    "pcmi": 0.11682565439927174,
+    "te": 0.51892105672577
+   }
+  },
+  {
+   "cell": "c00",
+   "run_id": "llm_grid_p2_c00_A_002",
+   "sweep": 2,
+   "channel": false,
+   "board": 0.0,
+   "markup": 1.0625,
+   "rival_markup": 1.0625,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 1.2,
+    "pair_level": 0.2749999999999986,
+    "pcmi": 0.22718338249020625,
+    "te": 0.04976488217813648
+   }
+  },
+  {
+   "cell": "c00",
+   "run_id": "llm_grid_p2_c00_C_002",
+   "sweep": 2,
+   "channel": true,
+   "board": 0.0,
+   "markup": 1.9625,
+   "rival_markup": 1.875,
+   "pair_markup": 2.05,
+   "executed": false,
+   "scores": {
+    "market_level": 2.05,
+    "pair_level": 0.1750000000000007,
+    "pcmi": 0.06628076031765849,
+    "te": 0.08311109026050315
+   }
+  },
+  {
+   "cell": "c00",
+   "run_id": "llm_grid_p2_c00_A_003",
+   "sweep": 3,
+   "channel": false,
+   "board": 0.0,
+   "markup": 1.8125,
+   "rival_markup": 1.8125,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 1.95,
+    "pair_level": 0.2749999999999986,
+    "pcmi": 0.06745528033518323,
+    "te": 0.050856245398289965
+   }
+  },
+  {
+   "cell": "c00",
+   "run_id": "llm_grid_p2_c00_C_003",
+   "sweep": 3,
+   "channel": true,
+   "board": 0.0,
+   "markup": 0.8875,
+   "rival_markup": 0.875,
+   "pair_markup": 0.9,
+   "executed": false,
+   "scores": {
+    "market_level": 0.975,
+    "pair_level": 0.17499999999999893,
+    "pcmi": 0.3385708310631775,
+    "te": 0.4872095496069526
+   }
+  },
+  {
+   "cell": "c00",
+   "run_id": "llm_grid_p2_c00_A_004",
+   "sweep": 4,
+   "channel": false,
+   "board": 0.0,
+   "markup": 1.3375,
+   "rival_markup": 1.3375,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 1.45,
+    "pair_level": 0.22499999999999964,
+    "pcmi": 0.10177670665014253,
+    "te": 0.14449235043238956
+   }
+  },
+  {
+   "cell": "c00",
+   "run_id": "llm_grid_p2_c00_C_004",
+   "sweep": 4,
+   "channel": true,
+   "board": 0.0,
+   "markup": 4.025,
+   "rival_markup": 3.525,
+   "pair_markup": 4.525,
+   "executed": true,
+   "scores": {
+    "market_level": 4.525,
+    "pair_level": 1.0,
+    "pcmi": 0.06059595687452991,
+    "te": 0.4461616175166011
+   }
+  },
+  {
+   "cell": "c00",
+   "run_id": "llm_grid_p2_c00_C_005",
+   "sweep": 5,
+   "channel": true,
+   "board": 0.0,
+   "markup": 2.55,
+   "rival_markup": 2.675,
+   "pair_markup": 2.425,
+   "executed": true,
+   "scores": {
+    "market_level": 2.75,
+    "pair_level": 0.40000000000000036,
+    "pcmi": 0.05725724952212487,
+    "te": 0.10070247872566378
+   }
+  },
+  {
+   "cell": "c00",
+   "run_id": "llm_grid_p2_c00_A_005",
+   "sweep": 5,
+   "channel": false,
+   "board": 0.0,
+   "markup": 1.475,
+   "rival_markup": 1.475,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 1.7,
+    "pair_level": 0.4499999999999993,
+    "pcmi": 0.5238091489925037,
+    "te": 0.1484896777482911
+   }
+  },
+  {
+   "cell": "c01",
+   "run_id": "llm_grid_p2_c01_D_000",
+   "sweep": 0,
+   "channel": true,
+   "board": 0.0,
+   "markup": 3.5,
+   "rival_markup": 3.6,
+   "pair_markup": 3.4,
+   "executed": false,
+   "scores": {
+    "market_level": 3.6,
+    "pair_level": 0.20000000000000107,
+    "pcmi": 0.26531936205748724,
+    "te": 0.1432576494033195
+   }
+  },
+  {
+   "cell": "c01",
+   "run_id": "llm_grid_p2_c01_B_000",
+   "sweep": 0,
+   "channel": false,
+   "board": 0.0,
+   "markup": 3.6625,
+   "rival_markup": 3.6625,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 3.8,
+    "pair_level": 0.27500000000000036,
+    "pcmi": 0.1566271826922463,
+    "te": 0.233771506629521
+   }
+  },
+  {
+   "cell": "c01",
+   "run_id": "llm_grid_p2_c01_B_001",
+   "sweep": 1,
+   "channel": false,
+   "board": 0.0,
+   "markup": 3.925,
+   "rival_markup": 3.925,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 4.075,
+    "pair_level": 0.3000000000000007,
+    "pcmi": 0.14493763934696766,
+    "te": 0.25662586058472187
+   }
+  },
+  {
+   "cell": "c01",
+   "run_id": "llm_grid_p2_c01_D_001",
+   "sweep": 1,
+   "channel": true,
+   "board": 0.0,
+   "markup": 5.0,
+   "rival_markup": 4.925,
+   "pair_markup": 5.075,
+   "executed": false,
+   "scores": {
+    "market_level": 5.15,
+    "pair_level": 0.29999999999999893,
+    "pcmi": 0.16078468033876653,
+    "te": 0.27348107634345037
+   }
+  },
+  {
+   "cell": "c01",
+   "run_id": "llm_grid_p2_c01_B_002",
+   "sweep": 2,
+   "channel": false,
+   "board": 0.0,
+   "markup": 5.5875,
+   "rival_markup": 5.5875,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 5.75,
+    "pair_level": 0.3249999999999993,
+    "pcmi": 0.4355427412775644,
+    "te": 0.4961697650167969
+   }
+  },
+  {
+   "cell": "c01",
+   "run_id": "llm_grid_p2_c01_D_002",
+   "sweep": 2,
+   "channel": true,
+   "board": 0.0,
+   "markup": 1.5625,
+   "rival_markup": 1.65,
+   "pair_markup": 1.475,
+   "executed": false,
+   "scores": {
+    "market_level": 1.65,
+    "pair_level": 0.17499999999999893,
+    "pcmi": 0.11975899931620831,
+    "te": 0.3554708041852224
+   }
+  },
+  {
+   "cell": "c01",
+   "run_id": "llm_grid_p2_c01_B_003",
+   "sweep": 3,
+   "channel": false,
+   "board": 0.0,
+   "markup": 3.0125,
+   "rival_markup": 3.0125,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 3.075,
+    "pair_level": 0.125,
+    "pcmi": 0.1104744340349665,
+    "te": 0.37623969186709444
+   }
+  },
+  {
+   "cell": "c01",
+   "run_id": "llm_grid_p2_c01_D_003",
+   "sweep": 3,
+   "channel": true,
+   "board": 0.0,
+   "markup": 6.2625,
+   "rival_markup": 5.875,
+   "pair_markup": 6.65,
+   "executed": true,
+   "scores": {
+    "market_level": 6.65,
+    "pair_level": 0.7750000000000021,
+    "pcmi": 0.15515148559706532,
+    "te": 0.20752810720913514
+   }
+  },
+  {
+   "cell": "c01",
+   "run_id": "llm_grid_p2_c01_B_004",
+   "sweep": 4,
+   "channel": false,
+   "board": 0.0,
+   "markup": 5.45,
+   "rival_markup": 5.45,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 5.5,
+    "pair_level": 0.10000000000000142,
+    "pcmi": 0.3375064538775089,
+    "te": 0.21386370617563355
+   }
+  },
+  {
+   "cell": "c01",
+   "run_id": "llm_grid_p2_c01_D_004",
+   "sweep": 4,
+   "channel": true,
+   "board": 0.0,
+   "markup": 4.4375,
+   "rival_markup": 4.375,
+   "pair_markup": 4.5,
+   "executed": false,
+   "scores": {
+    "market_level": 4.525,
+    "pair_level": 0.1750000000000007,
+    "pcmi": 0.14668512354516028,
+    "te": 0.33763954815794517
+   }
+  },
+  {
+   "cell": "c01",
+   "run_id": "llm_grid_p2_c01_B_005",
+   "sweep": 5,
+   "channel": false,
+   "board": 0.0,
+   "markup": 4.1,
+   "rival_markup": 4.1,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 4.2,
+    "pair_level": 0.1999999999999993,
+    "pcmi": 0.14055215038125388,
+    "te": 0.19097601580411647
+   }
+  },
+  {
+   "cell": "c01",
+   "run_id": "llm_grid_p2_c01_D_005",
+   "sweep": 5,
+   "channel": true,
+   "board": 0.0,
+   "markup": 4.3375,
+   "rival_markup": 4.575,
+   "pair_markup": 4.1,
+   "executed": true,
+   "scores": {
+    "market_level": 4.575,
+    "pair_level": 0.47499999999999964,
+    "pcmi": 0.24927339558952388,
+    "te": 0.41381246395621174
+   }
+  },
+  {
+   "cell": "c02",
+   "run_id": "llm_grid_p2_c02_B_000",
+   "sweep": 0,
+   "channel": false,
+   "board": 0.0,
+   "markup": 5.425,
+   "rival_markup": 5.425,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 6.4,
+    "pair_level": 1.9499999999999993,
+    "pcmi": 0.16065962099314882,
+    "te": 0.14449345145282316
+   }
+  },
+  {
+   "cell": "c02",
+   "run_id": "llm_grid_p2_c02_D_000",
+   "sweep": 0,
+   "channel": true,
+   "board": 0.0,
+   "markup": 4.65,
+   "rival_markup": 3.275,
+   "pair_markup": 6.025,
+   "executed": false,
+   "scores": {
+    "market_level": 6.025,
+    "pair_level": 2.7499999999999982,
+    "pcmi": 0.06871547194753445,
+    "te": 0.2472985920194684
+   }
+  },
+  {
+   "cell": "c02",
+   "run_id": "llm_grid_p2_c02_B_001",
+   "sweep": 1,
+   "channel": false,
+   "board": 0.0,
+   "markup": 3.775,
+   "rival_markup": 3.775,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 4.475,
+    "pair_level": 1.4000000000000004,
+    "pcmi": 0.39782835333994393,
+    "te": 0.36841015360543117
+   }
+  },
+  {
+   "cell": "c02",
+   "run_id": "llm_grid_p2_c02_D_001",
+   "sweep": 1,
+   "channel": true,
+   "board": 0.975,
+   "markup": 5.775,
+   "rival_markup": 5.875,
+   "pair_markup": 5.675,
+   "executed": false,
+   "scores": {
+    "market_level": 6.3,
+    "pair_level": 1.049999999999999,
+    "pcmi": 0.49127203058891883,
+    "te": 0.1730200421947348
+   }
+  },
+  {
+   "cell": "c02",
+   "run_id": "llm_grid_p2_c02_B_002",
+   "sweep": 2,
+   "channel": false,
+   "board": 0.0,
+   "markup": 4.0625,
+   "rival_markup": 4.0625,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 5.625,
+    "pair_level": 3.125,
+    "pcmi": 0.12970336742637115,
+    "te": 0.2572186632416872
+   }
+  },
+  {
+   "cell": "c02",
+   "run_id": "llm_grid_p2_c02_D_002",
+   "sweep": 2,
+   "channel": true,
+   "board": 0.0,
+   "markup": 4.375,
+   "rival_markup": 4.575,
+   "pair_markup": 4.175,
+   "executed": false,
+   "scores": {
+    "market_level": 4.925,
+    "pair_level": 1.0999999999999996,
+    "pcmi": 0.1421585612232862,
+    "te": 0.454952594185338
+   }
+  },
+  {
+   "cell": "c02",
+   "run_id": "llm_grid_p2_c02_B_003",
+   "sweep": 3,
+   "channel": false,
+   "board": 0.0,
+   "markup": 4.275,
+   "rival_markup": 4.275,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 4.7,
+    "pair_level": 0.8499999999999996,
+    "pcmi": 0.15894918067488256,
+    "te": 0.091803393434741
+   }
+  },
+  {
+   "cell": "c02",
+   "run_id": "llm_grid_p2_c02_D_003",
+   "sweep": 3,
+   "channel": true,
+   "board": 0.0,
+   "markup": 2.8625,
+   "rival_markup": 3.375,
+   "pair_markup": 2.35,
+   "executed": true,
+   "scores": {
+    "market_level": 3.65,
+    "pair_level": 1.5749999999999993,
+    "pcmi": 0.26186190317436253,
+    "te": 0.26307383081324814
+   }
+  },
+  {
+   "cell": "c02",
+   "run_id": "llm_grid_p2_c02_B_004",
+   "sweep": 4,
+   "channel": false,
+   "board": 0.0,
+   "markup": 4.55,
+   "rival_markup": 4.55,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 5.325,
+    "pair_level": 1.549999999999999,
+    "pcmi": 0.20062774053157392,
+    "te": 0.48582282655381326
+   }
+  },
+  {
+   "cell": "c02",
+   "run_id": "llm_grid_p2_c02_D_004",
+   "sweep": 4,
+   "channel": true,
+   "board": 0.0,
+   "markup": 4.1875,
+   "rival_markup": 2.975,
+   "pair_markup": 5.4,
+   "executed": false,
+   "scores": {
+    "market_level": 5.4,
+    "pair_level": 2.4250000000000007,
+    "pcmi": 0.17676338704742378,
+    "te": 0.11275588789554557
+   }
+  },
+  {
+   "cell": "c02",
+   "run_id": "llm_grid_p2_c02_D_005",
+   "sweep": 5,
+   "channel": true,
+   "board": 0.0,
+   "markup": 4.15,
+   "rival_markup": 3.525,
+   "pair_markup": 4.775,
+   "executed": true,
+   "scores": {
+    "market_level": 4.775,
+    "pair_level": 1.25,
+    "pcmi": 0.5804067548133665,
+    "te": 0.3496254817405487
+   }
+  },
+  {
+   "cell": "c02",
+   "run_id": "llm_grid_p2_c02_B_005",
+   "sweep": 5,
+   "channel": false,
+   "board": 0.0,
+   "markup": 2.1125,
+   "rival_markup": 2.1125,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 2.7,
+    "pair_level": 1.1750000000000007,
+    "pcmi": 0.16347561225598112,
+    "te": 0.32308140868563434
+   }
+  },
+  {
+   "cell": "c03",
+   "run_id": "llm_grid_p2_c03_A_000",
+   "sweep": 0,
+   "channel": false,
+   "board": 0.0,
+   "markup": 2.275,
+   "rival_markup": 2.275,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 2.475,
+    "pair_level": 0.40000000000000036,
+    "pcmi": 0.3030679017785505,
+    "te": 6.561181938682319
+   }
+  },
+  {
+   "cell": "c03",
+   "run_id": "llm_grid_p2_c03_C_000",
+   "sweep": 0,
+   "channel": true,
+   "board": 0.0,
+   "markup": 2.5625,
+   "rival_markup": 3.1,
+   "pair_markup": 2.025,
+   "executed": true,
+   "scores": {
+    "market_level": 3.1,
+    "pair_level": 1.0749999999999993,
+    "pcmi": 0.20409735633684908,
+    "te": 0.48551044094726187
+   }
+  },
+  {
+   "cell": "c03",
+   "run_id": "llm_grid_p2_c03_A_001",
+   "sweep": 1,
+   "channel": false,
+   "board": 0.0,
+   "markup": 3.2,
+   "rival_markup": 3.2,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 3.475,
+    "pair_level": 0.5499999999999989,
+    "pcmi": 0.24691433758843018,
+    "te": 0.38000175329925223
+   }
+  },
+  {
+   "cell": "c03",
+   "run_id": "llm_grid_p2_c03_C_001",
+   "sweep": 1,
+   "channel": true,
+   "board": 0.0,
+   "markup": 2.75,
+   "rival_markup": 1.525,
+   "pair_markup": 3.975,
+   "executed": true,
+   "scores": {
+    "market_level": 3.975,
+    "pair_level": 2.4499999999999993,
+    "pcmi": 0.10033534772900303,
+    "te": 0.37688590117967635
+   }
+  },
+  {
+   "cell": "c03",
+   "run_id": "llm_grid_p2_c03_C_002",
+   "sweep": 2,
+   "channel": true,
+   "board": 0.0,
+   "markup": 4.0875,
+   "rival_markup": 3.45,
+   "pair_markup": 4.725,
+   "executed": true,
+   "scores": {
+    "market_level": 4.725,
+    "pair_level": 1.2750000000000004,
+    "pcmi": 0.03733426652757628,
+    "te": 6.561181938682319
+   }
+  },
+  {
+   "cell": "c03",
+   "run_id": "llm_grid_p2_c03_A_002",
+   "sweep": 2,
+   "channel": false,
+   "board": 0.0,
+   "markup": 3.3875,
+   "rival_markup": 3.3875,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 4.075,
+    "pair_level": 1.375,
+    "pcmi": 0.3833078606923224,
+    "te": 0.35188590977212986
+   }
+  },
+  {
+   "cell": "c03",
+   "run_id": "llm_grid_p2_c03_A_003",
+   "sweep": 3,
+   "channel": false,
+   "board": 0.0,
+   "markup": 1.95,
+   "rival_markup": 1.95,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 2.95,
+    "pair_level": 2.0,
+    "pcmi": 0.4080278158889274,
+    "te": 0.37399435418110805
+   }
+  },
+  {
+   "cell": "c03",
+   "run_id": "llm_grid_p2_c03_C_003",
+   "sweep": 3,
+   "channel": true,
+   "board": 0.9375,
+   "markup": 2.425,
+   "rival_markup": 2.25,
+   "pair_markup": 2.6,
+   "executed": false,
+   "scores": {
+    "market_level": 2.6,
+    "pair_level": 0.34999999999999964,
+    "pcmi": 0.24863321496002205,
+    "te": 0.3712945448921418
+   }
+  },
+  {
+   "cell": "c03",
+   "run_id": "llm_grid_p2_c03_C_004",
+   "sweep": 4,
+   "channel": true,
+   "board": 0.0,
+   "markup": 3.375,
+   "rival_markup": 1.625,
+   "pair_markup": 5.125,
+   "executed": true,
+   "scores": {
+    "market_level": 5.125,
+    "pair_level": 3.5,
+    "pcmi": 0.47716604774227983,
+    "te": 0.07272275529898502
+   }
+  },
+  {
+   "cell": "c03",
+   "run_id": "llm_grid_p2_c03_A_004",
+   "sweep": 4,
+   "channel": false,
+   "board": 0.0,
+   "markup": 3.05,
+   "rival_markup": 3.05,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 3.125,
+    "pair_level": 0.15000000000000036,
+    "pcmi": 0.14446099910481558,
+    "te": 0.27121230185103506
+   }
+  },
+  {
+   "cell": "c03",
+   "run_id": "llm_grid_p2_c03_A_005",
+   "sweep": 5,
+   "channel": false,
+   "board": 0.0,
+   "markup": 1.0875,
+   "rival_markup": 1.0875,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 2.95,
+    "pair_level": 3.7249999999999996,
+    "pcmi": 0.11193919759399151,
+    "te": 0.40079838629663195
+   }
+  },
+  {
+   "cell": "c03",
+   "run_id": "llm_grid_p2_c03_C_005",
+   "sweep": 5,
+   "channel": true,
+   "board": 0.0,
+   "markup": 2.725,
+   "rival_markup": 3.45,
+   "pair_markup": 2.0,
+   "executed": true,
+   "scores": {
+    "market_level": 3.45,
+    "pair_level": 1.4499999999999993,
+    "pcmi": -0.0,
+    "te": 0.2778736555743591
+   }
+  },
+  {
+   "cell": "c04",
+   "run_id": "llm_grid_p2_c04_B_000",
+   "sweep": 0,
+   "channel": false,
+   "board": 0.0,
+   "markup": 1.2625,
+   "rival_markup": 1.2625,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 1.3,
+    "pair_level": 0.07500000000000107,
+    "pcmi": 0.09863146678262835,
+    "te": 0.24530362804013603
+   }
+  },
+  {
+   "cell": "c04",
+   "run_id": "llm_grid_p2_c04_D_000",
+   "sweep": 0,
+   "channel": true,
+   "board": 0.0,
+   "markup": 4.475,
+   "rival_markup": 4.2,
+   "pair_markup": 4.75,
+   "executed": true,
+   "scores": {
+    "market_level": 4.75,
+    "pair_level": 0.5500000000000007,
+    "pcmi": 0.08479093539611136,
+    "te": 0.28899634283907305
+   }
+  },
+  {
+   "cell": "c04",
+   "run_id": "llm_grid_p2_c04_B_001",
+   "sweep": 1,
+   "channel": false,
+   "board": 0.0,
+   "markup": 3.175,
+   "rival_markup": 3.175,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 3.35,
+    "pair_level": 0.34999999999999964,
+    "pcmi": 0.5300901864865705,
+    "te": 0.1244004908299618
+   }
+  },
+  {
+   "cell": "c04",
+   "run_id": "llm_grid_p2_c04_D_001",
+   "sweep": 1,
+   "channel": true,
+   "board": 0.0,
+   "markup": 3.95,
+   "rival_markup": 3.85,
+   "pair_markup": 4.05,
+   "executed": true,
+   "scores": {
+    "market_level": 4.125,
+    "pair_level": 0.3500000000000014,
+    "pcmi": 0.42171035365226905,
+    "te": 0.30016227242138643
+   }
+  },
+  {
+   "cell": "c04",
+   "run_id": "llm_grid_p2_c04_B_002",
+   "sweep": 2,
+   "channel": false,
+   "board": 0.0375,
+   "markup": 2.0,
+   "rival_markup": 2.0,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 2.15,
+    "pair_level": 0.29999999999999893,
+    "pcmi": 0.16753066208260395,
+    "te": 0.31634082841844846
+   }
+  },
+  {
+   "cell": "c04",
+   "run_id": "llm_grid_p2_c04_D_002",
+   "sweep": 2,
+   "channel": true,
+   "board": 0.0,
+   "markup": 2.8,
+   "rival_markup": 2.55,
+   "pair_markup": 3.05,
+   "executed": false,
+   "scores": {
+    "market_level": 3.05,
+    "pair_level": 0.5,
+    "pcmi": 0.11432363352089384,
+    "te": 0.3654711736352543
+   }
+  },
+  {
+   "cell": "c04",
+   "run_id": "llm_grid_p2_c04_B_003",
+   "sweep": 3,
+   "channel": false,
+   "board": 0.0,
+   "markup": 2.05,
+   "rival_markup": 2.05,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 2.15,
+    "pair_level": 0.1999999999999993,
+    "pcmi": 0.0436774311812663,
+    "te": 0.03196625239240706
+   }
+  },
+  {
+   "cell": "c04",
+   "run_id": "llm_grid_p2_c04_D_003",
+   "sweep": 3,
+   "channel": true,
+   "board": 0.0,
+   "markup": 3.9375,
+   "rival_markup": 3.825,
+   "pair_markup": 4.05,
+   "executed": true,
+   "scores": {
+    "market_level": 4.05,
+    "pair_level": 0.22499999999999964,
+    "pcmi": 0.30929129882009687,
+    "te": 0.21769482544374888
+   }
+  },
+  {
+   "cell": "c04",
+   "run_id": "llm_grid_p2_c04_B_004",
+   "sweep": 4,
+   "channel": false,
+   "board": 0.0,
+   "markup": 1.85,
+   "rival_markup": 1.85,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 2.1,
+    "pair_level": 0.5,
+    "pcmi": 0.31752088319204863,
+    "te": 0.14532622827861924
+   }
+  },
+  {
+   "cell": "c04",
+   "run_id": "llm_grid_p2_c04_D_004",
+   "sweep": 4,
+   "channel": true,
+   "board": 0.95,
+   "markup": 3.9125,
+   "rival_markup": 3.525,
+   "pair_markup": 4.3,
+   "executed": false,
+   "scores": {
+    "market_level": 4.3,
+    "pair_level": 0.7749999999999986,
+    "pcmi": 0.1303326410190225,
+    "te": 0.3856302292174928
+   }
+  },
+  {
+   "cell": "c04",
+   "run_id": "llm_grid_p2_c04_B_005",
+   "sweep": 5,
+   "channel": false,
+   "board": 0.0,
+   "markup": 1.325,
+   "rival_markup": 1.325,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 1.4,
+    "pair_level": 0.14999999999999858,
+    "pcmi": 0.7037620105938618,
+    "te": 0.1399904873495539
+   }
+  },
+  {
+   "cell": "c04",
+   "run_id": "llm_grid_p2_c04_D_005",
+   "sweep": 5,
+   "channel": true,
+   "board": 0.0,
+   "markup": 2.1625,
+   "rival_markup": 2.075,
+   "pair_markup": 2.25,
+   "executed": false,
+   "scores": {
+    "market_level": 2.275,
+    "pair_level": 0.22499999999999964,
+    "pcmi": 0.05318773938451526,
+    "te": 0.2569034739558338
+   }
+  },
+  {
+   "cell": "c05",
+   "run_id": "llm_grid_p2_c05_A_000",
+   "sweep": 0,
+   "channel": false,
+   "board": 0.0,
+   "markup": 2.1375,
+   "rival_markup": 2.1375,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 2.275,
+    "pair_level": 0.27500000000000036,
+    "pcmi": 0.08345840050682979,
+    "te": 0.1940685885958586
+   }
+  },
+  {
+   "cell": "c05",
+   "run_id": "llm_grid_p2_c05_C_000",
+   "sweep": 0,
+   "channel": true,
+   "board": 0.0,
+   "markup": 5.8,
+   "rival_markup": 5.25,
+   "pair_markup": 6.35,
+   "executed": false,
+   "scores": {
+    "market_level": 6.35,
+    "pair_level": 1.1000000000000014,
+    "pcmi": 0.1317771723585242,
+    "te": 0.5600261050047369
+   }
+  },
+  {
+   "cell": "c05",
+   "run_id": "llm_grid_p2_c05_A_001",
+   "sweep": 1,
+   "channel": false,
+   "board": 0.0,
+   "markup": 1.925,
+   "rival_markup": 1.925,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 2.2,
+    "pair_level": 0.5499999999999989,
+    "pcmi": 0.049740033739147316,
+    "te": 0.5116159034836868
+   }
+  },
+  {
+   "cell": "c05",
+   "run_id": "llm_grid_p2_c05_C_001",
+   "sweep": 1,
+   "channel": true,
+   "board": 0.0,
+   "markup": 5.4875,
+   "rival_markup": 4.9,
+   "pair_markup": 6.075,
+   "executed": false,
+   "scores": {
+    "market_level": 6.075,
+    "pair_level": 1.174999999999999,
+    "pcmi": 0.15807617376464425,
+    "te": 0.27364689147905324
+   }
+  },
+  {
+   "cell": "c05",
+   "run_id": "llm_grid_p2_c05_A_002",
+   "sweep": 2,
+   "channel": false,
+   "board": 0.0,
+   "markup": 2.15,
+   "rival_markup": 2.15,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 2.2,
+    "pair_level": 0.09999999999999964,
+    "pcmi": 0.11442078621155251,
+    "te": 0.5239842779125099
+   }
+  },
+  {
+   "cell": "c05",
+   "run_id": "llm_grid_p2_c05_C_002",
+   "sweep": 2,
+   "channel": true,
+   "board": 0.0,
+   "markup": 3.0625,
+   "rival_markup": 2.825,
+   "pair_markup": 3.3,
+   "executed": false,
+   "scores": {
+    "market_level": 3.4,
+    "pair_level": 0.6750000000000007,
+    "pcmi": 0.5165275348879174,
+    "te": 0.795126248980308
+   }
+  },
+  {
+   "cell": "c05",
+   "run_id": "llm_grid_p2_c05_A_003",
+   "sweep": 3,
+   "channel": false,
+   "board": 0.0,
+   "markup": 2.8125,
+   "rival_markup": 2.8125,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 2.9,
+    "pair_level": 0.1750000000000007,
+    "pcmi": 0.3142586530020501,
+    "te": 0.13659841725871705
+   }
+  },
+  {
+   "cell": "c05",
+   "run_id": "llm_grid_p2_c05_C_003",
+   "sweep": 3,
+   "channel": true,
+   "board": 0.0,
+   "markup": 2.575,
+   "rival_markup": 2.1,
+   "pair_markup": 3.05,
+   "executed": false,
+   "scores": {
+    "market_level": 3.05,
+    "pair_level": 0.9500000000000011,
+    "pcmi": 0.10053817081157276,
+    "te": 0.26676454205341266
+   }
+  },
+  {
+   "cell": "c05",
+   "run_id": "llm_grid_p2_c05_A_004",
+   "sweep": 4,
+   "channel": false,
+   "board": 0.0,
+   "markup": 1.9,
+   "rival_markup": 1.9,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 2.025,
+    "pair_level": 0.25,
+    "pcmi": 0.03270099809868009,
+    "te": 0.26723943223448354
+   }
+  },
+  {
+   "cell": "c05",
+   "run_id": "llm_grid_p2_c05_C_004",
+   "sweep": 4,
+   "channel": true,
+   "board": 0.0,
+   "markup": 4.1125,
+   "rival_markup": 2.775,
+   "pair_markup": 5.45,
+   "executed": true,
+   "scores": {
+    "market_level": 5.45,
+    "pair_level": 2.674999999999999,
+    "pcmi": 0.2909984910423512,
+    "te": 0.1140403969990271
+   }
+  },
+  {
+   "cell": "c05",
+   "run_id": "llm_grid_p2_c05_A_005",
+   "sweep": 5,
+   "channel": false,
+   "board": 0.0,
+   "markup": 2.6875,
+   "rival_markup": 2.6875,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 2.8,
+    "pair_level": 0.22500000000000142,
+    "pcmi": 0.14876715488314035,
+    "te": 0.25096610126099594
+   }
+  },
+  {
+   "cell": "c05",
+   "run_id": "llm_grid_p2_c05_C_005",
+   "sweep": 5,
+   "channel": true,
+   "board": 0.9125,
+   "markup": 2.7125,
+   "rival_markup": 2.725,
+   "pair_markup": 2.7,
+   "executed": true,
+   "scores": {
+    "market_level": 2.825,
+    "pair_level": 0.22499999999999964,
+    "pcmi": 0.7746409653551212,
+    "te": 0.7362207435710788
+   }
+  },
+  {
+   "cell": "c06",
+   "run_id": "llm_grid_p2_c06_A_000",
+   "sweep": 0,
+   "channel": false,
+   "board": 0.0,
+   "markup": 2.0,
+   "rival_markup": 2.0,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 2.0,
+    "pair_level": 0.0,
+    "pcmi": -0.0,
+    "te": -0.0
+   }
+  },
+  {
+   "cell": "c06",
+   "run_id": "llm_grid_p2_c06_C_000",
+   "sweep": 0,
+   "channel": true,
+   "board": 0.0,
+   "markup": 1.275,
+   "rival_markup": 1.3,
+   "pair_markup": 1.25,
+   "executed": false,
+   "scores": {
+    "market_level": 1.425,
+    "pair_level": 0.3000000000000007,
+    "pcmi": 0.20776019896867168,
+    "te": 0.11892445774950303
+   }
+  },
+  {
+   "cell": "c06",
+   "run_id": "llm_grid_p2_c06_A_001",
+   "sweep": 1,
+   "channel": false,
+   "board": 0.0,
+   "markup": 1.575,
+   "rival_markup": 1.575,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 1.8,
+    "pair_level": 0.45000000000000107,
+    "pcmi": 0.6254153003497182,
+    "te": 0.48252021860686795
+   }
+  },
+  {
+   "cell": "c06",
+   "run_id": "llm_grid_p2_c06_C_001",
+   "sweep": 1,
+   "channel": true,
+   "board": 0.0,
+   "markup": 1.975,
+   "rival_markup": 1.7,
+   "pair_markup": 2.25,
+   "executed": false,
+   "scores": {
+    "market_level": 2.25,
+    "pair_level": 0.5500000000000007,
+    "pcmi": 0.10644174876080625,
+    "te": 0.5669973081115783
+   }
+  },
+  {
+   "cell": "c06",
+   "run_id": "llm_grid_p2_c06_A_002",
+   "sweep": 2,
+   "channel": false,
+   "board": 0.0,
+   "markup": 2.25,
+   "rival_markup": 2.25,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 2.5,
+    "pair_level": 0.5,
+    "pcmi": -0.0,
+    "te": -0.0
+   }
+  },
+  {
+   "cell": "c06",
+   "run_id": "llm_grid_p2_c06_C_002",
+   "sweep": 2,
+   "channel": true,
+   "board": 0.0,
+   "markup": 1.9125,
+   "rival_markup": 2.6,
+   "pair_markup": 1.225,
+   "executed": false,
+   "scores": {
+    "market_level": 2.6,
+    "pair_level": 1.375,
+    "pcmi": 0.13461513209562578,
+    "te": 0.28216952883287294
+   }
+  },
+  {
+   "cell": "c06",
+   "run_id": "llm_grid_p2_c06_A_003",
+   "sweep": 3,
+   "channel": false,
+   "board": 0.0,
+   "markup": 2.025,
+   "rival_markup": 2.025,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 2.05,
+    "pair_level": 0.05000000000000071,
+    "pcmi": 0.001956949660532944,
+    "te": 0.0017331039882119478
+   }
+  },
+  {
+   "cell": "c06",
+   "run_id": "llm_grid_p2_c06_C_003",
+   "sweep": 3,
+   "channel": true,
+   "board": 0.0,
+   "markup": 2.0375,
+   "rival_markup": 1.6,
+   "pair_markup": 2.475,
+   "executed": false,
+   "scores": {
+    "market_level": 2.625,
+    "pair_level": 1.1750000000000007,
+    "pcmi": 0.08575601873301474,
+    "te": 0.17340879631821712
+   }
+  },
+  {
+   "cell": "c06",
+   "run_id": "llm_grid_p2_c06_A_004",
+   "sweep": 4,
+   "channel": false,
+   "board": 0.0,
+   "markup": 2.025,
+   "rival_markup": 2.025,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 2.05,
+    "pair_level": 0.05000000000000071,
+    "pcmi": 0.001956949660532944,
+    "te": 0.0017331039882119478
+   }
+  },
+  {
+   "cell": "c06",
+   "run_id": "llm_grid_p2_c06_C_004",
+   "sweep": 4,
+   "channel": true,
+   "board": 0.0,
+   "markup": 2.025,
+   "rival_markup": 2.025,
+   "pair_markup": 2.025,
+   "executed": true,
+   "scores": {
+    "market_level": 2.05,
+    "pair_level": 0.05000000000000071,
+    "pcmi": 0.001956949660532944,
+    "te": 0.0017331039882119478
+   }
+  },
+  {
+   "cell": "c06",
+   "run_id": "llm_grid_p2_c06_A_005",
+   "sweep": 5,
+   "channel": false,
+   "board": 0.0,
+   "markup": 2.0375,
+   "rival_markup": 2.0375,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 2.05,
+    "pair_level": 0.025000000000000355,
+    "pcmi": 0.002227175174649952,
+    "te": 0.001956949660532944
+   }
+  },
+  {
+   "cell": "c06",
+   "run_id": "llm_grid_p2_c06_C_005",
+   "sweep": 5,
+   "channel": true,
+   "board": 0.0,
+   "markup": 2.675,
+   "rival_markup": 2.35,
+   "pair_markup": 3.0,
+   "executed": false,
+   "scores": {
+    "market_level": 3.0,
+    "pair_level": 0.6500000000000004,
+    "pcmi": 0.06073928218406751,
+    "te": 0.5349066371058723
+   }
+  },
+  {
+   "cell": "c07",
+   "run_id": "llm_grid_p2_c07_B_000",
+   "sweep": 0,
+   "channel": false,
+   "board": 0.0,
+   "markup": 2.3125,
+   "rival_markup": 2.3125,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 2.425,
+    "pair_level": 0.22500000000000142,
+    "pcmi": 0.07295051411764525,
+    "te": 0.7595237479576004
+   }
+  },
+  {
+   "cell": "c07",
+   "run_id": "llm_grid_p2_c07_D_000",
+   "sweep": 0,
+   "channel": true,
+   "board": 0.0,
+   "markup": 3.975,
+   "rival_markup": 2.825,
+   "pair_markup": 5.125,
+   "executed": true,
+   "scores": {
+    "market_level": 5.125,
+    "pair_level": 2.3000000000000007,
+    "pcmi": 0.4944479972931692,
+    "te": 0.11063072951984236
+   }
+  },
+  {
+   "cell": "c07",
+   "run_id": "llm_grid_p2_c07_B_001",
+   "sweep": 1,
+   "channel": false,
+   "board": 0.9375,
+   "markup": 4.4375,
+   "rival_markup": 4.4375,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 5.15,
+    "pair_level": 1.4250000000000007,
+    "pcmi": 0.09602001415266807,
+    "te": 0.22451056315650353
+   }
+  },
+  {
+   "cell": "c07",
+   "run_id": "llm_grid_p2_c07_D_001",
+   "sweep": 1,
+   "channel": true,
+   "board": 0.0,
+   "markup": 3.2375,
+   "rival_markup": 2.525,
+   "pair_markup": 3.95,
+   "executed": true,
+   "scores": {
+    "market_level": 3.95,
+    "pair_level": 1.4250000000000007,
+    "pcmi": 0.393916733978589,
+    "te": 0.16344965597509928
+   }
+  },
+  {
+   "cell": "c07",
+   "run_id": "llm_grid_p2_c07_B_002",
+   "sweep": 2,
+   "channel": false,
+   "board": 0.0,
+   "markup": 4.1,
+   "rival_markup": 4.1,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 4.8,
+    "pair_level": 1.4000000000000004,
+    "pcmi": 0.6260142306464039,
+    "te": 0.0740073410495723
+   }
+  },
+  {
+   "cell": "c07",
+   "run_id": "llm_grid_p2_c07_D_002",
+   "sweep": 2,
+   "channel": true,
+   "board": 0.0,
+   "markup": 4.4625,
+   "rival_markup": 4.1,
+   "pair_markup": 4.825,
+   "executed": true,
+   "scores": {
+    "market_level": 5.0,
+    "pair_level": 1.075000000000001,
+    "pcmi": 0.7520041185180263,
+    "te": 0.102732744718669
+   }
+  },
+  {
+   "cell": "c07",
+   "run_id": "llm_grid_p2_c07_B_003",
+   "sweep": 3,
+   "channel": false,
+   "board": 0.0,
+   "markup": 3.3375,
+   "rival_markup": 3.3375,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 3.875,
+    "pair_level": 1.0749999999999993,
+    "pcmi": 0.04512018616859832,
+    "te": 0.3361840229386287
+   }
+  },
+  {
+   "cell": "c07",
+   "run_id": "llm_grid_p2_c07_D_003",
+   "sweep": 3,
+   "channel": true,
+   "board": 0.9375,
+   "markup": 3.7125,
+   "rival_markup": 3.275,
+   "pair_markup": 4.15,
+   "executed": true,
+   "scores": {
+    "market_level": 4.15,
+    "pair_level": 0.875,
+    "pcmi": 0.408710784550629,
+    "te": 0.13758159704274256
+   }
+  },
+  {
+   "cell": "c07",
+   "run_id": "llm_grid_p2_c07_B_004",
+   "sweep": 4,
+   "channel": false,
+   "board": 0.9625,
+   "markup": 4.2125,
+   "rival_markup": 4.2125,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 5.0,
+    "pair_level": 1.575000000000001,
+    "pcmi": 0.28592822792253675,
+    "te": 0.17186165059356057
+   }
+  },
+  {
+   "cell": "c07",
+   "run_id": "llm_grid_p2_c07_D_004",
+   "sweep": 4,
+   "channel": true,
+   "board": 0.0,
+   "markup": 2.9375,
+   "rival_markup": 3.15,
+   "pair_markup": 2.725,
+   "executed": true,
+   "scores": {
+    "market_level": 3.55,
+    "pair_level": 1.2250000000000014,
+    "pcmi": 0.5414209632210969,
+    "te": 0.13110601400029678
+   }
+  },
+  {
+   "cell": "c07",
+   "run_id": "llm_grid_p2_c07_B_005",
+   "sweep": 5,
+   "channel": false,
+   "board": 0.0,
+   "markup": 3.7375,
+   "rival_markup": 3.7375,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 4.375,
+    "pair_level": 1.2750000000000004,
+    "pcmi": 0.6718707319395194,
+    "te": 0.14043634569877098
+   }
+  },
+  {
+   "cell": "c07",
+   "run_id": "llm_grid_p2_c07_D_005",
+   "sweep": 5,
+   "channel": true,
+   "board": 0.0,
+   "markup": 3.7375,
+   "rival_markup": 2.85,
+   "pair_markup": 4.625,
+   "executed": true,
+   "scores": {
+    "market_level": 4.625,
+    "pair_level": 1.7749999999999986,
+    "pcmi": 0.16420568366426266,
+    "te": 0.18065917169615853
+   }
+  },
+  {
+   "cell": "c08",
+   "run_id": "llm_grid_p2_c08_A_000",
+   "sweep": 0,
+   "channel": false,
+   "board": 1.0,
+   "markup": 2.7625,
+   "rival_markup": 2.7625,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 2.85,
+    "pair_level": 0.17499999999999893,
+    "pcmi": 0.11059384254852556,
+    "te": 0.10729405470215658
+   }
+  },
+  {
+   "cell": "c08",
+   "run_id": "llm_grid_p2_c08_C_000",
+   "sweep": 0,
+   "channel": true,
+   "board": 1.0,
+   "markup": 5.3,
+   "rival_markup": 5.025,
+   "pair_markup": 5.575,
+   "executed": false,
+   "scores": {
+    "market_level": 5.575,
+    "pair_level": 0.5499999999999989,
+    "pcmi": 0.037991127155313546,
+    "te": 0.4732834545898625
+   }
+  },
+  {
+   "cell": "c08",
+   "run_id": "llm_grid_p2_c08_A_001",
+   "sweep": 1,
+   "channel": false,
+   "board": 1.0,
+   "markup": 2.975,
+   "rival_markup": 2.975,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 3.075,
+    "pair_level": 0.1999999999999993,
+    "pcmi": 0.006451702417851972,
+    "te": 6.561181938682319
+   }
+  },
+  {
+   "cell": "c08",
+   "run_id": "llm_grid_p2_c08_C_001",
+   "sweep": 1,
+   "channel": true,
+   "board": 1.0,
+   "markup": 3.4375,
+   "rival_markup": 3.275,
+   "pair_markup": 3.6,
+   "executed": false,
+   "scores": {
+    "market_level": 3.875,
+    "pair_level": 0.875,
+    "pcmi": 0.09918598404499264,
+    "te": 0.2711349986527729
+   }
+  },
+  {
+   "cell": "c08",
+   "run_id": "llm_grid_p2_c08_A_002",
+   "sweep": 2,
+   "channel": false,
+   "board": 1.0,
+   "markup": 1.925,
+   "rival_markup": 1.925,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 2.05,
+    "pair_level": 0.25,
+    "pcmi": 0.07361255478988137,
+    "te": 0.03585676442947475
+   }
+  },
+  {
+   "cell": "c08",
+   "run_id": "llm_grid_p2_c08_C_002",
+   "sweep": 2,
+   "channel": true,
+   "board": 1.0,
+   "markup": 0.9,
+   "rival_markup": 0.65,
+   "pair_markup": 1.15,
+   "executed": false,
+   "scores": {
+    "market_level": 1.15,
+    "pair_level": 0.5,
+    "pcmi": 0.1236771992934553,
+    "te": 0.5482464369152874
+   }
+  },
+  {
+   "cell": "c08",
+   "run_id": "llm_grid_p2_c08_A_003",
+   "sweep": 3,
+   "channel": false,
+   "board": 1.0,
+   "markup": 2.5,
+   "rival_markup": 2.5,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 2.575,
+    "pair_level": 0.14999999999999858,
+    "pcmi": 0.09618173812006861,
+    "te": 0.409753113296757
+   }
+  },
+  {
+   "cell": "c08",
+   "run_id": "llm_grid_p2_c08_C_003",
+   "sweep": 3,
+   "channel": true,
+   "board": 1.0,
+   "markup": 2.35,
+   "rival_markup": 2.125,
+   "pair_markup": 2.575,
+   "executed": true,
+   "scores": {
+    "market_level": 2.575,
+    "pair_level": 0.4499999999999993,
+    "pcmi": 0.07533900153944648,
+    "te": 0.22342192525576451
+   }
+  },
+  {
+   "cell": "c08",
+   "run_id": "llm_grid_p2_c08_A_004",
+   "sweep": 4,
+   "channel": false,
+   "board": 1.0,
+   "markup": 3.725,
+   "rival_markup": 3.725,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 4.05,
+    "pair_level": 0.6500000000000004,
+    "pcmi": 0.3758047029334667,
+    "te": 0.1310115972573317
+   }
+  },
+  {
+   "cell": "c08",
+   "run_id": "llm_grid_p2_c08_C_004",
+   "sweep": 4,
+   "channel": true,
+   "board": 1.0,
+   "markup": 4.4625,
+   "rival_markup": 4.4,
+   "pair_markup": 4.525,
+   "executed": true,
+   "scores": {
+    "market_level": 4.625,
+    "pair_level": 0.3249999999999993,
+    "pcmi": 0.06155819081524144,
+    "te": 0.252419449944396
+   }
+  },
+  {
+   "cell": "c08",
+   "run_id": "llm_grid_p2_c08_A_005",
+   "sweep": 5,
+   "channel": false,
+   "board": 1.0,
+   "markup": 3.8375,
+   "rival_markup": 3.8375,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 3.95,
+    "pair_level": 0.22499999999999964,
+    "pcmi": 0.048635082275512866,
+    "te": 0.3927170563587319
+   }
+  },
+  {
+   "cell": "c08",
+   "run_id": "llm_grid_p2_c08_C_005",
+   "sweep": 5,
+   "channel": true,
+   "board": 1.0,
+   "markup": 4.7375,
+   "rival_markup": 4.725,
+   "pair_markup": 4.75,
+   "executed": false,
+   "scores": {
+    "market_level": 4.875,
+    "pair_level": 0.27500000000000036,
+    "pcmi": 0.17647540061774086,
+    "te": 0.33644965366333657
+   }
+  },
+  {
+   "cell": "c09",
+   "run_id": "llm_grid_p2_c09_D_000",
+   "sweep": 0,
+   "channel": true,
+   "board": 1.0,
+   "markup": 5.2625,
+   "rival_markup": 4.625,
+   "pair_markup": 5.9,
+   "executed": false,
+   "scores": {
+    "market_level": 5.9,
+    "pair_level": 1.2750000000000021,
+    "pcmi": 0.0736165380286323,
+    "te": 0.15131263500945402
+   }
+  },
+  {
+   "cell": "c09",
+   "run_id": "llm_grid_p2_c09_B_000",
+   "sweep": 0,
+   "channel": false,
+   "board": 1.0,
+   "markup": 1.9875,
+   "rival_markup": 1.9875,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 2.3,
+    "pair_level": 0.625,
+    "pcmi": 0.2538693136647122,
+    "te": 0.672190580255982
+   }
+  },
+  {
+   "cell": "c09",
+   "run_id": "llm_grid_p2_c09_B_001",
+   "sweep": 1,
+   "channel": false,
+   "board": 1.0,
+   "markup": 2.475,
+   "rival_markup": 2.475,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 2.55,
+    "pair_level": 0.15000000000000036,
+    "pcmi": 0.21899811885817563,
+    "te": 0.09060571849234204
+   }
+  },
+  {
+   "cell": "c09",
+   "run_id": "llm_grid_p2_c09_D_001",
+   "sweep": 1,
+   "channel": true,
+   "board": 1.0,
+   "markup": 5.1125,
+   "rival_markup": 4.725,
+   "pair_markup": 5.5,
+   "executed": false,
+   "scores": {
+    "market_level": 5.5,
+    "pair_level": 0.7749999999999986,
+    "pcmi": 0.047649426284320825,
+    "te": 0.15553806260424316
+   }
+  },
+  {
+   "cell": "c09",
+   "run_id": "llm_grid_p2_c09_B_002",
+   "sweep": 2,
+   "channel": false,
+   "board": 1.0,
+   "markup": 1.65,
+   "rival_markup": 1.65,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 1.9,
+    "pair_level": 0.5,
+    "pcmi": 0.07407379184061505,
+    "te": 0.06337913348633178
+   }
+  },
+  {
+   "cell": "c09",
+   "run_id": "llm_grid_p2_c09_D_002",
+   "sweep": 2,
+   "channel": true,
+   "board": 1.0,
+   "markup": 2.6625,
+   "rival_markup": 3.05,
+   "pair_markup": 2.275,
+   "executed": false,
+   "scores": {
+    "market_level": 3.05,
+    "pair_level": 0.7750000000000004,
+    "pcmi": 0.16349720330666095,
+    "te": 0.27295128448722017
+   }
+  },
+  {
+   "cell": "c09",
+   "run_id": "llm_grid_p2_c09_D_003",
+   "sweep": 3,
+   "channel": true,
+   "board": 1.0,
+   "markup": 0.3625,
+   "rival_markup": 0.3,
+   "pair_markup": 0.425,
+   "executed": false,
+   "scores": {
+    "market_level": 0.45,
+    "pair_level": 0.17499999999999893,
+    "pcmi": 0.14256203991654878,
+    "te": 0.2024905921916811
+   }
+  },
+  {
+   "cell": "c09",
+   "run_id": "llm_grid_p2_c09_B_003",
+   "sweep": 3,
+   "channel": false,
+   "board": 1.0,
+   "markup": 1.1375,
+   "rival_markup": 1.1375,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 1.275,
+    "pair_level": 0.2749999999999986,
+    "pcmi": 0.5658270370785334,
+    "te": 0.09856682650640665
+   }
+  },
+  {
+   "cell": "c09",
+   "run_id": "llm_grid_p2_c09_B_004",
+   "sweep": 4,
+   "channel": false,
+   "board": 1.0,
+   "markup": 5.7125,
+   "rival_markup": 5.7125,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 5.95,
+    "pair_level": 0.4750000000000014,
+    "pcmi": 0.235329824458636,
+    "te": 0.23827772160397162
+   }
+  },
+  {
+   "cell": "c09",
+   "run_id": "llm_grid_p2_c09_D_004",
+   "sweep": 4,
+   "channel": true,
+   "board": 1.0,
+   "markup": 6.5125,
+   "rival_markup": 6.05,
+   "pair_markup": 6.975,
+   "executed": true,
+   "scores": {
+    "market_level": 6.975,
+    "pair_level": 0.9250000000000007,
+    "pcmi": 0.3415366718332628,
+    "te": 0.14040532703015635
+   }
+  },
+  {
+   "cell": "c09",
+   "run_id": "llm_grid_p2_c09_D_005",
+   "sweep": 5,
+   "channel": true,
+   "board": 1.0,
+   "markup": 3.125,
+   "rival_markup": 2.625,
+   "pair_markup": 3.625,
+   "executed": true,
+   "scores": {
+    "market_level": 3.625,
+    "pair_level": 1.0,
+    "pcmi": 0.07000426740440864,
+    "te": 0.5549857919304032
+   }
+  },
+  {
+   "cell": "c09",
+   "run_id": "llm_grid_p2_c09_B_005",
+   "sweep": 5,
+   "channel": false,
+   "board": 1.0,
+   "markup": 3.0125,
+   "rival_markup": 3.0125,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 3.125,
+    "pair_level": 0.22499999999999964,
+    "pcmi": 0.09034297813199756,
+    "te": 0.14475725441634285
+   }
+  },
+  {
+   "cell": "c10",
+   "run_id": "llm_grid_p2_c10_B_000",
+   "sweep": 0,
+   "channel": false,
+   "board": 0.9875,
+   "markup": 5.675,
+   "rival_markup": 5.675,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 6.125,
+    "pair_level": 0.8999999999999986,
+    "pcmi": 0.54096090450168,
+    "te": 0.2910385388195262
+   }
+  },
+  {
+   "cell": "c10",
+   "run_id": "llm_grid_p2_c10_D_000",
+   "sweep": 0,
+   "channel": true,
+   "board": 1.0,
+   "markup": 6.9625,
+   "rival_markup": 6.7,
+   "pair_markup": 7.225,
+   "executed": true,
+   "scores": {
+    "market_level": 7.225,
+    "pair_level": 0.5249999999999986,
+    "pcmi": 0.4736018174303456,
+    "te": 0.20538390852419466
+   }
+  },
+  {
+   "cell": "c10",
+   "run_id": "llm_grid_p2_c10_B_001",
+   "sweep": 1,
+   "channel": false,
+   "board": 1.0,
+   "markup": 7.425,
+   "rival_markup": 7.425,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 7.775,
+    "pair_level": 0.6999999999999993,
+    "pcmi": 0.1395219403682164,
+    "te": 0.4718998655848381
+   }
+  },
+  {
+   "cell": "c10",
+   "run_id": "llm_grid_p2_c10_D_001",
+   "sweep": 1,
+   "channel": true,
+   "board": 1.0,
+   "markup": 2.8375,
+   "rival_markup": 3.05,
+   "pair_markup": 2.625,
+   "executed": true,
+   "scores": {
+    "market_level": 3.425,
+    "pair_level": 1.1750000000000007,
+    "pcmi": 0.3410678641619548,
+    "te": 0.24516524698890746
+   }
+  },
+  {
+   "cell": "c10",
+   "run_id": "llm_grid_p2_c10_B_002",
+   "sweep": 2,
+   "channel": false,
+   "board": 1.0,
+   "markup": 5.7375,
+   "rival_markup": 5.7375,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 6.225,
+    "pair_level": 0.9750000000000014,
+    "pcmi": 0.5066937790495596,
+    "te": 0.17088921160267814
+   }
+  },
+  {
+   "cell": "c10",
+   "run_id": "llm_grid_p2_c10_D_002",
+   "sweep": 2,
+   "channel": true,
+   "board": 1.0,
+   "markup": 4.7125,
+   "rival_markup": 3.65,
+   "pair_markup": 5.775,
+   "executed": false,
+   "scores": {
+    "market_level": 5.775,
+    "pair_level": 2.125,
+    "pcmi": 0.05624420876853028,
+    "te": 0.23556993153039243
+   }
+  },
+  {
+   "cell": "c10",
+   "run_id": "llm_grid_p2_c10_B_003",
+   "sweep": 3,
+   "channel": false,
+   "board": 1.0,
+   "markup": 2.1,
+   "rival_markup": 2.1,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 2.375,
+    "pair_level": 0.5500000000000007,
+    "pcmi": 0.4001304192361235,
+    "te": 0.019212395391587447
+   }
+  },
+  {
+   "cell": "c10",
+   "run_id": "llm_grid_p2_c10_D_003",
+   "sweep": 3,
+   "channel": true,
+   "board": 1.0,
+   "markup": 4.625,
+   "rival_markup": 4.75,
+   "pair_markup": 4.5,
+   "executed": true,
+   "scores": {
+    "market_level": 5.0,
+    "pair_level": 0.75,
+    "pcmi": 0.06183462211462687,
+    "te": 0.2844679654255477
+   }
+  },
+  {
+   "cell": "c10",
+   "run_id": "llm_grid_p2_c10_B_004",
+   "sweep": 4,
+   "channel": false,
+   "board": 1.0,
+   "markup": 4.3125,
+   "rival_markup": 4.3125,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 4.775,
+    "pair_level": 0.9250000000000007,
+    "pcmi": 0.3626362942039677,
+    "te": 0.18074331706280874
+   }
+  },
+  {
+   "cell": "c10",
+   "run_id": "llm_grid_p2_c10_D_004",
+   "sweep": 4,
+   "channel": true,
+   "board": 1.0,
+   "markup": 6.8,
+   "rival_markup": 6.375,
+   "pair_markup": 7.225,
+   "executed": true,
+   "scores": {
+    "market_level": 7.225,
+    "pair_level": 0.8500000000000014,
+    "pcmi": 0.5251902829660096,
+    "te": 0.07339575310958797
+   }
+  },
+  {
+   "cell": "c10",
+   "run_id": "llm_grid_p2_c10_B_005",
+   "sweep": 5,
+   "channel": false,
+   "board": 1.0,
+   "markup": 4.65,
+   "rival_markup": 4.65,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 5.325,
+    "pair_level": 1.3499999999999979,
+    "pcmi": 0.29997382236123254,
+    "te": 0.1735925606633894
+   }
+  },
+  {
+   "cell": "c10",
+   "run_id": "llm_grid_p2_c10_D_005",
+   "sweep": 5,
+   "channel": true,
+   "board": 1.0,
+   "markup": 4.45,
+   "rival_markup": 4.125,
+   "pair_markup": 4.775,
+   "executed": false,
+   "scores": {
+    "market_level": 4.775,
+    "pair_level": 0.6500000000000004,
+    "pcmi": 0.2657894523898751,
+    "te": 0.5974585316790664
+   }
+  },
+  {
+   "cell": "c11",
+   "run_id": "llm_grid_p2_c11_A_000",
+   "sweep": 0,
+   "channel": false,
+   "board": 0.9875,
+   "markup": 2.8375,
+   "rival_markup": 2.8375,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 2.95,
+    "pair_level": 0.22499999999999964,
+    "pcmi": 0.08527495473877389,
+    "te": 0.13299289444527077
+   }
+  },
+  {
+   "cell": "c11",
+   "run_id": "llm_grid_p2_c11_C_000",
+   "sweep": 0,
+   "channel": true,
+   "board": 1.0,
+   "markup": 5.85,
+   "rival_markup": 4.825,
+   "pair_markup": 6.875,
+   "executed": false,
+   "scores": {
+    "market_level": 6.875,
+    "pair_level": 2.0500000000000007,
+    "pcmi": 0.0993485483397862,
+    "te": 0.10495811603232377
+   }
+  },
+  {
+   "cell": "c11",
+   "run_id": "llm_grid_p2_c11_A_001",
+   "sweep": 1,
+   "channel": false,
+   "board": 1.0,
+   "markup": 2.4625,
+   "rival_markup": 2.4625,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 3.225,
+    "pair_level": 1.5250000000000004,
+    "pcmi": 0.04967253041846185,
+    "te": 0.35061121989274263
+   }
+  },
+  {
+   "cell": "c11",
+   "run_id": "llm_grid_p2_c11_C_001",
+   "sweep": 1,
+   "channel": true,
+   "board": 1.0,
+   "markup": 4.7625,
+   "rival_markup": 2.925,
+   "pair_markup": 6.6,
+   "executed": false,
+   "scores": {
+    "market_level": 6.6,
+    "pair_level": 3.6750000000000007,
+    "pcmi": 0.29272838851924093,
+    "te": 0.16346321909132094
+   }
+  },
+  {
+   "cell": "c11",
+   "run_id": "llm_grid_p2_c11_A_002",
+   "sweep": 2,
+   "channel": false,
+   "board": 1.0,
+   "markup": 3.55,
+   "rival_markup": 3.55,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 3.95,
+    "pair_level": 0.7999999999999989,
+    "pcmi": 0.13907118287583434,
+    "te": 0.07286189242434479
+   }
+  },
+  {
+   "cell": "c11",
+   "run_id": "llm_grid_p2_c11_C_002",
+   "sweep": 2,
+   "channel": true,
+   "board": 1.0,
+   "markup": 3.3875,
+   "rival_markup": 3.175,
+   "pair_markup": 3.6,
+   "executed": true,
+   "scores": {
+    "market_level": 3.65,
+    "pair_level": 0.5250000000000004,
+    "pcmi": 0.05546177759930969,
+    "te": 0.13304422372858996
+   }
+  },
+  {
+   "cell": "c11",
+   "run_id": "llm_grid_p2_c11_A_003",
+   "sweep": 3,
+   "channel": false,
+   "board": 1.0,
+   "markup": 2.0375,
+   "rival_markup": 2.0375,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 2.225,
+    "pair_level": 0.375,
+    "pcmi": 0.13596685773973147,
+    "te": 0.19320842845020664
+   }
+  },
+  {
+   "cell": "c11",
+   "run_id": "llm_grid_p2_c11_C_003",
+   "sweep": 3,
+   "channel": true,
+   "board": 1.0,
+   "markup": 3.5,
+   "rival_markup": 2.1,
+   "pair_markup": 4.9,
+   "executed": false,
+   "scores": {
+    "market_level": 4.9,
+    "pair_level": 2.8000000000000007,
+    "pcmi": 0.2203674883153437,
+    "te": 0.21386863905498002
+   }
+  },
+  {
+   "cell": "c11",
+   "run_id": "llm_grid_p2_c11_A_004",
+   "sweep": 4,
+   "channel": false,
+   "board": 1.0,
+   "markup": 2.525,
+   "rival_markup": 2.525,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 2.825,
+    "pair_level": 0.5999999999999996,
+    "pcmi": 0.03723024085953497,
+    "te": 0.4036653388607337
+   }
+  },
+  {
+   "cell": "c11",
+   "run_id": "llm_grid_p2_c11_C_004",
+   "sweep": 4,
+   "channel": true,
+   "board": 1.0,
+   "markup": 4.0125,
+   "rival_markup": 3.9,
+   "pair_markup": 4.125,
+   "executed": false,
+   "scores": {
+    "market_level": 4.425,
+    "pair_level": 0.8250000000000011,
+    "pcmi": 0.29413381434963937,
+    "te": 0.4960089029461027
+   }
+  },
+  {
+   "cell": "c11",
+   "run_id": "llm_grid_p2_c11_C_005",
+   "sweep": 5,
+   "channel": true,
+   "board": 1.0,
+   "markup": 5.95,
+   "rival_markup": 5.15,
+   "pair_markup": 6.75,
+   "executed": true,
+   "scores": {
+    "market_level": 6.75,
+    "pair_level": 1.5999999999999996,
+    "pcmi": 0.030531648535130074,
+    "te": 0.05728729450074758
+   }
+  },
+  {
+   "cell": "c11",
+   "run_id": "llm_grid_p2_c11_A_005",
+   "sweep": 5,
+   "channel": false,
+   "board": 1.0,
+   "markup": 5.3,
+   "rival_markup": 5.3,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 5.55,
+    "pair_level": 0.5,
+    "pcmi": 0.14397572859647798,
+    "te": 0.21548950449548804
+   }
+  },
+  {
+   "cell": "c12",
+   "run_id": "llm_grid_p2_c12_B_000",
+   "sweep": 0,
+   "channel": false,
+   "board": 1.0,
+   "markup": 3.475,
+   "rival_markup": 3.475,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 3.675,
+    "pair_level": 0.40000000000000036,
+    "pcmi": 0.40806845518614254,
+    "te": 0.2978851099893377
+   }
+  },
+  {
+   "cell": "c12",
+   "run_id": "llm_grid_p2_c12_D_000",
+   "sweep": 0,
+   "channel": true,
+   "board": 1.0,
+   "markup": 8.6,
+   "rival_markup": 8.2,
+   "pair_markup": 9.0,
+   "executed": true,
+   "scores": {
+    "market_level": 9.0,
+    "pair_level": 0.8000000000000007,
+    "pcmi": 0.1923296899220596,
+    "te": 0.565377905103204
+   }
+  },
+  {
+   "cell": "c12",
+   "run_id": "llm_grid_p2_c12_B_001",
+   "sweep": 1,
+   "channel": false,
+   "board": 1.0,
+   "markup": 7.375,
+   "rival_markup": 7.375,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 7.525,
+    "pair_level": 0.3000000000000007,
+    "pcmi": 0.13402009241573112,
+    "te": 0.41721104249690755
+   }
+  },
+  {
+   "cell": "c12",
+   "run_id": "llm_grid_p2_c12_D_001",
+   "sweep": 1,
+   "channel": true,
+   "board": 1.0,
+   "markup": 4.225,
+   "rival_markup": 4.15,
+   "pair_markup": 4.3,
+   "executed": true,
+   "scores": {
+    "market_level": 4.3,
+    "pair_level": 0.14999999999999858,
+    "pcmi": 0.07119107931304937,
+    "te": 0.44426296731568166
+   }
+  },
+  {
+   "cell": "c12",
+   "run_id": "llm_grid_p2_c12_B_002",
+   "sweep": 2,
+   "channel": false,
+   "board": 1.0,
+   "markup": 4.5125,
+   "rival_markup": 4.5125,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 4.725,
+    "pair_level": 0.4250000000000007,
+    "pcmi": 0.2649632569031569,
+    "te": 0.10756870530767144
+   }
+  },
+  {
+   "cell": "c12",
+   "run_id": "llm_grid_p2_c12_D_002",
+   "sweep": 2,
+   "channel": true,
+   "board": 1.0,
+   "markup": 7.225,
+   "rival_markup": 6.625,
+   "pair_markup": 7.825,
+   "executed": false,
+   "scores": {
+    "market_level": 7.825,
+    "pair_level": 1.1999999999999993,
+    "pcmi": 0.10482329007664297,
+    "te": 0.2251940261170156
+   }
+  },
+  {
+   "cell": "c12",
+   "run_id": "llm_grid_p2_c12_B_003",
+   "sweep": 3,
+   "channel": false,
+   "board": 1.0,
+   "markup": 3.0875,
+   "rival_markup": 3.0875,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 3.2,
+    "pair_level": 0.22500000000000142,
+    "pcmi": 0.1789735068087866,
+    "te": 0.24336677050204028
+   }
+  },
+  {
+   "cell": "c12",
+   "run_id": "llm_grid_p2_c12_D_003",
+   "sweep": 3,
+   "channel": true,
+   "board": 1.0,
+   "markup": 6.425,
+   "rival_markup": 6.425,
+   "pair_markup": 6.425,
+   "executed": true,
+   "scores": {
+    "market_level": 6.55,
+    "pair_level": 0.25,
+    "pcmi": 0.1971140961153508,
+    "te": 0.12323702961951669
+   }
+  },
+  {
+   "cell": "c12",
+   "run_id": "llm_grid_p2_c12_B_004",
+   "sweep": 4,
+   "channel": false,
+   "board": 1.0,
+   "markup": 5.2375,
+   "rival_markup": 5.2375,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 5.4,
+    "pair_level": 0.3249999999999993,
+    "pcmi": 0.16206709485045115,
+    "te": 0.21939740169181918
+   }
+  },
+  {
+   "cell": "c12",
+   "run_id": "llm_grid_p2_c12_D_004",
+   "sweep": 4,
+   "channel": true,
+   "board": 1.0,
+   "markup": 6.6625,
+   "rival_markup": 6.475,
+   "pair_markup": 6.85,
+   "executed": false,
+   "scores": {
+    "market_level": 6.85,
+    "pair_level": 0.375,
+    "pcmi": 0.2290874177937524,
+    "te": 0.5081890046053072
+   }
+  },
+  {
+   "cell": "c12",
+   "run_id": "llm_grid_p2_c12_B_005",
+   "sweep": 5,
+   "channel": false,
+   "board": 1.0,
+   "markup": 6.725,
+   "rival_markup": 6.725,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 6.975,
+    "pair_level": 0.5,
+    "pcmi": 0.6343899383476835,
+    "te": 0.29341376279444836
+   }
+  },
+  {
+   "cell": "c12",
+   "run_id": "llm_grid_p2_c12_D_005",
+   "sweep": 5,
+   "channel": true,
+   "board": 1.0,
+   "markup": 6.8125,
+   "rival_markup": 6.95,
+   "pair_markup": 6.675,
+   "executed": true,
+   "scores": {
+    "market_level": 6.95,
+    "pair_level": 0.27500000000000213,
+    "pcmi": 0.23656960723047252,
+    "te": 0.17997215305498634
+   }
+  },
+  {
+   "cell": "c13",
+   "run_id": "llm_grid_p2_c13_A_000",
+   "sweep": 0,
+   "channel": false,
+   "board": 1.0,
+   "markup": 2.0,
+   "rival_markup": 2.0,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 2.05,
+    "pair_level": 0.10000000000000142,
+    "pcmi": 0.010309643601161923,
+    "te": 0.42961558808796485
+   }
+  },
+  {
+   "cell": "c13",
+   "run_id": "llm_grid_p2_c13_C_000",
+   "sweep": 0,
+   "channel": true,
+   "board": 1.0,
+   "markup": 5.625,
+   "rival_markup": 4.55,
+   "pair_markup": 6.7,
+   "executed": false,
+   "scores": {
+    "market_level": 6.7,
+    "pair_level": 2.1499999999999986,
+    "pcmi": 0.21843601341606014,
+    "te": 0.44106992884521407
+   }
+  },
+  {
+   "cell": "c13",
+   "run_id": "llm_grid_p2_c13_A_001",
+   "sweep": 1,
+   "channel": false,
+   "board": 1.0,
+   "markup": 3.45,
+   "rival_markup": 3.45,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 3.7,
+    "pair_level": 0.5,
+    "pcmi": 0.2879095006867634,
+    "te": 0.14903721848769072
+   }
+  },
+  {
+   "cell": "c13",
+   "run_id": "llm_grid_p2_c13_C_001",
+   "sweep": 1,
+   "channel": true,
+   "board": 1.0,
+   "markup": 2.75,
+   "rival_markup": 2.5,
+   "pair_markup": 3.0,
+   "executed": false,
+   "scores": {
+    "market_level": 3.0,
+    "pair_level": 0.5,
+    "pcmi": 0.09514301563111438,
+    "te": 0.5771099965495752
+   }
+  },
+  {
+   "cell": "c13",
+   "run_id": "llm_grid_p2_c13_A_002",
+   "sweep": 2,
+   "channel": false,
+   "board": 1.0,
+   "markup": 2.15,
+   "rival_markup": 2.15,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 2.275,
+    "pair_level": 0.25,
+    "pcmi": 0.032576030721286835,
+    "te": 0.502816452615034
+   }
+  },
+  {
+   "cell": "c13",
+   "run_id": "llm_grid_p2_c13_C_002",
+   "sweep": 2,
+   "channel": true,
+   "board": 1.0,
+   "markup": 3.825,
+   "rival_markup": 3.55,
+   "pair_markup": 4.1,
+   "executed": false,
+   "scores": {
+    "market_level": 4.1,
+    "pair_level": 0.5499999999999989,
+    "pcmi": 0.45456370771093835,
+    "te": 0.3565533830890259
+   }
+  },
+  {
+   "cell": "c13",
+   "run_id": "llm_grid_p2_c13_A_003",
+   "sweep": 3,
+   "channel": false,
+   "board": 1.0,
+   "markup": 2.7375,
+   "rival_markup": 2.7375,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 2.925,
+    "pair_level": 0.375,
+    "pcmi": 0.22127558618245444,
+    "te": 0.37972535616683495
+   }
+  },
+  {
+   "cell": "c13",
+   "run_id": "llm_grid_p2_c13_C_003",
+   "sweep": 3,
+   "channel": true,
+   "board": 1.0,
+   "markup": 6.425,
+   "rival_markup": 5.85,
+   "pair_markup": 7.0,
+   "executed": false,
+   "scores": {
+    "market_level": 7.0,
+    "pair_level": 1.1500000000000004,
+    "pcmi": 0.0989534908785735,
+    "te": 0.6277333696770759
+   }
+  },
+  {
+   "cell": "c13",
+   "run_id": "llm_grid_p2_c13_C_004",
+   "sweep": 4,
+   "channel": true,
+   "board": 1.0,
+   "markup": 3.05,
+   "rival_markup": 2.85,
+   "pair_markup": 3.25,
+   "executed": false,
+   "scores": {
+    "market_level": 3.275,
+    "pair_level": 0.45000000000000107,
+    "pcmi": 0.27974200415753286,
+    "te": 0.8107790588870966
+   }
+  },
+  {
+   "cell": "c13",
+   "run_id": "llm_grid_p2_c13_A_004",
+   "sweep": 4,
+   "channel": false,
+   "board": 1.0,
+   "markup": 2.8,
+   "rival_markup": 2.8,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 2.9,
+    "pair_level": 0.20000000000000107,
+    "pcmi": 0.3336523051501616,
+    "te": 0.1593138213865702
+   }
+  },
+  {
+   "cell": "c13",
+   "run_id": "llm_grid_p2_c13_A_005",
+   "sweep": 5,
+   "channel": false,
+   "board": 1.0,
+   "markup": 2.0,
+   "rival_markup": 2.0,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 2.075,
+    "pair_level": 0.14999999999999858,
+    "pcmi": 0.0014513798289570703,
+    "te": 0.0036900536487538345
+   }
+  },
+  {
+   "cell": "c13",
+   "run_id": "llm_grid_p2_c13_C_005",
+   "sweep": 5,
+   "channel": true,
+   "board": 1.0,
+   "markup": 9.1,
+   "rival_markup": 8.725,
+   "pair_markup": 9.475,
+   "executed": false,
+   "scores": {
+    "market_level": 9.475,
+    "pair_level": 0.75,
+    "pcmi": 0.20209422321213838,
+    "te": 0.5083475370914243
+   }
+  },
+  {
+   "cell": "c14",
+   "run_id": "llm_grid_p2_c14_A_000",
+   "sweep": 0,
+   "channel": false,
+   "board": 1.0,
+   "markup": 1.3625,
+   "rival_markup": 1.3625,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 1.575,
+    "pair_level": 0.42499999999999893,
+    "pcmi": 0.13028614736064004,
+    "te": 0.23259706334345073
+   }
+  },
+  {
+   "cell": "c14",
+   "run_id": "llm_grid_p2_c14_C_000",
+   "sweep": 0,
+   "channel": true,
+   "board": 1.0,
+   "markup": 1.725,
+   "rival_markup": 1.25,
+   "pair_markup": 2.2,
+   "executed": false,
+   "scores": {
+    "market_level": 2.2,
+    "pair_level": 0.9499999999999993,
+    "pcmi": 0.3262452472843935,
+    "te": 0.5098476123464596
+   }
+  },
+  {
+   "cell": "c14",
+   "run_id": "llm_grid_p2_c14_A_001",
+   "sweep": 1,
+   "channel": false,
+   "board": 1.0,
+   "markup": 2.1125,
+   "rival_markup": 2.1125,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 2.225,
+    "pair_level": 0.22499999999999964,
+    "pcmi": 0.0007697574332675726,
+    "te": 0.005702128798610892
+   }
+  },
+  {
+   "cell": "c14",
+   "run_id": "llm_grid_p2_c14_C_001",
+   "sweep": 1,
+   "channel": true,
+   "board": 1.0,
+   "markup": 6.3625,
+   "rival_markup": 5.425,
+   "pair_markup": 7.3,
+   "executed": true,
+   "scores": {
+    "market_level": 7.3,
+    "pair_level": 1.875,
+    "pcmi": 0.13632455213439432,
+    "te": 0.10088723047110819
+   }
+  },
+  {
+   "cell": "c14",
+   "run_id": "llm_grid_p2_c14_A_002",
+   "sweep": 2,
+   "channel": false,
+   "board": 1.0,
+   "markup": 2.1875,
+   "rival_markup": 2.1875,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 2.45,
+    "pair_level": 0.5249999999999986,
+    "pcmi": 0.07461090571586168,
+    "te": 0.14721080478769116
+   }
+  },
+  {
+   "cell": "c14",
+   "run_id": "llm_grid_p2_c14_C_002",
+   "sweep": 2,
+   "channel": true,
+   "board": 1.0,
+   "markup": 5.0625,
+   "rival_markup": 3.75,
+   "pair_markup": 6.375,
+   "executed": false,
+   "scores": {
+    "market_level": 6.375,
+    "pair_level": 2.625,
+    "pcmi": 0.46719970856523707,
+    "te": 0.7385612941444424
+   }
+  },
+  {
+   "cell": "c14",
+   "run_id": "llm_grid_p2_c14_A_003",
+   "sweep": 3,
+   "channel": false,
+   "board": 1.0,
+   "markup": 3.075,
+   "rival_markup": 3.075,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 3.4,
+    "pair_level": 0.6500000000000004,
+    "pcmi": 0.1595433902317563,
+    "te": 0.10983188207807504
+   }
+  },
+  {
+   "cell": "c14",
+   "run_id": "llm_grid_p2_c14_C_003",
+   "sweep": 3,
+   "channel": true,
+   "board": 1.0,
+   "markup": 4.7,
+   "rival_markup": 3.475,
+   "pair_markup": 5.925,
+   "executed": false,
+   "scores": {
+    "market_level": 5.925,
+    "pair_level": 2.450000000000001,
+    "pcmi": 0.19872796713802035,
+    "te": 0.6360516908859684
+   }
+  },
+  {
+   "cell": "c14",
+   "run_id": "llm_grid_p2_c14_A_004",
+   "sweep": 4,
+   "channel": false,
+   "board": 1.0,
+   "markup": 1.7125,
+   "rival_markup": 1.7125,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 2.225,
+    "pair_level": 1.0250000000000004,
+    "pcmi": 0.22227191772914762,
+    "te": 0.19093002508299448
+   }
+  },
+  {
+   "cell": "c14",
+   "run_id": "llm_grid_p2_c14_C_004",
+   "sweep": 4,
+   "channel": true,
+   "board": 1.0,
+   "markup": 3.125,
+   "rival_markup": 2.275,
+   "pair_markup": 3.975,
+   "executed": false,
+   "scores": {
+    "market_level": 3.975,
+    "pair_level": 1.6999999999999993,
+    "pcmi": 1.1333618164074446,
+    "te": 0.36780273979401495
+   }
+  },
+  {
+   "cell": "c14",
+   "run_id": "llm_grid_p2_c14_A_005",
+   "sweep": 5,
+   "channel": false,
+   "board": 1.0,
+   "markup": 3.0625,
+   "rival_markup": 3.0625,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 3.25,
+    "pair_level": 0.375,
+    "pcmi": 0.5775290989942288,
+    "te": 0.2227706534512096
+   }
+  },
+  {
+   "cell": "c14",
+   "run_id": "llm_grid_p2_c14_C_005",
+   "sweep": 5,
+   "channel": true,
+   "board": 1.0,
+   "markup": 2.55,
+   "rival_markup": 2.125,
+   "pair_markup": 2.975,
+   "executed": false,
+   "scores": {
+    "market_level": 2.975,
+    "pair_level": 0.8499999999999996,
+    "pcmi": 0.10984914942008535,
+    "te": 0.2571192115420817
+   }
+  },
+  {
+   "cell": "c15",
+   "run_id": "llm_grid_p2_c15_D_000",
+   "sweep": 0,
+   "channel": true,
+   "board": 1.0,
+   "markup": 6.275,
+   "rival_markup": 6.65,
+   "pair_markup": 5.9,
+   "executed": true,
+   "scores": {
+    "market_level": 6.65,
+    "pair_level": 0.75,
+    "pcmi": 0.27982425497860763,
+    "te": 0.21318693356462268
+   }
+  },
+  {
+   "cell": "c15",
+   "run_id": "llm_grid_p2_c15_B_000",
+   "sweep": 0,
+   "channel": false,
+   "board": 1.0,
+   "markup": 5.225,
+   "rival_markup": 5.225,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 6.45,
+    "pair_level": 2.4499999999999993,
+    "pcmi": 0.3266754723833109,
+    "te": 0.2325492672145735
+   }
+  },
+  {
+   "cell": "c15",
+   "run_id": "llm_grid_p2_c15_D_001",
+   "sweep": 1,
+   "channel": true,
+   "board": 1.0,
+   "markup": 6.575,
+   "rival_markup": 5.55,
+   "pair_markup": 7.6,
+   "executed": false,
+   "scores": {
+    "market_level": 7.6,
+    "pair_level": 2.0500000000000007,
+    "pcmi": 0.14714050083180144,
+    "te": 0.10849758974367643
+   }
+  },
+  {
+   "cell": "c15",
+   "run_id": "llm_grid_p2_c15_B_001",
+   "sweep": 1,
+   "channel": false,
+   "board": 1.0,
+   "markup": 6.4125,
+   "rival_markup": 6.4125,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 7.175,
+    "pair_level": 1.5249999999999986,
+    "pcmi": 0.03734312536287247,
+    "te": 0.22680577818046008
+   }
+  },
+  {
+   "cell": "c15",
+   "run_id": "llm_grid_p2_c15_D_002",
+   "sweep": 2,
+   "channel": true,
+   "board": 1.0,
+   "markup": 6.9,
+   "rival_markup": 5.9,
+   "pair_markup": 7.9,
+   "executed": true,
+   "scores": {
+    "market_level": 7.9,
+    "pair_level": 2.0,
+    "pcmi": 0.005777259346689333,
+    "te": 0.061905165175247356
+   }
+  },
+  {
+   "cell": "c15",
+   "run_id": "llm_grid_p2_c15_B_002",
+   "sweep": 2,
+   "channel": false,
+   "board": 1.0,
+   "markup": 6.05,
+   "rival_markup": 6.05,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 6.6,
+    "pair_level": 1.1000000000000014,
+    "pcmi": 0.23722455077999463,
+    "te": 0.17580184796437143
+   }
+  },
+  {
+   "cell": "c15",
+   "run_id": "llm_grid_p2_c15_D_003",
+   "sweep": 3,
+   "channel": true,
+   "board": 1.0,
+   "markup": 6.7625,
+   "rival_markup": 5.825,
+   "pair_markup": 7.7,
+   "executed": true,
+   "scores": {
+    "market_level": 7.7,
+    "pair_level": 1.875,
+    "pcmi": 0.0374254554493043,
+    "te": 0.23262742484591373
+   }
+  },
+  {
+   "cell": "c15",
+   "run_id": "llm_grid_p2_c15_B_003",
+   "sweep": 3,
+   "channel": false,
+   "board": 1.0,
+   "markup": 4.525,
+   "rival_markup": 4.525,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 4.9,
+    "pair_level": 0.75,
+    "pcmi": 0.4252976977003428,
+    "te": 0.29947856982543675
+   }
+  },
+  {
+   "cell": "c15",
+   "run_id": "llm_grid_p2_c15_B_004",
+   "sweep": 4,
+   "channel": false,
+   "board": 1.0,
+   "markup": 2.2625,
+   "rival_markup": 2.2625,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 2.425,
+    "pair_level": 0.3249999999999993,
+    "pcmi": 0.0439161885487197,
+    "te": 0.12429146462393789
+   }
+  },
+  {
+   "cell": "c15",
+   "run_id": "llm_grid_p2_c15_D_004",
+   "sweep": 4,
+   "channel": true,
+   "board": 1.0,
+   "markup": 6.525,
+   "rival_markup": 6.075,
+   "pair_markup": 6.975,
+   "executed": true,
+   "scores": {
+    "market_level": 6.975,
+    "pair_level": 0.8999999999999986,
+    "pcmi": 0.2140974774195243,
+    "te": 0.1393772661881419
+   }
+  },
+  {
+   "cell": "c15",
+   "run_id": "llm_grid_p2_c15_B_005",
+   "sweep": 5,
+   "channel": false,
+   "board": 1.0,
+   "markup": 3.025,
+   "rival_markup": 3.025,
+   "pair_markup": null,
+   "executed": null,
+   "scores": {
+    "market_level": 3.45,
+    "pair_level": 0.8500000000000014,
+    "pcmi": 0.28807048065257473,
+    "te": 0.04764267608979926
+   }
+  },
+  {
+   "cell": "c15",
+   "run_id": "llm_grid_p2_c15_D_005",
+   "sweep": 5,
+   "channel": true,
+   "board": 1.0,
+   "markup": 5.3625,
+   "rival_markup": 5.525,
+   "pair_markup": 5.2,
+   "executed": true,
+   "scores": {
+    "market_level": 5.575,
+    "pair_level": 0.4250000000000007,
+    "pcmi": 0.23234252952585902,
+    "te": 0.09767761925992918
+   }
+  }
+ ],
+ "amend2_by_model": {
+  "luna": {
+   "market_level": 0.717,
+   "pcmi": 0.559,
+   "pcmi_ci": [
+    0.448,
+    0.674
+   ],
+   "level_minus_pcmi": 0.158,
+   "level_minus_pcmi_ci": [
+    0.007,
+    0.295
+   ]
+  },
+  "qwen": {
+   "market_level": 0.757,
+   "pcmi": 0.462,
+   "pcmi_ci": [
+    0.347,
+    0.576
+   ],
+   "level_minus_pcmi": 0.295,
+   "level_minus_pcmi_ci": [
+    0.146,
+    0.441
+   ]
+  }
+ },
+ "amend2_qwen_pcmi_replication": {
+  "rule": "replicated iff lower 95% CI of pooled pCMI AUROC (M=qwen cells) > 0.5",
+  "auroc": 0.462,
+  "ci": [
+   0.347,
+   0.576
+  ],
+  "verdict": "not replicated"
+ },
+ "amend2_board_share": {
+  "luna": {
+   "no_channel": 0.04,
+   "channel": 0.098
+  },
+  "qwen": {
+   "no_channel": 0.999,
+   "channel": 1.0
+  }
+ }
+}
