@@ -1,19 +1,17 @@
-# STATUS (top = current state; updated 2026-10-24 00:00 UTC, iteration 7)
+# STATUS (top = current state; updated 2026-10-24 00:45 UTC, iteration 8)
 
-**Scripted half DONE (director: stop touching it).** `scripts/tables.py` reprints §4.1/§4.2 from results JSON — every cell
-checked, no discrepancies (directive 5 regenerability, done early).
-**E12** pre-registered level baseline (markup over state Nash) + within-family/paired AUROC in llm_eval/llm_report.
-**External llm_v3 FINAL n=125 (E13):** run AUROC private vs none pCMI 0.52 [.39,.64], MI 0.59, pair_level 0.98 [.95,1];
-top-1 pCMI 18/70, MI 42/70, pair_level 63/70; diff pCMI−pair_level −0.46 [−.58,−.33]; surrogate null pCMI 0/70, pair_level 45/70. In REPORT.
-**E15 (exploratory):** pair co-movement on llm_v3 is real (MI on first differences top-1 31.5/70, final n), not just drift, but
-max-over-pairs in controls is as high → run AUROC ≈0.5. "Localises a suspected pair, can't screen markets at T=12."
-**Running:** `scripts/llm_queue2.sh` (E17: queue v1 KILLED 23:55 — backend=auto drifted to Go/deepseek for in-flight controls;
-68 completed llm_v1 runs verified gpt-6-luna; queue2 pins --backend codex). llm_v1 controls → label+eval ≈00:25 → llm_long ≈01:45 → llm_mixed ≈02:15.
-Before using any LLM dataset: check ground_truth model field is single-model.
-**Next:** (1) when /var/tmp/c14/queue.log says 'labelled+evaluated': `uv run python -m experiments.llm_report --name llm_v1`,
-fill §4.3 per DIRECTION (i)–(v); `uv run python -m experiments.llm_fig`; (2) DONE; (3) llm_long/mixed; directive-4 decision on extra batch (no launch after 04:00);
-(4) 04:00+: codex/Opus claims review, abstract rewrite once, umbrella paragraph.
-**Risks:** (for director/sibling) llm.py tier=cheap auto-order silently uses Go/deepseek whenever the Go cooldown lapses — sibling llm_v3fp may be affected; no pCMI positive control at T=12 (nearest scripted T=10 top-1 0.47); queue script must not be edited while running.
+**Scripted half DONE (director: stop touching it).** `scripts/tables.py` reprints §4.1/§4.2 from results JSON.
+**llm_v1 FINAL (E18, 74 games, all luna/codex), in REPORT §4.3 + abstract:** channel raises markup +1.76 [1.21,2.31] (C−A),
++1.77 [1.02,2.52] (D−B), mostly market-wide (pair−rivals +0.45). Run AUROC C/D vs A/B: pCMI 0.45 [.32,.59], MI 0.50,
+markup 0.87 [.78,.94], pair_level 0.74; pCMI−markup −0.42 [−.56,−.27]. Raw MI flips by family (C vs A 0.20, D vs B 0.82 =
+common-trend artefact). top-1 pCMI 9/32 vs level 27/32. Shift null over-rejects on LLM A controls (0.19) → surrogate null only.
+**External llm_v3 FINAL n=125 (E13):** pCMI 0.52 [.39,.64], pair_level 0.98; top-1 pCMI 18/70 vs 63/70. In REPORT.
+**Running:** queue2 → llm_long (A,C T=50, 16 games, ETA ≈01:40) → llm_mixed (≈02:10) → label/eval llm_long + mixed eval
+(queue.log 'queue finished'). codex review of llm_v1 §4.3 text → /var/tmp/c14/review_llm_v1.md (started 00:42).
+**Next:** (1) apply review_llm_v1 fixes; (2) when queue finished: `llm_report --name llm_long`, mixed eval → §4.3 (iv),(v);
+(3) directive 4: extra T=50 batch only if llm_long pCMI grows with T, launch before 04:00, else skip; (4) 04:00+: full-REPORT
+claims review (codex + Opus), abstract rewrite ONCE, umbrella paragraph with sibling test numbers (pending in their repo).
+**Risks:** no pCMI positive control at T=12; llm_long may not finish before 04:00 decision if codex slows.
 
 ## Log
 - 20:24 smoke test ok.
@@ -31,3 +29,4 @@ fill §4.3 per DIRECTION (i)–(v); `uv run python -m experiments.llm_fig`; (2) 
 - iter 5 21:57–22:30: E12 baseline fix + within-family/paired AUROC in llm_eval/llm_report (before llm_v1 eval); E13 ext_llm_v3 provisional; ledger hashes; §5 n fix; codex review → E14 fixes; ext rerun at n=70; experiments/llm_fig.py (figures/llm_auroc_both.png).
 - iter 7 22:49–00:00: E16 mixed-eval CI; found backend drift (E17) → killed queue, queue2 with codex pinned; llm_v3 final n=125 → REPORT §4.3, figure.
 - iter 6 22:34–22:52: scripts/tables.py (sonnet worker; verified), ext_llm_v3 rerun n=74 → REPORT, T=10 scripted top-1 as nearest positive control, E15 co-movement diag.
+- iter 8 00:04–00:45: waited for queue2; llm_v1 label+eval done 00:26 → llm_report, llm_fig, REPORT §4.3 llm_v1 results + abstract LLM sentence (E18); ledger hashes filled; codex review of the new text started.

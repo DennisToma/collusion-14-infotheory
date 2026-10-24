@@ -20,8 +20,12 @@ share their **random seed** (48–94% flagged by every detector), and **lagged**
 flags legitimate public leader-follower pricing in 100% of runs. Information-theoretic dependence detects
 *coordinated variation*, not agreement: collusion that is a constant high price or a lagged matching rule
 is (near-)invisible to contemporaneous estimators.
-LLM-agent results (gpt-6-luna sellers, 64 games): *pending* — first games show channel pairs lifting the
-whole market's price level, not only their own.
+With LLM sellers (gpt-6-luna; our market `llm_v1`, 74 games, T=20, and a sibling market `llm_v3`, 125 runs, T=12),
+a private channel produces real collusion: judge-verified agreements, and markup over Nash +1.8 [1.2, 2.3] above
+no-channel markets. But the collusion is a **price level**. A one-line markup or pair-level statistic separates channel
+from control runs (run AUROC 0.87 [0.78, 0.94] and 0.98 [0.95, 1.00]), and pCMI is at chance (0.45 [0.32, 0.59] and
+0.52 [0.39, 0.64]; pCMI minus the best level statistic −0.42 [−0.56, −0.27] and −0.46 [−0.58, −0.33]). Raw MI tracks common price trends, not the channel
+(AUROC 0.20 in one family, 0.82 in the other). *Long-horizon (T=50) and mixed-model follow-ups pending.*
 
 ## 1. Question and operational definition
 **Question.** Do colluding agents' actions share more information than is explained by public market
@@ -184,7 +188,7 @@ Two lessons: (i) a single example value in the output format fixed the whole mar
 pricing experiments are fragile to prompt anchors; (ii) a market in which every seller plays the same
 constant price contains **zero** information for dependence-based detectors, whatever the agreement status.
 
-**Main LLM dataset `llm_v1`** (running): 64 games, 16 per condition A–D (+5 extra A and B games so the
+**Main LLM dataset `llm_v1`** (complete, 74 games, all sellers gpt-6-luna via codex — checked per run, E17): 16 per condition A–D (+5 extra A and B games so the
 same-model reference pool has ≥ 20 per family), T=20, design of `llm_pilot4` (sim_version llm0.3). Labels:
 judge (tier=big) reads the private chat → `agreement_verified`; `coordinated_actions_verified` from prices
 (both pair members within ±1 of the agreed price in ≥ 50% of rounds after the agreement; criterion fixed on `llm_pilot4`, E11); no-channel runs with mean markup ≥ 2
@@ -256,10 +260,75 @@ signal localises a pair you already suspect but cannot screen markets. pCMI's we
 consistent with lost power: about 7 regressors on 11 usable rows. It does not show that the information is absent.
 
 ![LLM AUROC](figures/llm_auroc_both.png)
-*Run AUROC of dependence (blue) vs level (orange) detectors on the LLM datasets (`uv run python -m experiments.llm_fig`; llm_v1 panel is added once its eval exists).*
+*Run AUROC of dependence (blue) vs level (orange) detectors on the LLM datasets (`uv run python -m experiments.llm_fig`).*
+
+**`llm_v1` results (confirmatory, all 74 games, T=20; frozen detectors and labels, no tuning after viewing).**
+Commands: `uv run python -m experiments.llm_eval label --name llm_v1`, `... eval --name llm_v1`, then
+`uv run python -m experiments.llm_report --name llm_v1`, which writes every number below to `results/eval/llm_v1_report.md`
+(source `results/eval/llm_v1.json`).
+
+*(a) Labels (Wilson 95% CI).*
+
+| condition | n | agreement verified | coordinated actions (= realised) | tacit supra-competitive |
+|---|---|---|---|---|
+| A no channel | 21 | 0/21 | 0/21 | 0/21 [0.00, 0.15] |
+| B no channel + shocks | 21 | 0/21 | 0/21 | 6/21 [0.14, 0.50] |
+| C pair channel | 16 | 14/16 [0.64, 0.97] | 12/16 [0.51, 0.90] | — |
+| D pair channel + shocks | 16 | 10/15 [0.42, 0.85] (+1 n/a) | 5/16 [0.14, 0.56] | — |
+
+![llm_v1 prices](figures/llm_v1_prices.png)
+*Per-run market mean price (grey) and the mean of channel pair vs rivals (`figures/llm_v1_prices.png`).*
+
+*(i) Does the channel raise prices? Yes, and mostly market-wide.* Markup over the per-round state Nash, within family:
+C − A **+1.76 [1.21, 2.31]** (Mann-Whitney one-sided p=4e-6), D − B **+1.77 [1.02, 2.52]** (p=8e-5). The pair sits only
+slightly above its own rivals: pair − rivals +0.48 [0.33, 0.64] (C), +0.42 [0.26, 0.59] (D). In `llm_v3` the gap is pair-specific
+(pair_level ≈ markup there); here rivals follow the pair up, so the market-wide markup is the better level statistic
+(pooled AUROC pair_level − markup −0.13 [−0.26, −0.00]).
+
+*(ii) Do dependence detectors add anything beyond level? No.* Run AUROC, T=20, all games [bootstrap 95% CI]:
+
+| detector | C/D vs A/B | C vs A | D vs B | top-1 assigned pair C / D (chance 1/6) |
+|---|---|---|---|---|
+| pCMI (state+lags) | 0.45 [0.32, 0.59] | 0.47 [0.28, 0.67] | 0.43 [0.24, 0.62] | 5/16 / 4/16 |
+| MI (raw) | 0.50 [0.36, 0.64] | **0.20** [0.06, 0.37] | **0.82** [0.65, 0.94] | 5/16 / 3/16 |
+| lagged CMI (TE) | 0.55 [0.42, 0.67] | 0.35 [0.18, 0.55] | 0.74 [0.57, 0.88] | 6/16 / 3/16 |
+| \|Pearson\| | 0.45 [0.31, 0.58] | 0.14 [0.04, 0.29] | 0.76 [0.58, 0.91] | — |
+| pair price level (non-IT) | 0.74 [0.62, 0.86] | 0.75 [0.55, 0.91] | 0.74 [0.57, 0.89] | 15/16 / 12/16 |
+| markup over Nash (non-IT) | **0.87** [0.78, 0.94] | 0.94 [0.86, 1.00] | 0.87 [0.74, 0.97] | 15/16 / 12/16 |
+
+Paired-bootstrap AUROC differences: pCMI − markup −0.42 [−0.56, −0.27] (pooled), −0.47 [−0.65, −0.29] (C vs A), −0.44
+[−0.64, −0.22] (D vs B); pCMI − pair_level −0.29 [−0.46, −0.13]. MI − markup and TE − markup are clearly negative in C vs A
+and include 0 only in D vs B (−0.06 [−0.24, 0.14], −0.14 [−0.34, 0.06]).
+
+The raw-dependence rows *flip sign between families*: MI separates D from B (0.82) but ranks C **below** A (0.20).
+The price figure shows why (an interpretation, not a separate test). A markets all slide together from 12 toward Nash
+10 in the first ~5 rounds, and D markets all climb together. A shared trend is shared variation, so raw MI/Pearson are
+high in whichever family drifts. C markets stay flat, so their MI is low. Raw dependence therefore measures *common
+trends*, not the channel. pCMI, which conditions on state and lagged prices, removes both effects and sits at ≈ 0.45
+in both families. That is the intended behaviour of the estimator (§4.1), and it leaves no residual channel signal.
+
+*(iii) Localisation.* pCMI names the assigned pair in 5/16 (C) and 4/16 (D) runs, and 4/17 among realised-collusion runs
+(0.24 [0.10, 0.47], exact binomial p=0.31 vs 1/6). The level statistics name it in 15/16 and 12/16 runs.
+*(d, e) Nulls.* The A/B pool is 42 ≥ 20, so the control-surrogate null is usable. Leave-one-out FPR is 1/21 in both A and B
+(≤ α by construction). It flags pCMI in 0/16 C and 2/16 D runs, MI in 1/16 C and 7/16 D runs (the D drift again), and
+pair_level in 9/16 C and 5/16 D runs. The within-run shift null for pCMI over-rejects on these LLM controls (A: 4/21 = 0.19
+[0.08, 0.40]), although scripted controls at T=20 were calibrated (0.05, §4.2). A plausible cause is that the LLM series drift
+(A slides toward Nash), and circular shifts assume stationarity. We therefore use only the surrogate null on this set.
+AUROC vs T (5…20 rounds, `figures/llm_v1_power_vs_T.png`) is flat for every detector (pCMI 0.57, 0.46, 0.45, 0.45). Adding
+rounds within T=20 does not reveal a dependence signal. `llm_long` (T=50) tests whether longer games do.
+
+**What the two LLM datasets show together.** In two different LLM markets (different framing, grid, T, public board), the
+private channel produces collusion that is a **price level**, not coordinated variation beyond what state and lags explain.
+In `llm_v1` the level is market-wide (rivals follow). In `llm_v3` it is pair-specific. Level statistics detect it (run AUROC
+0.87 and 0.98), and the conditioned dependence detector is at chance on both (0.45, 0.52; every IT − level CI excludes 0).
+This is consistent with the scripted hard-negative result that "stay-high" collusion is invisible to dependence measures
+(§4.2). It does **not** show that dependence detectors fail on LLM agents in general. It shows that *these* LLM agents
+collude by holding a level, which these detectors are built to ignore. Level statistics have a cost: they also flag the
+`legit` partnership (pair_level 0.75 in `llm_v3`) and tacitly high no-channel markets (6/21 B runs ≥ 2 over Nash), so they are
+not collusion-specific either.
 
 Not claimed from this data: surrogate-null FPR with pool < 20; absence of same-model dependence from a null
-result; that dependence detectors fail on LLM agents in general. *Results pending.*
+result; that dependence detectors fail on LLM agents in general. *`llm_long` (T=50) and `llm_mixed` pending.*
 
 ## 5. Limitations (so far)
 * Scripted colluders are stylised; `signal` collusion with fresh shared randomness every round is the
