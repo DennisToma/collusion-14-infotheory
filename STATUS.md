@@ -1,6 +1,15 @@
 > **PHASE 2 STARTED 2026-10-24 06:45 UTC** - v1 frozen as tag v1-overnight. New experiments are OPEN again; work queue = DIRECTION.md gap list. Ignore older no-new-experiments / finalize notes below.
 
 
+# STATUS (updated 2026-10-24 15:53 UTC from date -u, Phase 2 iteration 15; follows DIRECTION 13:45)
+
+**Adversarial review (DIRECTION #5) DONE early** (Opus subagent; record `results/reviews/opus_review_p2_iter15.md`): 3 P0 fixed: E64 declared prediction only PARTLY met (pair_level executed 0.84 [0.75,0.92] < 0.9); circularity applies to market_level only; "max-pair markup 0.94/0.95/0.99" was market_level → renamed. 9 P1 applied (minority not rare, T20→60 decline n.s., E61 CI wording, T=80 cancellation, E65 populations, Nash cost-dependent, etc.).
+**Joint statement with Q2.2** added verbatim after the abstract, with E65 qualifier (E65: 0/20 tacit, channel +2.13) — 2nd sentence is the sibling's strong-framing finding.
+**E68 pipeline** crash-tested on 4 partial runs (output discarded, no numbers read). D2 4/30 at 15:47 (~15 min/run → ETA ~23:00+).
+**E69:** qb36 19/30 at 15:52. When 30: `uv run python scripts/p2_partc.py --label --run-eval` → P2.11 table auto-row + (b) line + glance.
+Checks: p2_tables PASS (336), tables PASS, release audit OK.
+**Next:** (1) E69 contrast; (2) 19:30 checks + PDFs; (3) D2 analysis when 30 runs (Sun); final review Sun ~12:30 incl. D2.
+
 # STATUS (updated 2026-10-24 15:45 UTC from date -u, Phase 2 iteration 14; follows DIRECTION 13:45)
 
 **E65 DONE (declared verdict: INCONCLUSIVE):** pCMI AUROC executed C vs A 0.33 [0.02, 0.66], n=5 exec/20 A (upper CI touches .65 → not "still a level"). Pilot did NOT replicate: executed 5/20 (pilot 5/5), C−A +2.13 [1.28,3.00] (pilot +6.54). All C vs A T=40: markup .85, pair .80, pCMI .49; TE .71 [.53,.87] = only dependence stat with CI > .5 (exploratory, uncorrected, flagged as such). Spillover market-wide (+1.54 of +2.98). E64 pooled now 8 sets: pCMI exec .42 [.31,.52] vs .50 (38/119 executed). E67 confirmatory on E65: WORKS .90 [.79,.97] → tally 1/2; mechanism still unsupported (ρ +0.00). Written into main claim, abstract, glance (status+row C), takeaway 7, P2.11 table row + (a)(c)(d)(e) + new (f). Checks: p2_tables PASS (336), tables PASS, release audit OK.
