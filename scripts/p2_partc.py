@@ -165,7 +165,7 @@ def sub_auroc(s, pos, neg, B=2000, seed=0):
 def pooled_exec(res, B=2000, seed=0):
     """E64 pooled: AUROC over all (positive, A) pairs WITHIN each set (no cross-set comparisons), bootstrap = resample games within sets."""
     groups = {"all sets": [n for n, r in res.items() if isinstance(r, dict) and r.get("behaviour")
-                          and (ROOT / "results" / "eval" / f"{n}.json").exists()],  # memory pilots: judge labels only, no detector
+                          and not n.endswith("_pilot") and (ROOT / "results" / "eval" / f"{n}.json").exists()],  # memory pilots: judge labels only, no detector
               "gpt-6-luna sets": [n for n in ("llm_v1", "llm_long", "llm_long_p2_T60") if n in res and res[n].get("behaviour")]}
     out = {}
     for gname, names in groups.items():
@@ -210,7 +210,7 @@ def main():
             T = json.loads(open(ROOT / "data" / name / "ground_truth.jsonl").readline())["T"]
             if a.label:
                 subprocess.run([sys.executable, "-m", "experiments.llm_eval", "label", "--name", name], cwd=ROOT, check=True)
-            if a.run_eval:
+            if a.run_eval and not name.endswith("_pilot"):  # pilots: judge labels only, no detector (as declared)
                 subprocess.run([sys.executable, "-m", "experiments.llm_eval", "eval", "--name", name, "--Ts", str(T)], cwd=ROOT, check=True)
         res[name], bys[name] = row(label, name, req)
     if "llm_qa_p2" in bys and "llm_qb_p2" in bys and min(len(v) for b in (bys["llm_qa_p2"], bys["llm_qb_p2"]) for v in b.values()) >= 2:

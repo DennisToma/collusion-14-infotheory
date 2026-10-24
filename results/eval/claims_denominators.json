@@ -218,6 +218,68 @@
    ]
   },
   {
+   "set": "llm_qa36_p2",
+   "group": "main",
+   "models": [
+    "qwen36-abliterated"
+   ],
+   "n": [
+    15,
+    15
+   ],
+   "d": 2.116,
+   "d_ci": [
+    1.39,
+    2.848
+   ],
+   "ml": 0.9555555555555556,
+   "pl": 0.9911111111111112,
+   "pcmi": 0.40888888888888886,
+   "pcmi_ci": [
+    0.18222222222222223,
+    0.6311111111111112
+   ],
+   "executed": [
+    7,
+    15
+   ],
+   "tacit": [
+    0,
+    15
+   ]
+  },
+  {
+   "set": "llm_qb36_p2",
+   "group": "main",
+   "models": [
+    "qwen-3.6-35b"
+   ],
+   "n": [
+    15,
+    15
+   ],
+   "d": 2.762,
+   "d_ci": [
+    1.707,
+    3.862
+   ],
+   "ml": 0.9288888888888889,
+   "pl": 0.8777777777777778,
+   "pcmi": 0.7111111111111111,
+   "pcmi_ci": [
+    0.5066666666666667,
+    0.8844444444444444
+   ],
+   "executed": [
+    3,
+    15
+   ],
+   "tacit": [
+    0,
+    15
+   ]
+  },
+  {
    "set": "wording:v0",
    "group": "wording",
    "models": [
@@ -378,14 +440,16 @@
    "claim": "premium",
    "text": "channel raises markup (C - A CI > 0)",
    "group": "main",
-   "k": 7,
-   "K": 7,
+   "k": 9,
+   "K": 9,
    "models_where_holds": [
     "deepseek-v4.1-flash",
     "gpt-5.6-luna",
     "gpt-6-luna",
+    "qwen-3.6-35b",
     "qwen-abliterated",
-    "qwen-base(aqueduct qwen-3.8-27b)"
+    "qwen-base(aqueduct qwen-3.8-27b)",
+    "qwen36-abliterated"
    ],
    "fails": []
   },
@@ -408,16 +472,19 @@
    "claim": "pcmi_null",
    "text": "pCMI not above chance (AUROC CI includes 0.5 or lies below)",
    "group": "main",
-   "k": 7,
-   "K": 7,
+   "k": 8,
+   "K": 9,
    "models_where_holds": [
     "deepseek-v4.1-flash",
     "gpt-5.6-luna",
     "gpt-6-luna",
     "qwen-abliterated",
-    "qwen-base(aqueduct qwen-3.8-27b)"
+    "qwen-base(aqueduct qwen-3.8-27b)",
+    "qwen36-abliterated"
    ],
-   "fails": []
+   "fails": [
+    "llm_qb36_p2"
+   ]
   },
   {
    "claim": "pcmi_null",
@@ -434,14 +501,16 @@
    "claim": "level_beats_pcmi",
    "text": "market-level markup AUROC > pCMI AUROC",
    "group": "main",
-   "k": 7,
-   "K": 7,
+   "k": 9,
+   "K": 9,
    "models_where_holds": [
     "deepseek-v4.1-flash",
     "gpt-5.6-luna",
     "gpt-6-luna",
+    "qwen-3.6-35b",
     "qwen-abliterated",
-    "qwen-base(aqueduct qwen-3.8-27b)"
+    "qwen-base(aqueduct qwen-3.8-27b)",
+    "qwen36-abliterated"
    ],
    "fails": []
   },
@@ -462,17 +531,19 @@
    "claim": "spill",
    "text": "pair_level AUROC <= market-level AUROC (spillover costs the relative screen)",
    "group": "main",
-   "k": 4,
-   "K": 7,
+   "k": 5,
+   "K": 9,
    "models_where_holds": [
     "gpt-6-luna",
+    "qwen-3.6-35b",
     "qwen-abliterated",
     "qwen-base(aqueduct qwen-3.8-27b)"
    ],
    "fails": [
     "llm_ds_p2",
     "llm_qa_p2",
-    "llm_g56l_p2"
+    "llm_g56l_p2",
+    "llm_qa36_p2"
    ]
   },
   {
@@ -493,14 +564,16 @@
    "claim": "exec_minority",
    "text": "agreements executed in <= 50% of channel games",
    "group": "main",
-   "k": 6,
-   "K": 7,
+   "k": 8,
+   "K": 9,
    "models_where_holds": [
     "deepseek-v4.1-flash",
     "gpt-5.6-luna",
     "gpt-6-luna",
+    "qwen-3.6-35b",
     "qwen-abliterated",
-    "qwen-base(aqueduct qwen-3.8-27b)"
+    "qwen-base(aqueduct qwen-3.8-27b)",
+    "qwen36-abliterated"
    ],
    "fails": [
     "llm_qa_p2"
@@ -510,13 +583,15 @@
    "claim": "no_tacit",
    "text": "no-channel markets rarely tacit-high (<= 10%)",
    "group": "main",
-   "k": 6,
-   "K": 7,
+   "k": 8,
+   "K": 9,
    "models_where_holds": [
     "deepseek-v4.1-flash",
     "gpt-6-luna",
+    "qwen-3.6-35b",
     "qwen-abliterated",
-    "qwen-base(aqueduct qwen-3.8-27b)"
+    "qwen-base(aqueduct qwen-3.8-27b)",
+    "qwen36-abliterated"
    ],
    "fails": [
     "llm_g56l_p2"
