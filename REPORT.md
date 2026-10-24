@@ -30,7 +30,7 @@ Phase 2 closes known gaps; v1 numbers (below) are unchanged (git tag `v1-overnig
 Status: long games (E44: 20 A + 20 C, T=60) are **generating** (P2.8 shows the pilot); deepseek + public board (E59, directive 3) is generating. Everything else is done.
 Done: P2.1 precision at prevalence, P2.2 independent reimplementation, P2.3 same-model confound (gap 3), P2.4 scripted coalitions / onset / cost asymmetry (gaps 5, 6, 8; locked test), P2.5 market-model robustness (gap 7: N=2/6, demand elasticity; locked test), P2.6 bid rotation (gap 9 exploration; locked test), **P2.7 prompt-wording robustness (gap 1)**, **P2.9 second seller family (gap 4)**, P2.10 sibling channel arms (exploratory), P2.8 long-game pilot (gap 2; confirmatory E44 pending).
 
-**Phase 2 at a glance** (one row per gap; [95% CI]; Wilson for k/n flags; the full reading of each row is in the section named).
+**Phase 2 at a glance** (one row per gap; [95% CI]: Wilson for k/n flag rates (scripted P2.4–P2.6, P2.3), Jeffreys for precision (P2.1), class-stratified percentile bootstrap over runs (games) for AUROCs and markup differences; the full reading of each row is in the section named).
 
 | gap | question | key numbers | source (`results/…`) | § |
 |---|---|---|---|---|
