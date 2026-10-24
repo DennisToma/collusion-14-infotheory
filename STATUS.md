@@ -1,4 +1,4 @@
-# STATUS (top = current state; updated 2026-10-24 04:25 UTC, iteration 15)
+# STATUS (top = current state; updated 2026-10-24 04:16 UTC, iteration 15)
 
 **All declared analyses DONE** (§4.3 (i)–(v) filled). Scripted half done; LLM: llm_v1 (E18/E19), llm_v3 ext (E13), llm_long (E20), llm_mixed2 (E22).
 Level stats run AUROC 0.87/0.98/0.95; pCMI 0.45/0.52/0.45. pCMI adds nothing detectable to markup. T=50 does not meet rescue rule (CI wide).
@@ -37,4 +37,4 @@ check that README renders; push.
 - iter 12 03:01–03:40: E26 clean-clone regeneration (all byte-identical), data/ext_llm_v3 snapshot, README.md, §6 note.
 - iter 13 03:37–04:00: E27 headline Figure 1 + codex judge-clarity edits (no number changes).
 - iter 14 03:39–04:20: E28 Opus judge-read + final codex claims review applied (no number changes; figures relabelled).
-- iter 15 04:12–04:25: E29 talk deck (scripts/slides.py → PRESENTATION.md), codex deck review applied, §4.4 sibling replication number.
+- iter 15 04:12–04:16: E29 talk deck (scripts/slides.py → PRESENTATION.md), codex deck review applied, §4.4 sibling replication number.
