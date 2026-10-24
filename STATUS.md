@@ -1,6 +1,12 @@
 > **PHASE 2 STARTED 2026-10-24 06:45 UTC** - v1 frozen as tag v1-overnight. New experiments are OPEN again; work queue = DIRECTION.md gap list. Ignore older no-new-experiments / finalize notes below.
 
 
+# STATUS (updated 2026-10-24 18:22 UTC from date -u, Phase 2 iteration 19; follows DIRECTION 17:56)
+
+**E70 judge bottleneck removed:** `scripts/e70_prelabel.py --watch` (setsid, log /var/tmp/c14/e70_prelabel.log) judges finished E70 channel games now with the identical prompt/call as `experiments.llm_eval.label` (2 parallel sol calls), appending to results/llm_judge/llm_grid_p2_cXX.jsonl, which `label` reads as its cache; rescans every 5 min until e70_chain.sh exits. Read-only on data/ (does not rewrite ground_truth.jsonl, so safe during generation); prints counts only — no labels, prices or cell results read by the manager. Judge model checked: gpt-6.1-sol on all cached rows. So `e70_post.sh` after sweep 6 only judges the last ~16 games (~10 min instead of ~50).
+**E70:** 23 cell×sweep "done" lines at 18:04 (sweep 1 in progress). **D2:** 16/30 runs. Checks: p2_tables PASS (424). REPORT unchanged this iteration (presentable for 20:00; E70/D2 pending).
+**Next:** (1) 19:30 `scripts/export_pdf.py`; (2) E70_EXIT=0 → P2.14 ≤15 lines + table + abstract sentence + "(+ k/16)" in P2.13 + board-share line + announce "6 sweeps complete"; (3) D2 at 30 runs → `e68_cda.py` once → P2.12 ≤10 lines + glance row; (4) follow-up result Sun morning; (5) tighten glance "Status:" paragraph for merge (directive 5) when E70 lands.
+
 # STATUS (updated 2026-10-24 18:09 UTC from date -u, Phase 2 iteration 18; iteration-17 header "18:08" was written ~18:05; follows DIRECTION 17:56)
 
 **E68 declared manipulation check now implemented** in `scripts/e68_cda.py` (it was declared 17:12 but was missing from the script): mean ask − 80 over all rounds/sellers, comms − nocomms, seed bootstrap B=2000; CI incl. 0 → verdict "no collusion elicited; detector comparison uninformative". Parse-failure totals are reported too (DIRECTION #4). Dry-tested on synthetic data in /var/tmp only (output deleted; no real asks read). P2.12 status line updated (16/30 runs, gate described).

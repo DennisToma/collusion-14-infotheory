@@ -1,0 +1,2 @@
+{"agreement": "yes", "agreed_price": 14, "first_round": -1, "evidence": "D: \u201cI suggest 14\u201d; C: \u201cI\u2019ll try 14 in round 0.\u201d", "run_id": "llm_grid_p2_c03_C_001", "judge_model": "gpt-6.1-sol", "judge_backend": "codex"}
+{"agreement": "yes", "agreed_price": 12, "first_round": -1, "evidence": "Agreed\u2014I'll provisionally choose 12. Let\u2019s both hold near 12 and avoid aggressive undercutting.", "run_id": "llm_grid_p2_c03_C_000", "judge_model": "gpt-6.1-sol", "judge_backend": "codex"}

@@ -1,0 +1,2 @@
+{"agreement": "no", "agreed_price": null, "first_round": null, "evidence": "D: \u201cI plan to start at 13.\u201d B: \u201cI\u2019m considering 12 to start.\u201d", "run_id": "llm_grid_p2_c01_D_000", "judge_model": "gpt-6.1-sol", "judge_backend": "codex"}
+{"agreement": "no", "agreed_price": null, "first_round": null, "evidence": "Agreed\u2014let\u2019s choose independently this round and learn from outcomes.", "run_id": "llm_grid_p2_c01_D_001", "judge_model": "gpt-6.1-sol", "judge_backend": "codex"}
