@@ -39,6 +39,56 @@ def boot_diff(c, a, B=10000, seed=0):
     return float(c.mean() - a.mean()), [float(np.quantile(d, .025)), float(np.quantile(d, .975))]
 
 
+def heterogeneity(out, B=10000, seed=0):
+    """Variant x condition interaction: Cochran's Q over the per-arm C - A markups, SEs from a run bootstrap (E43 amendment)."""
+    from scipy.stats import chi2
+    d, se = [], []
+    for v, r in out.items():
+        if r.get("n_A", 0) < 2 or r.get("n_C", 0) < 2:
+            continue
+        by, _ = markups(f"llm_p2_{v}")
+        rng = np.random.default_rng(seed)
+        c, a = np.asarray(by["C"]), np.asarray(by["A"])
+        bs = [rng.choice(c, len(c)).mean() - rng.choice(a, len(a)).mean() for _ in range(B)]
+        d.append(c.mean() - a.mean())
+        se.append(float(np.std(bs)))
+    if len(d) < 2:
+        return None
+    d, w = np.array(d), 1 / np.array(se) ** 2
+    pooled = float((w * d).sum() / w.sum())
+    Q = float((w * (d - pooled) ** 2).sum())
+    k = len(d)
+    return {"k": k, "Q": round(Q, 2), "p": round(float(chi2.sf(Q, k - 1)), 4),
+            "I2": round(max(0.0, (Q - (k - 1)) / Q) if Q > 0 else 0.0, 3),
+            "fixed_effect_C_minus_A": round(pooled, 3), "fixed_effect_se": round(float(np.sqrt(1 / w.sum())), 3)}
+
+
+def pooled_auroc(variants, B=2000, seed=0):
+    """AUROC of C vs A where each C game is compared only with A games of the same wording; stratified game bootstrap."""
+    if not variants:
+        return {}
+    sc = {}
+    for v in variants:
+        ev = json.load(open(ROOT / "results" / "eval" / f"llm_p2_{v}.json"))["run_scores"]["20"]
+        _, gt = markups(f"llm_p2_{v}")
+        sc[v] = {d: {c: np.array([s for rid, s in ev[d].items() if gt[rid]["condition"] == c]) for c in "AC"} for d in DETS}
+
+    def auc(arms):
+        num = den = 0.0
+        for x in arms:
+            p, n = x["C"][:, None], x["A"][None, :]
+            num += float(((p > n) + 0.5 * (p == n)).sum())
+            den += p.size * n.size
+        return num / den
+    rng = np.random.default_rng(seed)
+    out = {}
+    for d in DETS:
+        arms = [sc[v][d] for v in variants]
+        bs = [auc([{c: rng.choice(x[c], len(x[c])) for c in "AC"} for x in arms]) for _ in range(B)]
+        out[d] = [round(auc(arms), 3), [round(float(q), 3) for q in np.percentile(bs, [2.5, 97.5])]]
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--run-eval", action="store_true")
@@ -70,6 +120,10 @@ def main():
     if pooled["A"] and pooled["C"]:
         res["pooled_C_minus_A"], res["pooled_ci"] = boot_diff(pooled["C"], pooled["A"])
         res["pooled_n"] = [len(pooled["C"]), len(pooled["A"])]
+    het = heterogeneity(out)
+    if het:
+        res["heterogeneity"] = het
+    res["pooled_within_arm_auroc"] = pooled_auroc([v for v in out if (ROOT / "results" / "eval" / f"llm_p2_{v}.json").exists()])
     done = [r for r in out.values() if "C_minus_A_markup" in r and "auroc_pcmi" in r]
     if len(done) == len(VARIANTS):
         pos = sum(r["C_minus_A_markup"] > 0 for r in done)
@@ -88,6 +142,10 @@ def main():
                      + " | ".join(f(r.get(f'auroc_{d}'), r.get(f'auroc_{d}_ci') or [0, 0]) for d in DETS) + " |")
     if "pooled_C_minus_A" in res:
         lines.append(f"| pooled | {res['pooled_n'][0]}/{res['pooled_n'][1]} | {f(res['pooled_C_minus_A'], res['pooled_ci'])} | | | |")
+    if het:
+        lines.append(f"\nHeterogeneity of C − A markup across wordings (Cochran Q, bootstrap SEs): {het}")
+    if res["pooled_within_arm_auroc"]:
+        lines.append(f"\nPooled within-arm AUROC C vs A (pairs compared only within a wording): {res['pooled_within_arm_auroc']}")
     if "rule" in res:
         lines.append(f"\nDeclared rule (E43): {res['rule']}; band over wordings: {res['band']}")
     (ROOT / "results" / "eval" / "p2_variants.md").write_text("\n".join(lines) + "\n")

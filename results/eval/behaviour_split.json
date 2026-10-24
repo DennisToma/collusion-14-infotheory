@@ -1,0 +1,86 @@
+{
+ "llm_v1": {
+  "T": "full",
+  "n_A": 21,
+  "followed": {
+   "n": 12,
+   "premium": 0.454,
+   "markup": 1.958,
+   "pcmi": 0.078,
+   "auroc_premium_vs_A_maxpair": 0.688,
+   "auroc_markup_vs_A_maxpair": 0.944,
+   "auroc_pcmi_vs_A_maxpair": 0.155,
+   "agreed_prices": [
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    14,
+    14
+   ]
+  },
+  "no_agreement": {
+   "n": 2,
+   "premium": 0.475,
+   "markup": 2.825,
+   "pcmi": 0.214,
+   "auroc_premium_vs_A_maxpair": 0.786,
+   "auroc_markup_vs_A_maxpair": 0.929,
+   "auroc_pcmi_vs_A_maxpair": 0.452,
+   "agreed_prices": []
+  },
+  "abandoned": {
+   "n": 2,
+   "premium": 0.65,
+   "markup": 1.575,
+   "pcmi": 0.029,
+   "auroc_premium_vs_A_maxpair": 1.0,
+   "auroc_markup_vs_A_maxpair": 0.952,
+   "auroc_pcmi_vs_A_maxpair": 0.024,
+   "agreed_prices": [
+    15,
+    18
+   ]
+  }
+ },
+ "llm_long": {
+  "T": "full",
+  "n_A": 8,
+  "followed": {
+   "n": 6,
+   "premium": 0.322,
+   "markup": 2.505,
+   "pcmi": 0.012,
+   "auroc_premium_vs_A_maxpair": 0.656,
+   "auroc_markup_vs_A_maxpair": 0.938,
+   "auroc_pcmi_vs_A_maxpair": 0.062,
+   "agreed_prices": [
+    12,
+    12,
+    12,
+    12,
+    12,
+    14
+   ]
+  },
+  "abandoned": {
+   "n": 2,
+   "premium": 0.715,
+   "markup": 3.16,
+   "pcmi": 0.059,
+   "auroc_premium_vs_A_maxpair": 1.0,
+   "auroc_markup_vs_A_maxpair": 1.0,
+   "auroc_pcmi_vs_A_maxpair": 0.312,
+   "agreed_prices": [
+    18,
+    18
+   ]
+  }
+ }
+}

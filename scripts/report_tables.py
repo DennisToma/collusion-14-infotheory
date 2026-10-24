@@ -272,6 +272,10 @@ def normalized(cell):
 
 
 def check(report):
+    # Phase 2 tables (section "## Phase 2 results", up to "## Abstract") are checked by their own scripts, not here.
+    if "## Phase 2 results" in report and "## Abstract" in report:
+        a, b = report.index("## Phase 2 results"), report.index("## Abstract")
+        report = report[:a] + report[b:]
     blocks = parse_tables(report, include_header=True)
     # Overview and pilot-history tables are narrative summaries, not result tables.
     if len(blocks) != len(BUILDERS) + 2:
