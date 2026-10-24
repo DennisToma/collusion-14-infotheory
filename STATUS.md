@@ -1,4 +1,4 @@
-# STATUS (top = current state; updated 2026-10-24 04:45 UTC, iteration 16)
+# STATUS (top = current state; updated 2026-10-24 04:50 UTC, iteration 17)
 
 **All declared analyses DONE** (§4.3 (i)–(v) filled). Scripted half done; LLM: llm_v1 (E18/E19), llm_v3 ext (E13), llm_long (E20), llm_mixed2 (E22).
 Level stats run AUROC 0.87/0.98/0.95; pCMI 0.45/0.52/0.45. pCMI adds nothing detectable to markup. T=50 does not meet rescue rule (CI wide).
@@ -9,6 +9,7 @@ numbers); codex deck review + Opus judge-read applied; linked from README + REPO
 **E30 (iter 16, exploratory, no LLM calls):** planted shared ±1 price offsets into real LLM controls → pCMI single-planting AUROC 0.93 at q=0.2, T=50 (top-1 0.99; T=20 only 0.64),
 real channel pairs' co-move excess −0.008 [−0.023,+0.009] (llm_long) → consistent with level reading, not settling; REPORT §4.3.8 (codex review applied: paired cluster bootstrap, softened).
 Deviation from DIRECTION ("stop scripted runs"): this is not a scripted sweep; it is analysis on existing LLM data that addresses the one open question in the abstract.
+**E31 (iter 17):** regen check clean (tables/slides/headline_fig); deck gets E30 bullet from JSON; Opus judge-read applied to abstract/§4.3.8/deck (all numbers matched JSON; title kept).
 **Next:** no new experiments. At 08:15: re-run tables.py, headline_fig.py, slides.py;
 check that README renders; push.
 **Risks:** low n everywhere on LLM; only OpenAI-family sellers; no placebo arm in llm_v1.
@@ -42,3 +43,4 @@ check that README renders; push.
 - iter 14 03:39–04:20: E28 Opus judge-read + final codex claims review applied (no number changes; figures relabelled).
 - iter 15 04:12–04:22: E29 talk deck (scripts/slides.py → PRESENTATION.md), codex deck review + Opus judge-read applied, §4.4 sibling replication number.
 - iter 16 04:18–04:50: E30 injection MDE (scripts/injection_mde.py → results/eval/injection_mde.json), REPORT §4.3.8 + abstract clause; codex review of §4.3.8 → single-planting AUROC + game-cluster bootstrap, wording softened.
+- iter 17 04:26–04:50: regen check clean; slides.py E30 bullet + computed binomial p; Opus judge-read (results/reviews/opus_judge_read_iter17.md) → abstract/§4.3.8/deck wording fixes (E31).
