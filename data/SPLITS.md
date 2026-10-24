@@ -55,3 +55,10 @@ R25 pre-analysis implementation correction (19:18 UTC, before any full-set aggre
 seed clusters, retaining both arms of a matched seed; unmatched completed seeds at the cutoff remain as singletons
 and are counted. The all-game point contrast is unchanged. A positive unrounded lower CI bound is required;
 a negative ask effect is not collusion elicited. Frozen detector definitions and AUROC bootstraps are unchanged.
+
+## E71 executed-definition sensitivity (exploratory, declared 2026-10-24 20:03 UTC)
+Reuses exactly the ten finalized E64 sets listed in `results/eval/p2_partc.json` → `E64_pooled` → `all sets`.
+No new games, judge calls, detector computation or split selection. All 27 combinations of one-sided
+agreement-floor tolerance {0,1,2}, followed fraction {1/3,1/2,2/3} and second-half pair margin over Nash
+{1,2,3} are reported. Original E64 definition, headline and frozen settings retained; no definition is
+selected for a new headline. Pilots, E68, E70 and E66's non-evaluable channel contrast are excluded.

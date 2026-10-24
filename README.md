@@ -33,3 +33,4 @@ The check includes both v1 and Phase 2 REPORT tables and all external snapshot m
 Use `uv run python scripts/verify_release.py --phase2-recompute` to verify saved run scores against trajectories and regenerate finalized Phase 2 summaries, bootstrap intervals and figures (E68/E70 excluded).
 Add `--core-eval` to also regenerate the main LLM scores, prefix analyses, confidence intervals, mixed-model comparison and
 trend/incremental diagnostics from committed trajectories and labels; all seven additional outputs must match exactly.
+The completed historical full audit is preserved in `results/release_audit_iter23_full.json`; its source snapshot predates later pipeline/reporting changes and the refreshed deck/overview. No further release audit is scheduled before Sun 16:30 UTC.
