@@ -1,0 +1,600 @@
+{
+ "n_comms": 15,
+ "n_nocomms": 15,
+ "complete": true,
+ "sample_status": "full declared set",
+ "auroc": {
+  "level": {
+   "auroc": 0.68,
+   "ci": [
+    0.462,
+    0.876
+   ],
+   "n": [
+    15,
+    15
+   ]
+  },
+  "trade": {
+   "auroc": 0.684,
+   "ci": [
+    0.462,
+    0.876
+   ],
+   "n": [
+    15,
+    15
+   ]
+  },
+  "pcmi": {
+   "auroc": 0.6,
+   "ci": [
+    0.396,
+    0.796
+   ],
+   "n": [
+    15,
+    15
+   ]
+  },
+  "te": {
+   "auroc": 0.609,
+   "ci": [
+    0.4,
+    0.813
+   ],
+   "n": [
+    15,
+    15
+   ]
+  },
+  "sticky_max": {
+   "auroc": 0.38,
+   "ci": [
+    0.182,
+    0.6
+   ],
+   "n": [
+    15,
+    15
+   ]
+  }
+ },
+ "mean": {
+  "level": [
+   2.431,
+   1.846
+  ],
+  "trade": [
+   2.611,
+   2.01
+  ],
+  "pcmi": [
+   0.152,
+   0.136
+  ],
+  "te": [
+   0.448,
+   0.392
+  ],
+  "sticky_max": [
+   0.09,
+   0.114
+  ]
+ },
+ "runs": {
+  "cda_comms_s0": {
+   "cond": "comms",
+   "seed": 0,
+   "level": 0.5457777777777579,
+   "ask_all": 0.6332222222222299,
+   "parse_failures": 0,
+   "trade": 0.6900000000000119,
+   "pcmi": 0.03546631677411905,
+   "te": 0.17446614913385824,
+   "run_p_pcmi": 0.472636815920398,
+   "sticky_max": 0.14285714285714285,
+   "n_trades": 41,
+   "models": [
+    "aqueduct/qwen-3.6-35b"
+   ]
+  },
+  "cda_comms_s1": {
+   "cond": "comms",
+   "seed": 1,
+   "level": 1.2728888888889003,
+   "ask_all": 1.1642222222222358,
+   "parse_failures": 2,
+   "trade": 1.4461538461538623,
+   "pcmi": 0.1395610569154236,
+   "te": 1.1327284920666427,
+   "run_p_pcmi": 0.014925373134328358,
+   "sticky_max": 0.0,
+   "n_trades": 39,
+   "models": [
+    "aqueduct/qwen-3.6-35b"
+   ]
+  },
+  "cda_comms_s10": {
+   "cond": "comms",
+   "seed": 10,
+   "level": 3.0473333333333414,
+   "ask_all": 3.440222222222232,
+   "parse_failures": 1,
+   "trade": 3.240000000000009,
+   "pcmi": 0.22840634557516032,
+   "te": 0.3701037209970455,
+   "run_p_pcmi": 0.009950248756218905,
+   "sticky_max": 0.07142857142857142,
+   "n_trades": 38,
+   "models": [
+    "aqueduct/qwen-3.6-35b"
+   ]
+  },
+  "cda_comms_s11": {
+   "cond": "comms",
+   "seed": 11,
+   "level": 5.49733333333333,
+   "ask_all": 4.670999999999992,
+   "parse_failures": 1,
+   "trade": 5.713214285714301,
+   "pcmi": 0.08089108164945132,
+   "te": 1.5263373084414558,
+   "run_p_pcmi": 0.12437810945273632,
+   "sticky_max": 0.2857142857142857,
+   "n_trades": 41,
+   "models": [
+    "aqueduct/qwen-3.6-35b"
+   ]
+  },
+  "cda_comms_s12": {
+   "cond": "comms",
+   "seed": 12,
+   "level": 1.799999999999983,
+   "ask_all": 1.3911111111111154,
+   "parse_failures": 0,
+   "trade": 1.981153846153859,
+   "pcmi": 0.25880037069457357,
+   "te": 0.0958599885761606,
+   "run_p_pcmi": 0.004975124378109453,
+   "sticky_max": 0.07142857142857142,
+   "n_trades": 43,
+   "models": [
+    "aqueduct/qwen-3.6-35b"
+   ]
+  },
+  "cda_comms_s13": {
+   "cond": "comms",
+   "seed": 13,
+   "level": 1.9948888888888945,
+   "ask_all": 1.6778888888888872,
+   "parse_failures": 1,
+   "trade": 2.1256666666666604,
+   "pcmi": 0.01695154960680739,
+   "te": 0.5632613025697438,
+   "run_p_pcmi": 0.835820895522388,
+   "sticky_max": 0.07142857142857142,
+   "n_trades": 40,
+   "models": [
+    "aqueduct/qwen-3.6-35b"
+   ]
+  },
+  "cda_comms_s14": {
+   "cond": "comms",
+   "seed": 14,
+   "level": 1.3406666666666638,
+   "ask_all": 1.0605555555555526,
+   "parse_failures": 1,
+   "trade": 1.5021428571428714,
+   "pcmi": 0.05250165648423339,
+   "te": 0.34960310203169115,
+   "run_p_pcmi": 0.18407960199004975,
+   "sticky_max": 0.0,
+   "n_trades": 36,
+   "models": [
+    "aqueduct/qwen-3.6-35b"
+   ]
+  },
+  "cda_comms_s2": {
+   "cond": "comms",
+   "seed": 2,
+   "level": 2.5700000000000074,
+   "ask_all": 2.036111111111097,
+   "parse_failures": 0,
+   "trade": 2.840357142857144,
+   "pcmi": 0.12362828284134436,
+   "te": 0.2145140202365059,
+   "run_p_pcmi": 0.009950248756218905,
+   "sticky_max": 0.14285714285714285,
+   "n_trades": 43,
+   "models": [
+    "aqueduct/qwen-3.6-35b"
+   ]
+  },
+  "cda_comms_s3": {
+   "cond": "comms",
+   "seed": 3,
+   "level": 2.1891111111111314,
+   "ask_all": 2.104666666666674,
+   "parse_failures": 0,
+   "trade": 2.345333333333329,
+   "pcmi": 0.1272922075260676,
+   "te": 0.2597080068242303,
+   "run_p_pcmi": 0.05970149253731343,
+   "sticky_max": 0.0,
+   "n_trades": 43,
+   "models": [
+    "aqueduct/qwen-3.6-35b"
+   ]
+  },
+  "cda_comms_s4": {
+   "cond": "comms",
+   "seed": 4,
+   "level": 2.515555555555565,
+   "ask_all": 2.1383333333333354,
+   "parse_failures": 1,
+   "trade": 2.528571428571425,
+   "pcmi": 0.24485190409359367,
+   "te": 0.16555156881613672,
+   "run_p_pcmi": 0.009950248756218905,
+   "sticky_max": 0.07142857142857142,
+   "n_trades": 37,
+   "models": [
+    "aqueduct/qwen-3.6-35b"
+   ]
+  },
+  "cda_comms_s5": {
+   "cond": "comms",
+   "seed": 5,
+   "level": 2.568666666666644,
+   "ask_all": 2.0252222222222116,
+   "parse_failures": 0,
+   "trade": 2.8576923076923038,
+   "pcmi": 0.26411647287105816,
+   "te": 0.5053925352792241,
+   "run_p_pcmi": 0.004975124378109453,
+   "sticky_max": 0.07142857142857142,
+   "n_trades": 41,
+   "models": [
+    "aqueduct/qwen-3.6-35b"
+   ]
+  },
+  "cda_comms_s6": {
+   "cond": "comms",
+   "seed": 6,
+   "level": 2.141999999999996,
+   "ask_all": 1.8191111111110985,
+   "parse_failures": 0,
+   "trade": 2.363571428571433,
+   "pcmi": 0.14883516413263703,
+   "te": 0.25291523370441454,
+   "run_p_pcmi": 0.004975124378109453,
+   "sticky_max": 0.21428571428571427,
+   "n_trades": 42,
+   "models": [
+    "aqueduct/qwen-3.6-35b"
+   ]
+  },
+  "cda_comms_s7": {
+   "cond": "comms",
+   "seed": 7,
+   "level": 2.3444444444444485,
+   "ask_all": 1.704666666666654,
+   "parse_failures": 0,
+   "trade": 2.5703571428571337,
+   "pcmi": 0.23156578790153154,
+   "te": 0.237583037616753,
+   "run_p_pcmi": 0.004975124378109453,
+   "sticky_max": 0.0,
+   "n_trades": 42,
+   "models": [
+    "aqueduct/qwen-3.6-35b"
+   ]
+  },
+  "cda_comms_s8": {
+   "cond": "comms",
+   "seed": 8,
+   "level": 2.708666666666659,
+   "ask_all": 2.7947777777777816,
+   "parse_failures": 1,
+   "trade": 2.907499999999999,
+   "pcmi": 0.15146498000762268,
+   "te": 0.534426956264561,
+   "run_p_pcmi": 0.014925373134328358,
+   "sticky_max": 0.0,
+   "n_trades": 40,
+   "models": [
+    "aqueduct/qwen-3.6-35b"
+   ]
+  },
+  "cda_comms_s9": {
+   "cond": "comms",
+   "seed": 9,
+   "level": 3.9237777777777723,
+   "ask_all": 3.3456666666666734,
+   "parse_failures": 2,
+   "trade": 4.047857142857168,
+   "pcmi": 0.18055225166975106,
+   "te": 0.3303267360079477,
+   "run_p_pcmi": 0.004975124378109453,
+   "sticky_max": 0.21428571428571427,
+   "n_trades": 39,
+   "models": [
+    "aqueduct/qwen-3.6-35b"
+   ]
+  },
+  "cda_nocomms_s0": {
+   "cond": "nocomms",
+   "seed": 0,
+   "level": 1.1046666666666738,
+   "ask_all": 1.038111111111121,
+   "parse_failures": 1,
+   "trade": 1.2582142857142742,
+   "pcmi": 0.21825433930998414,
+   "te": 0.2916175303107115,
+   "run_p_pcmi": 0.014925373134328358,
+   "sticky_max": 0.07142857142857142,
+   "n_trades": 42,
+   "models": [
+    "aqueduct/qwen-3.6-35b"
+   ]
+  },
+  "cda_nocomms_s1": {
+   "cond": "nocomms",
+   "seed": 1,
+   "level": 0.05755555555555247,
+   "ask_all": 0.21133333333334292,
+   "parse_failures": 0,
+   "trade": 0.3229999999999933,
+   "pcmi": 0.18929983970677808,
+   "te": 0.23602390258626577,
+   "run_p_pcmi": 0.07960199004975124,
+   "sticky_max": 0.14285714285714285,
+   "n_trades": 46,
+   "models": [
+    "aqueduct/qwen-3.6-35b"
+   ]
+  },
+  "cda_nocomms_s10": {
+   "cond": "nocomms",
+   "seed": 10,
+   "level": 2.103555555555559,
+   "ask_all": 2.651999999999987,
+   "parse_failures": 0,
+   "trade": 2.2442857142857235,
+   "pcmi": 0.15136214078262805,
+   "te": 1.7204274172860456,
+   "run_p_pcmi": 0.029850746268656716,
+   "sticky_max": 0.14285714285714285,
+   "n_trades": 41,
+   "models": [
+    "aqueduct/qwen-3.6-35b"
+   ]
+  },
+  "cda_nocomms_s11": {
+   "cond": "nocomms",
+   "seed": 11,
+   "level": 4.561555555555543,
+   "ask_all": 3.930666666666653,
+   "parse_failures": 0,
+   "trade": 4.447666666666677,
+   "pcmi": 0.13314879452862474,
+   "te": 0.806574965633405,
+   "run_p_pcmi": 0.0845771144278607,
+   "sticky_max": 0.0,
+   "n_trades": 32,
+   "models": [
+    "aqueduct/qwen-3.6-35b"
+   ]
+  },
+  "cda_nocomms_s12": {
+   "cond": "nocomms",
+   "seed": 12,
+   "level": 0.6217777777777798,
+   "ask_all": 0.7543333333333351,
+   "parse_failures": 0,
+   "trade": 0.9425000000000097,
+   "pcmi": 0.057388375152042176,
+   "te": 0.21782689381108794,
+   "run_p_pcmi": 0.2935323383084577,
+   "sticky_max": 0.14285714285714285,
+   "n_trades": 48,
+   "models": [
+    "aqueduct/qwen-3.6-35b"
+   ]
+  },
+  "cda_nocomms_s13": {
+   "cond": "nocomms",
+   "seed": 13,
+   "level": 1.8068888888889063,
+   "ask_all": 2.0677777777777777,
+   "parse_failures": 0,
+   "trade": 1.8643333333333345,
+   "pcmi": 0.10467391622216006,
+   "te": 0.4502689343102276,
+   "run_p_pcmi": 0.09950248756218906,
+   "sticky_max": 0.14285714285714285,
+   "n_trades": 37,
+   "models": [
+    "aqueduct/qwen-3.6-35b"
+   ]
+  },
+  "cda_nocomms_s14": {
+   "cond": "nocomms",
+   "seed": 14,
+   "level": 1.1782222222222316,
+   "ask_all": 0.9249999999999972,
+   "parse_failures": 0,
+   "trade": 1.2876666666666665,
+   "pcmi": 0.46926541209181005,
+   "te": 0.1474220673184927,
+   "run_p_pcmi": 0.004975124378109453,
+   "sticky_max": 0.0,
+   "n_trades": 36,
+   "models": [
+    "aqueduct/qwen-3.6-35b"
+   ]
+  },
+  "cda_nocomms_s2": {
+   "cond": "nocomms",
+   "seed": 2,
+   "level": 3.73355555555554,
+   "ask_all": 2.8727777777777703,
+   "parse_failures": 0,
+   "trade": 3.9824999999999875,
+   "pcmi": 0.06445485031090768,
+   "te": 0.22801385865296192,
+   "run_p_pcmi": 0.14925373134328357,
+   "sticky_max": 0.21428571428571427,
+   "n_trades": 43,
+   "models": [
+    "aqueduct/qwen-3.6-35b"
+   ]
+  },
+  "cda_nocomms_s3": {
+   "cond": "nocomms",
+   "seed": 3,
+   "level": 0.8315555555555534,
+   "ask_all": 0.8978888888888719,
+   "parse_failures": 0,
+   "trade": 1.038666666666657,
+   "pcmi": 0.0203546451730022,
+   "te": 0.09848982993672117,
+   "run_p_pcmi": 0.6417910447761194,
+   "sticky_max": 0.14285714285714285,
+   "n_trades": 42,
+   "models": [
+    "aqueduct/qwen-3.6-35b"
+   ]
+  },
+  "cda_nocomms_s4": {
+   "cond": "nocomms",
+   "seed": 4,
+   "level": 1.429111111111112,
+   "ask_all": 1.1728888888888918,
+   "parse_failures": 0,
+   "trade": 1.520714285714277,
+   "pcmi": 0.073059657219124,
+   "te": 0.16654385128470642,
+   "run_p_pcmi": 0.14925373134328357,
+   "sticky_max": 0.07142857142857142,
+   "n_trades": 41,
+   "models": [
+    "aqueduct/qwen-3.6-35b"
+   ]
+  },
+  "cda_nocomms_s5": {
+   "cond": "nocomms",
+   "seed": 5,
+   "level": 1.059333333333342,
+   "ask_all": 1.2987777777777865,
+   "parse_failures": 1,
+   "trade": 1.1910000000000025,
+   "pcmi": 0.015888620335105384,
+   "te": 0.4432048625075147,
+   "run_p_pcmi": 0.7960199004975125,
+   "sticky_max": 0.14285714285714285,
+   "n_trades": 39,
+   "models": [
+    "aqueduct/qwen-3.6-35b"
+   ]
+  },
+  "cda_nocomms_s6": {
+   "cond": "nocomms",
+   "seed": 6,
+   "level": 0.7451111111111288,
+   "ask_all": 0.9661111111111182,
+   "parse_failures": 3,
+   "trade": 0.8996666666666755,
+   "pcmi": 0.06906171272707019,
+   "te": 0.5272297310612716,
+   "run_p_pcmi": 0.24378109452736318,
+   "sticky_max": 0.14285714285714285,
+   "n_trades": 43,
+   "models": [
+    "aqueduct/qwen-3.6-35b"
+   ]
+  },
+  "cda_nocomms_s7": {
+   "cond": "nocomms",
+   "seed": 7,
+   "level": 0.8815555555555505,
+   "ask_all": 0.8121111111111077,
+   "parse_failures": 1,
+   "trade": 1.072499999999991,
+   "pcmi": 0.173276869708871,
+   "te": 0.1638358428557529,
+   "run_p_pcmi": 0.004975124378109453,
+   "sticky_max": 0.07142857142857142,
+   "n_trades": 41,
+   "models": [
+    "aqueduct/qwen-3.6-35b"
+   ]
+  },
+  "cda_nocomms_s8": {
+   "cond": "nocomms",
+   "seed": 8,
+   "level": 2.8746666666666556,
+   "ask_all": 2.850999999999999,
+   "parse_failures": 1,
+   "trade": 3.1325000000000074,
+   "pcmi": 0.243171368193314,
+   "te": 0.1460015026605931,
+   "run_p_pcmi": 0.004975124378109453,
+   "sticky_max": 0.14285714285714285,
+   "n_trades": 39,
+   "models": [
+    "aqueduct/qwen-3.6-35b"
+   ]
+  },
+  "cda_nocomms_s9": {
+   "cond": "nocomms",
+   "seed": 9,
+   "level": 4.697333333333347,
+   "ask_all": 3.652333333333317,
+   "parse_failures": 1,
+   "trade": 4.9483333333333235,
+   "pcmi": 0.06122280642931218,
+   "te": 0.23215432282388831,
+   "run_p_pcmi": 0.24875621890547264,
+   "sticky_max": 0.14285714285714285,
+   "n_trades": 36,
+   "models": [
+    "aqueduct/qwen-3.6-35b"
+   ]
+  }
+ },
+ "manipulation_check": {
+  "diff": 0.394,
+  "ci": [
+   0.058,
+   0.693
+  ],
+  "ci_unrounded": [
+   0.05847518518518731,
+   0.6931324074074108
+  ],
+  "mean_comms": 2.134,
+  "mean_nocomms": 1.74,
+  "elicited": true,
+  "status": "positive ask effect",
+  "bootstrap": "seed-cluster percentile",
+  "bootstrap_draws": 2000,
+  "n_seed_clusters": 15,
+  "n_matched_seeds": 15,
+  "n_unmatched_comms": 0,
+  "n_unmatched_nocomms": 0
+ },
+ "parse_failures": {
+  "total": 18,
+  "runs_with_any": 14,
+  "n_runs": 30
+ },
+ "verdict": "inconclusive",
+ "pcmi_flags_alpha05": [
+  10,
+  15,
+  5,
+  15
+ ]
+}
