@@ -213,6 +213,8 @@ market `llm_v3` (Q2.2; lab framing, grid 6–30, T=12, public board; `private` /
 shipping deal, a hard negative). No tuning; two adaptations forced by T=12: pCMI/TE residualise on numeric
 cost + demand instead of state dummies, and `market_level` uses the static Nash of that market. Metrics: run
 AUROC private vs none (and legit vs none), top-1 localisation vs 1/6, control-surrogate null vs the `none` pool.
+
+*Declared before any `llm_long` detector output (E20, 01:15 UTC):* (v) is read off the same games' prefixes (T = 10, 20, 30, 40, 50; C vs A, 8 vs 8): pCMI/MI/TE/level run AUROC with bootstrap CI, and pCMI top-1 vs 1/6. "T rescues pCMI" requires AUROC(pCMI, T=50) ≥ 0.65 **and** ≥ AUROC(pCMI, T=20) + 0.15; only then is an extra T=50 batch (+16 C, +6 A) generated (directive 4). Otherwise: no new generation. With 8 vs 8 the CI half-width is ≈ 0.25, so a null here only excludes large effects. The surrogate null is not used (pool 8 < 20).
 Per-pair scores for the sibling: `results/eval/llm_v3_ext.json` (`uv run python -m experiments.ext_llm_v3`).
 
 **External LLM set `llm_v3` (E13): FINAL, all 125 runs** (sibling generation complete, all sellers gpt-6-luna via codex;
