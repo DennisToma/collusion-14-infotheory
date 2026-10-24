@@ -147,6 +147,22 @@ def colluder_tft(ctx: Ctx, partner: int, strength: float):
     return quantal_br(ctx)
 
 
+def colluder_rotation(ctx: Ctx, members: list, strength: float, scheme: str):
+    """Bid rotation (Phase 2 gap 9, non-price collusion): in a coordinated round (prob `strength`,
+    shared private draw) one member is the round's 'winner' and prices by quantal BR, the others post
+    the cover price 16. scheme 'alt' = winner alternates deterministically (members[t % k], predictable
+    from public lags); 'rand' = winner drawn from the shared private rng each round."""
+    sh = ctx.shared
+    if sh.get("t") != ctx.t:
+        sh["t"] = ctx.t
+        sh["coord"] = sh["rng"].random() < strength
+        sh["winner"] = (members[ctx.t % len(members)] if scheme == "alt"
+                        else members[int(sh["rng"].integers(len(members)))])
+    if not sh["coord"] or sh["winner"] == ctx.me:
+        return quantal_br(ctx)
+    return 16
+
+
 # ---------------------------------------------------------------- game runner
 def run_game(run_id, seed, T, condition, pair=None, strength=0.0, collusion_type="signal",
              hard_negative=None, hn_pair=None, *, coalition=None, onset=0, cost_offsets=None,
@@ -210,6 +226,8 @@ def run_game(run_id, seed, T, condition, pair=None, strength=0.0, collusion_type
                 p = colluder_signal(ctx, strength)
             elif pol.startswith("colluder_fixed"):
                 p = colluder_fixed_high(ctx, strength)
+            elif pol.startswith("colluder_rotation"):
+                p = colluder_rotation(ctx, [agents.index(m) for m in pair], strength, collusion_type.split("_")[1])
             elif pol.startswith("colluder_tft"):
                 partner = agents.index(pair[1] if a == pair[0] else pair[0])
                 p = colluder_tft(ctx, partner, strength)

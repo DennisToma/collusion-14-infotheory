@@ -31,17 +31,19 @@ chance (0.5, dashed), while a price-level statistic separates channel from no-ch
 
 ## Phase 2 results (in progress; started 2026-10-24 06:30 UTC)
 Phase 2 closes known gaps; v1 numbers above are unchanged (git tag `v1-overnight`). Each Phase 2 experiment is declared in
-`EXPERIMENTS.tsv` (E43–E52) before its data exist; the new LLM datasets (`data/SPLITS.md`, "Phase 2") are all confirmatory because no detector setting is tuned on them.
+`EXPERIMENTS.tsv` (E43–E53) before its data exist; the new LLM datasets (`data/SPLITS.md`, "Phase 2") are all confirmatory because no detector setting is tuned on them.
 Status: prompt-wording robustness (E43: 5 wordings × A/C × 6 games, T=20), long games (E44: 20 A + 20 C, T=60) and a second
 seller family (E45: deepseek-v4.1-flash, 15 A + 15 C) are **generating**. Their results will be added here.
-Done: P2.1 precision at prevalence, P2.2 independent reimplementation, P2.3 same-model confound (gap 3), P2.4 scripted coalitions / onset / cost asymmetry (gaps 5, 6, 8; locked test), P2.5 market-model robustness (gap 7: N=2/6, demand elasticity; locked test).
+Done: P2.1 precision at prevalence, P2.2 independent reimplementation, P2.3 same-model confound (gap 3), P2.4 scripted coalitions / onset / cost asymmetry (gaps 5, 6, 8; locked test), P2.5 market-model robustness (gap 7: N=2/6, demand elasticity; locked test), P2.6 bid rotation (gap 9 exploration; locked test).
 
-**Phase 2 takeaways so far.** (1) Price-*level* screens and co-*movement* statistics fail in opposite places. Unequal private costs make every level screen falsely
-flag 30/30 markets while pCMI stays near its control rate (P2.4). LLM collusion shows up in levels and is invisible to pCMI (§4.3). A deployer needs both, plus cost data.
-(2) Relative statistics (pair vs rivals) are blind to an all-firm cartel (AUROC 0.25), so they need an absolute companion (markup, pCMI, group TC; P2.4).
+**Phase 2 takeaways so far.** (1) Price-*level* screens and co-*movement* statistics fail in opposite places. Unequal private costs make both tested level screens falsely
+flag 30/30 markets, while pCMI flags 4/30 (controls 1/30; P2.4). LLM collusion shows up in levels and is invisible to pCMI (§4.3). A deployer needs both, plus cost data.
+(2) The upper-tail relative screen (pair vs rivals) loses its power against an all-firm cartel (AUROC 0.25, i.e. reversed), so it needs an absolute companion (markup, pCMI, group TC; P2.4).
 (3) When everyone runs the same LLM, pair contrasts still work. Absolute statistics need reference markets running the same model(s): a mismatched reference
 gave pCMI 52% false flags (P2.3, exploratory). (4) At 1% prevalence no flag has precision above 0.25 (P2.1): these are audit triggers, not verdicts.
-(5) The scripted calibration and power results do not depend on the 4-seller, μ=3 market: pooled pCMI control false flags 6.0% [3.8, 9.3] across N=2/4/6 and μ=1.5/3/4.5. Less elastic demand mostly weakens the level screens (P2.5).
+(5) Beyond the 4-seller, μ=3 market: pooled pCMI control false flags are 6.0% [3.8, 9.3] across N=2/4/6 and μ=1.5/3/4.5. The declared per-cell calibration criterion passes in 9/10 cells (elastic/A fails at 4/30), and strong-signal power holds in all 10.
+Which detector is strongest varies with market and horizon. Less elastic demand mostly weakens the level screens (P2.5).
+(6) Collusion whose schedule is predictable from public price history (deterministic bid rotation) is invisible to pCMI, because conditioning on lags absorbs it. Lagged TE sees part of it, and level screens see all of it (P2.6, scripted exploration).
 
 **P2.1 Precision at realistic collusion prevalence (E46, from the saved v1 evaluations; `uv run python scripts/prevalence.py`
 → `results/eval/prevalence.{json,md}`).** At the frozen α = 0.05 run-level flags, precision = π·TPR / (π·TPR + (1−π)·FPR), with
@@ -121,13 +123,14 @@ Default simulator output and `score_run` are byte-identical to v1 (`results/p2/c
 Settings: T=100, signal collusion s=0.6, 30 games per group, B=100, α=0.05. Intervals below are Wilson 95% (k/30: 0 → [0, 11]%, 1 → [1, 17]%, 2 → [2, 21]%, 4 → [5, 30]%, 5 → [7, 34]%).
 Dev and test agree on every qualitative point.
 
-| test (locked) | pair_level | max-pair markup | pCMI (shift) | group TC4 / TC3 (shift) | ni_pCMI | controls (same family) |
+| test (locked) | pair_level (surrogate) | max-pair markup (surrogate) | pCMI (shift) | group TC4 / TC3 (shift) | ni_pCMI (surrogate) | controls (same family) |
 |---|---|---|---|---|---|---|
 | 3 of 4 collude (A / B) | 30/30, 30/30 | 30/30, 30/30 | 30/30, 30/30 | 30/30, 30/30 | 30/30, 30/30 | pCMI 2/30, 2/30; TC4 1/30, 2/30; pair_level 0/30, 1/30 |
 | **all 4 collude** (A / B) | **1/30, 0/30** (AUROC 0.26, 0.25) | 30/30, 30/30 | 30/30, 30/30 | 30/30, 30/30 | 30/30, 30/30 | as above |
 | **cost asymmetry** (2 sellers +2 private cost, no channel) | **30/30 false** (names the high-cost pair 30/30) | **30/30 false** | 4/30 false (MI 3/30) | – | 1/30 false | pCMI 1/30, pair_level 1/30, MI 2/30 |
 
-(a) **Coalitions.** A relative statistic (pair price minus rivals) cannot see a cartel that includes everyone: its AUROC drops *below* 0.5 when all four collude.
+(a) **Coalitions.** The frozen upper-tail relative screen (pair price minus rivals) loses its power against a cartel that includes everyone: its AUROC drops *below* 0.5 when all four collude.
+(The reversed score would rank at about 0.75, but a screen looking for a pair priced above its rivals does not see it.) Surrogate-flagged columns are calibrated against same-family controls by leave-one-out, so their control rates are bounded by construction, not independent calibration evidence.
 Absolute statistics (markup over the Nash price, pCMI, group total correlation) still detect every run. Pairwise net influence
 (ni_pCMI) also still flags 30/30 at this strength: the finite-sample maximum over six similar pair effects leaves a positive contrast. So the predicted
 net-influence failure did not appear, but the pair it names is arbitrary when all collude. TC4 detects nothing that pCMI misses here, so it adds no power in this design.
@@ -137,18 +140,19 @@ h = 14.5, fixed from the 30 dev controls. On test controls it raised 0/30 false 
 7.5 rounds [IQR 5–12] (onset 25) and 7 [5–9] (onset 50). Expanding-window pCMI (looks at 20, 30, …, 100 rounds, uncorrected) alarmed on 5/30 controls (17% [7, 34]).
 It alarmed *before* onset in 6/30 and 4/30 runs, and after onset in 24/30 and 26/30, with median delay 9 rounds. Repeated-look pCMI therefore needs a sequential
 correction before use. The level CUSUM is the better online screen in this market, but its weaknesses are those of the pair_level statistic it is built on (rows (a) all-4 and (c)).
-(c) **Cost asymmetry is a decisive hard negative for every level screen.** Two sellers with privately higher costs legitimately price higher.
+(c) **Cost asymmetry is a decisive hard negative for both tested level screens.** Two sellers with privately higher costs legitimately price higher.
 pair_level and max-pair markup falsely flag all 30 markets and name the innocent high-cost pair every time. pCMI's false-flag rate is 4/30 (13% [5, 30]), against 1/30 on plain controls.
-It names the high-cost pair in 5/30 runs (chance level for 6 pairs is 1/6). Price *levels* are explained by unobserved costs; co-*movement* is not.
+It names the high-cost pair in 5/30 runs (chance level for 6 pairs is 1/6). Here, price *levels* are explained by unobserved costs, and pCMI flags fewer runs, but 30 games per group cannot show that its calibration is unchanged.
 This is the mirror image of the LLM result, where levels detect and pCMI does not. Neither family of statistics is safe alone.
 
 **P2.5 Market-model robustness: 2 and 6 sellers, more and less elastic demand (E52; scripted; locked test seed 2004, run once).**
 `sim.market.run_game` gained `n_agents` and `mu` (logit demand scale), and `score_run` now infers the number of sellers. With the defaults, simulator and detector
 output are byte-identical to v1 (a 9-scenario fingerprint of sim + `score_run` + `score_groups` is unchanged, and the 7 unit tests pass).
 Command: `uv run python -m experiments.p2_market --test` → `results/p2/market_test.json`. Table: `uv run python scripts/p2_market_table.py`.
-Markets: base (N=4, μ=3, the v1 market), N=2, N=6, elastic (μ=1.5, Nash 8 at cost 6) and inelastic (μ=4.5, Nash 12 at cost 6, so the agreed prices 12–16 sit close to Nash).
+Markets: base (N=4, μ=3, the v1 market), N=2, N=6, elastic (μ=1.5, Nash 8 at cost 6) and inelastic (μ=4.5, Nash 12 at cost 6 and 14 at cost 8, so the agreed prices 12–16 sit close to Nash).
+The benchmark is the lowest symmetric grid Nash price; N=2 has two symmetric equilibria ({10, 12} at cost 6, {12, 14} at cost 8). "Mean Nash" averages over the family-B cost shocks.
 Families A (constant state) and B (common demand and cost shocks). Groups of 30 games each: controls, shared-signal pair s=0.6 and a weak pair s=0.15. For N=2 the pair is the whole market.
-Every game is scored at T=100 and on its first 30 rounds, with frozen detectors and the shift null (B=100, α=0.05). Markup and pair_level are flagged against same-market controls
+Every game is scored at T=100 and on its first 30 rounds, with frozen detectors and the shift null (100 attempted draws, α=0.05; p-values use the valid draws, which fall to 60–85 for N=6 at T=30). Markup and pair_level are flagged against same-market controls
 (leave-one-out surrogate), so their false-flag rate is ≤ α by construction; only pCMI's control row is calibration evidence.
 The design was amended after the dev run (seed 230) showed s=0.3 at ceiling. The weak group moved to s=0.15 and the T=30 prefix was added before any test run (ledger E52).
 Entries are flagged games out of 30.
@@ -166,15 +170,36 @@ Entries are flagged games out of 30.
 | inelastic (4, 4.5, 12) | A | 1/30, 1/30 | 30 / 30 / 30 | 28 / 12 / 15 | 13 / 7 / 3 | 0.85 [0.75, 0.94] / 0.78 |
 | inelastic (4, 4.5, 13) | B | 3/30, 4/30 | 30 / 30 / 30 | 20 / 14 / 13 | 7 / 8 / 2 | 0.72 [0.57, 0.85] / 0.81 |
 
-(a) **Calibration transfers, with one marginal cell.** Pooled over the 10 market × family cells, pCMI falsely flags 18/300 = 6.0% [3.8, 9.3] of control games at T=100
-and 20/300 = 6.7% [4.4, 10.1] at T=30. The declared rule (≤ 0.10 per cell) holds in 9/10 cells. The exception is elastic/A at 4/30 = 13% [5, 30], which is compatible with α but formally fails the rule.
+(a) **The calibration criterion passes in 9/10 cells; elastic/A fails it.** Pooled over the 10 market × family cells, pCMI falsely flags 18/300 = 6.0% [3.8, 9.3] of control games at T=100
+and 20/300 = 6.7% [4.4, 10.1] at T=30. The declared rule (≤ 0.10 per cell) holds in 9/10 cells. The exception is elastic/A at 4/30 = 13% [5, 30], which fails the declared rule (its interval still includes α).
 Raw MI still flags 30/30 common-shock controls in every 4- and 6-seller market (6/30 at N=2), so the conditioning step matters in every market.
 (b) **Power transfers.** At s=0.6, every detector flags 30/30 in every cell. At s=0.15 and T=100, pCMI flags 20–30/30, against 12–29 for markup and 13–27 for pair_level.
 (c) **Less elastic demand is the hard case, mostly for level screens.** When Nash (12–13) is close to the agreed prices, collusion adds little to the price level.
 At s=0.15 in the inelastic market, markup flags 12/30 and 14/30 and pair_level 15/30 and 13/30, while pCMI flags 28/30 and 20/30. The shared signal still makes the pair's prices move together.
-At N=2 the market *is* the pair: pair_level is undefined, as with the all-firm cartel in P2.4, and markup over Nash or pCMI must carry the screen.
-In this scripted market collusion is a shared signal, i.e. co-movement by construction. So these rows show that the calibration and the ranking of detectors do not depend on the 4-seller, μ=3 choice.
+At N=2 the market *is* the pair, so pair_level is undefined (with N=4 and all four colluding it is defined but loses power, P2.4). Markup over Nash or pCMI must carry the screen there.
+Relative performance varies with market and horizon: at s=0.15 and T=30, pair_level beats pCMI in N6/A (23 vs 13/30) and markup has the higher AUROC in base/B (0.94 vs 0.81).
+In this scripted market collusion is a shared signal, i.e. co-movement by construction. So these rows show that pCMI's calibration (with the elastic/A exception) and strong-signal power do not hinge on the 4-seller, μ=3 choice.
 They do not show that real colluders produce co-movement (the LLM sellers in §4.3 did not).
+
+**P2.6 Exploration: bid rotation, collusion that is not a shared price move (E53; scripted; locked test seed 2005, run once).**
+In a coordinated round (probability s=0.6, decided by a shared private draw), one pair member is the round's "winner" and prices by noisy best response. Its partner posts the cover price 16.
+`rotation_alt`: the winner alternates deterministically, so the schedule is predictable from last round's public prices. `rotation_rand`: the winner is drawn privately each round.
+Base market (N=4, μ=3), T=100, 30 games per group, frozen detectors. Command: `uv run python -m experiments.p2_rotation --test` → `results/p2/rotation_test.json` (dev seed 240 agrees qualitatively).
+Flags out of 30 at T=100, families A / B (Wilson 95%):
+
+| group | mean price | pCMI (shift) | TE, lagged (shift) | MI (shift) | markup (surrogate) | pair_level (surrogate) |
+|---|---|---|---|---|---|---|
+| controls | 10.41 / 11.20 | 5, 4 (17% [7, 34], 13% [5, 30]) | 3, 3 | 3, 30 | 1, 1 | 1, 1 |
+| shared-signal pair (reference) | 11.71 / 12.29 | 30, 30 | 6, 4 | 30, 30 | 30, 30 | 30, 30 |
+| **rotation, alternating winner** | 11.26 / 11.95 | **6, 2** (= controls) | **13, 17** (43% [27, 61], 57% [39, 73]) | 0, 26 | 30, 30 | 30, 30 |
+| rotation, private random winner | 11.29 / 11.96 | 24, 22 | 4, 3 | 19, 30 | 30, 30 | 30, 30 |
+
+Reading. (a) **A rotation schedule that public lags predict is invisible to pCMI.** pCMI conditions on all lagged prices, so it absorbs the predictable alternation, and its flag rate equals the controls'.
+Lagged TE sees part of the schedule (13/30 and 17/30): one member's high price last round predicts the other's high price now. Raw MI is *below* control in family A (0/30), as with the LLM channel pairs (P2.3).
+Over 30 rounds pCMI flags 1/30 and 2/30 alternating-rotation games. (b) With a privately drawn winner, the members' prices are contemporaneously anti-coordinated, and pCMI flags 24/30 and 22/30.
+(c) Level screens flag every rotation game: the cover price lifts the market mean price by 0.85 (A) and 0.75 (B) above controls. They would miss rotation with a competitive cover price, which we did not test.
+The controls' pCMI false-flag rate here (5/30, 4/30) is above α but within the interval of the pooled P2.5 estimate (6.0% [3.8, 9.3]).
+This is a scripted exploration with a single strength. It shows one more place where pCMI's conditioning removes real collusion along with confounds: when the coordination is a deterministic function of public history.
 
 
 ## Abstract
@@ -193,7 +218,7 @@ Level screens are not collusion-specific: they rank legitimate public partnershi
 placebo channel in the sibling market. Practical reading (a hypothesis, not tested as a pipeline): a cheap level screen as an always-on first stage, with dependence and text audits as second-stage evidence;
 the detectability of LLM collusion depends on the market and its framing.
 **Phase 2 (locked scripted tests + re-analysis; LLM robustness runs in progress):** level screens and co-movement statistics fail in opposite places.
-Unequal private costs make every level screen falsely flag 30/30 markets, while pCMI flags 4/30. A relative pair statistic misses an all-firm cartel (AUROC 0.25),
+Unequal private costs make both tested level screens falsely flag 30/30 markets, while pCMI flags 4/30 (controls 1/30). A relative pair screen loses its power against an all-firm cartel (AUROC 0.25),
 while absolute markup, pCMI and group total correlation do not. Pair contrasts survive everyone running the same LLM. Absolute statistics need a model-matched reference
 (mismatched: pCMI 52% false flags, exploratory). At 1% prevalence no flag reaches precision 0.25, so flags are audit triggers, not verdicts.
 

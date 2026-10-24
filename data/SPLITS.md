@@ -32,3 +32,6 @@ If a later analysis needs tuning, it must use a new seed range declared here fir
 ## Phase 2 gap 7 market robustness (declared 2026-10-24 07:10 UTC, before the dev run; E52)
 `experiments/p2_market.py` (N=2/4/6, mu 1.5/3/4.5; T=100, n=30 per group, B=100). **Dev:** seed0 230. **Locked test:** seed0 2004,
 run once with `--test` and the configuration frozen after dev (no detector setting is tunable here; dev only checks the script).
+
+## Phase 2 gap 9 bid rotation (declared 07:29 UTC, before the dev run; E53, exploration)
+`experiments/p2_rotation.py` (base market; T=100 + T30 prefix; n=30 per group; B=100). **Dev:** seed0 240. **Locked test:** seed0 2005, run once with `--test`.

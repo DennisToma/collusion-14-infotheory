@@ -1,16 +1,16 @@
 > **PHASE 2 STARTED 2026-10-24 06:45 UTC** - v1 frozen as tag v1-overnight. New experiments are OPEN again; work queue = DIRECTION.md gap list. Ignore older no-new-experiments / finalize notes below.
 
-# STATUS (updated 2026-10-24 07:30 UTC, Phase 2 iteration 3)
+# STATUS (updated 2026-10-24 07:55 UTC, Phase 2 iteration 3)
 
-**Phase 2 running** (DIRECTION.md gap list). v1 frozen at tag `v1-overnight`. REPORT "Phase 2 results": P2.1 prevalence, P2.2 reimplementation, P2.3 same-model, P2.4 coalition/onset/cost asymmetry, **P2.5 market robustness (new)**; abstract now has a Phase 2 sentence.
-**Generating (background, logs /var/tmp/c14/):** `scripts/llm_queue_p2.sh` (codex, 5 workers): E43 variants: v0 12/12, para 12/12, template running (5/12 at 07:27), then order, noreason (~25 min/arm)
-→ E44 llm_long_p2 (A/C × 20, T=60; ~4 h) → `llm_queue_p2b.sh` T=80 replay. `llm_queue_go.sh` E45 deepseek: only 2/30 games by 07:27 (Go 429 cooldown ~07:10–07:40); interleaved A/C, ~2 games/h → expect ~25 by 20:00; report what completes.
-**New (E52, gap 7, locked test seed 2004 once):** sim `n_agents`/`mu` + N-generic `score_run` (defaults byte-identical, fingerprint + 7 tests). pCMI control false flags pooled 18/300 = 6.0% [3.8, 9.3] across N=2/4/6 × μ 1.5/3/4.5 × A/B;
-declared ≤.10 rule holds 9/10 cells (elastic/A 4/30). s=.6 all 30/30. s=.15: pCMI 20–30/30 vs markup 12–29; inelastic demand weakens level screens most. Design amended after dev (s=.3 at ceiling → .15, +T30 prefix) before test.
-**Next:** (1) when 5 variant arms done (~09:00): `uv run python scripts/p2_variants.py --run-eval` → REPORT P2.6; (2) llm_long_p2: `uv run python -m experiments.llm_eval eval --name llm_long_p2_T60 --Ts 10,20,30,40,50,60` → P2.7 (decisive gap 2);
-(3) deepseek eval when ≥ 10+10 → P2.8; (4) gap 9 non-price exploration (scripted market split / bid rotation); (5) codex adversarial review of P2.4–P2.5 text; (6) optional all-sol A games as matched reference.
-**Risks:** Go throughput (deepseek may end at n<15/cond); codex shared by queues; E44 finish ~13:00, T=80 ~14:30.
-`scripts/test_release_audit.py` fails at import (`report_tables` path) — pre-existing, unchanged by this iteration.
+**Phase 2 running** (DIRECTION.md gap list). v1 frozen at tag `v1-overnight`. REPORT "Phase 2 results": P2.1 prevalence, P2.2 reimplementation, P2.3 same-model, P2.4 coalition/onset/cost, **P2.5 market robustness, P2.6 bid rotation (new)**; abstract has a Phase 2 sentence.
+**Generating (background, logs /var/tmp/c14/):** `scripts/llm_queue_p2.sh` (codex, 5 workers): E43 variants v0 + para 12/12, template running, then order, noreason (~25 min/arm → done ~09:00)
+→ E44 llm_long_p2 (A/C × 20, T=60; ~4 h → ~13:00) → `llm_queue_p2b.sh` T=80 replay (~14:30). E45 deepseek (Go): 2/30 games at 07:27 after a 429 cooldown; interleaved A/C; ~2 games/h → maybe ~25 by 20:00.
+**E52 (gap 7, locked test):** pCMI control false flags pooled 18/300 = 6.0% [3.8, 9.3] over N=2/4/6 × μ 1.5/3/4.5 × A/B; declared ≤.10 criterion passes 9/10 (elastic/A 4/30 fails); s=.6 power 30/30 everywhere; detector ranking varies at s=.15/T30.
+**E53 (gap 9 exploration, locked test):** deterministic bid rotation invisible to pCMI (6/30, 2/30 = controls 5/30, 4/30), TE 13/30, 17/30, levels 30/30; private-random rotation pCMI 24/30, 22/30.
+Codex review of P2.4–P2.5 applied (1 P0 summary-only bug, no reported number changed; 5 P1 wording).
+**Next:** (1) ~09:00 variants done: `uv run python scripts/p2_variants.py --run-eval` → REPORT P2.7 (gap 1); (2) llm_long_p2 eval `uv run python -m experiments.llm_eval eval --name llm_long_p2_T60 --Ts 10,20,30,40,50,60` → P2.8 (gap 2, decisive);
+(3) deepseek eval when ≥ 10+10 → P2.9 (gap 4); (4) optional: LLM onset (channel opened mid-game) / coalition small LLM set if codex budget allows after E44; all-sol A games as matched reference; (5) codex review of P2.6 + final claims before 20:00.
+**Risks:** Go throughput; codex shared by queue + reviews; E44 timing. `scripts/test_release_audit.py` fails at import (`report_tables` path), pre-existing.
 
 # STATUS (updated 2026-10-24 06:07 UTC, iteration 28)
 
@@ -27,6 +27,7 @@ declared ≤.10 rule holds 9/10 cells (elastic/A 4/30). s=.6 all 30/30. s=.15: p
 **Risks:** small LLM n, OpenAI-family sellers only, no own-market placebo; surplus dependence is not proof of an agreement.
 
 ## Log
+- P2 iter 3 07:30–07:55: gap 9 exploration E53 (sim colluder_rotation, experiments/p2_rotation.py, dev → test once) → REPORT P2.6; codex review of P2.4–P2.5 → summary fix + wording; E52 rerun after refactor identical.
 - P2 iter 3 07:07–07:30: gap 7 (E52): generalised sim/detectors to N sellers + μ (byte-identical compat), experiments/p2_market.py, dev → amended (ceiling) → locked test once → REPORT P2.5 + scripts/p2_market_table.py; abstract Phase 2 sentence; deepseek slowed by Go 429.
 - P2 iter 2 06:45–06:55: queues healthy; E48 declared then run (scripts/same_model.py, ~4 min) → REPORT P2.3 + ledger; codex review (no P0, 3 P1) → joint bootstrap + wording fixes. 07:00–07:15: merged p2-scripted, SPLITS seeds 2001–2003 declared, E49–E51 test once → REPORT P2.4.
 - P2 iter 1 06:27–06:55: prompt-variant switch in sim/llm_market.py (v0 byte-identical, 96 combos checked); E43–E45 declared then amended (throughput) before any result; queues launched; deepseek empty-output fix; E46 prevalence; reimpl check launched.

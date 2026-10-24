@@ -48,8 +48,9 @@ def _one(cfg):
     n, mu = MARKETS[cfg['market']]
     agents = [chr(65 + k) for k in range(n)]
     rng = np.random.default_rng(cfg['seed'])
-    pair = sorted(rng.choice(agents, 2, replace=False).tolist()) if cfg['group'] in POS else None
-    rows, _ = run_game(cfg['run_id'], cfg['seed'], T, cfg['family'], pair=pair, strength=STRENGTH[cfg['group']],
+    pair = sorted(rng.choice(agents, 2, replace=False).tolist()) if cfg['group'] != 'control' else None
+    rows, _ = run_game(cfg['run_id'], cfg['seed'], T, cfg['family'], pair=pair, strength=cfg['strength'] if 'strength' in cfg else STRENGTH[cfg['group']],
+                       collusion_type=cfg.get('ctype', 'signal'),
                        n_agents=n, mu=mu)
     P = np.array([[a['price'] for a in r['agents']] for r in rows], float)
     states = [json.dumps(r['market'], sort_keys=True) for r in rows]
@@ -69,13 +70,15 @@ def _one(cfg):
             if others:
                 pair_level[nm] = float((Ph[:, [i, j]].mean(1) - Ph[:, others].mean(1)).mean())
         out['h'][str(H)] = {
-            'n_null': sc['_n_null'], 'run_p': sc['_run_p'],
+            'mean_price': float(Ph.mean()), 'nash_mean': float(nash.mean()), 'n_null': sc['_n_null'], 'run_p': sc['_run_p'],
             'top_pcmi': max(names, key=lambda m: sc[m]['score']['pcmi']),
             'top_pair_level': max(pair_level, key=pair_level.get) if pair_level else None,
             'scores': {'pcmi': max(sc[m]['score']['pcmi'] for m in names),
                        'mi': max(sc[m]['score']['mi'] for m in names),
                        'pair_level': max(pair_level.values()) if pair_level else None,
                        'markup': float((Ph.mean(1) - nash).mean())}}
+        if 'ctype' in cfg:  # p2_rotation: also lagged TE (not in the E52 outputs)
+            out['h'][str(H)]['scores']['te'] = max(sc[m]['score']['te'] for m in names)
     return out
 
 
@@ -93,8 +96,9 @@ def summarize(rows):
         n = MARKETS[market][0]
         keys = ['pcmi', 'mi', 'markup'] + (['pair_level'] if n > 2 else [])
         d = {'n_agents': n, 'mu': MARKETS[market][1], 'n_control': len(ctl),
-             'nash_mean': float(np.mean([r['nash_mean'] for r in rr])),
-             'mean_price': {g: mean_score(r['mean_price'] for r in rr if r['group'] == g) for g in ('control',) + POS}}
+             'nash_mean': float(np.mean([r['h'][H]['nash_mean'] for r in rr])),
+             'mean_price': {g: mean_score(r['h'][H]['mean_price'] for r in rr if r['group'] == g) for g in ('control',) + POS},
+             'n_null_range': [min(r['h'][H]['n_null'] for r in rr), max(r['h'][H]['n_null'] for r in rr)]}
         for g in ('control',) + POS:
             grp = [r for r in rr if r['group'] == g]
             d[g] = {'pcmi_flag': rate(r['h'][H]['run_p']['pcmi'] < ALPHA for r in grp),
