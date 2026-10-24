@@ -40,3 +40,7 @@ run once with `--test` and the configuration frozen after dev (no detector setti
 No detector setting is tuned: all are frozen, so every game in E61/E62 is **confirmatory**. `llm_qa_p2` (qwen-abliterated, Modal) and `llm_qb_p2` (qwen-base),
 `llm_g56l_p2` (gpt-5.6-luna, codex), `llm_glm_p2` (glm-5.2, Go): all seed 10 (same pairs/costs as llm_v1 and llm_ds_p2), A/C, T=20.
 E63 strong-lever **pilots** `llm_strong_*_pilot` (seed 61, T=40) are dev only — used to choose the lever set; a promoted full arm gets a new seed declared here first.
+
+## Phase 2 part C promoted arm (declared 2026-10-24T13:38 UTC, before generation; E65)
+`llm_strong_qa` = qwen-abliterated (Modal), `--memory`, T=40, **seed 65** (new; pilot used 61), A and C n=20 each. Promoted because the E63 pilot
+`llm_strong_qa_pilot` executed 5/5 C games (judge labels only; no detector was run on the pilot). All games confirmatory (detectors frozen).

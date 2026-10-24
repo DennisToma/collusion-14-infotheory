@@ -1,5 +1,16 @@
 > **PHASE 2 STARTED 2026-10-24 06:45 UTC** - v1 frozen as tag v1-overnight. New experiments are OPEN again; work queue = DIRECTION.md gap list. Ignore older no-new-experiments / finalize notes below.
 
+
+# STATUS (updated 2026-10-24 13:45 UTC from date -u, Phase 2 iteration 10)
+
+**E44 FINAL (gap 2, decisive): LEVEL, NOT SHORT.** pCMI AUROC C vs A at T=60 0.34 [0.18, 0.52] (T=20 0.52, declines); market level 0.94; co-move excess +0.004 [−.007,.015] < q=.1 planting (pCMI .79); spillover market-wide (+2.24 of +2.47, rounds 51–60); executed 4/20, tacit 0/20. REPORT main claim, abstract, glance row 2, takeaways 2+7, P2.8 rewritten (pilot text replaced).
+**Part C final pieces:** E61 abliterated − base (C−A) −0.37 [−2.09, 1.36] (no effect; −0.40 w/o qb A_000); both 15/15 agreement, executed 8/15 vs 6/15; qwen undercuts (A markup −1.5/−2.5) — transcripts checked: genuine, 1/2821 unparsable. E64 pooled (29 exec / 60 not): market_level 1.00 vs .94, pCMI .41 [.29,.53] vs .48 → prediction met. Executed 29/89 C, tacit 1/94 A over 6 sets. P2.11 rewritten with table (now regenerated/checked by `p2_tables.py`, P2.11 builder added).
+**E65 promoted arm (declared 13:38, launched):** E63 qwen-abliterated memory pilot executed 5/5 (C−A +6.5) → `llm_strong_qa` 20+20, T=40, seed 65 via `scripts/llm_queue_e65.sh` (one writer, resumable). Declared rule: pCMI AUROC(executed C vs A) ≥.65 & lo>.5 → "moves appear"; upper<.65 → "still a level". NO detector has been run on the pilot.
+**Queues:** `llm_queue_p2d.sh` (replaced p2c; T=80 replay CANCELLED): g56l 15/20 → luna memory pilot. qb memory pilot 7/10 (workers 6, started before; base gateway). glm on Go slow. Q2.2 `llm_p2strongF` ETA ~17–19 → directive 3d (declare before reading!).
+**Checks:** p2_tables --check PASS (9 tables), tables --check PASS, test_release_audit OK.
+**Next:** (1) when g56l/qb pilot/luna pilot done: `uv run python -m experiments.llm_eval label/eval` for them (p2_partc `--label --run-eval`) → P2.11(d); (2) declare E66 = frozen detectors on Q2.2 `llm_p2strongF` by behaviour class BEFORE it lands; (3) E65 when 40 → eval + p2_partc → P2.11 + glance + merger sentence; (4) codex review of P2.8/P2.11 before 19:30 checkpoint; PDFs 19:30.
+**Risks:** e44_post.sh takes ~25 min (llm_eval at 6 Ts) — run detached (`setsid nohup`), harness kills foreground/bg after 10 min. gpt-5.6-luna interim A games price high (tacit) — don't report until done.
+
 # STATUS (updated 2026-10-24 11:42 UTC from date -u, Phase 2 iteration 9, interim)
 
 **Fix:** two `llm_qb_p2` generators were running at once since 11:25 (manual retry loop + queue retry 3) → duplicated run_ids with different content (A_000 twice). Killed both, deduped keeping the FIRST complete record per run_id (backup `/var/tmp/c14/llm_qb_p2_dup_backup`), relaunched ONE loop (`/var/tmp/c14/qb_loop.sh`). Abliterated endpoint answering again since ~11:36 (qa cache growing ~65 calls/min → ETA ~12:30).

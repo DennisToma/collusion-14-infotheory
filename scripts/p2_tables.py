@@ -4,7 +4,7 @@ No experiments or LLM calls; nothing is written. Every number in a cell comes fr
 only row labels / annotation words are literal text here.
     uv run python scripts/p2_tables.py          # print regenerated tables
     uv run python scripts/p2_tables.py --check  # compare cell by cell with REPORT.md (exit 1 on failure)
-Tables: P2.1 prevalence, P2.3 same-model, P2.4 coalitions/cost asymmetry, P2.5 market robustness, P2.6 rotation, P2.7 prompt wording.
+Tables: P2.1 prevalence, P2.3 same-model, P2.4 coalitions/cost asymmetry, P2.5 market robustness, P2.6 rotation, P2.7 prompt wording, P2.9 family, P2.10 sibling arms, P2.11 part C.
 """
 from __future__ import annotations
 
@@ -216,7 +216,27 @@ def p210():
                   "AUROC max-pair score vs none: private / neutral / notes / placebo"], rows)
 
 
-BUILDERS = {"P2.1": p21, "P2.3": p23, "P2.4": p24, "P2.5": p25, "P2.6": p26, "P2.7": p27, "P2.9": p29, "P2.10": p210}
+# ---------------------------------------------------------------- P2.11
+P211_SETS = (("gpt-6-luna (`llm_v1`, 20)", "llm_v1"), ("gpt-6-luna (`llm_long`, 50)", "llm_long"),
+             ("gpt-6-luna (E44 `llm_long_p2_T60`, 60)", "llm_long_p2_T60"), ("deepseek-v4.1-flash (`llm_ds_p2`, 20)", "llm_ds_p2"),
+             ("Qwen3.8-27B **abliterated** (`llm_qa_p2`, 20)", "llm_qa_p2"), ("Qwen3.8-27B base (`llm_qb_p2`, 20)", "llm_qb_p2"))
+
+
+def p211():
+    d = jl("results/eval/p2_partc.json")
+    j = lambda k, n, ci: f"{k}/{n} [{ci[0]:.2f}, {ci[1]:.2f}]".replace("[0.00,", "[0,").replace(", 1.00]", ", 1]")
+    rows = []
+    for lab, name in P211_SETS:
+        r, b = d[name], d[name]["behaviour"]
+        rows.append([lab, f"{r['n_C']}/{r['n_A']}", f"{r['A_markup']:+.2f}".replace("-", "−"),
+                     f"{r['C_minus_A_markup']:+.2f} [{r['C_minus_A_ci'][0]:.2f}, {r['C_minus_A_ci'][1]:.2f}]",
+                     f"{r['auroc_market_level']:.2f}", f"{r['auroc_pcmi']:.2f}", f"{b['agreement']}/{b['n_C_labelled']}",
+                     j(b["executed"], b["n_C_labelled"], b["executed_ci"]), j(r["tacit_A"], r["n_A"], r["tacit_A_ci"])])
+    return table(["seller (dataset, T)", "n C/A", "A markup", "C − A markup", "AUROC markup", "AUROC pCMI", "agreement",
+                  "executed (C)", "tacit (A)"], rows)
+
+
+BUILDERS = {"P2.1": p21, "P2.3": p23, "P2.4": p24, "P2.5": p25, "P2.6": p26, "P2.7": p27, "P2.9": p29, "P2.10": p210, "P2.11": p211}
 
 
 def check(report):

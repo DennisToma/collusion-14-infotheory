@@ -7,8 +7,9 @@ Collusion Through Information Theory and Behavioral Evidence"). Every number bel
 opposite places: unequal private costs make level screens falsely flag 30/30 scripted markets (pCMI 4/30), while LLM collusion
 shows up as a price level that pCMI does not see (C vs A run AUROC, same sets: pCMI 0.48 / 0.45 / 0.57 vs max-pair markup 0.94 / 0.95 / 0.99 in `llm_v1`, `llm_long`, deepseek;
 pooled over five small wording arms 0.44 vs 0.66); the private-channel price effect is consistent across five prompt wordings and two seller families, but the no-channel
-*baseline* moves with prompt and model, so absolute screens need model- and prompt-matched reference markets; whether longer
-games rescue pCMI is being settled by E44 (T=60, 20 + 20 games, generating; pilot inconclusive, P2.8).
+*baseline* moves with prompt and model, so absolute screens need model- and prompt-matched reference markets; longer
+games do not rescue pCMI (pre-registered E44, T=60, 20 + 20 games: AUROC 0.34 [0.18, 0.52], verdict "level, not short", P2.8), and neither does
+restricting to *executed* agreements (pooled pCMI 0.41 [0.29, 0.53] vs market level 1.00, 29 executed games, P2.11).
 
 ## Abstract
 Can a detector reading only prices and public state find colluding pricing agents without accusing agents that
@@ -21,14 +22,14 @@ level screens flag 30/30 markets (pCMI 4/30), and a relative pair screen reverse
 price level: markup AUROC 0.94–0.99, pCMI 0.45–0.57. With gpt-6-luna the level spreads to the rivals (rounds 11–20:
 non-pair sellers +1.86 [1.25, 2.48] above no-channel markets vs the pair's +2.14; deepseek pairs keep more of their lead). The channel effect is consistent across five prompt
 wordings (pooled +0.69, SE 0.17), but wording alone moves no-channel prices from −0.19 to +2.56, so absolute screens need model- and
-prompt-matched references; in the sibling market, level screens also name a pair that only writes notes to itself (11/15). Long games (T=60): *E44
-pending*. At 1% prevalence no flag reaches precision 0.25: flags are audit triggers.
+prompt-matched references; in the sibling market, level screens also name a pair that only writes notes to itself (11/15). Long games (pre-registered E44, T=60, 20 + 20): pCMI 0.34 [0.18, 0.52], falling from 0.52 at T=20, so the verdict is
+"level, not short"; the market level stays at 0.94. Agreements are rarely executed (4/20 at T=60; 29/89 across six sets), and executed games still show no co-movement (pCMI 0.41). At 1% prevalence no flag reaches precision 0.25: flags are audit triggers.
 
 ## Phase 2 at a glance (started 2026-10-24 06:30 UTC; details in [Phase 2 details](#phase-2-details-p21p210))
 Phase 2 closes known gaps; v1 numbers (below) are unchanged (git tag `v1-overnight`). Each Phase 2 experiment is declared in
 `EXPERIMENTS.tsv` (E43–E60) before its data exist; the new LLM datasets (`data/SPLITS.md`, "Phase 2") are all confirmatory because no detector setting is tuned on them.
-Status: long games (E44: 20 A + 20 C, T=60) are **generating** (P2.8 shows the pilot); deepseek + public board (E59, directive 3) is generating. Everything else is done.
-Done: P2.1 precision at prevalence, P2.2 independent reimplementation, P2.3 same-model confound (gap 3), P2.4 scripted coalitions / onset / cost asymmetry (gaps 5, 6, 8; locked test), P2.5 market-model robustness (gap 7: N=2/6, demand elasticity; locked test), P2.6 bid rotation (gap 9 exploration; locked test), **P2.7 prompt-wording robustness (gap 1)**, **P2.9 second seller family (gap 4)**, P2.10 sibling channel arms (exploratory), P2.8 long-game pilot (gap 2; confirmatory E44 pending).
+Status: all gaps closed; E44 (long games) is final: **level, not short** (P2.8). Part C (P2.11): qwen abliterated vs base and executed-subset detectors are final; gpt-5.6-luna, glm-5.2 and the memory-lever pilots are still generating.
+Done: P2.1 precision at prevalence, P2.2 independent reimplementation, P2.3 same-model confound (gap 3), P2.4 scripted coalitions / onset / cost asymmetry (gaps 5, 6, 8; locked test), P2.5 market-model robustness (gap 7: N=2/6, demand elasticity; locked test), P2.6 bid rotation (gap 9 exploration; locked test), **P2.7 prompt-wording robustness (gap 1)**, **P2.9 second seller family (gap 4)**, P2.10 sibling channel arms (exploratory), **P2.8 long games (gap 2; E44 final)**, P2.11 Part C (partial).
 
 **Phase 2 at a glance** (one row per gap; [95% CI]: Wilson for k/n flag rates (scripted P2.4–P2.6, P2.3), Jeffreys for precision (P2.1), class-stratified percentile bootstrap over runs (games) for AUROCs and markup differences; the full reading of each row is in the section named).
 
@@ -37,7 +38,7 @@ Done: P2.1 precision at prevalence, P2.2 independent reimplementation, P2.3 same
 | shared | precision at realistic prevalence | at 1% prevalence no frozen flag reaches precision 0.25 (Jeffreys intervals for TPR/FPR) | `eval/prevalence.json` | P2.1 |
 | shared | independent reimplementation | 422/424 run × statistic cells agree < 1e-9 (2 differ only in the ρ² cap); all 20 AUROCs identical; shift-null flags 4/21 vs 5/21 (Monte Carlo); no bug | `reimpl/compare.json` | P2.2 |
 | 1 | prompt wording (5 wordings, 6 + 6 each) | channel C − A +0.69 (SE 0.17), Q p = 0.69; no-channel baseline −0.19 … +2.56; within-wording markup AUROC 0.66 [0.53, 0.78]; pCMI 0.44 [0.30, 0.58] | `eval/p2_variants.json` | P2.7 |
-| 2 | long games (T=60, 20 + 20) | *generating (E44)*; pilot (T=50, 8 + 8): pCMI AUROC 0.36–0.45 at every prefix; pair premium +1.12 → +0.16 while rivals catch up (spillover +2.29 of the pair's +2.44 by rounds 41–50, E60) | `eval/long_power_llm_long.json`, `eval/spillover_*.json` | P2.8 |
+| 2 | long games (E44: T=60, 20 + 20, pre-registered) | **level, not short**: pCMI AUROC 0.34 [0.18, 0.52] at T=60 (0.52 at T=20); market level 0.94 [0.86, 1.00]; observed co-move excess +0.004 [−0.007, +0.015] < q = 0.1 planting (+0.13, pCMI 0.79); pair premium +0.70 → +0.23 while rivals join (spillover +2.24 of +2.47, rounds 51–60); executed 4/20, tacit 0/20 | `eval/long_power_llm_long_p2_T60.json`, `eval/spillover_llm_long_p2_T60.json` | P2.8 |
 | 3 | same-model confound | mismatched reference: pCMI 52% false flags at α = 0.10 (exploratory; fresh matched pool 3/21); model-matched fresh pool at α = 0.05: 0/21 [0, 16]% false flags, but markup power 1/16 (prompt mismatch) | `eval/same_model.json`, `eval/matched_ref.json` | P2.3 |
 | 4 | second seller family (deepseek, 15 + 15) | channel C − A +3.75 [2.77, 4.68] (luna +1.76; interaction +1.99 [0.90, 3.07]); AUROC markup 0.99, pair_level 1.00, pCMI 0.57 [0.36, 0.77]; rule HOLDS; judge: 15/15 agreements, 3/15 followed; public board alone (E59) +0.70 [0.23, 1.23], level screen false-flags 5/15 | `eval/p2_family.json` | P2.9 |
 | 5 | coalition structure (scripted) | all-4 cartel: pair_level AUROC 0.26, 0.25 (A, B; 1/30, 0/30 flagged); markup, pCMI, TC 30/30 | `p2/coalition_test.json` | P2.4 |
@@ -46,17 +47,17 @@ Done: P2.1 precision at prevalence, P2.2 independent reimplementation, P2.3 same
 | 8 | private cost asymmetry (hard negative) | pair_level and markup 30/30 false; pCMI 4/30 [5, 30]% (controls 1/30) | `p2/costasym_test.json` | P2.4 |
 | 9 | bid rotation (exploration) | predictable rotation: pCMI 6/30, 2/30 (controls 5/30, 4/30); TE 13/30, 17/30; levels 30/30 | `p2/rotation_test.json` | P2.6 |
 | extra | sibling's six channel arms | undelivered notepad (0/14 agreements): pair_level names the pair 11/15, AUROC vs none 0.89 [0.76, 0.98], as private 12/15, 0.91 | `eval/p2cue_ext.json` | P2.10 |
-| C | executed collusion, model generations, abliteration (E61–E63) | executed (agreement kept + pair ≥ Nash + 2 in 2nd half): gpt-6-luna 6/16 [0.17, 0.62] (T=50: 3/8), deepseek 2/15 [0.03, 0.36] of C games; qwen abliterated vs base, gpt-5.6-luna, glm-5.2, memory-lever pilot *generating* | `eval/p2_partc.json` | P2.11 |
+| C | executed collusion, abliteration, model generations (E61–E64) | executed 29/89 C games over six sets (E44 T=60: 4/20 [0.07, 0.41]); tacit (no channel) 1/94; abliterated − base (C − A) −0.37 [−2.09, 1.36] (no effect); executed-only pooled pCMI 0.41 [0.29, 0.53] vs market level 1.00; gpt-5.6-luna, glm-5.2, memory pilots *generating* | `eval/p2_partc.json` | P2.11 |
 
 
 **Phase 2 takeaways** (≤ 8; numbers from the rows above and the sections named).
 (1) **Opposite failure modes.** Unequal private costs: level screens 30/30 false, pCMI 4/30 (P2.4). LLM channels: mostly a level; pCMI never above chance in any wording or family (template 0.17, below chance), while the level screen also fails in two wordings (markup AUROC 0.31, 0.47; P2.7, P2.9). A deployer needs both kinds of statistic plus cost data.
-(2) **Relative screens miss market-wide elevation.** pair_level reverses against an all-firm cartel (AUROC 0.26 / 0.25, P2.4), and LLM channel effects spill over to the rivals (E60: `llm_v1` rivals +1.86 of the pair's +2.14 by rounds 11–20; T=50 pilot +2.29 of +2.44; deepseek pairs keep more of their lead, +2.37 of +5.03; P2.8). Only an absolute markup sees the whole-market level.
+(2) **Relative screens miss market-wide elevation.** pair_level reverses against an all-firm cartel (AUROC 0.26 / 0.25, P2.4), and LLM channel effects spill over to the rivals (E60: `llm_v1` rivals +1.86 of the pair's +2.14 by rounds 11–20; E44 T=60 rounds 51–60 +2.24 of +2.47; deepseek pairs keep more of their lead, +2.37 of +5.03; P2.8). Only an absolute markup sees the whole-market level.
 (3) **Absolute screens need a model- *and* prompt-matched reference.** At α = 0.10, a mismatched-model pool gives pCMI 11/21 = 52% false flags vs 3/21 for a fresh model-matched pool (0/21 at α = 0.05); matched model but other wordings: markup power 1/16 (P2.3). The channel effect (C − A markup) is consistent in our five wordings (pooled +0.69, SE 0.17), while the sibling's pair premium vanishes under a terse paraphrase (Q2.2 E78: +0.24 vs +1.75; a different metric); the no-channel baseline is prompt-dependent in both (ours −0.19 … +2.56, P2.7).
 (4) **Level screens detect "a pair singled out by the prompt", not delivered coordination:** an undelivered notepad (0/14 agreements) is named 11/15 vs private 12/15 (P2.10); Q2.2 E77 finds notes-to-self yields 0.65 [0.34, 1.32] of the private premium. Deepseek pairs agree 15/15 but follow 3/15, and abandoned pairs still sit +3.23 above rivals (P2.9d). A public board alone raises deepseek no-channel markup by +0.70 [0.23, 1.23] and makes a frozen level screen flag 5/15 of those markets (P2.9e), so the reference must also match the board.
 (5) **pCMI blind spots:** collusion predictable from public price history (deterministic bid rotation) is invisible to it (P2.6). Its scripted calibration mostly holds across N = 2/4/6 and three demand elasticities (6.0% [3.8, 9.3] pooled false flags; 9/10 cells pass, elastic/A fails; P2.5).
 (6) **Prevalence:** at 1% no flag reaches a point-estimate precision of 0.25 (upper CIs up to 0.54; P2.1): audit triggers, not verdicts. An independent reimplementation reproduces the per-run statistics and all 20 AUROCs (shift-null flags 4/21 vs 5/21, Monte Carlo; P2.2).
-(7) **Long games (E44, decisive for Q1.4):** *pending* (pilot inconclusive: pCMI 0.36–0.45 at every prefix, upper CI 0.75; P2.8).
+(7) **Long games do not rescue pCMI (E44, pre-registered, decisive for Q1.4).** At T=60, pCMI scores 0.34 [0.18, 0.52] and *declines* with game length, while the market level holds at 0.94. Channel pairs show no co-move excess (+0.004 [−0.007, +0.015]), although pCMI would catch a planted shared move at q = 0.1 (AUROC 0.79). LLM channel collusion in this market is a sustained market-wide level, not a coordinated move (P2.8). The answer is the same when only *executed* agreements count (pooled pCMI 0.41 [0.29, 0.53], P2.11).
 
 ## v1 (overnight) key findings
 
@@ -776,21 +777,17 @@ Computed within wordings and pooled, the markup AUROC (C vs A) is 0.66 [0.53, 0.
 This is the main validity limit of the level screens in this repo.
 
 
-**P2.8 Long LLM games: is pCMI short of data, or is there no co-movement to find? (E55 declared before E44 output; pilot on the v1 `llm_long` data; E56 behaviour split.)**
-`uv run python scripts/long_power.py --name llm_long --Ts 10,20,30,40,50 --mde-Ts 20,50` → `results/eval/long_power_llm_long.{json,md}`.
-*Status:* the confirmatory run on `llm_long_p2` (20 A + 20 C, T=60) is generating. The rows below are the **pilot on the 8 + 8 v1 games (T=50)**. They use the same declared script and will be replaced, not merged.
-(a) Prefix power: pCMI run AUROC C vs A is flat at 0.39, 0.39, 0.38, 0.36, 0.45 for T = 10–50 (all CIs include 0.5). Max-pair markup is 0.92–0.95 throughout.
-(b) Planted co-movement (E30 method on the A controls): pCMI reaches AUROC ≥ 0.80 at a planted co-move rate q = 0.5 for T=20 and q = 0.2 for T=50.
-Planted pairs at q = 0.2 show a co-move excess of +0.26 (unplanted controls +0.01; AUROC 0.93). The channel pairs' observed co-move excess at T=50 is −0.008 [−0.023, +0.009], below even the q = 0.1 plantings (+0.14).
-So at T=50 pCMI separates this kind of planted shared move, and the channel pairs show no excess co-movement of that kind. The planting is a shared ±1 offset, not a model of LLM collusion, so this is injection-specific sensitivity, not a general power bound. The q80 crossing is a point on a discrimination grid, not a power-based MDE.
-The pre-registered E44 rule ("too short" iff AUROC(pCMI) ≥ 0.65 with lower CI > 0.5 and a gain ≥ 0.15 over T=20; "level, not short" iff the upper CI < 0.65) gives **inconclusive** on this pilot: the upper CI is 0.75 with 8 + 8 games.
-(c) The assigned pair's premium over rivals shrinks: +1.12 [0.56, 1.76] in rounds 1–10, +0.16 [−0.16, +0.53] in rounds 41–50 (per-game slope −0.021 [−0.039, −0.005] per round; 5/8 games end below half their opening premium). The market *markup* stays high, so the rivals' prices rise towards the pair's. A shrinking relative premium does not by itself show that collusion ends.
-![premium decay llm_long](figures/premium_decay_llm_long.png)
-*Per-round market markup over Nash (C vs A) and assigned-pair premium over rivals (C), `llm_long` pilot, 8 + 8 games, game-bootstrap 95% bands; `uv run python scripts/premium_decay_fig.py --name llm_long`. A markets fall to Nash within ~6 rounds, C markets stay ≈ +2.4 throughout, while the pair's lead over its rivals is mostly gone by round ~15.*
-(d) Behaviour split (E56, from the existing judge labels; no new calls). Unlike the sibling's games (36/50 agreements abandoned), most of our agreements are *followed*: 12/16 `llm_v1` C and 6/8 `llm_long` C.
-But the agreed floors are low (12 in 15/18 followed games; static Nash is 10–12). Followed pairs score *below* controls on pCMI (AUROC 0.16 and 0.06) and high on markup (0.94, 0.94). These compare the assigned pair with the A games' maximum over six pairs, which is conservative. Mean assigned-pair pCMI is 0.08 and 0.01, against markups of +1.96 and +2.51.
-(e) Market-wide spillover (E60, declared 09:52 before any E44 detector or price output was read by this analysis; the director had noted from the generation log that early C games show rivals near the pair's price; `uv run python scripts/spillover.py --name <set>` → `results/eval/spillover_<set>.{json,md}`). Per 10-round block: C rivals' markup over Nash minus A market markup (spillover) vs C pair markup minus A (pair excess); declared reading "market-wide" iff the last block's spillover CI excludes 0 and spillover ≥ 0.5 × pair excess. Pilot `llm_long` rounds 41–50: spillover +2.29 [+1.24, +3.38] vs pair excess +2.44 → market-wide; `llm_v1` rounds 11–20: +1.86 [+1.25, +2.48] vs +2.14 → market-wide; deepseek `llm_ds_p2` rounds 11–20: +2.37 [+1.59, +3.15] vs +5.03 → rule not met (rivals elevated, but the pair keeps more than half its lead). Relative to no-channel markets (whose own markup falls from +0.63 to −0.03), the shrinking pair premium in (c) is the rivals staying elevated while the pair drifts down (raw C markups: pair 3.09 → 2.41, rivals 1.97 → 2.26): a relative screen loses exactly the signal an absolute markup keeps (compare the all-firm cartel, P2.4, and the sibling's random-partner arm, market markup +2.74 over the none arm, P2.10c).
-*Pilot reading (n = 8 + 8, exploratory):* the channel signal here is a price level, with no detectable shared move, so more rounds are not expected to help pCMI. E44 tests this with 20 + 20 games at T = 60, with the same declared decision rule.
+**P2.8 Long LLM games: is pCMI short of data, or is there no co-movement to find? (E44, confirmatory: 20 A + 20 C gpt-6-luna games, T=60, seed 50; rule declared 06:29 before generation, E55 supporting analyses declared 07:55, E60 spillover 09:52, all before any E44 output.)**
+`bash scripts/e44_post.sh` → `results/eval/llm_long_p2_T60.json`, `results/eval/long_power_llm_long_p2_T60.{json,md}`, `results/eval/spillover_llm_long_p2_T60.{json,md}`, `figures/premium_decay_llm_long_p2_T60.png`.
+**Verdict (pre-registered rule): level, not short.** pCMI run AUROC C vs A at T=60 is **0.34 [0.18, 0.52]**; the upper CI is below 0.65, so moderate effects are excluded. The rule's "too short" branch needed ≥ 0.65 with lower CI > 0.5 and a gain ≥ 0.15 over T=20.
+(a) Prefix power (same games, T = 10…60): pCMI 0.48, 0.52 [0.34, 0.69], 0.47, 0.40, 0.34, 0.34. It *falls* with more rounds. Max-pair markup stays at 0.92–0.94, market level at 0.92–0.94 (0.94 [0.86, 1.00] at T=60), pair_level 0.64–0.77. TE at T=60 is 0.50 [0.32, 0.68].
+(b) Planted co-movement (E30 method on the 20 A controls): at T=60, pCMI reaches AUROC 0.79 [0.70, 0.88] at a planted co-move rate q = 0.1 (injected co-move excess +0.13) and 0.95 at q = 0.2 (q80 grid crossing q = 0.2 at T=40 and T=60, q = 0.3 at T=20). The channel pairs' observed co-move excess is +0.004 [−0.007, +0.015] at T=60, so its upper CI is below even the q = 0.1 planting. The planting is a shared ±1 offset, not a model of LLM collusion: this is injection-specific sensitivity, not a general power bound.
+(c) Decay: the assigned pair's premium over its rivals is +0.70 [0.48, 0.93] in rounds 1–10 and +0.18 [0.03, 0.33] in rounds 11–20, then stays at +0.12…+0.23 to round 60 (last − first −0.46 [−0.71, −0.23]; per-game slope −0.007 [−0.012, −0.002] per round). The market markup does not decay (below).
+![premium decay E44](figures/premium_decay_llm_long_p2_T60.png)
+*Per-round market markup over Nash (C vs A) and assigned-pair premium over rivals (C), E44 `llm_long_p2_T60`, 20 + 20 games, game-bootstrap 95% bands; `uv run python scripts/premium_decay_fig.py --name llm_long_p2_T60`.*
+(d) Behaviour (judge gpt-6.1-sol, E56 rule): agreements in 18/20 C games, 12 followed, 6 abandoned; every followed agreement is at 12, which is Nash + 0…2. Executed (followed and pair ≥ Nash + 2 in rounds 31–60): **4/20 [0.07, 0.41]**. Tacit collusion in no-channel games (market ≥ Nash + 2 in the second half): **0/20 [0, 0.12]**. Followed pairs: markup AUROC vs A 0.99, pCMI 0.19 (below chance). Mean assigned-pair pCMI is 0.03 against a markup of +1.66.
+(e) Market-wide spillover (E60 rule): C rivals sit +2.24 [+1.62, +2.85] above no-channel markets in rounds 51–60, against the pair's +2.47 → **market-wide**. No-channel markets drift from +0.47 to −0.84 over Nash, while C markets stay at about +1.5 for 60 rounds (pair 2.12 → 1.63, rivals 1.43 → 1.40). The shrinking pair premium in (c) therefore reflects rivals that join the higher level, not collusion that ends. A pair-relative screen loses this signal; an absolute markup keeps it (compare the all-firm cartel, P2.4). Deepseek (T=20) does not meet the rule (+2.37 of +5.03).
+*Reading:* across 60 rounds, the channel produces a stable, market-wide price *level* with no excess shared moves. pCMI has power against planted shared moves of that length, so its failure here is not a data-length problem. The v1 pilot (`llm_long`, 8 + 8, T=50; `results/eval/long_power_llm_long.json`) gave the same pattern (pCMI 0.36–0.45, inconclusive at that n).
 
 
 **P2.9 Second seller family: deepseek-v4.1-flash (E45; gap 4; confirmatory, 15 A + 15 C, T=20, seed 10 = same pairs and costs as `llm_v1`; frozen detectors, no tuning).**
@@ -832,17 +829,22 @@ This extends E32/E35 (placebo, monitor/firm framing): pair-specific prompting al
 (b) **Our pCMI prediction partly fails.** pCMI localises the pair above chance only where messages are delivered *privately* (6/15, p = 0.03; ≤ 3.3/15 elsewhere, including neutral delivery with 14/14 agreements), but that p is uncorrected and does not survive Bonferroni over the 25 arm × detector cells. Its market-level AUROC vs none is *below* chance in both undelivered pair-prompt arms (notes 0.22 [0.06, 0.42], placebo 0.28 [0.11, 0.49]), i.e. those markets show less conditioned dependence than none markets. We had predicted top-1 at chance and AUROC CIs including 0.5 in every arm.
 (c) With channels for every firm (randpartner), no pair is singled out (3.0/15), but the market markup is highest (+2.74). This resembles the all-firm case of P2.4(2) (no fixed pair target; it is not shown to be an all-firm cartel): pair localisation fails, and market-level statistics see it (max-pair markup AUROC 0.97 vs none; raw MI 0.79).
 
-**P2.11 Part C: executed collusion, older models, and a refusal-removed seller (E61–E63; declared before generation; in progress).**
-`uv run python scripts/p2_partc.py [--run-eval] [--label]` → `results/eval/p2_partc.{json,md}`. **Executed collusion** (E63 definition, applied to every
-dataset with judge labels): judge-labelled agreement, both pair firms at ≥ agreed price − 1 in ≥ half the post-agreement rounds (E56 rule), and the pair's
-mean price in the second half of the game ≥ Nash + 2. On the existing T=20 sets it is rare: gpt-6-luna (`llm_v1`) 6/16 C games, Jeffreys [0.17, 0.62];
-gpt-6-luna at T=50 (`llm_long`) 3/8 [0.12, 0.71]; deepseek (`llm_ds_p2`) 2/15 [0.03, 0.36], although the judge finds agreements in 14/16, 8/8 and 15/15. So most of what our detectors were scored on is
-*agreement without sustained execution*. Generating (seed 10 = same pairs/costs as `llm_v1`, A/C, T=20, frozen detectors, all confirmatory):
-E61 Qwen3.8-27B **abliterated vs base** (same weights before refusal removal; 15 + 15 each; headline contrast: abliterated − base in C − A markup,
-agreement and executed rates, AUROCs); E62 **older generations** gpt-5.6-luna and glm-5.2 (10 + 10 each; games served by a fallback model are excluded and
-counted). E63 strong-lever pilot (dev): full price history + whole private chat in every prompt (`--memory`) on top of the levers the base prompt already has
-(Fish et al. 2024 profit objective, undisclosed horizon, private messages every round), T=40, 5 + 5 per seller; the arm with the highest executed rate is
-promoted to a full ≥ 20 + 20 arm on a newly declared seed. Never an instruction to collude.
+**P2.11 Part C: executed collusion, a refusal-removed seller, older models (E61–E64; declared before generation; partial: gpt-5.6-luna, glm-5.2 and memory-lever pilots still generating).**
+`uv run python scripts/p2_partc.py [--run-eval] [--label]` → `results/eval/p2_partc.{json,md}` (asserts unique run_ids and contiguous rounds per dataset). Shared definitions with Q2.2: **executed** = judge-labelled agreement AND both pair firms ≥ agreed − 1 in ≥ half the post-agreement rounds AND pair mean ≥ Nash + 2 over the second half; **tacit** (no channel) = market mean ≥ Nash + 2 over the second half. Jeffreys 95% CIs.
+
+| seller (dataset, T) | n C/A | A markup | C − A markup | AUROC markup | AUROC pCMI | agreement | executed (C) | tacit (A) |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| gpt-6-luna (`llm_v1`, 20) | 16/21 | +0.02 | +1.76 [1.22, 2.31] | 0.94 | 0.47 | 14/16 | 6/16 [0.17, 0.62] | 0/21 [0, 0.11] |
+| gpt-6-luna (`llm_long`, 50) | 8/8 | +0.18 | +2.28 [1.28, 3.35] | 0.95 | 0.45 | 8/8 | 3/8 [0.12, 0.70] | 1/8 [0.01, 0.45] |
+| gpt-6-luna (E44 `llm_long_p2_T60`, 60) | 20/20 | −0.27 | +1.88 [1.34, 2.44] | 0.94 | 0.34 | 18/20 | 4/20 [0.07, 0.41] | 0/20 [0, 0.12] |
+| deepseek-v4.1-flash (`llm_ds_p2`, 20) | 15/15 | −0.58 | +3.75 [2.77, 4.68] | 0.99 | 0.57 | 15/15 | 2/15 [0.03, 0.36] | 0/15 [0, 0.15] |
+| Qwen3.8-27B **abliterated** (`llm_qa_p2`, 20) | 15/15 | −1.47 | +2.97 [1.82, 4.26] | 0.95 | 0.52 | 15/15 | 8/15 [0.29, 0.76] | 0/15 [0, 0.15] |
+| Qwen3.8-27B base (`llm_qb_p2`, 20) | 15/15 | −2.53 | +3.34 [2.23, 4.54] | 0.96 | 0.46 | 15/15 | 6/15 [0.19, 0.65] | 0/15 [0, 0.15] |
+
+(a) **Executed collusion is the minority outcome** (29/89 C games across the six sets), although the judge finds agreements in 85/89. Tacit collusion in our no-channel markets is rare (1/94). This differs from Q2.2's strong-framing arm, whose no-channel markets price high.
+(b) **E61, refusal removal:** abliterated − base difference in (C − A) markup = **−0.37 [−2.09, +1.36]** (−0.40 [−2.03, +1.35] without `llm_qb_p2_A_000`, a run that was duplicated by two writers and then deduplicated). Both versions agree in 15/15 C games and execute 8/15 vs 6/15. Removing refusals has no detectable effect on channel collusion here; the CI excludes effects larger than about ±2 markup units. Qwen undercuts without a channel (A markup −1.5 / −2.5, below Nash). Cached replies are well-formed JSON whose reasoning deliberately undercuts for volume (1/2821 unparsable), so this is the model's behaviour, not a parsing artefact.
+(c) **E64, detectors on executed vs non-executed collusion** (each vs all A games of its set, pooled within set, game bootstrap): market level 1.00 [0.98, 1.00] vs 0.94 [0.89, 0.97]; pair_level 0.88 [0.79, 0.95] vs 0.85 [0.78, 0.92]; **pCMI 0.41 [0.29, 0.53] vs 0.48 [0.38, 0.59]**. The declared prediction holds (level ≥ 0.9, pCMI < 0.70). Executed collusion is a cleaner *level*, still with no co-movement. The single exception is deepseek's 2 executed games (pCMI 0.97, n = 2).
+(d) *Pending (reported when complete, same script):* E62 gpt-5.6-luna and glm-5.2 (10 + 10, T=20); E63 memory-lever pilots (full price history + whole chat, T=40, 5 + 5: qwen abliterated, qwen base, gpt-6-luna). Never an instruction to collude.
 
 ## 5. Limitations
 * Scripted colluders are stylised; `signal` collusion with fresh shared randomness every round is the
@@ -906,6 +908,9 @@ uv run python scripts/tables.py --report                 # all 11 quantitative r
 uv run python scripts/tables.py --check                  # compare those tables with REPORT; nonzero exit on mismatch
 uv run python scripts/tables.py                         # detailed gate/sweep/LLM supporting tables
 uv run python -m experiments.llm_report --name llm_v1   # §4.3 tables (results/eval/llm_v1_report.md) + figures/llm_v1_*.png
+bash scripts/e44_post.sh                                # P2.8 E44 long games: judge labels (cached), eval, long_power, decay fig, spillover (~25 min)
+uv run python scripts/p2_partc.py                       # P2.11 part C table + E64 executed-subset AUROCs (results/eval/p2_partc.{json,md})
+uv run python scripts/p2_tables.py --check              # Phase 2 tables (P2.1–P2.11) vs JSON
 ```
 For E39, the recovered provisional prices are committed in `data/{llm_v1,llm_long}/preplay.jsonl`; no cache is needed for the analysis. The optional provenance replay `uv run python scripts/preplay_extract.py` requires the original gitignored `cache/llm_market/*.jsonl` files and aborts on a cache miss. Only the first sender's provisional price precedes receipt of any partner message (§4.3.11).
 

@@ -123,5 +123,59 @@
     19
    ]
   }
+ },
+ "llm_long_p2_T60": {
+  "T": "full",
+  "n_A": 20,
+  "followed": {
+   "n": 12,
+   "premium": 0.199,
+   "markup": 1.66,
+   "pcmi": 0.028,
+   "auroc_premium_vs_A_maxpair": 0.631,
+   "auroc_markup_vs_A_maxpair": 0.992,
+   "auroc_pcmi_vs_A_maxpair": 0.188,
+   "agreed_prices": [
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12
+   ]
+  },
+  "no_agreement": {
+   "n": 2,
+   "premium": 0.15,
+   "markup": 1.896,
+   "pcmi": 0.008,
+   "auroc_premium_vs_A_maxpair": 0.55,
+   "auroc_markup_vs_A_maxpair": 1.0,
+   "auroc_pcmi_vs_A_maxpair": 0.0,
+   "agreed_prices": []
+  },
+  "abandoned": {
+   "n": 6,
+   "premium": 0.401,
+   "markup": 1.842,
+   "pcmi": 0.012,
+   "auroc_premium_vs_A_maxpair": 0.879,
+   "auroc_markup_vs_A_maxpair": 0.825,
+   "auroc_pcmi_vs_A_maxpair": 0.017,
+   "agreed_prices": [
+    12,
+    12,
+    12,
+    14,
+    15,
+    17
+   ]
+  }
  }
 }
