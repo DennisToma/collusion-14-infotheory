@@ -122,7 +122,7 @@ def main(name, B=50):
     res = {"name": name, "n": {c: len(v) for c, v in grp.items()}, "B": B,
            "executed_rate": [len(grp["executed"]), len(grp["private"]), jeffreys(len(grp["executed"]), len(grp["private"]))],
            "tacit_rate": [len(grp["tacit_high"]), len(grp["none"]), jeffreys(len(grp["tacit_high"]), len(grp["none"]))],
-           "auroc": {}, "classes": C}
+           "auroc": {}, "classes": C, "run_scores": S}  # run_scores: max-pair (market_level: mean) frozen scores, read by e67_sticky.py
     for p, n in CONTRASTS:
         key = f"{p}_vs_{n}"
         res["auroc"][key] = {}

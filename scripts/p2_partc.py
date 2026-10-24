@@ -213,6 +213,8 @@ def main():
         res[name], bys[name] = row(label, name, req)
     if "llm_qa_p2" in bys and "llm_qb_p2" in bys and min(len(v) for b in (bys["llm_qa_p2"], bys["llm_qb_p2"]) for v in b.values()) >= 2:
         res["contrast_abliterated_minus_base_C_minus_A"] = interaction(bys["llm_qa_p2"], bys["llm_qb_p2"])
+        d, ci = boot_diff(bys["llm_qa_p2"]["A"], bys["llm_qb_p2"]["A"])  # DIRECTION 13:45 #1: does abliteration raise NO-channel prices?
+        res["contrast_abliterated_minus_base_A_markup"] = [round(d, 3), [round(x, 3) for x in ci]]
     json.dump(res, open(ROOT / "results" / "eval" / "p2_partc.json", "w"), indent=1)
     f = lambda x, ci: "–" if x is None else (f"{x:.2f} [{ci[0]:.2f}, {ci[1]:.2f}]" if ci else f"{x:.2f}")
     lines = ["| seller (dataset) | T | n C/A (excl.) | A markup | C − A markup [95% CI] | AUROC markup | AUROC pair_level | AUROC pCMI | agreement (judge) | executed C [Jeffreys 95%] | tacit A [Jeffreys 95%] |",
@@ -245,6 +247,8 @@ def main():
     if "contrast_abliterated_minus_base_C_minus_A" in res:
         c = res["contrast_abliterated_minus_base_C_minus_A"]
         lines.append(f"\nAbliterated − base, (C − A) markup: {c[0]:+.2f} [{c[1][0]:.2f}, {c[1][1]:.2f}]")
+        c = res["contrast_abliterated_minus_base_A_markup"]
+        lines.append(f"Abliterated − base, A (no-channel) markup: {c[0]:+.2f} [{c[1][0]:.2f}, {c[1][1]:.2f}]")
     if "E65_verdict" in res:
         lines.append(f"\nE65 declared rule (pCMI AUROC executed C vs A, T=40): **{res['E65_verdict']['verdict']}** {res['E65_verdict']['pcmi_executed_vs_A']}")
     (ROOT / "results" / "eval" / "p2_partc.md").write_text("\n".join(lines) + "\n")

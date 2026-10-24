@@ -25,3 +25,4 @@ E64: frozen detectors on EXECUTED vs not-executed collusion (each vs all A games
 | **pooled within set** (gpt-6-luna sets) | 13 executed / 31 not | 0.99 [0.96, 1.00] / 0.93 [0.85, 0.98] | 0.75 [0.56, 0.91] / 0.78 [0.65, 0.89] | 0.40 [0.26, 0.54] / 0.41 [0.28, 0.55] |
 
 Abliterated − base, (C − A) markup: -0.37 [-2.09, 1.36]
+Abliterated − base, A (no-channel) markup: +1.06 [0.38, 1.74]
