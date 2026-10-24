@@ -349,7 +349,29 @@ also flag the `legit` partnership (pair_level 0.75 in `llm_v3`) and are high in 
 (6/21 B runs ≥ 2 over Nash).
 
 Not claimed from this data: surrogate-null FPR with pool < 20; absence of same-model dependence from a null
-result; that dependence detectors fail on LLM agents in general. *`llm_long` (T=50) results below.* *Data-integrity note (E21):* the first `llm_mixed` batch was invalid. A routing bug (`llm.chat(tier="big", backend="codex")` silently used gpt-6-luna) made all 12 games all-luna, as the per-seller `model` field shows. Its same-vs-cross numbers are discarded unreported. The bug is fixed, `mixed_eval` now drops runs whose mixed sellers did not run a different model, and the set is regenerated as `llm_mixed2`. Judge labels were unaffected (42/42 gpt-6.1-sol).
+result; that dependence detectors fail on LLM agents in general. *`llm_long` (T=50): see (v) below.*
+
+**(v) `llm_long`: does T=50 rescue pCMI? No (E20 rule, declared before eval).** 8 A + 8 C games, T=50, all gpt-6-luna (codex),
+`results/eval/llm_long.json`, `uv run python -m experiments.llm_report --name llm_long` → `results/eval/llm_long_report.md`,
+`figures/llm_long_{prices,auroc,power_vs_T}.png`. Labels: 8/8 C games have a judge-verified agreement, 5/8 realised coordination;
+0/8 A games are tacitly supra-competitive. The channel raises markup over Nash by +2.28 [1.31, 3.35] (C − A, Mann-Whitney p=0.0005).
+The pair-minus-rivals gap is only +0.42 [0.20, 0.65], and it shrinks over the game as rivals follow the pair up.
+
+| T (same games, prefixes) | 10 | 20 | 30 | 40 | 50 |
+|---|---|---|---|---|---|
+| pCMI run AUROC C vs A | 0.39 | 0.39 | 0.38 | 0.36 | **0.45** [0.16, 0.75] |
+| MI | 0.39 | 0.42 | 0.39 | 0.41 | 0.39 [0.09, 0.69] |
+| TE | 0.44 | 0.25 | 0.28 | 0.23 | 0.36 [0.08, 0.66] |
+| pair_level (non-IT) | 0.80 | 0.81 | 0.84 | 0.85 | 0.84 [0.59, 0.98] |
+| markup over Nash (non-IT) | 0.92 | 0.95 | 0.95 | 0.95 | 0.95 [0.81, 1.00] |
+| pCMI top-1 in C (of 8) | 1 | 2 | 2 | 2 | 1 |
+
+The declared rescue criterion (AUROC(pCMI, 50) ≥ 0.65 and ≥ AUROC(pCMI, 20) + 0.15) is not met: 0.45 vs 0.39. So no extra T=50 batch was
+generated. At T=50, pCMI − markup = −0.50 [−0.81, −0.17]. With 8 vs 8 runs, this excludes a large pCMI effect, not a small one. The
+within-run shift null over-rejects on A controls again (pCMI flags 3/8 at T ≥ 30), as on `llm_v1`. That is a second reason not to use it on LLM data.
+Reading: 2.5× more rounds do not turn the channel's effect into detectable coordinated variation. In this market the effect is a
+stable price level, not a short-sample problem. This is the "collusion is a level" branch of the plan's question (f).
+ *Data-integrity note (E21):* the first `llm_mixed` batch was invalid. A routing bug (`llm.chat(tier="big", backend="codex")` silently used gpt-6-luna) made all 12 games all-luna, as the per-seller `model` field shows. Its same-vs-cross numbers are discarded unreported. The bug is fixed, `mixed_eval` now drops runs whose mixed sellers did not run a different model, and the set is regenerated as `llm_mixed2`. Judge labels were unaffected (42/42 gpt-6.1-sol).
 
 ### 4.4 Umbrella synthesis with the sibling project (Q2.2, text + action auditing)
 Numbers in this paragraph come from the sibling repo `collusion-22-say-vs-do` (REPORT abstract, locked test split n = 95, read 01:05 UTC; not regenerated here). The two projects reach a consistent conclusion from opposite directions. (1) In both LLM markets the private channel shows up first as a **price level**: here pair_level/markup reach run AUROC 0.87–0.98, and the sibling's one-line pair-premium statistic reaches 0.95 on its test split, beating every zero-shot LLM auditor view (≤ 0.86). (2) Signals that look for *how* agents coordinate add little on these short games: conditioned dependence (pCMI) is at chance here (0.45, 0.52), and the zero-shot text-only auditor is at chance there (0.47). The sibling's supervised text classifier (0.98, in-distribution) shows the traces exist but are subtle. (3) Level statistics are not collusion-specific. They flag markets with the `legit` public partnership (pair_level 0.75 here, usually naming a non-partner pair), and they flag tacitly supra-competitive no-channel markets. Practical reading: a cheap level screen should be an always-on first stage, with dependence/text audits as second-stage evidence. The scripted results (§4.1–4.2) show where dependence measures do add value: collusion implemented through coordinated *variation*, given enough rounds for its strength (e.g. `signal` s=0.3 at T=20, s=0.1 at T=100). How detectable LLM collusion is depends on the market and its framing. The pair-minus-rivals premium is +1.65 [1.38, 1.93] in the sibling's lab-framed market (private runs, 10th–90th percentile +0.66…+3.18; none +0.04, legit +0.05; `experiments/premium_llm_v3.py`). Here it is +0.45 [0.34, 0.57], and most of the effect is market-wide.
