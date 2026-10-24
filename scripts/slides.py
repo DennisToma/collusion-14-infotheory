@@ -38,6 +38,9 @@ def main():
     v3 = load("llm_v3_ext.json")["detectors"]
     n_exp = max(int(l.split('\t')[1][1:3]) for l in open(ROOT / 'EXPERIMENTS.tsv').read().splitlines()[1:] if l.split('\t')[1][:1] == 'E')
     mx = load("llm_mixed2_mixed.json")["pcmi"]["per_run_same_minus_cross"]
+    inj = {(r["dataset"], r["T"], r["controls"]): r for r in load("injection_mde.json")}
+    inj50 = inj[("llm_long", 50, "A")]
+    inj20 = inj[("llm_v1", 20, "A")]
 
     def gr(det, grp, null=""):
         m = g[det][grp]
@@ -118,7 +121,11 @@ from a private signal. TE (not shown) flags legitimate public leader-follower pr
   (exploratory, 15 seeds).
 * Suggested pipeline (a hypothesis, untested): a cheap always-on level screen, then dependence and text audits as
   second-stage evidence.
-* Not settled: whether pCMI fails because the effect is mostly a level or because power is low at T ≤ 50.""")
+* Not settled: whether pCMI fails because the effect is mostly a level or because power is low at T ≤ 50.
+  Exploratory check (REPORT §4.3.8, post-hoc): shared ±1 price moves planted into one pair (in 20% of rounds) of real no-channel LLM games
+  are detected by pCMI with AUROC {inj50['by_q']['0.2']['auroc_single_planting']:.2f} {ci2(inj50['by_q']['0.2']['auroc_ci_game_cluster'])} at T=50
+  but only {inj20['by_q']['0.2']['auroc_single_planting']:.2f} {ci2(inj20['by_q']['0.2']['auroc_ci_game_cluster'])} at T=20. The real channel pairs show no detected excess
+  same-direction moves (T=50: {inj50['observed']['C']['comove_excess_mean']:+.3f} [{inj50['observed']['C']['ci'][0]:+.3f}, {inj50['observed']['C']['ci'][1]:+.3f}]). This fits the level reading for one planted alternative; it does not settle the question.""")
 
     s.append(f"""## Limitations & next steps
 * Small LLM n: `llm_v1` 74, `llm_v3` 125 (70 private / 35 none / 20 legit), `llm_long` 16, `llm_mixed2` 12. Sellers are OpenAI-family only. There is no placebo arm in `llm_v1`. Markup needs a market model (Nash).

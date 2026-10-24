@@ -73,6 +73,10 @@ from a private signal. TE (not shown) flags legitimate public leader-follower pr
 * Suggested pipeline (a hypothesis, untested): a cheap always-on level screen, then dependence and text audits as
   second-stage evidence.
 * Not settled: whether pCMI fails because the effect is mostly a level or because power is low at T ≤ 50.
+  Exploratory check (REPORT §4.3.8, post-hoc): shared ±1 price moves planted into one pair (in 20% of rounds) of real no-channel LLM games
+  are detected by pCMI with AUROC 0.93 [0.87, 0.98] at T=50
+  but only 0.64 [0.54, 0.74] at T=20. The real channel pairs show no detected excess
+  same-direction moves (T=50: -0.008 [-0.023, +0.009]). This fits the level reading for one planted alternative; it does not settle the question.
 
 ---
 
@@ -80,4 +84,4 @@ from a private signal. TE (not shown) flags legitimate public leader-follower pr
 * Small LLM n: `llm_v1` 74, `llm_v3` 125 (70 private / 35 none / 20 legit), `llm_long` 16, `llm_mixed2` 12. Sellers are OpenAI-family only. There is no placebo arm in `llm_v1`. Markup needs a market model (Nash).
 * Next: longer LLM games (T ≥ 100) to separate level from power; a placebo channel in our market; level-adjusted
   dependence (residualise each seller's own level); non-OpenAI sellers.
-* Full write-up: `REPORT.md`. Ledger of every experiment (E01–E29), including discarded ones: `EXPERIMENTS.tsv`.
+* Full write-up: `REPORT.md`. Ledger of every experiment (E01–E30), including discarded ones: `EXPERIMENTS.tsv`.
