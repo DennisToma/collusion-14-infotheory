@@ -42,3 +42,9 @@ definition, judge-labelled as in Part C), spillover (non-pair sellers' markup C 
    (lower 95% CI bound > 0.5 ⇒ confirmed; otherwise "not confirmed").
 6. If only 1–2 sweeps exist at Sun 08:00, analyse what exists (balanced) and state n.
 Prediction (from all earlier sets): d > 0 in most cells; level beats pCMI in more than half the cells.
+
+**Amendment 2026-10-24 17:48 UTC (before any analysis; only sweep-1 completion and throughput known):** sweeps raised
+from 3 to **6** (192 games) because sweep 1 took 42 min, not the ~2 h budgeted. The declared analysis runs once
+when 6 sweeps are complete; if generation stalls, it runs on all complete sweeps at Sun 08:00 and states n. No
+other change. (Disclosure: the manager saw the mean-price log lines of 4 sweep-1 games, c00/c01/c08/c09, while
+checking throughput; nothing was computed from them.)
