@@ -21,6 +21,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "scripts"))
 from e1_grid import cells, FACTORS  # noqa: E402
+from e70_inputs import load_games, require_grid_ready  # noqa: E402
 from experiments.llm_eval import NASH  # noqa: E402
 
 DETS = ("market_level", "pair_level", "pcmi", "te")
@@ -36,17 +37,10 @@ def load_cell(prefix, c, dry=False):
     d = ROOT / "data" / name
     if not (d / "ground_truth.jsonl").exists():
         return name, {}, {}, 0
-    gt = {g["run_id"]: g for g in map(json.loads, open(d / "ground_truth.jsonl"))}
     want = "dry" if dry else MODEL[c["levels"]["model"]]
-    bad = {r for r, g in gt.items() if not all(m == want for m in (g.get("model") or {}).values())}
-    rows = {}
-    for line in open(d / "trajectories.jsonl"):
-        r = json.loads(line)
-        if r["run_id"] in gt and r["run_id"] not in bad:
-            rows.setdefault(r["run_id"], []).append(r)
-    for rid, rs in rows.items():
-        assert sorted(x["round"] for x in rs) == list(range(len(rs))), f"{name}/{rid}: duplicated or missing rounds"
-    return name, {r: g for r, g in gt.items() if r not in bad}, rows, len(bad)
+    conds = ("B", "D") if c["levels"]["shocks"] == "random" else ("A", "C")
+    gt, rows, nbad = load_games(d, want, conditions=conds)
+    return name, gt, rows, nbad
 
 
 def executed(rid, g, rs, lab):
@@ -93,8 +87,7 @@ def main():
     while all(has(c["cell"], S, False) and has(c["cell"], S, True) for c in cs):
         S += 1
     print(f"complete sweeps: {S}")
-    if S == 0:
-        sys.exit("no complete sweep yet")
+    require_grid_ready(S, dry=a.dry)
     def prep(c):
         name = data[c["cell"]]["name"]
         if a.label:

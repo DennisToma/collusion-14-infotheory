@@ -1,0 +1,12 @@
+{
+  "time_utc": "2026-10-24T19:14:07.586951+00:00",
+  "command": "uv run python scripts/test_e70_pipeline.py --evidence",
+  "synthetic_only": true,
+  "baseline_revision": "b87f5db",
+  "tests_run": 20,
+  "failures": 0,
+  "errors": 0,
+  "passed": true,
+  "grid_existing_json_bytes_exact": true,
+  "followup_existing_json_fields_exact": true
+}
