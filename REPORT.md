@@ -448,10 +448,11 @@ uv run python -m experiments.premium_llm_v3               # §4.4 pair premium o
 uv run python scripts/mixed_price_by_model.py             # (iv) llm_mixed2 price by model
 uv run python scripts/mixed_fig.py                        # (iv) figures/llm_mixed2_same_vs_cross.png
 uv run python scripts/market_mean_ranges.py               # §4.3.2 llm_v1 market-mean ranges
-uv run python -m experiments.ext_llm_v3                  # external LLM set (sibling llm_v3) → results/eval/llm_v3_ext{.json,_report.md}
+uv run python -m experiments.ext_llm_v3                  # external LLM set → results/eval/llm_v3_ext{.json,_report.md}; input snapshot data/ext_llm_v3/ (sibling llm_v3, SHA256SUMS)
 uv run python -m experiments.llm_fig                     # figures/llm_auroc_both.png
 uv run python -m experiments.diag_llm_v3                 # E15 exploratory co-movement check on llm_v3
 uv run python scripts/tables.py                          # reprints §4.1/§4.2 tables from results/*.json (+ §4.3 generated tables)
 uv run python -m experiments.llm_report --name llm_v1   # §4.3 tables (results/eval/llm_v1_report.md) + figures/llm_v1_*.png
 ```
+Raw LLM trajectories are committed under `data/` (no LLM calls needed to re-run any analysis); scripted §4.1 trajectories are stored gzipped (`data/gate_test/trajectories.jsonl.gz`) and the `gen` step regenerates them byte-identically apart from the run_id prefix (checked 03:15 UTC).
 Splits: `data/SPLITS.md`; every experiment incl. discarded ones: `EXPERIMENTS.tsv`; reviews: `results/reviews/`.
