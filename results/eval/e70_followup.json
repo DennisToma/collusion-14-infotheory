@@ -1,0 +1,37 @@
+{
+ "factor": "model",
+ "predicted_sign": 1,
+ "declaration_sha256": "a1b2e6aa4e7ce63cf59222bbf3d5d6ec5d4b403a8139737f6634589645669abf",
+ "planned_games_per_level_arm": 12,
+ "complete": true,
+ "sample_status": "complete",
+ "rule": "confirmed iff 95% CI excludes 0 in the predicted direction",
+ "levels": [
+  {
+   "cell": "fmodel0",
+   "level": "gpt-6-luna",
+   "n": [
+    12,
+    12
+   ],
+   "C_minus_A": 0.884,
+   "excluded_fallback": 0
+  },
+  {
+   "cell": "fmodel1",
+   "level": "qwen-3.6-35b",
+   "n": [
+    12,
+    12
+   ],
+   "C_minus_A": 1.959,
+   "excluded_fallback": 0
+  }
+ ],
+ "effect": 1.075,
+ "ci": [
+  -0.204,
+  2.407
+ ],
+ "verdict": "not confirmed"
+}
