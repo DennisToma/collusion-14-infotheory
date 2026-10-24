@@ -1,0 +1,379 @@
+{
+ "design": "2^(7-3) res IV; Mem=M*K*V, S=K*V*Ch, F=M*V*Ch",
+ "T": 20,
+ "public_board": true,
+ "arms": "A/C (shocks none) or B/D (shocks random): first = no channel, second = channel",
+ "datasets": "data/llm_grid_p2_<cell>",
+ "cells": [
+  {
+   "cell": "c00",
+   "signs": {
+    "model": -1,
+    "cost": -1,
+    "rivals": -1,
+    "channel": -1,
+    "memory": -1,
+    "shocks": -1,
+    "framing": -1
+   },
+   "levels": {
+    "model": "gpt-6-luna",
+    "cost": "private",
+    "rivals": "visible",
+    "channel": "every",
+    "memory": "short",
+    "shocks": "none",
+    "framing": "base"
+   },
+   "seed": 7000
+  },
+  {
+   "cell": "c01",
+   "signs": {
+    "model": -1,
+    "cost": -1,
+    "rivals": -1,
+    "channel": 1,
+    "memory": -1,
+    "shocks": 1,
+    "framing": 1
+   },
+   "levels": {
+    "model": "gpt-6-luna",
+    "cost": "private",
+    "rivals": "visible",
+    "channel": "first",
+    "memory": "short",
+    "shocks": "random",
+    "framing": "longrun"
+   },
+   "seed": 7001
+  },
+  {
+   "cell": "c02",
+   "signs": {
+    "model": -1,
+    "cost": -1,
+    "rivals": 1,
+    "channel": -1,
+    "memory": 1,
+    "shocks": 1,
+    "framing": 1
+   },
+   "levels": {
+    "model": "gpt-6-luna",
+    "cost": "private",
+    "rivals": "hidden",
+    "channel": "every",
+    "memory": "full",
+    "shocks": "random",
+    "framing": "longrun"
+   },
+   "seed": 7002
+  },
+  {
+   "cell": "c03",
+   "signs": {
+    "model": -1,
+    "cost": -1,
+    "rivals": 1,
+    "channel": 1,
+    "memory": 1,
+    "shocks": -1,
+    "framing": -1
+   },
+   "levels": {
+    "model": "gpt-6-luna",
+    "cost": "private",
+    "rivals": "hidden",
+    "channel": "first",
+    "memory": "full",
+    "shocks": "none",
+    "framing": "base"
+   },
+   "seed": 7003
+  },
+  {
+   "cell": "c04",
+   "signs": {
+    "model": -1,
+    "cost": 1,
+    "rivals": -1,
+    "channel": -1,
+    "memory": 1,
+    "shocks": 1,
+    "framing": -1
+   },
+   "levels": {
+    "model": "gpt-6-luna",
+    "cost": "public",
+    "rivals": "visible",
+    "channel": "every",
+    "memory": "full",
+    "shocks": "random",
+    "framing": "base"
+   },
+   "seed": 7004
+  },
+  {
+   "cell": "c05",
+   "signs": {
+    "model": -1,
+    "cost": 1,
+    "rivals": -1,
+    "channel": 1,
+    "memory": 1,
+    "shocks": -1,
+    "framing": 1
+   },
+   "levels": {
+    "model": "gpt-6-luna",
+    "cost": "public",
+    "rivals": "visible",
+    "channel": "first",
+    "memory": "full",
+    "shocks": "none",
+    "framing": "longrun"
+   },
+   "seed": 7005
+  },
+  {
+   "cell": "c06",
+   "signs": {
+    "model": -1,
+    "cost": 1,
+    "rivals": 1,
+    "channel": -1,
+    "memory": -1,
+    "shocks": -1,
+    "framing": 1
+   },
+   "levels": {
+    "model": "gpt-6-luna",
+    "cost": "public",
+    "rivals": "hidden",
+    "channel": "every",
+    "memory": "short",
+    "shocks": "none",
+    "framing": "longrun"
+   },
+   "seed": 7006
+  },
+  {
+   "cell": "c07",
+   "signs": {
+    "model": -1,
+    "cost": 1,
+    "rivals": 1,
+    "channel": 1,
+    "memory": -1,
+    "shocks": 1,
+    "framing": -1
+   },
+   "levels": {
+    "model": "gpt-6-luna",
+    "cost": "public",
+    "rivals": "hidden",
+    "channel": "first",
+    "memory": "short",
+    "shocks": "random",
+    "framing": "base"
+   },
+   "seed": 7007
+  },
+  {
+   "cell": "c08",
+   "signs": {
+    "model": 1,
+    "cost": -1,
+    "rivals": -1,
+    "channel": -1,
+    "memory": 1,
+    "shocks": -1,
+    "framing": 1
+   },
+   "levels": {
+    "model": "qwen-3.6-35b",
+    "cost": "private",
+    "rivals": "visible",
+    "channel": "every",
+    "memory": "full",
+    "shocks": "none",
+    "framing": "longrun"
+   },
+   "seed": 7008
+  },
+  {
+   "cell": "c09",
+   "signs": {
+    "model": 1,
+    "cost": -1,
+    "rivals": -1,
+    "channel": 1,
+    "memory": 1,
+    "shocks": 1,
+    "framing": -1
+   },
+   "levels": {
+    "model": "qwen-3.6-35b",
+    "cost": "private",
+    "rivals": "visible",
+    "channel": "first",
+    "memory": "full",
+    "shocks": "random",
+    "framing": "base"
+   },
+   "seed": 7009
+  },
+  {
+   "cell": "c10",
+   "signs": {
+    "model": 1,
+    "cost": -1,
+    "rivals": 1,
+    "channel": -1,
+    "memory": -1,
+    "shocks": 1,
+    "framing": -1
+   },
+   "levels": {
+    "model": "qwen-3.6-35b",
+    "cost": "private",
+    "rivals": "hidden",
+    "channel": "every",
+    "memory": "short",
+    "shocks": "random",
+    "framing": "base"
+   },
+   "seed": 7010
+  },
+  {
+   "cell": "c11",
+   "signs": {
+    "model": 1,
+    "cost": -1,
+    "rivals": 1,
+    "channel": 1,
+    "memory": -1,
+    "shocks": -1,
+    "framing": 1
+   },
+   "levels": {
+    "model": "qwen-3.6-35b",
+    "cost": "private",
+    "rivals": "hidden",
+    "channel": "first",
+    "memory": "short",
+    "shocks": "none",
+    "framing": "longrun"
+   },
+   "seed": 7011
+  },
+  {
+   "cell": "c12",
+   "signs": {
+    "model": 1,
+    "cost": 1,
+    "rivals": -1,
+    "channel": -1,
+    "memory": -1,
+    "shocks": 1,
+    "framing": 1
+   },
+   "levels": {
+    "model": "qwen-3.6-35b",
+    "cost": "public",
+    "rivals": "visible",
+    "channel": "every",
+    "memory": "short",
+    "shocks": "random",
+    "framing": "longrun"
+   },
+   "seed": 7012
+  },
+  {
+   "cell": "c13",
+   "signs": {
+    "model": 1,
+    "cost": 1,
+    "rivals": -1,
+    "channel": 1,
+    "memory": -1,
+    "shocks": -1,
+    "framing": -1
+   },
+   "levels": {
+    "model": "qwen-3.6-35b",
+    "cost": "public",
+    "rivals": "visible",
+    "channel": "first",
+    "memory": "short",
+    "shocks": "none",
+    "framing": "base"
+   },
+   "seed": 7013
+  },
+  {
+   "cell": "c14",
+   "signs": {
+    "model": 1,
+    "cost": 1,
+    "rivals": 1,
+    "channel": -1,
+    "memory": 1,
+    "shocks": -1,
+    "framing": -1
+   },
+   "levels": {
+    "model": "qwen-3.6-35b",
+    "cost": "public",
+    "rivals": "hidden",
+    "channel": "every",
+    "memory": "full",
+    "shocks": "none",
+    "framing": "base"
+   },
+   "seed": 7014
+  },
+  {
+   "cell": "c15",
+   "signs": {
+    "model": 1,
+    "cost": 1,
+    "rivals": 1,
+    "channel": 1,
+    "memory": 1,
+    "shocks": 1,
+    "framing": 1
+   },
+   "levels": {
+    "model": "qwen-3.6-35b",
+    "cost": "public",
+    "rivals": "hidden",
+    "channel": "first",
+    "memory": "full",
+    "shocks": "random",
+    "framing": "longrun"
+   },
+   "seed": 7015
+  }
+ ],
+ "commands": {
+  "c00": "uv run python -m sim.llm_market --name llm_grid_p2_c00 --conds A,C --n 1 --T 20 --seed 7000 --public --grid c00 --channel every --workers 2 --backend codex --model gpt-6-luna --short-memory",
+  "c01": "uv run python -m sim.llm_market --name llm_grid_p2_c01 --conds B,D --n 1 --T 20 --seed 7001 --public --grid c01 --channel first --workers 2 --backend codex --model gpt-6-luna --short-memory --longrun",
+  "c02": "uv run python -m sim.llm_market --name llm_grid_p2_c02 --conds B,D --n 1 --T 20 --seed 7002 --public --grid c02 --channel every --workers 2 --backend codex --model gpt-6-luna --hide-rivals --memory --longrun",
+  "c03": "uv run python -m sim.llm_market --name llm_grid_p2_c03 --conds A,C --n 1 --T 20 --seed 7003 --public --grid c03 --channel first --workers 2 --backend codex --model gpt-6-luna --hide-rivals --memory",
+  "c04": "uv run python -m sim.llm_market --name llm_grid_p2_c04 --conds B,D --n 1 --T 20 --seed 7004 --public --grid c04 --channel every --workers 2 --backend codex --model gpt-6-luna --no-private-cost --memory",
+  "c05": "uv run python -m sim.llm_market --name llm_grid_p2_c05 --conds A,C --n 1 --T 20 --seed 7005 --public --grid c05 --channel first --workers 2 --backend codex --model gpt-6-luna --no-private-cost --memory --longrun",
+  "c06": "uv run python -m sim.llm_market --name llm_grid_p2_c06 --conds A,C --n 1 --T 20 --seed 7006 --public --grid c06 --channel every --workers 2 --backend codex --model gpt-6-luna --no-private-cost --hide-rivals --short-memory --longrun",
+  "c07": "uv run python -m sim.llm_market --name llm_grid_p2_c07 --conds B,D --n 1 --T 20 --seed 7007 --public --grid c07 --channel first --workers 2 --backend codex --model gpt-6-luna --no-private-cost --hide-rivals --short-memory",
+  "c08": "uv run python -m sim.llm_market --name llm_grid_p2_c08 --conds A,C --n 1 --T 20 --seed 7008 --public --grid c08 --channel every --workers 2 --backend aqueduct --model qwen-3.6-35b --memory --longrun",
+  "c09": "uv run python -m sim.llm_market --name llm_grid_p2_c09 --conds B,D --n 1 --T 20 --seed 7009 --public --grid c09 --channel first --workers 2 --backend aqueduct --model qwen-3.6-35b --memory",
+  "c10": "uv run python -m sim.llm_market --name llm_grid_p2_c10 --conds B,D --n 1 --T 20 --seed 7010 --public --grid c10 --channel every --workers 2 --backend aqueduct --model qwen-3.6-35b --hide-rivals --short-memory",
+  "c11": "uv run python -m sim.llm_market --name llm_grid_p2_c11 --conds A,C --n 1 --T 20 --seed 7011 --public --grid c11 --channel first --workers 2 --backend aqueduct --model qwen-3.6-35b --hide-rivals --short-memory --longrun",
+  "c12": "uv run python -m sim.llm_market --name llm_grid_p2_c12 --conds B,D --n 1 --T 20 --seed 7012 --public --grid c12 --channel every --workers 2 --backend aqueduct --model qwen-3.6-35b --no-private-cost --short-memory --longrun",
+  "c13": "uv run python -m sim.llm_market --name llm_grid_p2_c13 --conds A,C --n 1 --T 20 --seed 7013 --public --grid c13 --channel first --workers 2 --backend aqueduct --model qwen-3.6-35b --no-private-cost --short-memory",
+  "c14": "uv run python -m sim.llm_market --name llm_grid_p2_c14 --conds A,C --n 1 --T 20 --seed 7014 --public --grid c14 --channel every --workers 2 --backend aqueduct --model qwen-3.6-35b --no-private-cost --hide-rivals --memory",
+  "c15": "uv run python -m sim.llm_market --name llm_grid_p2_c15 --conds B,D --n 1 --T 20 --seed 7015 --public --grid c15 --channel first --workers 2 --backend aqueduct --model qwen-3.6-35b --no-private-cost --hide-rivals --memory --longrun"
+ }
+}
