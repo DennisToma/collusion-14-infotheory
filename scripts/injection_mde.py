@@ -1,10 +1,11 @@
 """E30 (exploratory, post-hoc; not a headline): minimum detectable coordinated variation for pCMI on real LLM backgrounds.
 
 Semi-synthetic: take each no-channel LLM control game, pick one random pair, and add the same integer move
-z_t in {-1, 0, +1} (P(z_t = +1) = P(z_t = -1) = q/2) to both sellers' prices in every round. The rest of the game
+price-level offset z_t in {-1, 0, +1}
+(P(z_t = +1) = P(z_t = -1) = q/2, i.i.d. over rounds) to both sellers' prices. The rest of the game
 (the other two sellers, the state, the sellers' own noise) is the real LLM data. Frozen detectors (score_run).
-Metrics per (dataset, T, q): run AUROC of max-pair pCMI, injected vs the same games un-injected (bootstrap CI over
-games), and top-1 localisation of the planted pair (vs chance 1/6).
+Metrics per (dataset, T, q): single-planting run AUROC of max-pair pCMI, injected vs the same games un-injected (CI by
+a game-cluster bootstrap that keeps each game's planted and unplanted scores together), and top-1 localisation of the planted pair (vs chance 1/6).
 Observed side: co-movement excess of the assigned pair in channel games (fraction of rounds where both sellers move in
 the same direction, minus the mean over the 5 rival pairs), compared with the same statistic on injected controls.
 
@@ -24,6 +25,11 @@ from experiments.llm_eval import ROOT, arrays, auroc_ci, load  # noqa: E402
 
 QS = (0.0, 0.1, 0.2, 0.3, 0.5, 0.75, 1.0)
 REPS = 10
+
+
+def auc(pos, neg):
+    pos, neg = np.asarray(pos)[:, None], np.asarray(neg)[None, :]
+    return float(np.mean((pos > neg) + 0.5 * (pos == neg)))
 
 
 def comove(P, i, j):
@@ -69,11 +75,20 @@ def run(name, conds, T, ctrl_conds, seed=0):
                 tied = [n for n in PAIR_NAMES if sc[n] >= best - 1e-12]
                 top1.append(rng.choice(tied) == PAIR_NAMES[k])
                 cmx.append(comove_excess(Pi, (i, j)))
-        # one score per game (mean over reps) so the bootstrap is over games, not reps
-        pos_g = np.array(pos).reshape(len(ctrl), REPS).mean(1)
-        a, ci = auroc_ci(list(pos_g), neg)
-        out["by_q"][str(q)] = {"auroc_game_mean": a, "auroc_ci": ci,
-                               "auroc_all_reps": auroc_ci(pos, neg)[0],
+        # headline: single-planting AUROC (every planting vs every unplanted game); CI by a game-cluster bootstrap
+        # that resamples control games jointly (each game keeps its unplanted score and its 10 plantings)
+        pos_m = np.array(pos).reshape(len(ctrl), REPS)
+        neg_a = np.array(neg)
+        a = auc(pos_m.ravel(), neg_a)
+        brng = np.random.default_rng(2)
+        bs = []
+        for _ in range(2000):
+            g = brng.integers(len(ctrl), size=len(ctrl))
+            bs.append(auc(pos_m[g].ravel(), neg_a[g]))
+        ci = [float(np.quantile(bs, .025)), float(np.quantile(bs, .975))]
+        t1 = np.array(top1).reshape(len(ctrl), REPS).mean(1)
+        out["by_q"][str(q)] = {"auroc_single_planting": a, "auroc_ci_game_cluster": ci,
+                               "auroc_game_mean_of_reps": auroc_ci(list(pos_m.mean(1)), neg)[0],
                                "top1": float(np.mean(top1)), "comove_excess_mean": float(np.mean(cmx))}
         print(f"{name} T={T} {''.join(ctrl_conds)} q={q:.2f}: AUROC {a:.2f} {np.round(ci, 2)} "
               f"top1 {np.mean(top1):.2f} comove_excess {np.mean(cmx):+.3f}")

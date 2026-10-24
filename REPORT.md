@@ -35,7 +35,7 @@ but the effect is mainly a **price level**. Level statistics separate channel fr
 and in an exploratory leave-one-run-out logistic model, adding it to markup gave no detectable improvement (−0.02 [−0.08, +0.01]). Longer games (T=50, 8 vs 8) did not meet the pre-declared
 rescue criterion (pCMI 0.45 [0.16, 0.75] vs markup 0.95; the CI cannot exclude moderate effects). In mixed gpt-6.1-sol/gpt-6-luna markets, no pCMI same-model excess over
 cross-model pairs was detected (+0.003 [−0.025, +0.032], 12 games; only large effects excluded). Supported claim: in these two markets
-at T=12–50, the private channel shows up mainly as a price level, which conditioned dependence measures are built to ignore; level statistics discriminate channel assignment far better than pCMI. Coordinated variation is also present (pair localisation on first differences in `llm_v3`), and whether pCMI fails because the effect is mostly a level or because of low power at short T is not fully settled. An exploratory injection check (§4.3.8) favours the level reading for `llm_v1`/`llm_long`: pCMI detects small planted same-direction moves on real LLM control games at T=50, but the channel pairs show no excess same-direction moves. Level screens catch it but are not
+at T=12–50, the private channel shows up mainly as a price level, which conditioned dependence measures are built to ignore; level statistics discriminate channel assignment far better than pCMI. Coordinated variation is also present (pair localisation on first differences in `llm_v3`), and whether pCMI fails because the effect is mostly a level or because of low power at short T is not fully settled. An exploratory injection check (§4.3.8) shows that pCMI can pick up small shared price offsets planted into real T=50 LLM control games, while the channel pairs show no statistically detected excess co-movement relative to rivals. That fits the level reading but does not settle it. Level screens catch it but are not
 collusion-specific (they rank legitimate public partnerships above controls, AUROC 0.75).
 
 ## 1. Question and operational definition
@@ -408,7 +408,7 @@ detector does not (0.45 and 0.52, standalone differences vs the best level stati
 `llm_v1` it also adds nothing measurable on top of level. This is consistent with the scripted hard-negative result that
 "stay-high" collusion is hard for dependence measures to detect or localise (§4.2). It does **not** show that dependence detectors fail on LLM
 agents in general, or that these pairs have no coordinated variation. It shows that, at T=12–20 (and at T=50 in the small `llm_long` set, §4.3.6), level statistics discriminate channel assignment
-far better than pCMI, consistent with an effect that is mainly a level, which these detectors are built to ignore (low power at short T is not ruled out; but see the injection check in §4.3.8). No pCMI same-model excess was detected either (§4.3.5). Level statistics are not collusion-specific either. They
+far better than pCMI, consistent with an effect that is mainly a level, which these detectors are built to ignore (low power remains possible; §4.3.8 shows pCMI sensitivity only to one specific shared-offset alternative). No pCMI same-model excess was detected either (§4.3.5). Level statistics are not collusion-specific either. They
 also rank `legit` partnership markets above controls (pair_level AUROC 0.75 in `llm_v3`) and are high in tacitly supra-competitive no-channel markets
 (6/21 B runs ≥ 2 over Nash).
 
@@ -419,32 +419,32 @@ result; that dependence detectors fail on LLM agents in general. Follow-ups: mix
 
 #### 4.3.8 Exploratory: how much coordinated variation could pCMI see in these games? (E30, post-hoc)
 
-*Declared in EXPERIMENTS.tsv before computing; not a headline and not part of the pre-declared plan.* Is the pCMI null due to too
-little data or to the absence of coordinated variation? We plant coordination of known size into real LLM control games. In each no-channel game we pick one random pair and add the
-same integer move z_t ∈ {−1, 0, +1} to both sellers' prices (P(z_t = ±1) = q/2 each). Everything else is the real LLM data. We
-then score with the frozen pCMI (10 random plantings per game; AUROC of max-pair pCMI, planted vs the same games unplanted, CI by bootstrap over games).
-We also measure **co-movement excess**: the fraction of rounds in which the pair's prices move in the same direction, minus the
-mean over the 5 rival pairs. We compute it on the planted controls and on the *assigned* pair of the real channel games.
+*Declared in EXPERIMENTS.tsv before computing; not a headline and not part of the pre-declared plan.* Could pCMI have seen coordinated
+variation in these games if it were there? We plant coordination of known size into real LLM control games. For each planting, we choose a random pair and add the
+same independently drawn price-level offset z_t ∈ {−1, 0, +1} to both sellers each round, with probability q/2 for each nonzero value.
+Everything else is the real LLM data. We score with the frozen pCMI (10 plantings per control game). We report the single-planting AUROC of max-pair pCMI (each planting vs the
+unplanted games), with a CI from a game-cluster bootstrap (control games resampled jointly with their own plantings).
+**Co-movement** is the fraction of the T−1 transitions with Δp_i·Δp_j > 0; unchanged prices count as no co-movement. **Excess** subtracts the mean over the other five pairs.
+We compute it on the planted pairs and on the *assigned* pair of the real channel games (same T-round prefix).
 `uv run python scripts/injection_mde.py` → `results/eval/injection_mde.json`.
 
 | background (controls) | T | q = 0.1 | q = 0.2 | q = 0.3 | q = 0.5 | observed co-move excess of assigned pair in channel games [95% CI] |
 |---|---|---|---|---|---|---|
-| `llm_v1` A (21) | 20 | 0.63 [0.45, 0.80] (+0.11) | 0.78 [0.62, 0.92] (+0.20) | 0.80 (+0.28) | 0.88 (+0.38) | C: +0.014 [−0.014, +0.045] |
-| `llm_v1` B (21) | 20 | 0.57 [0.39, 0.75] (+0.08) | 0.69 [0.52, 0.85] (+0.16) | 0.71 (+0.20) | 0.84 (+0.30) | D: +0.032 [−0.011, +0.074] |
-| `llm_long` A (8) | 20 | 0.69 [0.38, 0.95] (+0.10) | 0.77 [0.45, 1.00] (+0.20) | 0.78 (+0.29) | 0.84 (+0.38) | C: −0.001 [−0.043, +0.051] |
-| `llm_long` A (8) | 50 | 0.81 [0.56, 0.98] (+0.14) | **0.95** [0.81, 1.00] (+0.26) | 1.00 (+0.36) | 1.00 (+0.48) | C: −0.008 [−0.023, +0.009] |
+| `llm_v1` A (21) | 20 | 0.57 [0.48, 0.65] (+0.10) | 0.64 [0.54, 0.74] (+0.20) | 0.70 (+0.28) | 0.80 (+0.38) | C: +0.014 [−0.014, +0.045] |
+| `llm_v1` B (21) | 20 | 0.52 [0.46, 0.57] (+0.08) | 0.63 [0.56, 0.72] (+0.16) | 0.62 (+0.20) | 0.75 (+0.30) | D: +0.032 [−0.011, +0.074] |
+| `llm_long` A (8) | 20 | 0.57 [0.41, 0.74] (+0.10) | 0.66 [0.57, 0.80] (+0.20) | 0.72 (+0.29) | 0.82 (+0.38) | C: −0.001 [−0.043, +0.051] |
+| `llm_long` A (8) | 50 | 0.76 [0.68, 0.85] (+0.14) | **0.93** [0.87, 0.98] (+0.26) | 0.97 (+0.36) | 1.00 (+0.48) | C: −0.008 [−0.023, +0.009] |
 
-*Cells: pCMI run AUROC, planted vs unplanted [CI], with the planted pair's co-movement excess in parentheses. At q = 0 the AUROC is 0.48–0.51 and the excess is ≈ 0.
-Top-1 localisation of the planted pair at T=50 is 0.81 (q=0.1) and 0.99 (q=0.2), against a chance level of 1/6.*
+*Cells: single-planting pCMI run AUROC, planted vs unplanted [game-cluster CI], with the planted pairs' mean co-movement excess in parentheses. At q = 0
+the AUROC is 0.50 and the excess is ≈ 0, as it should be. Top-1 localisation of the planted pair at T=50 is 0.81 (q=0.1) and 0.99 (q=0.2), against a chance level of 1/6.*
 
-Reading: at T=50, pCMI on these LLM backgrounds reliably detects and localises a pair that makes the same ±1 move in about 20% of rounds
-(co-movement excess ≈ +0.26). The real `llm_long` channel pairs show a co-movement excess of −0.008, with an upper CI bound of +0.009. That is
-an order of magnitude below even the q = 0.1 planting (+0.14). At T=20 (`llm_v1`) the observed upper bounds (+0.045 C, +0.074 D)
-are also below the q = 0.1 excess. So in these two datasets the channel pairs show no excess same-direction price moves for pCMI to find,
-and "too few rounds" is not the main explanation for the T=50 null. This supports the "collusion is a level" reading for `llm_v1`/`llm_long`.
-Limits: post-hoc and exploratory. The planted form is contemporaneous and symmetric. Lagged leader-follower coordination (where
-contemporaneous pCMI is weak, §4.2) and nonlinear forms are not covered, and co-movement excess is one summary statistic among many.
-It does not apply to `llm_v3`, where first differences do localise the pair (E15).
+Reading: at T=50, these control-background plantings give substantial pCMI discrimination and localisation for this specific shared-offset alternative.
+At T=20 the same plantings are only moderately detectable (AUROC 0.64–0.66 at q=0.2), so short games do cost pCMI power. The real channel pairs have no statistically detected mean excess of
+same-direction price changes relative to rival pairs. Their upper confidence bounds (+0.009 at T=50; +0.045 C and +0.074 D at T=20) lie below the mean excess of the q=0.1 plantings
+(+0.14, +0.10 and +0.08 respectively; for D at T=20 the bound is only just below).
+This is consistent with the "collusion is mainly a level" reading for `llm_v1`/`llm_long`. It shows sensitivity to one planted alternative only. It does not establish why the
+real-channel pCMI comparison is null, rule out low power against other alternatives (lagged leader-follower moves, where contemporaneous pCMI is weak, §4.2; nonlinear or market-wide coordination, which the
+rival subtraction can cancel), or show that coordination would look the same on channel-game backgrounds as on control backgrounds. It does not apply to `llm_v3`, where first differences do localise the pair (E15).
 
 ### 4.4 Umbrella synthesis with the sibling project (Q2.2, text + action auditing)
 Numbers in this paragraph come from the sibling repo `collusion-22-say-vs-do` (REPORT abstract, locked test split n = 95, read 01:05 UTC; placebo result read 04:05 UTC at sibling commit 6a1de73; not regenerated here). The two projects reach a consistent conclusion from opposite directions.
