@@ -856,7 +856,7 @@ This extends E32/E35 (placebo, monitor/firm framing): pair-specific prompting al
 * Small n per group (scripted locked gate: 50 per group; power sweep: 20 per condition; LLM: 16–21 per condition in `llm_v1`, 20–70 per group in `llm_v3`, 8 per group in `llm_long`, 12 games in `llm_mixed2`) — CIs are wide.
 * §4.2: at each T, the same 40 control trajectories (A+B) are reused across collusion types and strengths (different T use prefixes). Colluder-free replicate rows (s=0, T=100, in
   `power_test.json`) show CMI|state flagging 0.15 vs 0.03 on controls (pCMI 0.10 vs 0.08), so CMI|state is not fully calibrated under shocks.
-* One LLM seller model (gpt-6-luna) in both main LLM markets (`llm_mixed2` adds gpt-6.1-sol, same vendor family; no cross-family sellers); one LLM judge (gpt-6.1-sol) for agreement labels, no human audit.
+* One LLM seller model (gpt-6-luna) in both main LLM markets (`llm_mixed2` adds gpt-6.1-sol, same vendor family); Part C (P2.11) adds deepseek-v4.1-flash, gpt-5.6-luna and qwen base/abliterated, but only at n = 10–20 per arm; one LLM judge (gpt-6.1-sol) for agreement labels, no human audit.
 * The `realized_collusion` label is partly defined from prices (±1 of the agreed price), so localisation on the realised subset is
   partly circular for level statistics; run AUROCs use the channel assignment instead.
 * The surrogate null's reference pool is best-responder / no-channel LLM markets; its FPR for other reference populations
@@ -865,6 +865,8 @@ This extends E32/E35 (placebo, monitor/firm framing): pair-specific prompting al
   model. `pair_level` (pair price minus rivals) needs no model but is less collusion-specific (legitimate partnerships: AUROC 0.75).
 * In our own market (`llm_v1`, `llm_long`) there is no placebo arm (channel offered, messages not delivered), so we cannot
   attribute the price premium to delivered coordination rather than to the channel offer itself (the sibling's placebo study in `llm_v3` found no detected difference, §4.4; our detectors on it, §4.3.9, n=15, detect none either; not an equivalence result). An exploratory first-sender check (§4.3.11) finds the first sender's provisional price elevated before any partner message is received (but set together with its own coordination message); it is not a matched placebo and does not identify a causal offer effect.
+* No evasion test: the sibling's monitor-aware luna sellers stop agreeing (0/10, 0/10 vs 10/10 matched; Q2.2 P2.9) instead of hiding, so there is no evasive-collusion arm for dependence detectors. SALT-NLP (Q2.2 D1) has one ACCEPT/REJECT per agent and no action series, so pCMI/TE do not apply there (D1 dropped here); its P(said | executed) 0.385 [0.353, 0.416] (Q2.2 P2.12) is an external case of executed collusion mostly left unsaid, i.e. why action-only screens matter.
+* Legitimate asymmetry is a hard negative for level screens in both repos: our scripted cost asymmetry (P2.4) and the sibling's LLM cost/quality edges (flagged 7/10, 9/10 vs 2/10; Q2.2 P2.10).
 * Many comparisons, mostly unadjusted (detectors × conditions × T). Isolated nominal hits, e.g. TE top-1 in llm_v1 C
   (6/16, p = 0.038) and pCMI top-1 in llm_v3 (18/70, p = 0.036), should not be read as signal.
 
