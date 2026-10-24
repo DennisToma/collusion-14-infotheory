@@ -4,7 +4,7 @@
 
 **Phase 2 running; PART C (DIRECTION top priority) launched.** E44 llm_long_p2 25/40 at 11:13 (do NOT peek; `bash scripts/e44_post.sh` on `llm_long_p2_T60` when 40).
 **Part C (E61–E63 declared in ledger + SPLITS before generation; `scripts/p2_partc.py` → results/eval/p2_partc.{json,md}):**
-- Executed collusion (agreement + E56 followed + pair ≥ Nash+2 in 2nd half) on existing sets: gpt-6-luna llm_v1 6/16 [.17,.62], deepseek 2/15 [.03,.36] → REPORT P2.11 stub + glance row C.
+- Executed collusion (agreement + E56 followed + pair ≥ Nash+2 in 2nd half) on existing sets: gpt-6-luna llm_v1 6/16 [.17,.62], llm_long (T=50) 3/8, deepseek 2/15 [.03,.36] → REPORT P2.11 stub + glance row C.
 - E61 qwen: `llm_qb_p2` (base) generating (calls from 11:24; ~8.5 min/game × 6 parallel → 30 games ~12:20; first A games price ≈ 7–8, BELOW Nash 10); `llm_qa_p2` (abliterated) endpoint has NOT answered since 11:00 (no call returned; budget $2.55 at 11:15). Retry/wait loop added for qwen (sim). Then `llm_queue_partc2.sh` runs E63 qwen memory pilots (T=40, 5+5 each).
 - E62: `llm_glm_p2` on Go (slow, shared lock; ~19% empty glm replies retried; max_tokens 4000); gpt-5.6-luna + E63 luna memory pilot queued in `llm_queue_p2c.sh` AFTER E44 (replaced p2b; T=80 replay moved last).
 - sim: `--backend qwen`, `--model` (cache key unchanged when unset), `--memory` (full price history + chat[-60:]).
