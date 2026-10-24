@@ -43,7 +43,7 @@ gave pCMI 52% false flags (P2.3, exploratory). A fresh model-matched pool brings
 (5) Beyond the 4-seller, μ=3 market: pooled pCMI control false flags are 6.0% [3.8, 9.3] across N=2/4/6 and μ=1.5/3/4.5. The declared per-cell calibration criterion passes in 9/10 cells (elastic/A fails at 4/30), and strong-signal power holds in all 10.
 Which detector is strongest varies with market and horizon. Less elastic demand mostly weakens the level screens (P2.5).
 (6) Collusion whose schedule is predictable from public price history (deterministic bid rotation) is invisible to pCMI, because conditioning on lags absorbs it. Lagged TE sees part of it, and level screens see all of it (P2.6, scripted exploration).
-(7) **Across five prompt wordings the channel raises prices by +0.69 ± 0.17 (no heterogeneity, I² = 0), but the no-channel baseline moves from −0.19 to +2.56 with the wording.** Within-wording markup AUROC falls to 0.66 [0.53, 0.78] pooled (0.31 and 0.47 in two wordings); pCMI is at chance in all five (P2.7).
+(7) **Across five prompt wordings the channel raises prices by +0.69 (SE 0.17; no detectable heterogeneity, Q p = 0.69, low power), but the no-channel baseline moves from −0.19 to +2.56 with the wording.** Within-wording markup AUROC falls to 0.66 [0.53, 0.78] pooled (0.31 and 0.47 in two wordings); pCMI never separates C from A (0.17–0.67; P2.7).
 
 **P2.1 Precision at realistic collusion prevalence (E46, from the saved v1 evaluations; `uv run python scripts/prevalence.py`
 → `results/eval/prevalence.{json,md}`).** At the frozen α = 0.05 run-level flags, precision = π·TPR / (π·TPR + (1−π)·FPR), with
@@ -211,13 +211,13 @@ Per-wording AUROCs are on 6 vs 6 games, so we do not compare wordings with each 
 | **pooled** (30/30) | | +1.07 | fixed effect **0.69 ± 0.17** (SE); naive pool 0.72 [0.04, 1.46] | within-wording **0.66 [0.53, 0.78]** | 0.64 [0.50, 0.77] | **0.44 [0.30, 0.58]** |
 
 Declared rule (E43, before generation): the pattern HOLDS iff C − A > 0 in ≥ 4/5 wordings, the pooled CI excludes 0, and markup AUROC > pCMI AUROC in ≥ 4/5.
-Result: **HOLDS** (5/5 positive, pooled CI [0.04, 1.46], markup > pCMI in 4/5; noreason is a tie at 0.47).
-Heterogeneity (declared amendment, before per-wording detector output): Cochran Q = 2.22 on 4 df, p = 0.69, I² = 0. The channel's price effect is statistically indistinguishable across wordings.
+Result: **HOLDS** (5/5 positive, pooled CI [0.04, 1.46], markup > pCMI in 4/5; noreason is a tie at 0.47, and in template both AUROCs are below chance, 0.31 vs 0.17). The declared naive-pool CI resamples across wordings and so includes the spread of wording baselines; the fixed-effect estimate is 0.69, 95% CI ≈ [0.36, 1.03].
+Heterogeneity (declared amendment, before per-wording detector output): Cochran Q = 2.22 on 4 df, p = 0.69, I² = 0: no detectable heterogeneity. Q has low power here (6 + 6 games per arm, bootstrap SEs at n = 6, arms share seeds and costs), so this does not show the effects are equal.
 The pooled within-wording AUROC compares each C game only with A games of the same wording, with a stratified game bootstrap.
 Reading. (a) **The channel effect is robust; its size in v1 is at the high end.** v0 replicates `llm_v1` (C − A 1.19 vs 1.76 in v1; markup AUROC C vs A 0.92 vs 0.94; the v1 headline 0.87 pools C+D vs A+B). Pooled over wordings the effect is about +0.7 price units.
 (b) **What the wording moves is the no-channel baseline**, from −0.19 to +2.56 over Nash. In two wordings (template, noreason) the A markets already price high and vary more, and the level screen loses its separation (markup AUROC 0.31 and 0.47, CIs include 0.5).
-Pooled, the markup AUROC (C vs A) falls from 0.94 in v1 to 0.66 [0.53, 0.78].
-(c) **pCMI stays at chance in every wording** (0.17–0.67, pooled 0.44 [0.30, 0.58]). This is the v1 null, now replicated across five prompts.
+Computed within wordings and pooled, the markup AUROC (C vs A) is 0.66 [0.53, 0.78], against 0.92 for v0 alone and 0.94 in v1.
+(c) **pCMI never separates C from A** (0.17–0.67, pooled 0.44 [0.30, 0.58]; in template it is *below* chance, 0.17 [0.00, 0.33]). This is the v1 null, now replicated across five prompts.
 (d) Together with P2.3(c): the same model with different instructions shifts prices more than the channel does, so a level screen needs a reference that matches the *prompt*, not just the model. A deployer rarely knows the prompt.
 This is the main validity limit of the level screens in this repo.
 
@@ -239,21 +239,22 @@ But the agreed floors are low (12 in 15/18 followed games; static Nash is 10–1
 **P2.10 Which channel arms do price detectors see? Frozen detectors on the sibling's six matched arms (E57, exploratory, no new calls).**
 `uv run python scripts/p2cue_ext.py` → `results/eval/p2cue_ext.{json,md}` (snapshot `data/ext_llm_p2cue` of sibling commit a56cc1f; frozen E13 configuration).
 Sibling dataset `llm_p2cue`: 6 arms × 15 matched seeds (gpt-6-luna, T=12). *private* and *neutral* (a delivered "message box", no "private" wording) deliver messages;
-*notes* (a private notepad for the two pair firms) and *placebo* deliver nothing; *randpartner* gives all four firms channels with random re-matching each round. The sibling judge finds agreements in 14/14 private, 14/14 neutral, 14/14 randpartner, and 0/14 notes, 0/13 placebo, 0/13 none.
+*notes* (a private notepad for the two pair firms) and *placebo* deliver nothing; *randpartner* gives all four firms channels with random re-matching each round. The sibling judge finds agreements in 14/14 private, 14/14 neutral, 14/14 randpartner, and 0/14 notes, 0/13 placebo, 0/13 none (denominators = runs labelled at snapshot time).
 
 | detector | top-1 = assigned pair (chance 2.5/15): private / neutral / notes / placebo / randpartner | AUROC max-pair score vs none: private / neutral / notes / placebo |
 |---|---|---|
 | pair_level | 12.0 / 14.0 / **11.0** / 12.5 / 3.0 | 0.91 / 0.87 / **0.89** [0.76, 0.98] / 0.91 |
-| markup over Nash | 12.0 / 14.0 / **11.0** / 12.5 / 3.0 | 0.98 / 0.88 / **0.91** [0.79, 0.99] / 0.91 |
+| markup over Nash\* | 12.0 / 14.0 / **11.0** / 12.5 / 3.0 | 0.98 / 0.88 / **0.91** [0.79, 0.99] / 0.91 |
 | pCMI | **6.0 (p = 0.03)** / 3.3 / 3.2 / 3.0 / 2.3 | 0.49 / 0.38 / 0.22 [0.06, 0.42] / 0.28 |
 | lagged CMI (TE) | 6.0 (p = 0.02) / 3.3 / 4.0 / 6.3 (p = 0.01) / 1.2 | 0.76 / 0.52 / 0.61 / 0.69 |
+
+\*Within a run, pair markup ranks pairs exactly as pair_level, so its top-1 row is not independent evidence; only the across-run AUROC differs.
 
 Market markup over Nash, arm − none (matched seeds): private +2.02 [1.36, 2.69], neutral +1.00 [0.48, 1.56], notes +1.45 [0.77, 2.25], placebo +1.45 [0.83, 2.05], randpartner +2.74 [1.99, 3.50].
 Reading. (a) **The level screens fire on a pair-specific prompt with no communication and no agreement.** In the notes arm the two pair firms only write to themselves; the judge finds 0/14 agreements, yet pair_level names the pair in 11/15 runs and separates these markets from none with AUROC 0.89.
 This extends E32/E35 (placebo, monitor/firm framing): what the level screens detect in these LLM markets is the pair being *addressed as a pair*, not delivered coordination. Private and notes markets are not clearly separated (pair_level AUROC private vs notes 0.66 [0.41, 0.86], matched seeds).
-(b) pCMI is the only detector whose localisation appears only where messages are delivered *privately* (6/15 vs ≤ 3.3/15 elsewhere), but at 15 runs, with 25 uncorrected arm × detector cells, this is a hint, not a result. Neutral delivery (14/14 agreements) shows nothing.
-Its market-level AUROC vs none is at or below chance in every arm (notes 0.22 [0.06, 0.42], i.e. *lower* dependence than in none markets; this deviates from our declared prediction that its CI would include 0.5).
-(c) With channels for every firm (randpartner), no pair is singled out (3.0/15), but the market markup is highest (+2.74). That is the all-firm cartel case of P2.4(2): only absolute statistics see it.
+(b) **Our pCMI prediction partly fails.** pCMI localises the pair above chance only where messages are delivered *privately* (6/15, p = 0.03; ≤ 3.3/15 elsewhere, including neutral delivery with 14/14 agreements), but that p is uncorrected and does not survive Bonferroni over the 25 arm × detector cells. Its market-level AUROC vs none is *below* chance in both undelivered pair-prompt arms (notes 0.22 [0.06, 0.42], placebo 0.28 [0.11, 0.49]), i.e. those markets show less conditioned dependence than none markets. We had predicted top-1 at chance and AUROC CIs including 0.5 in every arm.
+(c) With channels for every firm (randpartner), no pair is singled out (3.0/15), but the market markup is highest (+2.74). That is the all-firm cartel case of P2.4(2): pair localisation fails, and market-level statistics see it (max-pair markup AUROC 0.97 vs none; raw MI 0.79).
 
 ## Abstract
 Can a detector that reads only prices and public market state find colluding pricing agents without accusing agents that
@@ -270,10 +271,11 @@ whether this reflects mainly the level effect or low power at short T remains un
 Level screens are not collusion-specific: they rank legitimate public partnerships above controls (0.75) and respond to an offered-but-undelivered
 placebo channel in the sibling market. Practical reading (a hypothesis, not tested as a pipeline): a cheap level screen as an always-on first stage, with dependence and text audits as second-stage evidence;
 the detectability of LLM collusion depends on the market and its framing.
-**Phase 2 (locked scripted tests + re-analysis; LLM robustness runs in progress):** level screens and co-movement statistics fail in opposite places.
-Unequal private costs make both tested level screens falsely flag 30/30 markets, while pCMI flags 4/30 (controls 1/30). A relative pair screen loses its power against an all-firm cartel (AUROC 0.25),
-while absolute markup, pCMI and group total correlation do not. Pair contrasts survive everyone running the same LLM. Absolute statistics need a model-matched reference
-(mismatched: pCMI 52% false flags, exploratory). At 1% prevalence no flag reaches precision 0.25, so flags are audit triggers, not verdicts.
+**Phase 2 (locked scripted tests, five prompt wordings, the sibling's six channel arms; long games and a second seller family in progress):** level screens and co-movement statistics fail in opposite places.
+Unequal private costs make both tested level screens falsely flag 30/30 scripted markets, while pCMI flags 4/30 (controls 1/30). A relative pair screen loses its power against an all-firm cartel (AUROC 0.25),
+while absolute markup, pCMI and group total correlation do not. Across five seller-prompt wordings the channel raises prices consistently (+0.69, SE 0.17; no detectable heterogeneity), but the wording alone moves no-channel prices by up to +2.5 over Nash, so within-wording markup AUROC falls to 0.66 [0.53, 0.78]; pCMI never separates channel from control in any wording.
+In the sibling's matched arms the level screens name the pair as often when its two firms only write *to themselves* (undelivered notepad, 0/14 agreements; 11/15) as with a private channel (12/15).
+Absolute statistics need a reference that matches the model *and* the prompt. At 1% prevalence no flag reaches precision 0.25, so flags are audit triggers, not verdicts.
 
 ### Detailed summary (all headline numbers with their caveats)
 We build a 4-seller repeated differentiated-price market with public demand/cost shocks and ask whether pairwise

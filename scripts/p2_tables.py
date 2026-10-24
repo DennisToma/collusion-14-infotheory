@@ -181,7 +181,30 @@ def p27():
     return table(["wording", "n C/A", "no-channel markup (A)", "C − A markup [95% CI]", "AUROC markup", "AUROC pair_level", "AUROC pCMI"], rows)
 
 
-BUILDERS = {"P2.1": p21, "P2.3": p23, "P2.4": p24, "P2.5": p25, "P2.6": p26, "P2.7": p27}
+# ---------------------------------------------------------------- P2.10
+def p210():
+    d = jl("results/eval/p2cue_ext.json")["detectors"]
+    arms = ("private", "neutral", "notes", "placebo", "randpartner")
+    rows = []
+    for k, lab in (("pair_level", "pair_level"), ("market_level", "markup over Nash\\*"), ("pcmi", "pCMI"), ("te", "lagged CMI (TE)")):
+        def top(a):
+            x = d[k][a]
+            t = f"{x['top1_hits']:.1f}"
+            if x["top1_p_vs_1/6"] < 0.05 and k in ("pcmi", "te"):
+                t += f" (p = {x['top1_p_vs_1/6']:.2f})"
+            return f"**{t}**" if (a == "notes" and k in ("pair_level", "market_level")) or (a == "private" and k == "pcmi") else t
+        def au(a):
+            x = d[k][a]
+            if (a == "notes" and k != "te"):
+                v = f"{x['auroc_vs_none']:.2f} [{x['auroc_vs_none_ci'][0]:.2f}, {x['auroc_vs_none_ci'][1]:.2f}]"
+                return f"**{v}**" if k != "pcmi" else v
+            return f"{x['auroc_vs_none']:.2f}"
+        rows.append([lab, " / ".join(top(a) for a in arms), " / ".join(au(a) for a in arms[:4])])
+    return table(["detector", "top-1 = assigned pair (chance 2.5/15): private / neutral / notes / placebo / randpartner",
+                  "AUROC max-pair score vs none: private / neutral / notes / placebo"], rows)
+
+
+BUILDERS = {"P2.1": p21, "P2.3": p23, "P2.4": p24, "P2.5": p25, "P2.6": p26, "P2.7": p27, "P2.10": p210}
 
 
 def check(report):
