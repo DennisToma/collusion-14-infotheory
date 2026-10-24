@@ -1,3 +1,13 @@
+# STATUS (updated 2026-10-24 19:55 UTC, Phase 2 iteration 28; follows DIRECTION 17:56)
+
+**Iteration 28: checkpoint verification only (Sat 20:00 checkpoint reached).** REPORT is presentable as committed in a625967: title/joint statement verbatim/E112 line present; `p2_tables.py --check` PASS (11 tables, 424 cells, 0 unchecked); 957 lines; E70/D2 marked pending. No scientific numbers changed; no outcome inspected.
+**Research state unchanged:** main level > pCMI 9/9 sets (7 models), pCMI not above chance 8/9; E44 T=60 pCMI 0.34 [0.18, 0.52].
+**Running, untouched:** E70 sweep 3 started 19:45 (completion lines only). Qwen lane ≈60 min/sweep (sweep 1 done ~18:40, sweep 2 19:39) → sweeps 3–5 ETA ≈22:40, then e70_post label+eval ≈23:15; directive-3 follow-up window (by Sun 00:30) still feasible. D2 24/30 (comms seed 12 running). Full audit PID 2657265 at ext_llm_v3 step (39 min). Qwen budget $18.13 ok.
+**Next (unchanged):** audit ends → verify core_eval/phase2_recompute true + passed → archive `results/release_audit_iter23_full.json`. E70_EXIT=0 → `scripts/e70_fig.py` + `uv run python scripts/p2_landing.py e70 --part all` → replace P2.14/abstract/P2.13, board caveat, "6 sweeps complete"; then follow-up rule. D2 30/30 → `uv run python scripts/e68_cda.py` ONCE → `p2_landing.py e68 --part all` → P2.12/glance. p2_tables --check after insertion.
+**Risks:** E70 later than 23:15 squeezes the follow-up; if E70 analysis not done by 00:30, skip follow-up and say so. No new arms/amendments/reviews/exports.
+
+## Dated log (prior state summaries retained verbatim)
+
 # STATUS (updated 2026-10-24 19:44 UTC, Phase 2 iteration 27; follows DIRECTION 17:56)
 
 **Iteration 27: verified the pending-result manuscript path on synthetic data.** `scripts/p2_landing.py` renders replacement E70/D2 sections, abstract/glance/denominator text and an E70 appendix from saved result JSON only, without analysis or writes. It preserves declared verdicts and separates E70 positive point estimates from P2.13 positive-CI claims. REPORT's stale “only pCMI point estimate >0.65” sentence and completed-gap future-work suggestions corrected; no scientific numbers changed.
@@ -7,7 +17,6 @@
 **Next:** audit completes → verify core_eval=true, phase2_recompute=true and passed; archive `results/release_audit_iter23_full.json` BEFORE another audit. E70_EXIT=0 → figure + `uv run python scripts/p2_landing.py e70 --part all` → replace P2.14/abstract/P2.13 (point-count explicitly separate), board caveat, slides/README, announce “6 sweeps complete”. D2 30/30 → `uv run python scripts/e68_cda.py` ONCE, then `uv run python scripts/p2_landing.py e68 --part all` → replace P2.12/glance. Run p2_tables --check after insertion.
 **Risks / scope:** E70/D2 and historical full audit pending; if incomplete use only declared Sun 08:00 grid / 10:00 D2 paths. No new arms, amendments, reviews, watchers or exports. Next PDF Sun 16:30. Serendipity HITS read; S11/S14 unpromoted, no headline change.
 
-## Dated log (prior state summaries retained verbatim)
 
 # STATUS (updated 2026-10-24 19:24 UTC, Phase 2 iteration 25; follows DIRECTION 17:56)
 
