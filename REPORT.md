@@ -179,6 +179,8 @@ Readings:
 ![power vs T](figures/power_vs_T.png)
 
 ### 4.3 LLM sellers
+
+#### 4.3.1 Pilots: getting LLM sellers to vary prices
 **Pilots (what it took to get LLM collusion to happen at all)** — gpt-6-luna sellers via codex, all games T=20
 (`data/llm_pilot*`, `data/llm_hpilot`; `uv run python -m sim.llm_market --name <...>`):
 
@@ -192,6 +194,8 @@ Readings:
 Two lessons: (i) removing a single example value from the output format coincided with the market leaving the focal price (pilot comparison, not an isolated test). LLM
 pricing experiments look fragile to prompt anchors; (ii) a market in which every seller plays the same
 constant price contains **zero** information for dependence-based detectors, whatever the agreement status.
+
+#### 4.3.2 Datasets and declared analysis plan
 
 **Main LLM dataset `llm_v1`** (complete, 74 games, all sellers gpt-6-luna via codex — checked per run, E17): 16 per condition A–D (+5 extra A and B games so the
 same-model reference pool has ≥ 20 per family), T=20, design of `llm_pilot4` (sim_version llm0.3). Labels:
@@ -220,6 +224,8 @@ AUROC private vs none (and legit vs none), top-1 localisation vs 1/6, control-su
 
 *Declared before any `llm_long` detector output (E20, 01:05 UTC):* (v) is read off the same games' prefixes (T = 10, 20, 30, 40, 50; C vs A, 8 vs 8): pCMI/MI/TE/level run AUROC with bootstrap CI, and pCMI top-1 vs 1/6. "T rescues pCMI" requires AUROC(pCMI, T=50) ≥ 0.65 **and** ≥ AUROC(pCMI, T=20) + 0.15; only then is an extra T=50 batch (+16 C, +6 A) generated (directive 4). Otherwise: no new generation. With 8 vs 8 the CI half-width is ≈ 0.25, so a null here only excludes large effects. The surrogate null is not used (pool 8 < 20).
 Per-pair scores for the sibling: `results/eval/llm_v3_ext.json` (`uv run python -m experiments.ext_llm_v3`).
+
+#### 4.3.3 External set `llm_v3` (sibling market, T=12)
 
 **External LLM set `llm_v3` (E13): FINAL, all 125 runs** (sibling generation complete, all sellers gpt-6-luna via codex;
 `uv run python -m experiments.ext_llm_v3` writes this table to `results/eval/llm_v3_ext_report.md`). Columns: run AUROC
@@ -269,6 +275,8 @@ consistent with lost power: about 7 regressors on 11 usable rows. It does not sh
 
 ![LLM AUROC](figures/llm_auroc_both.png)
 *Run AUROC of dependence (blue) vs level (orange) detectors on the LLM datasets (`uv run python -m experiments.llm_fig`).*
+
+#### 4.3.4 Main set `llm_v1` (T=20)
 
 **`llm_v1` results (confirmatory, all 74 games, T=20; frozen detectors and labels, no tuning after viewing).**
 Commands: `uv run python -m experiments.llm_eval label --name llm_v1`, `... eval --name llm_v1`, then
@@ -334,19 +342,7 @@ the surrogate null on this set.
 *AUROC vs prefix length* (T = 5, 10, 15, 20; `figures/llm_v1_power_vs_T.png`): pCMI does not improve (0.57, 0.46, 0.45, 0.45).
 MI (0.27 → 0.50) and TE (0.46 → 0.55) rise, but neither is above chance at T=20. `llm_long` (T=50) tests longer games.
 
-**What the two LLM datasets show together.** We have two different LLM markets (different framing, grid, T, public board).
-In both, the private channel's effect shows up mainly as a **price level**. In `llm_v1` it is market-wide; in `llm_v3` it is
-pair-specific. Level statistics separate channel runs from controls (run AUROC 0.87 and 0.98). The conditioned dependence
-detector does not (0.45 and 0.52, standalone differences vs the best level statistic −0.42 and −0.46, CIs exclude 0). In
-`llm_v1` it also adds nothing measurable on top of level. This is consistent with the scripted hard-negative result that
-"stay-high" collusion is hard for dependence measures to detect or localise (§4.2). It does **not** show that dependence detectors fail on LLM
-agents in general, or that these pairs have no coordinated variation. It shows that, at T=12–20, the channel's effect is
-dominated by a level, which these detectors are built to ignore. Level statistics are not collusion-specific either. They
-also rank `legit` partnership markets above controls (pair_level AUROC 0.75 in `llm_v3`) and are high in tacitly supra-competitive no-channel markets
-(6/21 B runs ≥ 2 over Nash).
-
-Not claimed from this data: surrogate-null FPR with pool < 20; absence of same-model dependence from a null
-result; that dependence detectors fail on LLM agents in general. *Follow-ups (iv) mixed models and (v) T=50: below.*
+#### 4.3.5 Same- vs cross-model sellers (`llm_mixed2`)
 
 **(iv) `llm_mixed2`: are same-model pairs more dependent than cross-model pairs (shared-policy confound, PLAN req. 3)? No detectable difference; the CIs exclude only large effects.**
 12 no-channel games (condition A, single public state), T=20; in each game 2 sellers run gpt-6.1-sol and 2 run gpt-6-luna (both via codex), with random seats.
@@ -369,6 +365,8 @@ With n = 12 this rules out large same-model effects only; it does not show the c
 
 *Data-integrity note (E21):* the first `llm_mixed` batch was invalid. A routing bug (`llm.chat(tier="big", backend="codex")` silently used gpt-6-luna) made all 12 games all-luna, as the per-seller `model` field shows. Its same-vs-cross numbers are discarded unreported. The bug is fixed, `mixed_eval` now drops runs whose mixed sellers did not run a different model, and the set is regenerated as `llm_mixed2`. Judge labels were unaffected (42/42 gpt-6.1-sol).
 
+#### 4.3.6 Longer games (`llm_long`, T=50)
+
 **(v) `llm_long`: does T=50 rescue pCMI? The declared criterion is not met (E20 rule, declared before eval).** 8 A + 8 C games, T=50, all gpt-6-luna (codex),
 `results/eval/llm_long.json`, `uv run python -m experiments.llm_report --name llm_long` → `results/eval/llm_long_report.md`,
 `figures/llm_long_{prices,auroc,power_vs_T}.png`. Labels: 8/8 C games have a judge-verified agreement, 5/8 realised coordination;
@@ -389,6 +387,23 @@ generated. At T=50, pCMI − markup = −0.50 [−0.81, −0.17], so pCMI is cle
 within-run shift null over-rejects on A controls again (pCMI flags 3/8 at T ≥ 30), as on `llm_v1`. That is a second reason not to use it on LLM data.
 Reading: 2.5× more rounds did not turn the channel's effect into detectable coordinated variation (point estimates flat, 0.36–0.45). The evidence favours the
 "collusion is a level" branch of the plan's question (f), but at n = 8 per group it does not settle it.
+
+#### 4.3.7 Both LLM datasets together
+
+We have two different LLM markets (different framing, grid, T, public board).
+In both, the private channel's effect shows up mainly as a **price level**. In `llm_v1` it is market-wide; in `llm_v3` it is
+pair-specific. Level statistics separate channel runs from controls (run AUROC 0.87 and 0.98). The conditioned dependence
+detector does not (0.45 and 0.52, standalone differences vs the best level statistic −0.42 and −0.46, CIs exclude 0). In
+`llm_v1` it also adds nothing measurable on top of level. This is consistent with the scripted hard-negative result that
+"stay-high" collusion is hard for dependence measures to detect or localise (§4.2). It does **not** show that dependence detectors fail on LLM
+agents in general, or that these pairs have no coordinated variation. It shows that, at T=12–20 (and at T=50 in the small `llm_long` set, §4.3.6), the channel's effect is
+dominated by a level, which these detectors are built to ignore. Same-model seller pairs show no pCMI excess either (§4.3.5). Level statistics are not collusion-specific either. They
+also rank `legit` partnership markets above controls (pair_level AUROC 0.75 in `llm_v3`) and are high in tacitly supra-competitive no-channel markets
+(6/21 B runs ≥ 2 over Nash).
+
+Not claimed from this data: surrogate-null FPR with pool < 20; absence of same-model dependence from a null
+result; that dependence detectors fail on LLM agents in general. Follow-ups: mixed models §4.3.5, T=50 §4.3.6.
+
 
 
 ### 4.4 Umbrella synthesis with the sibling project (Q2.2, text + action auditing)
