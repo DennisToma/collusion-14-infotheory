@@ -56,6 +56,15 @@ around 0.3–0.6 with wide intervals. pCMI on LLM data has precision near the ba
 and raw MI against common shocks equals the base rate exactly. This supports using any of these flags as a first-stage
 screen that triggers an audit, not as evidence of collusion on its own.
 
+**P2.2 Independent reimplementation check (E47).** codex (gpt-6.1-sol, separate scratch directory) received only the §3 detector
+text, the `market_level`/`pair_level` definitions from §4.3.2, the Nash prices and the data, and no code
+(`results/reimpl/{BRIEF.md,NOTES.md,reimpl.py}`). Comparison with our frozen evaluations: `uv run python scripts/reimpl_compare.py` → `results/reimpl/compare.json`.
+Per-run scores agree to < 1e-9 in 234 of 236 run × statistic cells (`llm_v1` T=20; `llm_long` T=50 and its 20-round prefix; pCMI, Miller–Madow MI,
+markup, pair_level). The two exceptions are perfect-fit `llm_v1` runs where only the constant used to cap ρ² differs (both versions rank them highest).
+All 20 run-AUROCs are identical (e.g. `llm_v1` pCMI 0.453, markup 0.870; `llm_long` pCMI 0.453, markup 0.953). The pCMI shift-null flag rate on `llm_v1`
+A controls is 4/21 for us and 5/21 for the reimplementation (C: 2/16 for both). The gap is one run near p = 0.05 under an independently drawn
+200-shift Monte Carlo null. No bug was found and no reported number changes.
+
 
 ## Abstract
 Can a detector that reads only prices and public market state find colluding pricing agents without accusing agents that

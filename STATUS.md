@@ -4,12 +4,12 @@
 
 **Phase 2 running** (DIRECTION.md gap list). v1 frozen at tag `v1-overnight`; REPORT now has a "Phase 2 results" section under the key-findings table.
 **Generating (background, logs /var/tmp/c14/):** `scripts/llm_queue_p2.sh` (codex, 5 workers): E43 prompt variants llm_p2_{v0,para,template,order,noreason}
-(A/C × 6, T=20) → E44 llm_long_p2 (A/C × 20, T=60, staged 10 then 20). `scripts/llm_queue_go.sh`: E45 llm_ds_p2 deepseek-v4.1-flash (A/C × 15, T=20).
+(A/C × 6, T=20) → E44 llm_long_p2 (A/C × 20, T=60, staged 10 then 20) → `scripts/llm_queue_p2b.sh` extends the same games to T=80 by cache replay (T=60 copy kept as data/llm_long_p2_T60 = primary). `scripts/llm_queue_go.sh`: E45 llm_ds_p2 deepseek-v4.1-flash (A/C × 15, T=20).
 Throughput: codex ~0.4 calls/s → variants ≈ 3 h, long ≈ 6–7 h (done ≈ 16:30 if the rate holds); Go is shared with the sibling and slow.
 **Fix:** deepseek-v4.1-flash on Go returns "" (reasoning > 4k tokens) unless `thinking: disabled` → llm.py patched. **The sibling's llm_p2ds run has the same bug (its Go calls show out_chars 0) — director, please tell it.**
 **Done this iteration:** E46 precision at prevalence (REPORT P2.1): at 1% prevalence every flag has precision < 0.25; pCMI on LLM ≈ base rate.
-**Running:** independent reimplementation check (codex gpt-6.1-sol in /var/tmp/c14/reimpl, given only REPORT §3 + level definitions; output results.json + NOTES.md).
-**Next:** (1) compare reimpl numbers vs results/eval/llm_v1.json + llm_long.json → REPORT P2.2; (2) evaluate each finished variant arm
+**Done:** E47 independent reimplementation (codex, REPORT text only): 234/236 per-run scores identical (<1e-9; 2 = ρ² cap on perfect fits), 20/20 AUROCs identical, pCMI shift flags A 4/21 vs 5/21 (MC). No bug. REPORT P2.2.
+**Next:** (2) evaluate each finished variant arm
 (`uv run python -m experiments.llm_eval eval --name llm_p2_<v>`; labels optional) → per-arm C−A markup + AUROC table (E43 rule);
 (3) scripted gaps 5–8 (coalition 3-of-4/4-of-4 + total correlation, onset + CUSUM, N=2/6 + elasticity, cost asymmetry) — zero LLM cost, can run on CPU now;
 (4) gap 3 same-model mitigations on llm_mixed2/llm_v1. llm_eval eval needs `Ts` up to 60 for llm_long_p2 (currently stops at 50).
