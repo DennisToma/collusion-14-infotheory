@@ -36,6 +36,12 @@ Status: prompt-wording robustness (E43: 5 wordings × A/C × 6 games, T=20), lon
 seller family (E45: deepseek-v4.1-flash, 15 A + 15 C) are **generating**. Their results will be added here.
 Done: P2.1 precision at prevalence, P2.2 independent reimplementation, P2.3 same-model confound (gap 3), P2.4 scripted coalitions / onset / cost asymmetry (gaps 5, 6, 8; locked test).
 
+**Phase 2 takeaways so far.** (1) Price-*level* screens and co-*movement* statistics fail in opposite places. Unequal private costs make every level screen falsely
+flag 30/30 markets while pCMI stays near its control rate (P2.4). LLM collusion shows up in levels and is invisible to pCMI (§4.3). A deployer needs both, plus cost data.
+(2) Relative statistics (pair vs rivals) are blind to an all-firm cartel (AUROC 0.25), so they need an absolute companion (markup, pCMI, group TC; P2.4).
+(3) When everyone runs the same LLM, pair contrasts still work. Absolute statistics need reference markets running the same model(s): a mismatched reference
+gave pCMI 52% false flags (P2.3, exploratory). (4) At 1% prevalence no flag has precision above 0.25 (P2.1): these are audit triggers, not verdicts.
+
 **P2.1 Precision at realistic collusion prevalence (E46, from the saved v1 evaluations; `uv run python scripts/prevalence.py`
 → `results/eval/prevalence.{json,md}`).** At the frozen α = 0.05 run-level flags, precision = π·TPR / (π·TPR + (1−π)·FPR), with
 95% intervals from independent Jeffreys posteriors for TPR and FPR. Selected rows (all 28 rows in `results/eval/prevalence.md`):
