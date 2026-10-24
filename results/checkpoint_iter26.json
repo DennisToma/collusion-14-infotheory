@@ -1,0 +1,64 @@
+{
+  "time_utc": "2026-10-24T19:32:12.806371+00:00",
+  "passed": true,
+  "scope": "checkpoint rendering and source verification only; no real E68/E70 outcomes or LLM calls",
+  "independently_reconstructed_counts": {
+    "sets": 9,
+    "models": 7,
+    "positive_channel_ci": 9,
+    "level_beats_pcmi": 9,
+    "pcmi_not_above_chance": 8
+  },
+  "deck_auroc_and_ci_numbers_checked": 66,
+  "slides": 6,
+  "slide_font_pt_and_overflow": [
+    [
+      14,
+      false
+    ],
+    [
+      14,
+      false
+    ],
+    [
+      14,
+      false
+    ],
+    [
+      14,
+      false
+    ],
+    [
+      14,
+      false
+    ],
+    [
+      14,
+      false
+    ]
+  ],
+  "deterministic_outputs_sha256": {
+    "PRESENTATION.md": "f8cdec29338fb91c75cf8ed796243eb949c727ff63b21a2275c46dfdeb3e3328",
+    "figures/phase2_headline.png": "5fe3cb65b3e29067b9670277e73d891e9b14646ef5a69713ab5374bd89913908"
+  },
+  "input_sha256": {
+    "results/eval/p2_partc.json": "0637e83f57b6b20f4983073c4ceaf6997567f5df2e4d0184407035594f84eead",
+    "results/eval/claims_denominators.json": "cc7f63ab144173b768c871cfa600d4572a6ade1b0c04d7a41c4f98a85226cfb4",
+    "results/eval/long_power_llm_long_p2_T60.json": "c9e99f488917999ebc986ee4505708be565212128b414f42c40f4eb49d627c36",
+    "results/eval/p2_variants.json": "8609c165b1cac77fad9410a056ddf0a2ca0ebc593f026075c1f73489c2f95733",
+    "results/eval/strongF_ext.json": "21252403385349f59cd24d619cbe5d141f3144f4deb7c08faf430e0e20cab34a",
+    "results/eval/gate_test.json": "504465fc5b20125d4eddffe3827bf505c74cf2df7b9e48980f237a3fd8be4326",
+    "results/p2/costasym_test.json": "0d35661945871372bfc6fd877a2fd5b291bf56666bb8cd09b910328740db4050",
+    "scripts/slides.py": "373a015e39992ac823d0a5d57ef449619512fd0ec4f05238af6da45556ffc706",
+    "scripts/phase2_fig.py": "662971890d70145555efe63b190c4b153ac2005b07d62bbdf87920d71882966d"
+  },
+  "static_checks": {
+    "snapshot_checksums": 25,
+    "snapshot_manifests": 8,
+    "local_links": 16
+  },
+  "pdf_exported": false,
+  "report_lines": 957,
+  "verification": "Part C eligibility and counts rebuilt without claims_denominators; deck AUROCs/CIs parsed and compared to saved Part C / E44 prefix values; repeated render hashes exact; export_pdf.FIT_JS layout without invoking pdf(); snapshots and links checked",
+  "static_checks_scope": "current checkout checksum manifests and local links only; cache isolation belongs to the separately running full audit"
+}

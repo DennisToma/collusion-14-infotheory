@@ -1,3 +1,13 @@
+# STATUS (updated 2026-10-24 19:34 UTC, Phase 2 iteration 26; follows DIRECTION 17:56)
+
+**Iteration 26: checkpoint presentation now reflects finalized Phase 2.** Replaced stale v1-only deck claims (OpenAI-only sellers, unresolved T=50 question) with six generated slides: 9/9 positive channel sets (7 models), level > pCMI 9/9, pCMI not above chance 8/9; E44 T=60 and executed-only results, model/prompt dependence and caveats. Added a nine-set estimate/CI figure to REPORT/README; release RENDER now includes it. No estimator, design or scientific result changed.
+**Verified:** 66 deck AUROC/CI numbers parsed against saved JSON; inclusion/counts independently rebuilt from Part C. Figure/deck hashes repeat exactly; six browser-rendered slides fit at 14 pt, no overflow; screenshots inspected. 424 P2 + 404 v1 REPORT cells exact, 0 unchecked; 13 release tests PASS; 25 checksums/eight manifests and local links PASS (`results/checkpoint_iter26.json`). REPORT 957 lines (was 966). No PDF export; next Sun 16:30.
+**Running, untouched:** full audit PID 2657265 (own SID), `/var/tmp/c14/iter23_full_release.log`; v1 exact, llm_long active, no full completion claimed. Its disposable snapshot predates iterations 24–26; it does not verify the new deck/figure, which have the separate checkpoint evidence. E70 chain/post/prelabel alive (qwen sweep 2, c14 done 19:33; c15 active); D2 23/30. No real E68/E70 outcomes inspected.
+**Next:** full audit finishes → verify core_eval=true, phase2_recompute=true and passed; archive as `results/release_audit_iter23_full.json` BEFORE another audit. E70_EXIT=0 → figure + replace P2.14/abstract/P2.13 denominators + board-use caveat; announce “6 sweeps complete”; update slide 6/README pending line. D2 30/30 → `uv run python scripts/e68_cda.py` ONCE → P2.12/glance and pending lines. If incomplete at Sun 10:00, only then use the declared interim path.
+**Risks / scope:** E70, D2 and historical full audit remain pending; PDFs/HTML are explicitly labelled as the Sat 19:07 export, Markdown/figures newer. No new arms, reviews, amendments, watchers or exports. Serendipity HITS read: S11/S14 remain unpromoted ODD; procurement ask/payment caution does not justify a new experiment or a headline change.
+
+## Dated log (prior state summaries retained verbatim)
+
 # STATUS (updated 2026-10-24 19:24 UTC, Phase 2 iteration 25; follows DIRECTION 17:56)
 
 **Iteration 25: corrected D2's manipulation check before any full-set outcome inspection.** E68 now resamples matched seed clusters (previous code sampled arms independently), requires a positive unrounded lower CI bound, and reports a negative effect as communication lowering asks. Frozen detectors and AUROC bootstrap unchanged. R25 ledger records the correction/positive-direction clarification; REPORT P2.12, split record and CDA README explain it.
@@ -7,7 +17,6 @@
 **Next:** full audit finishes → verify core_eval=true, phase2_recompute=true and passed; archive as `results/release_audit_iter23_full.json` BEFORE any other audit. E70_EXIT=0 → figure + replace P2.14/abstract/P2.13 denominators + board-use caveat; announce “6 sweeps complete”. D2 30/30 → `uv run python scripts/e68_cda.py` ONCE → P2.12/glance. If incomplete at Sun 10:00, `--min-runs 2` permits the declared interim analysis then only.
 **Risks / scope:** E70, D2 and historical full audit remain pending. No real E68/E70 results inspected, new arms, reviews or exports. Next PDF Sun 16:30. Serendipity HITS read: S11 remains unpromoted ODD; no confirmed hit warrants a new experiment.
 
-## Dated log (prior state summaries retained verbatim)
 
 # STATUS (updated 2026-10-24 19:15 UTC, Phase 2 iteration 24; follows DIRECTION 17:56)
 

@@ -1,148 +1,128 @@
-"""Five-minute talk deck (Markdown, one slide per `---`). Every number is read from results/eval/*.json.
+"""Six-slide checkpoint deck from finalized saved results; no analysis or LLM calls.
 
-    uv run python scripts/slides.py    # -> PRESENTATION.md
+uv run python scripts/phase2_fig.py
+uv run python scripts/slides.py -> PRESENTATION.md
+Pending E68/E70 data are never opened. Refresh their narrative after the registered analyses.
+PDF export remains a separate, scheduled release action.
 """
-import json
-from scipy.stats import binomtest
 from pathlib import Path
+import json
 
 ROOT = Path(__file__).resolve().parent.parent
-EV = ROOT / "results" / "eval"
 
 
 def load(name):
-    return json.load(open(EV / name))
+    return json.loads((ROOT / 'results/eval' / f'{name}.json').read_text())
 
 
-def pct(x):
-    return f"{100 * x:.0f}%"
+def interval(value, bounds, signed=False):
+    spec = '+.2f' if signed else '.2f'
+    return f'{value:{spec}} [{bounds[0]:.2f}, {bounds[1]:.2f}]'.replace('-', '−')
 
 
-def ci2(ci):
-    return f"[{ci[0]:.2f}, {ci[1]:.2f}]"
+def render():
+    c = load('claims_denominators')
+    claims = {r['claim']: r for r in c['claims'] if r['group'] == 'main'}
+    main = [s for s in c['sets'] if s['group'] == 'main']
+    count = lambda key: f"{claims[key]['k']}/{claims[key]['K']}"
+    nmodels = len({m for s in main for m in s['models']})
+    nmin = min(n for s in main for n in s['n'])
+    nmax = max(n for s in main for n in s['n'])
+    pc = load('p2_partc')
+    long = load('long_power_llm_long_p2_T60')
+    pooled = pc['E64_pooled']['all sets']
+    strong = load('strongF_ext')
+    gate = load('gate_test')['metrics']
+    cost = json.loads((ROOT / 'results/p2/costasym_test.json').read_text())['summaries']['A/costasym']
+    variants = load('p2_variants')['arms']
+    # The baseline is the no-channel mean markup, not the C-A contrast.
+    baselines = [v['A_markup'] for v in variants.values()]
+    old = pc['llm_g56l_p2']
+    ex = pooled['pcmi']['executed']
+    en = pooled['n_executed'] + pooled['n_not_executed']
+    p60, ml60 = long['prefix']['60']['pcmi'], long['prefix']['60']['pair_markup']
+    qb = pc['llm_qb36_p2']
+    f = lambda r, key: interval(r[key], r[f'{key}_ci'])
+    # Short table labels keep the nine-set result readable on a projected slide.
+    names = {'llm_v1': 'luna', 'llm_ds_p2': 'deepseek', 'llm_long_p2_T60': 'luna',
+             'llm_qa_p2': 'Qwen3.8 abl.', 'llm_qb_p2': 'Qwen3.8 base', 'llm_g56l_p2': 'older luna',
+             'llm_strong_qa': 'Qwen3.8 abl. + memory', 'llm_qa36_p2': 'Qwen3.6 abl.',
+             'llm_qb36_p2': 'Qwen3.6 base'}
+    auroc_rows = '\n'.join(f"| {names[r['set']]} (T={pc[r['set']]['T']}) | "
+                           f"{f(pc[r['set']], 'auroc_market_level')} | {f(pc[r['set']], 'auroc_pcmi')} |"
+                           for r in main)
+    pct = lambda x: f'{x * 100:.0f}%'
+    flagged = lambda d, k: round(d[k]['rate'] * d['n'])
+    s = []
+    s.append(f'''# LLM price collusion shows up as a market-wide price level, not as coordinated moves
+Apart AI Collusion Sprint · Q1.4 · checkpoint, Phase 2
 
+**Question.** Can prices and public market state reveal colluding sellers without accusing firms that share a shock or policy?
 
-def cip(ci):
-    return f"[{100 * ci[0]:.0f}, {100 * ci[1]:.0f}]"
+**Finding.** Channel prices rise in **{count('premium')} sets ({nmodels} seller models)**. Market-level markup beats pCMI in **{count('level_beats_pcmi')}**; pCMI is not above chance in **{count('pcmi_null')}**.
 
+**Scope.** These scores distinguish channel assignment. A price rise alone does not verify an agreement; channel-free markets can also sustain high prices.
 
-def sd(x):
-    return f"{x:+.2f}"
+MI measures shared information; pCMI measures residual dependence after public state and all sellers' lagged prices. A level screen measures markup over the competitive Nash price.
+
+Source: REPORT main claim; P2.13; `claims_denominators.json`.''')
+    s.append(f'''## Validation: opposite failure modes
+Four sellers, repeated differentiated-price market. Scripted sellers validate detectors; LLM sellers test the substantive claim. Frozen estimators, predeclared Phase 2 analyses.
+
+| scripted condition | level-screen flags | pCMI flags |
+|---|---|---|
+| planted shared-signal coordination | see REPORT §4.1 | {pct(gate['pcmi']['C']['flag_rate'])} |
+| unequal private costs, no channel | {flagged(cost, 'market_level_surrogate_flag')}/{cost['n']} | {flagged(cost, 'pcmi_flag')}/{cost['n']} |
+
+**Conditioning helps but does not prove intent:** raw MI flags {pct(gate['mi']['B']['flag_rate'])} of common-shock markets; pCMI flags {pct(gate['pcmi']['B']['flag_rate'])} under the shift null (target 5%). Shared random seeds and legitimate leader-follower pricing remain confounds.
+
+Sources: `gate_test.json`, `results/p2/costasym_test.json`; REPORT §4.1, P2.4. Flag counts use different registered nulls in these two experiments.''')
+    s.append(f'''## Across {len(main)} sets: channel assignment is mostly a level
+| seller | market-level AUROC [95% CI] | pCMI AUROC [95% CI] |
+|---|---|---|
+{auroc_rows}
+
+{nmin}–{nmax} games per arm; CIs bootstrap games. The sets share designs/models. Base Qwen3.6 is the pCMI exception: {f(qb, 'auroc_pcmi')}.
+
+Sources: `p2_partc.json`, P2.13 inclusion list. Non-channel benchmarks are model- and prompt-specific.''')
+    s.append(f'''## Longer games and executed agreements do not rescue pCMI
+| registered comparison | market-level AUROC [95% CI] | pCMI AUROC [95% CI] |
+|---|---|---|
+| E44, T=60, {long['n']['A']} + {long['n']['C']} games | {interval(*ml60)} | {interval(*p60)} |
+| E65, Qwen memory, T=40 | {f(pc['llm_strong_qa'], 'auroc_market_level')} | {f(pc['llm_strong_qa'], 'auroc_pcmi')} |
+
+**Executed only:** {pooled['n_executed']}/{en} channel games over {len(pooled['sets'])} sets; pooled pCMI {interval(ex['auroc'], ex['ci'])}. Execution uses agreement + kept floor + supra-Nash price. Selecting on high prices inflates the level screen; no such level AUROC is claimed here.
+
+E65's declared executed-only test is **{pc['E65_verdict']['verdict']}** ({pc['E65_verdict']['pcmi_executed_vs_A']['n_pos']} executed); memory is not a confirmed rescue. E44's planting check establishes sensitivity to one shared-move alternative, not every form of collusion.
+
+Sources: `long_power_llm_long_p2_T60.json`, `p2_partc.json`; REPORT P2.8, P2.11.''')
+    s.append(f'''## The reference market determines what a flag means
+| context | finalized evidence |
+|---|---|
+| five prompt wordings | no-channel mean markup {min(baselines):+.2f} … {max(baselines):+.2f} |
+| older gpt-5.6-luna | {old['tacit_A']}/{old['n_A']} no-channel markets tacit-high |
+| luna + memory + strong profit framing (Q2.2) | {strong['tacit_rate'][0]}/{strong['tacit_rate'][1]} tacit-high without a channel; {strong['executed_rate'][0]}/{strong['executed_rate'][1]} agreements executed with one |
+
+Under strong framing the declared detector test is **not evaluable**: competitive no-channel markets are too rare. Channel labels stop being ground truth.
+
+**Abliteration is no simple explanation.** The channel premium does not detectably increase in the Qwen pairs tested (REPORT P2.11b); serving precision is a caveat. E69 interaction, abliterated − base: {interval(*pc['E69_abliterated_minus_base_C_minus_A'], signed=True)}.
+
+Sources: `p2_variants.json`, `p2_partc.json`, `strongF_ext.json`; REPORT P2.7, P2.11.''')
+    s.append('''## Use screens to trigger an audit, not to deliver a verdict
+* **Combine evidence.** Absolute levels need cost data; dependence misses sustained levels. Relative pair screens lose power when prices rise market-wide.
+* **Match the reference.** Model, prompt, board availability and costs matter. At 1% collusion prevalence no tested frozen flag reaches point-estimate precision 0.25 (P2.1).
+* **Validate execution separately.** Opportunity, agreement and kept pricing are different labels. High prices without a channel need their own label.
+* **Pending:** the registered factorial grid (E70) and external double auction (E68). No result is claimed before their completion gates. External transfer remains unresolved.
+* **Limitations:** one core market family, modest samples, unadjusted comparisons and estimator-specific blind spots. A combined screen-and-audit pipeline is a proposal, not a tested deployment.
+
+Full evidence: `REPORT.md`; commands in §6; all experiments, corrections and duds in `EXPERIMENTS.tsv`. Markdown and figures reflect this checkpoint; PDFs retain the last scheduled export.''')
+    return '<!-- generated by scripts/slides.py from finalized results; do not edit by hand -->\n\n' + '\n\n---\n\n'.join(s) + '\n'
 
 
 def main():
-    g = load("gate_test.json")["metrics"]
-    v1 = load("llm_v1.json")
-    t20 = v1["by_T"]["20"]
-    pl = v1["price_level"]
-    lg = load("llm_long.json")["by_T"]["50"]
-    v3 = load("llm_v3_ext.json")["detectors"]
-    n_exp = max(int(l.split('\t')[1][1:3]) for l in open(ROOT / 'EXPERIMENTS.tsv').read().splitlines()[1:] if l.split('\t')[1][:1] == 'E')
-    mx = load("llm_mixed2_mixed.json")["pcmi"]["per_run_same_minus_cross"]
-    inj = {(r["dataset"], r["T"], r["controls"]): r for r in load("injection_mde.json")}
-    inj50 = inj[("llm_long", 50, "A")]
-    inj20 = inj[("llm_v1", 20, "A")]
-    plc = load("placebo_rep_ext.json")["detectors"]
-    nag = load("nonagreement_ext.json")["detectors"]["pair_level"]["top1_pooled"]
-
-    def gr(det, grp, null=""):
-        m = g[det][grp]
-        k = "surrogate_flag" if null == "s" else "flag"
-        return f"{pct(m[k + '_rate'])} {cip(m[k + '_ci'])}"
-
-    a1 = lambda d: (t20[d]["auroc_CD_vs_AB"], t20[d]["auroc_ci"])
-    a3 = lambda d: (v3[d]["auroc_private_vs_none"]["auroc"], v3[d]["auroc_private_vs_none"]["ci"])
-    al = lambda d: (lg[d]["auroc_C_vs_A"], lg[d]["auroc_ci_C_vs_A"])
-    fa = lambda t: f"{t[0]:.2f} {ci2(t[1])}"
-    ca, db = pl["within_family_markup"]["C_minus_A"], pl["within_family_markup"]["D_minus_B"]
-    t1 = v3["pcmi"]["top1_private"]
-    t1l = v3["pair_level"]["top1_private"]
-    legit = v3["pair_level"]["auroc_legit_vs_none"]
-
-    s = []
-    s.append(f"""# LLM price collusion shows up as a market-wide price *level*, not as coordinated price *moves*
-Apart AI Collusion Sprint · Q1.4 information-theoretic detection · action-only (prices + public state, no messages)
-
-**Question.** Can a pairwise dependence statistic flag colluding pricing agents *without* accusing agents that
-merely see the same public shock or run the same policy?
-
-**Answer.** Partly. With scripted sellers (easiest shared-signal case), pCMI flags {pct(g['pcmi']['C']['flag_rate'])} of colluding markets and
-cuts common-shock false alarms from {pct(g['mi']['B']['flag_rate'])} (raw MI) to {pct(g['pcmi']['B']['flag_rate'])} (target 5%). Copies of one policy that share a random
-seed still look like collusion. With LLM sellers, pCMI was not distinguishable from chance (wide CIs): the private channel mainly raised
-price *levels*, and simple level statistics detect it far better.""")
-
-    s.append(f"""## Setup
-* 4-seller repeated differentiated-price (logit) market, public demand/cost shocks, state Nash computed per round.
-* Groups: A independent · B common shock · C colluding pair · D colluding pair + shock; hard negatives: shared
-  policy, shared policy + shared seed, public leader-follower ("legit"), independent high price.
-* Detectors score each of the 6 seller pairs: correlation; **MI** (mutual information: do two price series move together?);
-  **pCMI** (the same after removing what public shocks and everyone's past prices explain); **TE** (does one seller's
-  past predict the other's price?).
-* A market is flagged if its top pair beats a baseline: the same game with series time-shifted out of sync (**shift
-  null**), or real no-channel markets (**control null**). **AUROC**: 0.5 = coin flip, 1.0 = perfect ranking.
-* Locked test seeds frozen before tuning (`data/SPLITS.md`); every number regenerates from `results/` (REPORT §6).""")
-
-    s.append(f"""## Result 1: scripted sellers (locked test, T=100, 50 markets/group, collusion strength 0.6 of 1)
-![](figures/headline.png)
-
-| % of markets flagged (target for innocent groups: 5%) [95% CI] | raw MI (shift null) | pCMI (shift null) | pCMI (control null) |
-|---|---|---|---|
-| common public shock (B) | {gr('mi','B')} | {gr('pcmi','B')} | {gr('pcmi','B','s')} |
-| same policy, independent noise | {gr('mi','A+shared_policy')} | {gr('pcmi','A+shared_policy')} | {gr('pcmi','A+shared_policy','s')} |
-| public leader-follower | {gr('mi','A+legit_cooperation')} | {gr('pcmi','A+legit_cooperation')} | {gr('pcmi','A+legit_cooperation','s')} |
-| policy copy sharing a random seed | {gr('mi','A+shared_seed')} | {gr('pcmi','A+shared_seed')} | {gr('pcmi','A+shared_seed','s')} |
-| **collusion C / D** | {gr('mi','C')} / {gr('mi','D')} | {gr('pcmi','C')} / {gr('pcmi','D')} | {gr('pcmi','C','s')} / {gr('pcmi','D','s')} |
-
-Conditioning removes most shared-shock false alarms (100% → 14%), but not all. A shared random seed is indistinguishable
-from a private signal. TE (not shown) flags legitimate public leader-follower pricing in {pct(g['te']['A+legit_cooperation']['flag_rate'])} of runs.
-(The 4% for B under the control null is ≈ 5% by construction.)""")
-
-    s.append(f"""## Result 2: LLM sellers (gpt-6-luna). The channel is a level shift
-* **Our market `llm_v1`** (74 games, T=20): the private channel raises the average markup over the competitive (Nash)
-  price by {sd(ca['diff'])} price units {ci2(ca['diff_ci'])} (C vs A) and {sd(db['diff'])} {ci2(db['diff_ci'])} (D vs B).
-* AUROC for telling channel markets from no-channel markets (best pair per market; 0.5 = chance). This measures channel
-  *assignment*: only {t20['pcmi']['CD_realized']['n']}/{t20['pcmi']['C']['n'] + t20['pcmi']['D']['n']} `llm_v1` channel games show realised collusion (verified agreement + coordinated price actions).
-
-| | pCMI | pair price − rivals' | pair markup over Nash |
-|---|---|---|---|
-| `llm_v1` T=20, C/D vs A/B | {fa(a1('pcmi'))} | {fa(a1('pair_level'))} | {fa(a1('market_level'))} |
-| `llm_long` T=50, C vs A (8 v 8) | {fa(al('pcmi'))} | {fa(al('pair_level'))} | {fa(al('market_level'))} |
-| sibling `llm_v3` T=12, private vs none | {fa(a3('pcmi'))} | {fa(a3('pair_level'))} | {fa(a3('market_level'))} |
-
-* Pair localisation in `llm_v3` (chance 1/6): pCMI top-1 {t1['k']}/{t1['n']} (nominal p={binomtest(t1['k'], t1['n'], 1/6, alternative='greater').pvalue:.3f}, uncorrected; not read as signal); pair level {t1l['k']}/{t1l['n']}.
-* Longer games (T=50) did not rescue pCMI by our pre-declared rule (8 v 8 games, so only large effects are excluded).
-* Mixed-model markets (2 gpt-6.1-sol + 2 gpt-6-luna, 12 games): same-model minus cross-model pCMI {mx['mean']:+.3f} [{mx['mean_ci'][0]:+.3f}, {mx['mean_ci'][1]:+.3f}];
-  no shared-model excess detected (only large effects excluded).""")
-
-    s.append(f"""## What this means
-* **Dependence detectors respond to coordinated *variation*, not to agreement as such.** They are built to ignore a constant
-  high price. In these two markets the private channel shows up mainly as a level shift (AUROCs target channel assignment, not realised collusion), so it falls largely outside what they
-  measure. Some coordinated variation is present: on first differences, MI localises the `llm_v3` channel pair above chance (REPORT §4.3.3, exploratory); in a 15-seed placebo replication it names the pair in {plc['mi_diff']['top1_private']['hits']:.0f}/15 runs with delivered messages vs {plc['mi_diff']['top1_placebo']['hits']:.0f}/15 without (sign-flip p={plc['mi_diff']['top1_private_minus_placebo']['p_signflip_exact']:.3f}, unadjusted; suggestive only, §4.3.9).
-* **Level screens separate channel assignment but are not collusion-specific.** They also rank markets with a *legitimate* public
-  partnership above controls (AUROC {legit['auroc']:.2f}), naming the partner pair in only {v3['pair_level']['top1_legit']['k']}/{v3['pair_level']['top1_legit']['n']} runs. In the sibling
-  project, *offering* a private channel that never delivered messages raised prices about as much as delivering them
-  (exploratory, 15 seeds). Our frozen pair_level on those runs names the pair in {plc['pair_level']['top1_placebo']['hits']:.1f}/15 placebo vs
-  {plc['pair_level']['top1_private']['hits']:.1f}/15 private runs; no detector's private-vs-placebo AUROC CI excludes 0.5 at n=15 (REPORT §4.3.9).
-  In exploratory sibling monitor/firm-framing strata with no judge-labelled agreements, pair_level yielded
-  {nag['hits']:.1f}/{nag['n']} tie-averaged hits, with no detected above-chance localisation (chance expectation {nag['n']/6:.1f}; REPORT §4.3.10; framing confounded).
-* Suggested pipeline (a hypothesis, untested): a cheap always-on level screen, then dependence and text audits as
-  second-stage evidence.
-* Not settled: whether pCMI fails because the effect is mostly a level or because power is low at T ≤ 50.
-  Exploratory check (REPORT §4.3.8, post-hoc): per-round shared ±1 price shocks planted into one pair (in 20% of rounds) of real no-channel LLM games
-  are detected by pCMI with AUROC {inj50['by_q']['0.2']['auroc_single_planting']:.2f} {ci2(inj50['by_q']['0.2']['auroc_ci_game_cluster'])} at T=50
-  but only {inj20['by_q']['0.2']['auroc_single_planting']:.2f} {ci2(inj20['by_q']['0.2']['auroc_ci_game_cluster'])} at T=20. The real channel pairs show no detected excess
-  same-direction moves (T=50: {inj50['observed']['C']['comove_excess_mean']:+.3f} [{inj50['observed']['C']['ci'][0]:+.3f}, {inj50['observed']['C']['ci'][1]:+.3f}]). This fits the level reading for one planted alternative; it does not settle the question.""")
-
-    s.append(f"""## Limitations & next steps
-* Small LLM n: `llm_v1` 74, `llm_v3` 125 (70 private / 35 none / 20 legit), `llm_long` 16, `llm_mixed2` 12, sibling replication 30 + placebo 15. Sellers are OpenAI-family only. There is no placebo arm in `llm_v1`. Markup needs a market model (Nash).
-* Next: a placebo arm in our market and a larger one in the sibling's; longer LLM games (T ≥ 50, more games per arm); level-adjusted
-  dependence (residualise each seller's own level); non-OpenAI sellers.
-* Full write-up: `REPORT.md`. Ledger of every experiment (E01–E{n_exp:02d}), including discarded ones: `EXPERIMENTS.tsv`.""")
-
-    out = "<!-- generated by scripts/slides.py from results/eval/*.json; do not edit by hand -->\n\n" + "\n\n---\n\n".join(s) + "\n"
-    (ROOT / "PRESENTATION.md").write_text(out)
-    print("wrote PRESENTATION.md")
+    (ROOT / 'PRESENTATION.md').write_text(render())
+    print('wrote PRESENTATION.md')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

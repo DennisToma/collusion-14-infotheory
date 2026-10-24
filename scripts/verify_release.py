@@ -90,6 +90,7 @@ RENDER = [
     (["scripts/mixed_fig.py"], ["figures/llm_mixed2_same_vs_cross.png"]),
     (["-m", "experiments.llm_fig"], ["figures/llm_auroc_both.png"]),
     (["scripts/headline_fig.py"], ["figures/headline.png"]),
+    (["scripts/phase2_fig.py"], ["figures/phase2_headline.png"]),
     (["scripts/slides.py"], ["PRESENTATION.md"]),
 ]
 
