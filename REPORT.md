@@ -23,9 +23,9 @@ a shock or a policy. Detectors: |Pearson|, mutual information (MI), CMI given pu
 **and all lagged prices** (pCMI), and lagged CMI (TE), each compared with two baselines: the same game with seller price series circularly shifted out of alignment
 (shift null) and comparable no-channel markets (control-surrogate null). **Scripted agents, locked test seeds (T=100, 50 runs/group):**
 every contemporaneous detector flags and localises a planted shared-signal pair in 100% of runs. Raw MI also flags 100% of
-markets whose independent sellers share a public shock. pCMI flags 14% of them under the shift null and 4% [1, 13] under the
-surrogate null, which also flags only 4% of markets with a shared-policy or a public leader-follower pair. Two confounds remain:
-policy copies that share their random seed (44–100% flagged by each contemporaneous detector), and lagged matching, where TE
+markets whose independent sellers share a public shock. pCMI flags 14% of them under the shift null. The
+surrogate null (which uses those markets as its reference pool, so ≈5% there by construction) flags only 4% [1, 13] of held-out markets with a shared policy plus common shock, and 4% with a public leader-follower pair. Two confounds remain:
+policy copies that share their random seed (48–100% flagged by each contemporaneous detector in Table 4.1), and lagged matching, where TE
 flags legitimate leader-follower pricing in 100% of runs. Dependence detects coordinated *variation*, not agreement. A
 constant high price is not localised by any of these estimators.
 **LLM sellers** (gpt-6-luna; our market `llm_v1`, 74 games, T=20; sibling market `llm_v3`, 125 runs, T=12): a private channel
@@ -35,8 +35,8 @@ but the effect is mainly a **price level**. Level statistics separate channel fr
 and in an exploratory leave-one-run-out logistic model, adding it to markup gave no detectable improvement (−0.02 [−0.08, +0.01]). Longer games (T=50, 8 vs 8) did not meet the pre-declared
 rescue criterion (pCMI 0.45 [0.16, 0.75] vs markup 0.95; the CI cannot exclude moderate effects). In mixed gpt-6.1-sol/gpt-6-luna markets, no pCMI same-model excess over
 cross-model pairs was detected (+0.003 [−0.025, +0.032], 12 games; only large effects excluded). Supported claim: in these two markets
-at T=12–50, the private channel shows up mainly as a price level, which conditioned dependence measures are built to ignore; level statistics discriminate channel assignment far better than pCMI. Coordinated variation is also present (pair localisation on first differences in `llm_v3`), and whether pCMI fails because the effect is mostly a level or because of low power at short T is not fully settled. An exploratory injection check (§4.3.8) shows that pCMI can pick up small shared price offsets planted into real T=50 LLM control games, while the channel pairs show no statistically detected excess co-movement relative to rivals. That fits the level reading but does not settle it. Level screens catch it but are not
-collusion-specific (they rank legitimate public partnerships above controls, AUROC 0.75).
+at T=12–50, the private channel shows up mainly as a price level, which conditioned dependence measures are built to ignore; level statistics discriminate channel assignment far better than pCMI. Coordinated variation is also present (pair localisation on first differences in `llm_v3`), and whether pCMI fails because the effect is mostly a level or because of low power at short T is not fully settled. An exploratory injection check (§4.3.8) plants per-round shared ±1 price shocks (in 20% of rounds) into one pair of real LLM control games: pCMI detects them at T=50 (AUROC 0.93 [0.87, 0.98]) but only weakly at T=20 (0.63–0.66), and the real channel pairs show no statistically detected excess co-movement relative to rivals. That fits the level reading but does not settle it. Level screens separate channel *assignment* but are not
+collusion-specific (they rank legitimate public partnerships above controls, AUROC 0.75; in the sibling market an offered-but-undelivered placebo channel gave a similar premium).
 
 ## 1. Question and operational definition
 **Question.** Do colluding agents' actions share more information than is explained by public market
@@ -421,7 +421,7 @@ result; that dependence detectors fail on LLM agents in general. Follow-ups: mix
 
 *Declared in EXPERIMENTS.tsv before computing; not a headline and not part of the pre-declared plan.* Could pCMI have seen coordinated
 variation in these games if it were there? We plant coordination of known size into real LLM control games. For each planting, we choose a random pair and add the
-same independently drawn price-level offset z_t ∈ {−1, 0, +1} to both sellers each round, with probability q/2 for each nonzero value.
+same per-round shock z_t ∈ {−1, 0, +1} (drawn i.i.d. each round, so it creates co-movement rather than a level shift) to both sellers' prices, with probability q/2 for each nonzero value.
 Everything else is the real LLM data. We score with the frozen pCMI (10 plantings per control game). We report the single-planting AUROC of max-pair pCMI (each planting vs the
 unplanted games), with a CI from a game-cluster bootstrap (control games resampled jointly with their own plantings).
 **Co-movement** is the fraction of the T−1 transitions with Δp_i·Δp_j > 0; unchanged prices count as no co-movement. **Excess** subtracts the mean over the other five pairs.
@@ -440,8 +440,8 @@ the AUROC is 0.50 and the excess is ≈ 0, as it should be. Top-1 localisation o
 
 Reading: at T=50, these control-background plantings give substantial pCMI discrimination and localisation for this specific shared-offset alternative.
 At T=20 the same plantings are only moderately detectable (AUROC 0.64–0.66 at q=0.2), so short games do cost pCMI power. The real channel pairs have no statistically detected mean excess of
-same-direction price changes relative to rival pairs. Their upper confidence bounds (+0.009 at T=50; +0.045 C and +0.074 D at T=20) lie below the mean excess of the q=0.1 plantings
-(+0.14, +0.10 and +0.08 respectively; for D at T=20 the bound is only just below).
+same-direction price changes relative to rival pairs. Their upper confidence bounds (+0.009 at T=50; +0.045 C and +0.074 D at T=20) are smaller than the mean planted excess at q=0.1
+(+0.14, +0.10 and +0.08 respectively; for D at T=20 only just). This compares a CI bound with a planted mean, so it is a rough scale comparison, not a test.
 This is consistent with the "collusion is mainly a level" reading for `llm_v1`/`llm_long`. It shows sensitivity to one planted alternative only. It does not establish why the
 real-channel pCMI comparison is null, rule out low power against other alternatives (lagged leader-follower moves, where contemporaneous pCMI is weak, §4.2; nonlinear or market-wide coordination, which the
 rival subtraction can cancel), or show that coordination would look the same on channel-game backgrounds as on control backgrounds. It does not apply to `llm_v3`, where first differences do localise the pair (E15).

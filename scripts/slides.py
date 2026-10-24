@@ -3,6 +3,7 @@
     uv run python scripts/slides.py    # -> PRESENTATION.md
 """
 import json
+from scipy.stats import binomtest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -65,7 +66,7 @@ merely see the same public shock or run the same policy?
 
 **Answer.** Partly. With scripted sellers (easiest shared-signal case), pCMI flags {pct(g['pcmi']['C']['flag_rate'])} of colluding markets and
 cuts common-shock false alarms from {pct(g['mi']['B']['flag_rate'])} (raw MI) to {pct(g['pcmi']['B']['flag_rate'])} (target 5%). Copies of one policy that share a random
-seed still look like collusion. With LLM sellers, pCMI did no better than chance: the private channel mainly raised
+seed still look like collusion. With LLM sellers, pCMI was not distinguishable from chance (wide CIs): the private channel mainly raised
 price *levels*, and simple level statistics detect it far better.""")
 
     s.append(f"""## Setup
@@ -106,7 +107,7 @@ from a private signal. TE (not shown) flags legitimate public leader-follower pr
 | `llm_long` T=50, C vs A (8 v 8) | {fa(al('pcmi'))} | {fa(al('pair_level'))} | {fa(al('market_level'))} |
 | sibling `llm_v3` T=12, private vs none | {fa(a3('pcmi'))} | {fa(a3('pair_level'))} | {fa(a3('market_level'))} |
 
-* Pair localisation in `llm_v3` (chance 1/6): pCMI top-1 {t1['k']}/{t1['n']}; pair level {t1l['k']}/{t1l['n']}.
+* Pair localisation in `llm_v3` (chance 1/6): pCMI top-1 {t1['k']}/{t1['n']} (nominal p={binomtest(t1['k'], t1['n'], 1/6, alternative='greater').pvalue:.3f}, uncorrected; not read as signal); pair level {t1l['k']}/{t1l['n']}.
 * Longer games (T=50) did not rescue pCMI by our pre-declared rule (8 v 8 games, so only large effects are excluded).
 * Mixed-model markets (2 gpt-6.1-sol + 2 gpt-6-luna, 12 games): same-model minus cross-model pCMI {mx['mean']:+.3f} [{mx['mean_ci'][0]:+.3f}, {mx['mean_ci'][1]:+.3f}];
   no shared-model excess detected (only large effects excluded).""")
@@ -115,14 +116,14 @@ from a private signal. TE (not shown) flags legitimate public leader-follower pr
 * **Dependence detectors respond to coordinated *variation*, not to agreement as such.** They are built to ignore a constant
   high price. In these two markets LLM collusion shows up mainly as a level shift, so it falls largely outside what they
   measure. Some coordinated variation is present: on first differences, MI localises the `llm_v3` channel pair above chance (REPORT §4.3.3, exploratory).
-* **Level screens catch it but are not collusion-specific.** They also rank markets with a *legitimate* public
+* **Level screens separate channel assignment but are not collusion-specific.** They also rank markets with a *legitimate* public
   partnership above controls (AUROC {legit['auroc']:.2f}), naming the partner pair in only {v3['pair_level']['top1_legit']['k']}/{v3['pair_level']['top1_legit']['n']} runs. In the sibling
   project, *offering* a private channel that never delivered messages raised prices about as much as delivering them
   (exploratory, 15 seeds).
 * Suggested pipeline (a hypothesis, untested): a cheap always-on level screen, then dependence and text audits as
   second-stage evidence.
 * Not settled: whether pCMI fails because the effect is mostly a level or because power is low at T ≤ 50.
-  Exploratory check (REPORT §4.3.8, post-hoc): shared ±1 price moves planted into one pair (in 20% of rounds) of real no-channel LLM games
+  Exploratory check (REPORT §4.3.8, post-hoc): per-round shared ±1 price shocks planted into one pair (in 20% of rounds) of real no-channel LLM games
   are detected by pCMI with AUROC {inj50['by_q']['0.2']['auroc_single_planting']:.2f} {ci2(inj50['by_q']['0.2']['auroc_ci_game_cluster'])} at T=50
   but only {inj20['by_q']['0.2']['auroc_single_planting']:.2f} {ci2(inj20['by_q']['0.2']['auroc_ci_game_cluster'])} at T=20. The real channel pairs show no detected excess
   same-direction moves (T=50: {inj50['observed']['C']['comove_excess_mean']:+.3f} [{inj50['observed']['C']['ci'][0]:+.3f}, {inj50['observed']['C']['ci'][1]:+.3f}]). This fits the level reading for one planted alternative; it does not settle the question.""")
