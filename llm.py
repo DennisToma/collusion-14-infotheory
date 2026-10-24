@@ -67,6 +67,8 @@ def _go(msgs, model, temperature, max_tokens):
     m = model or GO_DEFAULT
     key = json.loads(GO_AUTH.read_text())["opencode-go"]["key"]
     body = {"model": m, "messages": msgs, "temperature": temperature, "max_tokens": max_tokens}
+    if m.startswith("deepseek"):  # Phase 2: with thinking on, deepseek-v4.1-flash spends >4k reasoning tokens and returns ""
+        body["thinking"] = {"type": "disabled"}
     hdr = {"User-Agent": "opencode/1.19.3", "x-opencode-session": str(uuid.uuid4())}
     with open(GO_LOCK, "w") as lk:
         fcntl.flock(lk, fcntl.LOCK_EX)  # ponytail: concurrency 1 to leave Letta headroom
