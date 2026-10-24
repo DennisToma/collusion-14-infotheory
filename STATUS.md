@@ -1,4 +1,4 @@
-# STATUS (top = current state; updated 2026-10-24 04:50 UTC, iteration 17)
+# STATUS (top = current state; updated 2026-10-24 04:30 UTC, iteration 17)
 
 **All declared analyses DONE** (§4.3 (i)–(v) filled). Scripted half done; LLM: llm_v1 (E18/E19), llm_v3 ext (E13), llm_long (E20), llm_mixed2 (E22).
 Level stats run AUROC 0.87/0.98/0.95; pCMI 0.45/0.52/0.45. pCMI adds nothing detectable to markup. T=50 does not meet rescue rule (CI wide).
@@ -43,4 +43,4 @@ check that README renders; push.
 - iter 14 03:39–04:20: E28 Opus judge-read + final codex claims review applied (no number changes; figures relabelled).
 - iter 15 04:12–04:22: E29 talk deck (scripts/slides.py → PRESENTATION.md), codex deck review + Opus judge-read applied, §4.4 sibling replication number.
 - iter 16 04:18–04:50: E30 injection MDE (scripts/injection_mde.py → results/eval/injection_mde.json), REPORT §4.3.8 + abstract clause; codex review of §4.3.8 → single-planting AUROC + game-cluster bootstrap, wording softened.
-- iter 17 04:26–04:50: regen check clean; slides.py E30 bullet + computed binomial p; Opus judge-read (results/reviews/opus_judge_read_iter17.md) → abstract/§4.3.8/deck wording fixes (E31).
+- iter 17 04:26–04:30: regen check clean; slides.py E30 bullet + computed binomial p; Opus judge-read (results/reviews/opus_judge_read_iter17.md) → abstract/§4.3.8/deck wording fixes (E31).
