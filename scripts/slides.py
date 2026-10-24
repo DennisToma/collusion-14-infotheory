@@ -95,7 +95,7 @@ from a private signal. TE (not shown) flags legitimate public leader-follower pr
 * **Our market `llm_v1`** (74 games, T=20): the private channel raises the average markup over the competitive (Nash)
   price by {sd(ca['diff'])} price units {ci2(ca['diff_ci'])} (C vs A) and {sd(db['diff'])} {ci2(db['diff_ci'])} (D vs B).
 * AUROC for telling channel markets from no-channel markets (best pair per market; 0.5 = chance). This measures channel
-  *assignment*: only {t20['pcmi']['CD_realized']['n']}/{t20['pcmi']['C']['n'] + t20['pcmi']['D']['n']} `llm_v1` channel games reached a judge-verified agreement.
+  *assignment*: only {t20['pcmi']['CD_realized']['n']}/{t20['pcmi']['C']['n'] + t20['pcmi']['D']['n']} `llm_v1` channel games show realised collusion (verified agreement + coordinated price actions).
 
 | | pCMI | pair price − rivals' | pair markup over Nash |
 |---|---|---|---|
