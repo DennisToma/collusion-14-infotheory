@@ -1,0 +1,29 @@
+cda_nocomms_s14
+Traceback (most recent call last):
+  File "/home/factory/collusion/collusion-14-infotheory/external/cda/run_cda.py", line 139, in main
+    rows, gt = run_one(a.cond, seed, a.model, a.backend, a.temperature, a.rounds)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/factory/collusion/collusion-14-infotheory/external/cda/run_cda.py", line 94, in run_one
+    market.run_round()
+  File "/home/factory/collusion/collusion-14-infotheory/external/cda/src/continuous_double_auction/market/market.py", line 147, in run_round
+    agent, agent_bid_response = future.result()
+                                ^^^^^^^^^^^^^^^
+  File "/home/factory/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/concurrent/futures/_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/factory/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/home/factory/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/factory/collusion/collusion-14-infotheory/external/cda/src/continuous_double_auction/market/market.py", line 127, in get_agent_bid_response
+    return agent, agent.generate_bid_response(**specific_kwargs)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/factory/collusion/collusion-14-infotheory/external/cda/src/continuous_double_auction/market/agents.py", line 29, in wrapper
+    return fn(self, *a, **kw)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/factory/collusion/collusion-14-infotheory/external/cda/src/continuous_double_auction/market/agents.py", line 294, in generate_bid_response
+    ask = float(ask)  # TypeError/ValueError -> retry (None/garbage)
+          ^^^^^^^^^^
+TypeError: float() argument must be a string or a real number, not 'NoneType'
+
