@@ -22,3 +22,9 @@ No detector setting is tuned on these datasets: all detectors use the frozen v1 
 confirmatory** (no dev split needed). `llm_p2_<variant>` (seed 43, A/C, n=6, T=20 — amended from 8 before any result; variants v0/para/template/order/noreason),
 `llm_long_p2` (seed 50, A/C, n=20, T=60 — amended from 80 before any result), `llm_ds_p2` (deepseek-v4.1-flash via Go, thinking disabled, seed 10, A/C, n=15, T=20).
 If a later analysis needs tuning, it must use a new seed range declared here first.
+
+## Phase 2 scripted gaps 5/6/8 (declared 2026-10-24 07:03 UTC, after dev runs, before any test run; E49–E51)
+`experiments/p2_scripted.py` (coalition / onset / costasym; T=100, s=0.6 signal, n=30 per group, B=100). **Dev:** seed0 200 / 210 / 220
+(results/p2/*_dev.json, written by codex; no setting tuned on them; the CUSUM threshold h=14.5 is set from the 30 dev controls).
+**Locked test:** seed0 2001 (coalition), 2002 (onset), 2003 (costasym), run once with `--test` and the frozen configuration
+(onset: h frozen from dev, so the test control alarm rate is an out-of-sample FPR).

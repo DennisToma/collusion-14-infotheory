@@ -1,0 +1,24 @@
+{
+  "compatibility_rechecked_after_final_edits": true,
+  "integration": {
+    "coalition": {
+      "runs": 240,
+      "groups": 8,
+      "all_datasets_have_100_rounds": true,
+      "final_simulator_reproduces_one_run_per_group": true
+    },
+    "onset": {
+      "runs": 90,
+      "groups": 3,
+      "all_datasets_have_100_rounds": true,
+      "final_simulator_reproduces_one_run_per_group": true
+    },
+    "costasym": {
+      "runs": 90,
+      "groups": 3,
+      "all_datasets_have_100_rounds": true,
+      "final_simulator_reproduces_one_run_per_group": true
+    }
+  },
+  "unit_tests": 7
+}

@@ -34,7 +34,7 @@ Phase 2 closes known gaps; v1 numbers above are unchanged (git tag `v1-overnight
 `EXPERIMENTS.tsv` (E43–E46) before its data exist; the new LLM datasets (`data/SPLITS.md`, "Phase 2") are all confirmatory because no detector setting is tuned on them.
 Status: prompt-wording robustness (E43: 5 wordings × A/C × 6 games, T=20), long games (E44: 20 A + 20 C, T=60) and a second
 seller family (E45: deepseek-v4.1-flash, 15 A + 15 C) are **generating**. Their results will be added here.
-Done: P2.1 precision at prevalence, P2.2 independent reimplementation, P2.3 same-model confound (gap 3).
+Done: P2.1 precision at prevalence, P2.2 independent reimplementation, P2.3 same-model confound (gap 3), P2.4 scripted coalitions / onset / cost asymmetry (gaps 5, 6, 8; locked test).
 
 **P2.1 Precision at realistic collusion prevalence (E46, from the saved v1 evaluations; `uv run python scripts/prevalence.py`
 → `results/eval/prevalence.{json,md}`).** At the frozen α = 0.05 run-level flags, precision = π·TPR / (π·TPR + (1−π)·FPR), with
@@ -106,6 +106,34 @@ Absolute statistics (markup, pCMI, MI) are only interpretable against reference 
 Matching on vendor family is not enough (sol and luna are both OpenAI). We cannot say how well a matched reference restores calibration out of sample.
 Luna sellers vary their prices less: within-seller SD 0.71 (`llm_v1` A, 84 sellers) vs 0.96 for sol (24 sellers, `llm_mixed2`).
 34/140 luna sellers but 0/24 sol sellers have SD < 0.5 (`seller_sd` in the JSON). This plausibly drives the pCMI difference through degenerate residuals; untested.
+
+**P2.4 Scripted coalitions, collusion onset and cost asymmetry (E49–E51; locked test, run once).** Simulator options, the group statistic
+`score_groups` and `experiments/p2_scripted.py` were written by codex (gpt-6.1-sol) on dev seeds (`results/p2/*_dev.json`, `results/p2/REPORT_codex.md`).
+Default simulator output and `score_run` are byte-identical to v1 (`results/p2/compatibility.json`). We then ran each experiment once on locked seeds
+(`data/SPLITS.md`): `uv run python -m experiments.p2_scripted {coalition,onset,costasym} --test` → `results/p2/*_test.json`.
+Settings: T=100, signal collusion s=0.6, 30 games per group, B=100, α=0.05. Intervals below are Wilson 95% (k/30: 0 → [0, 11]%, 1 → [1, 17]%, 2 → [2, 21]%, 4 → [5, 30]%, 5 → [7, 34]%).
+Dev and test agree on every qualitative point.
+
+| test (locked) | pair_level | max-pair markup | pCMI (shift) | group TC4 / TC3 (shift) | ni_pCMI | controls (same family) |
+|---|---|---|---|---|---|---|
+| 3 of 4 collude (A / B) | 30/30, 30/30 | 30/30, 30/30 | 30/30, 30/30 | 30/30, 30/30 | 30/30, 30/30 | pCMI 2/30, 2/30; TC4 1/30, 2/30; pair_level 0/30, 1/30 |
+| **all 4 collude** (A / B) | **1/30, 0/30** (AUROC 0.26, 0.25) | 30/30, 30/30 | 30/30, 30/30 | 30/30, 30/30 | 30/30, 30/30 | as above |
+| **cost asymmetry** (2 sellers +2 private cost, no channel) | **30/30 false** (names the high-cost pair 30/30) | **30/30 false** | 4/30 false (MI 3/30) | – | 1/30 false | pCMI 1/30, pair_level 1/30, MI 2/30 |
+
+(a) **Coalitions.** A relative statistic (pair price minus rivals) cannot see a cartel that includes everyone: its AUROC drops *below* 0.5 when all four collude.
+Absolute statistics (markup over the Nash price, pCMI, group total correlation) still detect every run. Pairwise net influence
+(ni_pCMI) also still flags 30/30 at this strength: the finite-sample maximum over six similar pair effects leaves a positive contrast. So the predicted
+net-influence failure did not appear, but the pair it names is arbitrary when all collude. TC4 detects nothing that pCMI misses here, so it adds no power in this design.
+TC3/TC4 also flag pair-only collusion, so a significant group TC does not show that every member colludes.
+(b) **Onset** (collusion starts at round 25 or 50). A one-sided CUSUM on each pair's price gap to its rivals (κ = 0.5, max over six pairs) used the alarm threshold
+h = 14.5, fixed from the 30 dev controls. On test controls it raised 0/30 false alarms, an out-of-sample FPR. It detected 30/30 runs after onset, with median delay
+7.5 rounds [IQR 5–12] (onset 25) and 7 [5–9] (onset 50). Expanding-window pCMI (looks at 20, 30, …, 100 rounds, uncorrected) alarmed on 5/30 controls (17% [7, 34]).
+It alarmed *before* onset in 6/30 and 4/30 runs, and after onset in 24/30 and 26/30, with median delay 9 rounds. Repeated-look pCMI therefore needs a sequential
+correction before use. The level CUSUM is the better online screen in this market, but its weaknesses are those of the pair_level statistic it is built on (rows (a) all-4 and (c)).
+(c) **Cost asymmetry is a decisive hard negative for every level screen.** Two sellers with privately higher costs legitimately price higher.
+pair_level and max-pair markup falsely flag all 30 markets and name the innocent high-cost pair every time. pCMI's false-flag rate is 4/30 (13% [5, 30]), against 1/30 on plain controls.
+It names the high-cost pair in 5/30 runs (chance level for 6 pairs is 1/6). Price *levels* are explained by unobserved costs; co-*movement* is not.
+This is the mirror image of the LLM result, where levels detect and pCMI does not. Neither family of statistics is safe alone.
 
 
 ## Abstract

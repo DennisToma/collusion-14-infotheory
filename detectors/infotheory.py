@@ -214,6 +214,65 @@ def score_run(P, S, B=200, seed=0, min_shift=3, min_draws=20):
     return out
 
 
+def score_groups(P, S, B=200, seed=0, min_shift=3, min_draws=20):
+    """Gaussian residual total correlation for all 2-, 3-, and 4-agent subsets.
+
+    Uses score_run's design, residuals, shift draws, re-residualisation and
+    finite-draw convention. `_run_p` contains separate max tests for tc2,
+    tc3 and tc4 (no correction across subset sizes). Three-agent entries also
+    contain `synergy` = TC minus the sum of their three pairwise pCMIs;
+    this descriptive quantity has no p-value. Near-singular correlation
+    matrices have eigenvalues floored at 1e-12. Pair correlations use the
+    same 0.999999 clipping as pCMI, including at perfect dependence.
+    """
+    rng = np.random.default_rng(seed)
+    t_idx = np.arange(1, len(P))
+    X = _design(S, P, t_idx)
+    R = np.column_stack([_resid(P[t_idx, k], X) for k in range(4)])
+    groups = [g for size in (2, 3, 4) for g in itertools.combinations(range(4), size)]
+    names = ["".join(AGENTS[k] for k in g) for g in groups]
+
+    def stats(residuals):
+        # _resid is already centred and standardised. Unit diagonals also
+        # give the pCMI convention for a constant (zero-residual) column.
+        corr = np.clip(residuals.T @ residuals / len(residuals), -0.999999, 0.999999)
+        np.fill_diagonal(corr, 1.0)
+        vals = []
+        for g in groups:
+            sub = corr[np.ix_(g, g)]
+            tc = max(0.0, float(-0.5 * np.log(np.maximum(np.linalg.eigvalsh(sub), 1e-12)).sum()))
+            if len(g) == 2:
+                pcmi = gauss_cmi_from_resid(residuals[:, g[0]], residuals[:, g[1]])
+                assert np.isclose(tc, pcmi, atol=1e-9, rtol=1e-9), (tc, pcmi)
+                tc = float(pcmi)
+            vals.append(tc)
+        return np.array(vals)
+
+    obs = stats(R)
+    masks = {f"tc{size}": np.array([len(g) == size for g in groups]) for size in (2, 3, 4)}
+    ge, ge_max = np.zeros(len(groups), int), {key: 0 for key in masks}
+    n_draws = 0
+    for _ in range(B):
+        sh = _draw_shifts(len(P) - 1, rng, min_shift)
+        if sh is None:
+            continue
+        shifted = np.column_stack([_resid(np.roll(R[:, k], sh[k]), X) for k in range(4)])
+        null = stats(shifted)
+        n_draws += 1
+        ge += null >= obs - 1e-12
+        for key, mask in masks.items():
+            ge_max[key] += null[mask].max() >= obs[mask].max() - 1e-12
+    pv = lambda count: float((1 + count) / (1 + n_draws)) if n_draws >= min_draws else 1.0
+    out = {name: {"score": float(obs[i]), "p": pv(ge[i])} for i, name in enumerate(names)}
+    for g, name in zip(groups, names):
+        if len(g) == 3:
+            pair_sum = sum(out["".join(AGENTS[k] for k in p)]["score"] for p in itertools.combinations(g, 2))
+            out[name]["synergy"] = out[name]["score"] - pair_sum
+    out["_run_p"] = {key: pv(count) for key, count in ge_max.items()}
+    out["_n_null"] = n_draws
+    return out
+
+
 def run_detectors(dataset_dir, B=200, out_root=None):
     dataset_dir = Path(dataset_dir)
     runs = load_runs(dataset_dir / "trajectories.jsonl")

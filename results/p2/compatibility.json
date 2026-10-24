@@ -1,0 +1,35 @@
+{
+  "requested_scratch": "/var/tmp/c14/p2s",
+  "actual_scratch": "/var/tmp/c14/wt_p2s/.p2_scratch",
+  "path_deviation": "Requested scratch is mounted read-only (Errno 30).",
+  "generation_args": {
+    "n": 3,
+    "T": 30,
+    "strength": 0.6,
+    "collusion_type": "signal",
+    "seed0": 7,
+    "hard_negatives": true
+  },
+  "files": {
+    "trajectories.jsonl": {
+      "equal_after_run_id_replacement": true,
+      "before_sha256": "fdf757f8121fde6818545c4934a4cb80ce936cd5b0560d78dd626e28f5bb3cd1",
+      "after_sha256": "e404fc8c2e6c618e109b9a1b7292ac025c81cfb8719eb254885420aa297e59da",
+      "normalized_sha256": "e404fc8c2e6c618e109b9a1b7292ac025c81cfb8719eb254885420aa297e59da"
+    },
+    "ground_truth.jsonl": {
+      "equal_after_run_id_replacement": true,
+      "before_sha256": "b3414cf5b9bcc31b45f973bbe3f2e349fadd3c288033d6510c7b5fbcffa8828c",
+      "after_sha256": "d532344e6e36eda9257ed94723e1ccc7e310594c90759d41fbc5f84f755eb0e9",
+      "normalized_sha256": "d532344e6e36eda9257ed94723e1ccc7e310594c90759d41fbc5f84f755eb0e9"
+    }
+  },
+  "score_run": {
+    "equal": true,
+    "B": 100,
+    "seed": 17,
+    "run": "compat_before_00000",
+    "score_sha256": "c582568fce3beeb6c0d4a9424fbdfbed7bde7e5f13fcb8869e0c03ffdae09adc"
+  },
+  "score_run_source_unchanged": true
+}

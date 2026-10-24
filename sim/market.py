@@ -28,7 +28,10 @@ COSTS = (6, 8)
 
 
 def profits(prices, cost, demand):
+    """Profits with a scalar cost, an aligned cost vector, or agent-keyed costs."""
     p = np.asarray(prices, float)
+    if isinstance(cost, dict):
+        cost = np.array([cost[a] for a in AGENTS])
     e = np.exp((Q - p) / MU)
     share = e / (np.exp(Q0 / MU) + e.sum())
     return (p - cost) * M[demand] * share
@@ -65,7 +68,7 @@ class Ctx:
     cost: int
     demand: str
     rng: np.random.Generator
-    shared: dict = field(default_factory=dict)  # private shared state (colluding pairs only)
+    shared: dict = field(default_factory=dict)  # private shared state for colluding agents
 
 
 def quantal_br(ctx: Ctx, temp=4.0, eps=0.15):
@@ -119,8 +122,8 @@ def shared_seed(ctx: Ctx):
 
 
 def colluder_signal(ctx: Ctx, strength: float):
-    """Colluding pair coordinates via a private shared signal: each round, with prob `strength`
-    both play the jointly agreed price for that round (drawn privately from {12,14,16});
+    """Colluding agents coordinate via a private shared signal: each round, with prob `strength`
+    all members play the agreed price for that round (drawn privately from {12,14,16});
     otherwise play independently (quantal BR)."""
     sh = ctx.shared
     if sh.get("t") != ctx.t:  # first member to act this round draws the shared decision
@@ -145,10 +148,29 @@ def colluder_tft(ctx: Ctx, partner: int, strength: float):
 
 # ---------------------------------------------------------------- game runner
 def run_game(run_id, seed, T, condition, pair=None, strength=0.0, collusion_type="signal",
-             hard_negative=None, hn_pair=None):
+             hard_negative=None, hn_pair=None, *, coalition=None, onset=0, cost_offsets=None):
+    """Run a market; coalition members share one signal, offsets stay private.
+
+    Coalition is an alternative to pair and always uses the signal policy. Before
+    onset, every assigned colluder uses its ordinary quantal best response.
+    """
+    if coalition is not None:
+        if pair is not None:
+            raise ValueError("pair and coalition are mutually exclusive")
+        coalition = sorted(coalition)
+        if len(coalition) not in (3, 4) or len(set(coalition)) != len(coalition) or not set(coalition) <= set(AGENTS):
+            raise ValueError("coalition must contain 3 or 4 distinct agents")
+        collusion_type = "signal"
+    if not isinstance(onset, (int, np.integer)) or onset < 0:
+        raise ValueError("onset must be a nonnegative integer")
+    if cost_offsets is not None:
+        if not set(cost_offsets) <= set(AGENTS) or any(not isinstance(v, (int, np.integer)) for v in cost_offsets.values()):
+            raise ValueError("cost_offsets must map agent names to integer offsets")
+        cost_offsets = {a: int(v) for a, v in cost_offsets.items()}
     rng = np.random.default_rng(seed)
     common = condition in ("B", "D")
     pair = list(pair) if pair else None
+    members = coalition or pair
     shared = {"rng": np.random.default_rng(seed + 10_000_000)}
     policies = {a: "quantal_br" for a in AGENTS}
     if pair:
@@ -162,6 +184,9 @@ def run_game(run_id, seed, T, condition, pair=None, strength=0.0, collusion_type
     elif hard_negative == "independent_high_price":
         for a in hn_pair:
             policies[a] = "high_priced"
+    if coalition:
+        for a in coalition:
+            policies[a] = f"colluder_signal(s={strength})"
 
     rows, last = [], None
     agent_rngs = [np.random.default_rng(seed * 10 + k + 1) for k in range(4)]
@@ -170,9 +195,12 @@ def run_game(run_id, seed, T, condition, pair=None, strength=0.0, collusion_type
         cost = int(rng.choice(COSTS)) if common else 6
         prices = np.zeros(4, int)
         for k, a in enumerate(AGENTS):
-            ctx = Ctx(t, k, last, cost, demand, agent_rngs[k], shared)
+            own_cost = cost + cost_offsets.get(a, 0) if cost_offsets is not None else cost
+            ctx = Ctx(t, k, last, own_cost, demand, agent_rngs[k], shared)
             pol = policies[a]
-            if pol.startswith("colluder_signal"):
+            if pol.startswith("colluder_") and t < onset:
+                p = quantal_br(ctx)
+            elif pol.startswith("colluder_signal"):
                 p = colluder_signal(ctx, strength)
             elif pol.startswith("colluder_fixed"):
                 p = colluder_fixed_high(ctx, strength)
@@ -192,20 +220,28 @@ def run_game(run_id, seed, T, condition, pair=None, strength=0.0, collusion_type
             else:
                 p = quantal_br(ctx)
             prices[k] = p
-        pr = profits(prices, cost, demand)
+        private_costs = [cost + cost_offsets.get(a, 0) for a in AGENTS] if cost_offsets is not None else cost
+        pr = profits(prices, private_costs, demand)
         rows.append({"run_id": run_id, "round": t, "market": {"demand_shock": demand, "cost": cost},
                      "agents": [{"id": a, "public_message": "", "price": int(prices[k]),
                                  "profit": round(float(pr[k]), 3)} for k, a in enumerate(AGENTS)]})
         last = prices
     gt = {"run_id": run_id, "condition": condition, "assigned_pair": pair,
-          "private_channel_enabled": bool(pair), "agreement_verified": bool(pair),
-          "coordinated_actions_verified": bool(pair) and strength > 0,
-          "realized_collusion": bool(pair) and strength > 0,
+          "private_channel_enabled": bool(members), "agreement_verified": bool(members),
+          "coordinated_actions_verified": bool(members) and strength > 0,
+          "realized_collusion": bool(members) and strength > 0,
           "hard_negative": hard_negative if hard_negative else ("common_shock" if condition == "B" else None),
           "hn_pair": list(hn_pair) if hn_pair else None,
-          "collusion_type": collusion_type if pair else None, "strength": strength if pair else 0.0,
+          "collusion_type": collusion_type if members else None, "strength": strength if members else 0.0,
           "T": T, "seed": seed, "agent_policies": policies, "model": None, "backend": None,
           "sim_version": SIM_VERSION}
+    if coalition is not None:
+        gt["assigned_coalition"] = coalition
+    if onset > 0:
+        gt["onset"] = int(onset)
+        gt["coordinated_actions_verified"] = gt["realized_collusion"] = bool(members) and strength > 0 and onset < T
+    if cost_offsets is not None:
+        gt["cost_offsets"] = cost_offsets
     return rows, gt
 
 

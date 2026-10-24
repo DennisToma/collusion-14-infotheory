@@ -3,4 +3,7 @@ __pycache__/
 *.pyc
 /cache/
 /scratch/
+/.p2_scratch/
+/.p2_cache/
+/.p2_venv/
 data/gate_test/trajectories.jsonl
