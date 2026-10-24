@@ -69,7 +69,8 @@ from a private signal. TE (not shown) flags legitimate public leader-follower pr
 * **Level screens separate channel assignment but are not collusion-specific.** They also rank markets with a *legitimate* public
   partnership above controls (AUROC 0.75), naming the partner pair in only 5/20 runs. In the sibling
   project, *offering* a private channel that never delivered messages raised prices about as much as delivering them
-  (exploratory, 15 seeds).
+  (exploratory, 15 seeds). Our frozen pair_level on those runs names the pair in 13.5/15 placebo vs
+  14.0/15 private runs; no detector separates private from placebo at n=15 (REPORT §4.3.9).
 * Suggested pipeline (a hypothesis, untested): a cheap always-on level screen, then dependence and text audits as
   second-stage evidence.
 * Not settled: whether pCMI fails because the effect is mostly a level or because power is low at T ≤ 50.
@@ -84,4 +85,4 @@ from a private signal. TE (not shown) flags legitimate public leader-follower pr
 * Small LLM n: `llm_v1` 74, `llm_v3` 125 (70 private / 35 none / 20 legit), `llm_long` 16, `llm_mixed2` 12. Sellers are OpenAI-family only. There is no placebo arm in `llm_v1`. Markup needs a market model (Nash).
 * Next: longer LLM games (T ≥ 100) to separate level from power; a placebo channel in our market; level-adjusted
   dependence (residualise each seller's own level); non-OpenAI sellers.
-* Full write-up: `REPORT.md`. Ledger of every experiment (E01–E30), including discarded ones: `EXPERIMENTS.tsv`.
+* Full write-up: `REPORT.md`. Ledger of every experiment (E01–E32), including discarded ones: `EXPERIMENTS.tsv`.

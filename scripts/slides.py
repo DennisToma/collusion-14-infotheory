@@ -42,6 +42,7 @@ def main():
     inj = {(r["dataset"], r["T"], r["controls"]): r for r in load("injection_mde.json")}
     inj50 = inj[("llm_long", 50, "A")]
     inj20 = inj[("llm_v1", 20, "A")]
+    plc = load("placebo_rep_ext.json")["detectors"]
 
     def gr(det, grp, null=""):
         m = g[det][grp]
@@ -119,7 +120,8 @@ from a private signal. TE (not shown) flags legitimate public leader-follower pr
 * **Level screens separate channel assignment but are not collusion-specific.** They also rank markets with a *legitimate* public
   partnership above controls (AUROC {legit['auroc']:.2f}), naming the partner pair in only {v3['pair_level']['top1_legit']['k']}/{v3['pair_level']['top1_legit']['n']} runs. In the sibling
   project, *offering* a private channel that never delivered messages raised prices about as much as delivering them
-  (exploratory, 15 seeds).
+  (exploratory, 15 seeds). Our frozen pair_level on those runs names the pair in {plc['pair_level']['top1_placebo']['hits']:.1f}/15 placebo vs
+  {plc['pair_level']['top1_private']['hits']:.1f}/15 private runs; no detector separates private from placebo at n=15 (REPORT §4.3.9).
 * Suggested pipeline (a hypothesis, untested): a cheap always-on level screen, then dependence and text audits as
   second-stage evidence.
 * Not settled: whether pCMI fails because the effect is mostly a level or because power is low at T ≤ 50.

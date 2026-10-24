@@ -10,9 +10,12 @@ numbers); codex deck review + Opus judge-read applied; linked from README + REPO
 real channel pairs' co-move excess −0.008 [−0.023,+0.009] (llm_long) → consistent with level reading, not settling; REPORT §4.3.8 (codex review applied: paired cluster bootstrap, softened).
 Deviation from DIRECTION ("stop scripted runs"): this is not a scripted sweep; it is analysis on existing LLM data that addresses the one open question in the abstract.
 **E31 (iter 17):** regen check clean (tables/slides/headline_fig); deck gets E30 bullet from JSON; Opus judge-read applied to abstract/§4.3.8/deck (all numbers matched JSON; title kept).
-**Next:** no new experiments. At 08:15: re-run tables.py, headline_fig.py, slides.py;
+**E32 (iter 18, exploratory, no LLM calls):** frozen detectors on sibling llm_v3rep (30) + llm_v3plc placebo (15, matched seeds, msgs undelivered) →
+replication holds (pair_level .88, pCMI .50); pair_level localises placebo pair 13.5/15 vs 14/15 → level screen is offer-driven; MI first-diff 10/15 vs 3/15
+(sign-flip p=.065, Bonf ~.52) suggestive only. REPORT §4.3.9 + new §7 "What to do next"; codex review applied. Addresses the "no placebo" risk (sibling market only).
+**Next:** no new experiments (06:30 cutoff; nothing worth starting). At 08:15: re-run tables.py, headline_fig.py, slides.py;
 check that README renders; push.
-**Risks:** low n everywhere on LLM; only OpenAI-family sellers; no placebo arm in llm_v1.
+**Risks:** low n everywhere on LLM; only OpenAI-family sellers; no placebo arm in llm_v1 (placebo only in sibling market, n=15).
 
 ## Log
 - 20:24 smoke test ok.
@@ -44,3 +47,4 @@ check that README renders; push.
 - iter 15 04:12–04:22: E29 talk deck (scripts/slides.py → PRESENTATION.md), codex deck review + Opus judge-read applied, §4.4 sibling replication number.
 - iter 16 04:18–04:50: E30 injection MDE (scripts/injection_mde.py → results/eval/injection_mde.json), REPORT §4.3.8 + abstract clause; codex review of §4.3.8 → single-planting AUROC + game-cluster bootstrap, wording softened.
 - iter 17 04:26–04:30: regen check clean; slides.py E30 bullet + computed binomial p; Opus judge-read (results/reviews/opus_judge_read_iter17.md) → abstract/§4.3.8/deck wording fixes (E31).
+- iter 18 04:30–05:10: E32 sibling replication+placebo with frozen detectors (scripts/placebo_rep_ext.py, data/ext_llm_v3{rep,plc} snapshots) → REPORT §4.3.9, §7, abstract clause, deck bullet; codex review (results/reviews/review_e32_codex.md) applied: randomisation p for tie-averaged hits, paired AUROC CI, no-equivalence wording, module state restored.

@@ -36,7 +36,7 @@ and in an exploratory leave-one-run-out logistic model, adding it to markup gave
 rescue criterion (pCMI 0.45 [0.16, 0.75] vs markup 0.95; the CI cannot exclude moderate effects). In mixed gpt-6.1-sol/gpt-6-luna markets, no pCMI same-model excess over
 cross-model pairs was detected (+0.003 [−0.025, +0.032], 12 games; only large effects excluded). Supported claim: in these two markets
 at T=12–50, the private channel shows up mainly as a price level, which conditioned dependence measures are built to ignore; level statistics discriminate channel assignment far better than pCMI. Coordinated variation is also present (pair localisation on first differences in `llm_v3`), and whether pCMI fails because the effect is mostly a level or because of low power at short T is not fully settled. An exploratory injection check (§4.3.8) plants per-round shared ±1 price shocks (in 20% of rounds) into one pair of real LLM control games: pCMI detects them at T=50 (AUROC 0.93 [0.87, 0.98]) but only weakly at T=20 (0.63–0.66), and the real channel pairs show no statistically detected excess co-movement relative to rivals. That fits the level reading but does not settle it. Level screens separate channel *assignment* but are not
-collusion-specific (they rank legitimate public partnerships above controls, AUROC 0.75; in the sibling market an offered-but-undelivered placebo channel gave a similar premium).
+collusion-specific (they rank legitimate public partnerships above controls, AUROC 0.75; in the sibling market an offered-but-undelivered placebo channel gave a similar premium, and pair_level named the pair about equally often, 13.5/15 vs 14/15, §4.3.9).
 
 ## 1. Question and operational definition
 **Question.** Do colluding agents' actions share more information than is explained by public market
@@ -446,12 +446,40 @@ This is consistent with the "collusion is mainly a level" reading for `llm_v1`/`
 real-channel pCMI comparison is null, rule out low power against other alternatives (lagged leader-follower moves, where contemporaneous pCMI is weak, §4.2; nonlinear or market-wide coordination, which the
 rival subtraction can cancel), or show that coordination would look the same on channel-game backgrounds as on control backgrounds. It does not apply to `llm_v3`, where first differences do localise the pair (E15).
 
+#### 4.3.9 Exploratory: replication and placebo in the sibling market (E32, post-hoc)
+*Not a headline; declared in EXPERIMENTS.tsv before computing; frozen E13 configuration, nothing tuned; no LLM calls.*
+The sibling generated a fresh 30-run replication of `llm_v3` (`llm_v3rep`: 15 private / 10 none / 5 legit) and a **placebo**
+arm (`llm_v3plc`, 15 runs). Each placebo run uses the same seed, pair, cost and demand path as one `llm_v3rep` private run, and the pair gets the
+identical channel prompt, but its private messages are never delivered. Inputs are snapshotted in `data/ext_llm_v3rep`, `data/ext_llm_v3plc`
+(sibling commit 7cef9ed, SHA256SUMS). `uv run python scripts/placebo_rep_ext.py` → `results/eval/placebo_rep_ext{.json,_report.md}`.
+Top-1 = expected hits under uniform random tie-breaking (chance 2.5/15); p-values vs chance in the JSON come from a pair-label randomisation null (truth uniform over the 6 pairs). Matched difference = mean per-seed hit difference, private − placebo, with a bootstrap CI over the 15 seeds and an exact paired sign-flip p (assumes within-seed exchangeability of the two arms). The private-vs-placebo AUROC CI resamples matched seed pairs jointly. All 8 detectors are reported, unadjusted.
+
+| detector | top-1 private | top-1 placebo | private − placebo (matched) | AUROC private vs none | AUROC placebo vs none | AUROC private vs placebo |
+|---|---|---|---|---|---|---|
+| pCMI (state+lags) | 2.0/15 | 1.0/15 | +0.07 [−0.13, +0.27]; p=1 | 0.50 [0.23, 0.76] | 0.55 [0.25, 0.81] | 0.38 [0.18, 0.60] |
+| MI (raw prices) | 11.0/15 | 7.0/15 | +0.27 [+0.00, +0.53]; p=0.22 | 0.65 [0.42, 0.85] | 0.48 [0.23, 0.73] | 0.63 [0.45, 0.82] |
+| lagged CMI (TE) | 2.5/15 | 5.0/15 | −0.17 [−0.50, +0.20]; p=0.45 | 0.49 [0.24, 0.75] | 0.43 [0.16, 0.70] | 0.65 [0.44, 0.86] |
+| \|Pearson\| | 6.0/15 | 11.0/15 | −0.33 [−0.67, +0.00]; p=0.18 | 0.41 [0.19, 0.65] | 0.29 [0.08, 0.55] | 0.62 [0.42, 0.80] |
+| MI first differences | 10.0/15 | 3.0/15 | +0.47 [+0.07, +0.80]; p=0.065 | 0.62 [0.38, 0.83] | 0.72 [0.49, 0.91] | 0.39 [0.23, 0.54] |
+| \|Pearson\| first differences | 8.0/15 | 6.0/15 | +0.13 [−0.33, +0.60]; p=0.77 | 0.39 [0.16, 0.63] | 0.41 [0.17, 0.66] | 0.46 [0.25, 0.69] |
+| pair_level (non-IT) | 14.0/15 | 13.5/15 | +0.03 [−0.17, +0.23]; p=1 | 0.88 [0.71, 1.00] | 0.89 [0.70, 1.00] | 0.46 [0.26, 0.67] |
+| markup over Nash (non-IT) | 14.0/15 | 13.5/15 | +0.03 [−0.17, +0.23]; p=1 | 0.82 [0.62, 0.96] | 0.78 [0.58, 0.94] | 0.47 [0.29, 0.64] |
+
+Reading. (1) *Replication.* On fresh seeds the §4.3.3 pattern holds: level statistics separate private from none (pair_level 0.88 [0.71, 1.00]) and name the pair in 14/15 runs.
+pCMI is at chance (0.50 [0.23, 0.76]; top-1 2.0/15). (2) *Placebo, level.* The level statistics stay high when messages are never delivered: top-1 13.5/15, placebo vs none 0.89, private vs placebo 0.46. There is no statistically detected private − placebo difference, but this is not equivalence: the matched localisation CI is [−0.17, +0.23].
+In this market, then, a level screen responds largely to the *offer* of a private channel (the pair prices high in response to the prompt); a moderate extra effect of delivered messages is not excluded. This agrees with the sibling's premium result (§4.4).
+(3) *Placebo, dependence.* No detector separates private from placebo runs (all private-vs-placebo AUROC CIs include 0.5). One variant fits the prediction "co-movement needs delivered messages":
+MI on first differences names the pair in 10.0/15 private runs and 3.0/15 placebo runs (matched +0.47, bootstrap CI [+0.07, +0.80]). The exact sign-flip test gives p=0.065 (Bonferroni over the 8 contrasts ≈ 0.52), so the positive bootstrap CI is not confirmatory. At run level the same statistic actually scores placebo runs higher than private ones (AUROC 0.39 [0.23, 0.54]).
+|Pearson| on first differences, the other declared co-movement variant, shows no detected difference (8.0 vs 6.0), and raw |Pearson| goes the opposite way (placebo 11/15).
+So we read this as *suggestive at most*: with n=15 the data neither show nor rule out a delivered-coordination component in price co-movement. A larger placebo arm is the cheapest test that could settle it (§7).
+Part of the E15 first-difference localisation in `llm_v3` may also be offer-driven: |Pearson| first differences localises the pair in placebo runs above chance (6.0/15, nominal randomisation p=0.027, unadjusted).
+
 ### 4.4 Umbrella synthesis with the sibling project (Q2.2, text + action auditing)
 Numbers in this paragraph come from the sibling repo `collusion-22-say-vs-do` (REPORT abstract, locked test split n = 95, read 01:05 UTC; placebo result read 04:05 UTC at sibling commit 6a1de73; not regenerated here). The two projects reach a consistent conclusion from opposite directions.
 * (1) In both LLM markets the private channel shows up first as a **price level**: here pair_level/markup reach run AUROC 0.87–0.98, and the sibling's one-line pair-premium statistic reaches 0.95 on its test split (0.92 [0.79, 1.00] on its 30-run fresh replication, read 04:20 UTC at sibling commit ddc2532), beating every zero-shot LLM auditor view (≤ 0.86).
 * (2) Signals that look for *how* agents coordinate add little on these short games: conditioned dependence (pCMI) does not resolve above-chance discrimination here (0.45 [0.32, 0.59], 0.52 [0.39, 0.64]), and the zero-shot text-only auditor is at chance there (0.47). The sibling's supervised text classifier (0.98, in-distribution) shows the text carries condition information, though not which cues it uses.
 * (3) Level statistics are not collusion-specific. They rank markets with the `legit` public partnership above controls (pair_level AUROC 0.75 here, usually naming a non-partner pair), and they flag tacitly supra-competitive no-channel markets.
-* Caveat from the sibling's later exploratory placebo study (15 matched seeds): when private messages are offered but never delivered, the designated pair's premium is about the same (rounds 2–12, placebo − private +0.03 [−0.54, +0.49]). So in `llm_v3` the level signal cannot be attributed specifically to *delivered* private coordination; being offered the channel appears to suffice. We did not run a placebo arm in `llm_v1`.
+* Caveat from the sibling's later exploratory placebo study (15 matched seeds): when private messages are offered but never delivered, the designated pair's premium is about the same (rounds 2–12, placebo − private +0.03 [−0.54, +0.49]). So in `llm_v3` the level signal cannot be attributed specifically to *delivered* private coordination; being offered the channel appears to suffice. Our frozen detectors on the same placebo runs agree (§4.3.9): pair_level names the pair in 13.5/15 placebo vs 14/15 private runs, and no detector separates private from placebo runs with statistical significance (n=15; a moderate delivery effect is not excluded). We did not run a placebo arm in `llm_v1`.
 * Practical reading (a hypothesis, not tested as a pipeline): a cheap level screen as an always-on first stage, with dependence/text audits as second-stage evidence.
 * The scripted results (§4.1–4.2) show where dependence measures do add value: collusion implemented through coordinated *variation*, given enough rounds for its strength (e.g. `signal` s=0.3 at T=20, s=0.1 at T=100).
 * How detectable LLM collusion is depends on the market and its framing. The pair-minus-rivals premium is +1.65 [1.38, 1.93] in the sibling's lab-framed market (private runs, 10th–90th percentile +0.66…+3.18; none +0.04, legit +0.05; `experiments/premium_llm_v3.py`). Here it is +0.45 [0.34, 0.57], and most of the effect is market-wide.
@@ -472,7 +500,7 @@ Numbers in this paragraph come from the sibling repo `collusion-22-say-vs-do` (R
 * The best level statistic in `llm_v1` (markup over the state Nash price) assumes the auditor knows the demand and cost
   model. `pair_level` (pair price minus rivals) needs no model but is less collusion-specific (legitimate partnerships: AUROC 0.75).
 * We compare channel vs no-channel markets; without a placebo arm (channel offered, messages not delivered) we cannot
-  attribute the price premium to delivered coordination rather than to the channel offer itself (the sibling's placebo study in `llm_v3` found no difference, §4.4).
+  attribute the price premium to delivered coordination rather than to the channel offer itself (the sibling's placebo study in `llm_v3` found no detected difference, §4.4; our detectors on it, §4.3.9, n=15, detect none either; not an equivalence result).
 * Many comparisons, mostly unadjusted (detectors × conditions × T). Isolated nominal hits, e.g. TE top-1 in llm_v1 C
   (6/16, p = 0.038) and pCMI top-1 in llm_v3 (18/70, p = 0.036), should not be read as signal.
 
@@ -496,8 +524,15 @@ uv run python scripts/headline_fig.py                    # Figure 1, figures/hea
 uv run python scripts/slides.py                         # PRESENTATION.md (5-min talk deck, numbers from results/eval)
 uv run python -m experiments.diag_llm_v3                 # E15 exploratory co-movement check on llm_v3
 uv run python scripts/injection_mde.py                   # E30 exploratory planted-co-movement check (§4.3.8), ~2 min
+uv run python scripts/placebo_rep_ext.py                 # E32 sibling replication + placebo (§4.3.9), ~1 min; inputs data/ext_llm_v3{rep,plc}/
 uv run python scripts/tables.py                          # reprints §4.1/§4.2 tables from results/*.json (+ §4.3 generated tables)
 uv run python -m experiments.llm_report --name llm_v1   # §4.3 tables (results/eval/llm_v1_report.md) + figures/llm_v1_*.png
 ```
 Raw LLM trajectories are committed under `data/` (no LLM calls needed to re-run any analysis); scripted §4.1 trajectories are stored gzipped (`data/gate_test/trajectories.jsonl.gz`) and the `gen` step regenerates them byte-identically apart from the run_id prefix (checked 03:15 UTC).
 Splits: `data/SPLITS.md`; every experiment incl. discarded ones: `EXPERIMENTS.tsv`; reviews: `results/reviews/`.
+
+## 7. What to do next
+* **Placebo arm in our own market and a larger one in the sibling's** (channel offered, messages not delivered; ≥ 50 matched seeds, with a Monte Carlo sign-flip test and a power calculation from the §4.3.9 effect sizes). This is the cheapest test of whether any price signal, level or co-movement, reflects *delivered* coordination rather than the channel offer (§4.3.9: n=15 is suggestive at most).
+* **Longer LLM games (T ≥ 50) with more games per arm.** The injection check (§4.3.8) shows pCMI sees planted shared moves at T=50 but only weakly at T=20.
+* **Cross-family sellers** (e.g. Claude vs GPT) for the shared-policy confound (§4.3.5 used one vendor family).
+* **Two-stage audit:** a level screen as the always-on first stage, with dependence and text audits run only on flagged pairs, evaluated as one pipeline against `legit` partnerships and tacit no-channel markets (§4.4).
