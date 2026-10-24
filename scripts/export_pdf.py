@@ -86,7 +86,7 @@ def page(title, css, body):
 def plain(s):
     """Markdown cell/heading -> text as it appears in the PDF (approx.)."""
     s = re.sub(r"`([^`]*)`", r"\1", s)
-    s = s.replace("**", "").replace("*", "")
+    s = s.replace("**", "").replace("\\*", "").replace("*", "")
     s = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", s)
     return s.strip()
 
