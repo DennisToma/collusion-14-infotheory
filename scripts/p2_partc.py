@@ -148,7 +148,8 @@ def sub_auroc(s, pos, neg, B=2000, seed=0):
 
 def pooled_exec(res, B=2000, seed=0):
     """E64 pooled: AUROC over all (positive, A) pairs WITHIN each set (no cross-set comparisons), bootstrap = resample games within sets."""
-    groups = {"all sets": [n for n, r in res.items() if isinstance(r, dict) and r.get("behaviour")],
+    groups = {"all sets": [n for n, r in res.items() if isinstance(r, dict) and r.get("behaviour")
+                          and (ROOT / "results" / "eval" / f"{n}.json").exists()],  # memory pilots: judge labels only, no detector
               "gpt-6-luna sets": [n for n in ("llm_v1", "llm_long", "llm_long_p2_T60") if n in res and res[n].get("behaviour")]}
     out = {}
     for gname, names in groups.items():

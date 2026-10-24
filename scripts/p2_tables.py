@@ -219,7 +219,8 @@ def p210():
 # ---------------------------------------------------------------- P2.11
 P211_SETS = (("gpt-6-luna (`llm_v1`, 20)", "llm_v1"), ("gpt-6-luna (`llm_long`, 50)", "llm_long"),
              ("gpt-6-luna (E44 `llm_long_p2_T60`, 60)", "llm_long_p2_T60"), ("deepseek-v4.1-flash (`llm_ds_p2`, 20)", "llm_ds_p2"),
-             ("Qwen3.8-27B **abliterated** (`llm_qa_p2`, 20)", "llm_qa_p2"), ("Qwen3.8-27B base (`llm_qb_p2`, 20)", "llm_qb_p2"))
+             ("Qwen3.8-27B **abliterated** (`llm_qa_p2`, 20)", "llm_qa_p2"), ("Qwen3.8-27B base (`llm_qb_p2`, 20)", "llm_qb_p2"),
+             ("gpt-5.6-luna, older (`llm_g56l_p2`, 20)", "llm_g56l_p2"))
 
 
 def p211():

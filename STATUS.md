@@ -1,6 +1,17 @@
 > **PHASE 2 STARTED 2026-10-24 06:45 UTC** - v1 frozen as tag v1-overnight. New experiments are OPEN again; work queue = DIRECTION.md gap list. Ignore older no-new-experiments / finalize notes below.
 
 
+# STATUS (updated 2026-10-24 13:47 UTC from date -u, Phase 2 iteration 11; NB the iteration-10 header said "13:45" but was written ~13:20)
+
+**E62 gpt-5.6-luna DONE (P2.11 table row + (a)):** tacit 9/10 A [.62,.99], A markup +3.06 (opens +2.5 over Nash in round 1 and never erodes; gpt-6-luna competes to Nash by round 5) → markup AUROC .75, C−A +1.44 [0.23,2.59], pCMI .72 [.47,.92] (CI incl .5), executed 4/10. Older model = high prior price → absolute screens need model-matched refs.
+**E63 qb memory pilot:** executed 3/5, C−A +4.03 (abliterated 5/5, +6.54) → P2.11(d). **E64 pooled updated (7 sets, 33 exec/66 not):** level .98 vs .92, pCMI .43 [.33,.56] vs .49 → prediction still met; main claim/abstract/glance/takeaway 7 updated (33/99).
+**Codex review of top + P2.8 APPLIED:** 3 P0 fixed (2/21 not 0/21 at α=.05; prevalence upper CI .68; pCMI .47 not .48), P1 softened (new `scripts/e44_decline.py`: T20→60 pCMI change −0.18 [−0.41,+0.05] not significant; "up to T=60"; executed-subset selection caveat; spillover wording; sibling numbers tagged).
+**E66 ready:** `scripts/strongF_ext.py` (classes copied from sibling p2_strong; smoke-tested on sibling pilot only). Sibling `llm_p2strongF` 18/40 at 13:45 → when 40: `uv run python scripts/strongF_ext.py --snapshot && uv run python scripts/strongF_ext.py` (~5 min) → P2.11(e) + glance.
+**Running:** E65 `llm_strong_qa` 6/40 games at 13:45 (~65 calls/min → ETA ~15:30; Modal $8.76). `llm_queue_p2d.sh` → gpt-6-luna memory pilot (started 13:26). glm on Go slow.
+**Checks:** p2_tables --check PASS (327 cells), tables --check PASS, test_release_audit OK.
+**Next:** (1) E65 at 40: `llm_eval label` + `eval --Ts 40` (detached, setsid) → add `llm_strong_qa` to p2_partc SETS (full arm) + P211_SETS → declared verdict in P2.11 + glance + takeaway 7; (2) E66 when sibling done; (3) luna pilot labels; (4) 19:30 checkpoint PDFs; codex review of P2.11 after E65/E66.
+**Gotcha (again!):** `until ! pgrep -f "<pattern>"` loops match their OWN command line → never exit; and `pkill/kill $(pgrep -f ...)` from such a shell kills yourself. Use `pgrep -f "[l]lm_eval ..."` bracket trick.
+
 # STATUS (updated 2026-10-24 13:45 UTC from date -u, Phase 2 iteration 10)
 
 **E44 FINAL (gap 2, decisive): LEVEL, NOT SHORT.** pCMI AUROC C vs A at T=60 0.34 [0.18, 0.52] (T=20 0.52, declines); market level 0.94; co-move excess +0.004 [−.007,.015] < q=.1 planting (pCMI .79); spillover market-wide (+2.24 of +2.47, rounds 51–60); executed 4/20, tacit 0/20. REPORT main claim, abstract, glance row 2, takeaways 2+7, P2.8 rewritten (pilot text replaced).
