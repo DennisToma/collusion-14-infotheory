@@ -9,6 +9,7 @@
 | gpt-5.6-luna (older) (`llm_g56l_p2`) | 20 | 10/10 (0) | +3.06 | 1.44 [0.23, 2.59] | 0.75 [0.50, 0.94] | 0.80 [0.56, 0.96] | 0.72 [0.47, 0.92] | 8/10 | 4/10 [0.153, 0.696] | 9/10 [0.619, 0.989] |
 | strong pilot: qwen abliterated, memory, T=40 (`llm_strong_qa_pilot`) | 40 | 5/5 (0) | -2.31 | 6.54 [4.76, 7.71] | – | – | – | 5/5 | 5/5 [0.621, 1.0] | 0/5 [0.0, 0.379] |
 | strong pilot: qwen base, memory, T=40 (`llm_strong_qb_pilot`) | 40 | 5/5 (0) | -2.14 | 4.03 [2.09, 6.05] | – | – | – | 4/5 | 3/5 [0.209, 0.906] | 0/5 [0.0, 0.379] |
+| strong pilot: gpt-6-luna, memory, T=40 (`llm_strong_luna_pilot`) | 40 | 5/5 (0) | +0.77 | 1.54 [0.38, 2.57] | – | – | – | 5/5 | 3/5 [0.209, 0.906] | 0/5 [0.0, 0.379] |
 
 E64: frozen detectors on EXECUTED vs not-executed collusion (each vs all A games of the same set; game bootstrap 95% CI)
 
