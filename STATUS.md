@@ -24,9 +24,9 @@ attempted coordination", framing confounded. REPORT §4.3.10 + abstract/README/d
 **E38 (iter 24):** codex whole-document consistency review after E35–E37 (results/reviews/codex_consistency_iter24.md): 3 P0 (offer-vs-agreement contradiction §4.3.9/§4.4, shared-seed range 44–100%, MI C-vs-A inverse), 4 P1, 1 P2, all applied; tables.py unchanged; slides + PDFs regenerated.
 **E39 (iter 25, exploratory, no LLM calls):** sibling found round-1 prices alone give AUROC .90 → our analogue: cache-only replay (40/40 exact)
 recovers pre-play provisional prices (`data/*/preplay.jsonl`). First sender (no partner msg read) − rivals r0: +0.94 [0.38,1.59] (llm_v1) vs whole-game +0.45;
-llm_long +2.19 [0.56,3.94]. Codex review P0 (pre-play is sequential → first-sender split) applied; wording descriptive, not causal. REPORT §4.3.11 + abstract/table row 8/§5/§7.
+llm_long +2.19 [0.56,3.94]. Codex P0 (pre-play sequential → first-sender split) + Opus review (first sender's price = its own proposal → fits willingness-to-coordinate, §4.3.10 reconciled) applied; descriptive, not causal. REPORT §4.3.11 + abstract/table row 8/§5/§7.
 (Note: iter-20 header timestamp 05:10 was ahead of the VM clock; real ~04:50.)
-**Next:** no new experiments (06:30 cutoff; nothing worth starting). At 08:15: re-run tables.py, headline_fig.py, slides.py,
+**Next:** no new experiments (06:30 cutoff passed after E39). At 08:15: re-run tables.py, headline_fig.py, slides.py,
 then export_pdf.py LAST (PDFs must match final REPORT/PRESENTATION .md); check README renders; push.
 **Risks:** low n everywhere on LLM; only OpenAI-family sellers; no placebo arm in llm_v1 (placebo only in sibling market, n=15).
 

@@ -43,6 +43,64 @@
     0.375
    ]
   ],
+  "second_sender_matches_first_provisional": [
+   27,
+   32
+  ],
+  "mean_price_by_role": {
+   "A_control_round0": 11.69,
+   "B_control_round0": 12.83,
+   "C_pair_provisional": 12.81,
+   "C_pair_round0": 12.62,
+   "C_rival_round0": 11.72,
+   "D_pair_provisional": 13.41,
+   "D_pair_round0": 13.31,
+   "D_rival_round0": 12.59
+  },
+  "count_ge14_by_role": {
+   "A_control_round0": [
+    0,
+    84
+   ],
+   "B_control_round0": [
+    34,
+    84
+   ],
+   "C_pair_provisional": [
+    8,
+    32
+   ],
+   "C_pair_round0": [
+    7,
+    32
+   ],
+   "C_rival_round0": [
+    1,
+    32
+   ],
+   "D_pair_provisional": [
+    18,
+    32
+   ],
+   "D_pair_round0": [
+    16,
+    32
+   ],
+   "D_rival_round0": [
+    9,
+    32
+   ]
+  },
+  "games_with_pair_provisional_ge14": {
+   "C": [
+    4,
+    16
+   ],
+   "D": [
+    10,
+    16
+   ]
+  },
   "round0_market_markup_mean": {
    "A": 1.69,
    "B": 1.595,
@@ -114,6 +172,40 @@
     0.25
    ]
   ],
+  "second_sender_matches_first_provisional": [
+   7,
+   8
+  ],
+  "mean_price_by_role": {
+   "A_control_round0": 11.78,
+   "C_pair_provisional": 13.69,
+   "C_pair_round0": 13.62,
+   "C_rival_round0": 11.44
+  },
+  "count_ge14_by_role": {
+   "A_control_round0": [
+    0,
+    32
+   ],
+   "C_pair_provisional": [
+    6,
+    16
+   ],
+   "C_pair_round0": [
+    5,
+    16
+   ],
+   "C_rival_round0": [
+    0,
+    16
+   ]
+  },
+  "games_with_pair_provisional_ge14": {
+   "C": [
+    3,
+    8
+   ]
+  },
   "round0_market_markup_mean": {
    "A": 1.781,
    "C": 2.531

@@ -83,6 +83,21 @@ def main():
         for rid, rs in rows.items():
             cond = rid.split("_")[-2]
             mk.setdefault(cond, []).append(float(np.mean([ag["price"] for ag in rs[0]["agents"]]) - NASH[rs[0]["market"]["cost"]]))
+        # descriptive side numbers quoted in REPORT §4.3.11
+        res["second_sender_matches_first_provisional"] = [sum(p["provisional_price"][p["assigned_pair"][0]] == p["provisional_price"][p["assigned_pair"][1]] for p in pre.values()), len(pre)]
+        by = {}
+        for rid, rs in rows.items():
+            cond = rid.split("_")[-2]
+            pp = pre.get(rid)
+            for ag in rs[0]["agents"]:
+                role = "control" if cond in "AB" else ("pair" if ag["id"] in pp["assigned_pair"] else "rival")
+                by.setdefault(f"{cond}_{role}_round0", []).append(ag["price"])
+            if pp:
+                by.setdefault(f"{cond}_pair_provisional", []).extend(pp["provisional_price"].values())
+        res["mean_price_by_role"] = {k: round(float(np.mean(v)), 2) for k, v in sorted(by.items())}
+        res["count_ge14_by_role"] = {k: [int(sum(x >= 14 for x in v)), len(v)] for k, v in sorted(by.items())}
+        res["games_with_pair_provisional_ge14"] = {c: [sum(max(p["provisional_price"].values()) >= 14 for p in pre.values() if p["condition"] == c),
+                                                       sum(p["condition"] == c for p in pre.values())] for c in sorted({p["condition"] for p in pre.values()})}
         res["round0_market_markup_mean"] = {k: round(float(np.mean(v)), 3) for k, v in sorted(mk.items())}
         for pos, neg in [("C", "A"), ("D", "B")]:
             if pos in mk and neg in mk:
