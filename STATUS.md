@@ -7,6 +7,7 @@
 **Running:** E70 follow-up (factor M, 12 + 12 per level) generating since 22:36. At 22:48: 4 + 5 of 24 + 24 games done (≈ 3 min/game per lane). Auto-analysis → `/var/tmp/c14/e70_followup.log`. Don't touch.
 **Next:** when FOLLOWUP_EXIT appears: ≤6 lines in P2.14, an abstract clause (needs a matching cut; abstract is at 260), merge block and glance "pending" → result, all by 07:30. Freeze the top at 07:30; after 08:00, log changes under the merge block.
 **Risks:** generation should end ≈ 00:00–00:30 (well before the 08:00 stop). Iteration 34's STATUS header said 23:05, but it was written ≈ 22:40 (clock typo).
+**Iteration 36 (22:52):** nothing landed. The E70 follow-up is still generating: 4 + 6 of 24 + 24 games done (fmodel0 luna / fmodel1 qwen), and the processes are healthy. FOLLOWUP_EXIT is not written yet, so the ETA is ≈ 00:00–00:30. The qwen budget is $18.13 (ok). No edits besides this line, as DIRECTION's STOP list requires.
 
 ## Dated log (prior state summaries retained verbatim)
 
