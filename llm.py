@@ -142,7 +142,10 @@ def _qwen(msgs, model, temperature, max_tokens):
             "chat_template_kwargs": {"enable_thinking": False}}
     if m == "qwen-base":  # C3 control: base Qwen3.8-27B now via the Aqueduct gateway
         return _aqueduct(msgs, "qwen-3.8-27b", temperature, max_tokens)[0], "qwen-base(aqueduct qwen-3.8-27b)"
-    url = env["QWEN_BASE_URL"]
+    url = {"qwen-abliterated": env["QWEN_BASE_URL"],  # extra Modal sellers (qwen_extra.py)
+           "qwen36-abliterated": "https://tomadennis1998--qwen-extra-qwen36-abliterated.us-east.modal.run",
+           "qwen9-abliterated": "https://tomadennis1998--qwen-extra-qwen9-abliterated.us-east.modal.run",
+           "qwen9-base": "https://tomadennis1998--qwen-extra-qwen9-base.us-east.modal.run"}[m]
     return _modal_post(f"{url}/v1/chat/completions", env["QWEN_API_KEY"], body), m
 
 

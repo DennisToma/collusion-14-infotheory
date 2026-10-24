@@ -158,6 +158,54 @@ Claude quota runs the managers. gpt-6.1-sol as a seller for a third family check
    → **DONE (scripted bid rotation)** (E53, P2.6). The starter double auction is now Part D2 (directive 4).
 Items 1–4 must be done by Sat 20:00 if at all possible; 5–9 by Sun 15:00.
 
+
+**C3b/C3c — replicate the abliteration null on more Qwen pairs (added 16:00 UTC).** C3 (Qwen3.8-27B) gave no
+abliteration effect; one pair is a case, three pairs are a pattern. Same design as C3 (matched seeds, A vs C,
+15 + 15 per model, base prompt; plus the memory lever if C3's memory arm shows execution), all via `llm.chat(backend="qwen", model=...)`
+unless noted:
+- **C3b Qwen3.6-35B-A3B (MoE, 3B active):** abliterated `model="qwen36-abliterated"` (Modal L40S, FP8) vs base
+  `llm.chat(backend="aqueduct", model="qwen-3.6-35b")` (gateway, AWQ 4-bit, free). Owner: Q1.4.
+- **C3c Qwen3.5-9B (small, cheap):** `model="qwen9-abliterated"` vs `model="qwen9-base"` (both Modal L4, FP8 —
+  identical serving, the cleanest pair). Owner: Q2.2. First check the 9B follows the game protocol (parse rate,
+  sane prices in 3 pilot games); if > 10% unparsable or nonsense prices, report that and drop it.
+Each Modal endpoint cold-starts in up to ~10 min after 10 min idle → run each model's games as one batch.
+Cost ≈ L40S $2.2/h, L4 $1/h each; the $70 guard covers all apps. Priority: after the running Part C arms and
+Part D1, before Part D2/D3. Report the three pairs in one table: abliterated − base (agreement, executed, markup,
+detector AUROCs) with CIs, and state the precision caveat (FP8/AWQ/bf16) per pair.
+
+
+
+**Serendipity Explorer (added 14:50 UTC):** a third agent runs wild cheap pilots in `~/collusion/collusion-serendipity` (other markets, hub-and-spoke advisor, leniency, counterfactual replay, steganography in prices, personas, ...). Read its `HITS.md` at the start of every iteration; if a hit bears on your headline claims, decide explicitly (in STATUS) whether to confirm it with a registered experiment. Don't duplicate its pilots.
+
+## Part E — BROADEN THE DESIGN so we can make concrete, general claims (added by Dennis 14:30 UTC)
+**Why:** so far we varied one thing at a time (model, prompt, memory, channel) in mostly one market setup. Claims like
+"collusion shows up as level, not co-movement" are only as general as the conditions we tested. Goal: a small number of
+designs that turn one-off pilots into **general statements with a denominator** ("held in 14 of 16 conditions").
+**Priority:** right after finishing the in-flight Part C arms; run in parallel with Part D (different backends). Results by Sun 13:00 UTC.
+
+- **E1 Factorial "generalization grid" (owner Q1.4 generates, Q2.2 audits).** 2-level fractional factorial, 2^(7-3) = 16
+  cells (resolution IV), ~6 games per cell (A vs C split inside each cell), T=20, public messages logged. Factors:
+  (1) seller family: gpt-6-luna vs Aqueduct qwen-3.6-35b; (2) firms: 2 vs 4; (3) rivals' prices visible each round vs hidden
+  (only own sales); (4) private channel only in round 1 vs every round; (5) memory: last 3 rounds vs full history;
+  (6) public demand/cost shocks: none vs random; (7) framing: neutral vs long-run-profit.
+  Outcomes per cell: channel markup, executed rate, market-wide spillover, level-screen AUROC, pCMI AUROC, text-auditor flag rate.
+  Report main effects with CIs (which factors CAUSE the price lift — answers sprint Q1.1 — and which single restriction
+  cuts it most — answers Q1.5) and the claim's **denominator** (in how many cells level > co-movement, text ≈ chance).
+  Gateway is 45 calls/min shared: luna cells via codex, qwen cells via gateway; one queue, resumable, registered first.
+- **E2 Participant replacement mid-game (owner Q2.2; sprint Q1.2).** In executed-collusion games (strong arm / qwen memory),
+  replace one colluder at round T/2 with a fresh agent (same model, no chat history) or a different model. Does the price
+  level survive? Do detectors notice the break (changepoint)? Cheap, novel, and answers an official sprint question.
+- **E3 Cross-family collusion (owner Q2.2; sprint Q3.3 "can agents identify their peers?").** Pair = luna + qwen (different
+  families) with a channel vs same-family pairs. Do mixed pairs agree / execute as often? Does pCMI see same-family pairs
+  more (shared-policy confound)?
+- **E4 Anomaly hunt (owner both, 30 min each, zero new games).** Have codex gpt-6.1-sol read ~40 randomly sampled
+  transcripts across ALL datasets (both repos) and list the 5 most surprising behaviours with run ids. Each becomes a
+  15-min test logged as `serendipity` in EXPERIMENTS.tsv. Report the hits and the duds.
+- **E5 One non-English market (owner Q2.2, small, 10+10).** Same game, all prompts and messages in German. Does the text
+  auditor (English-prompted) still behave the same? Does collusion change with language?
+
+For every claim in the final abstract, write its denominator next to it (conditions tested, models, datasets).
+
 ## Part D — EXTERNAL VALIDITY with the three proposed datasets (added by Dennis 14:05 UTC)
 **Priority:** after the important in-flight work (E44/P2.8, Part C strong arm + C3 qwen pair, the Sat 20:00
 checkpoint) — and BEFORE any remaining exploration-portfolio (part B) items. Target: results by Sun 12:00 UTC.
