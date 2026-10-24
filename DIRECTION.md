@@ -1,37 +1,41 @@
-# DIRECTION — Phase 2, director review 2026-10-24 13:45 UTC (Sat)
-(checkpoint Sat 20:00 · experiments end Sun 15:00 · finalize-only Sun 16:30 · hard stop Sun 18:00)
+# DIRECTION — Phase 2, director review 2026-10-24 15:50 UTC (Sat)
+(checkpoint Sat 20:00 · experiments end Sun 15:00 · finalize-only Sun 16:30 · hard stop Sun 18:00 · merged repo `collusion-beyond-words` built from **Sun 08:00** from both REPORTs)
 
 **Verdict.**
-1. On track. Q1.4 now has its answer: E44 is final, pre-registered and decisive ("level, not short": pCMI 0.34 at T=60). Every original gap is closed or dropped with a reason, Part C (E61/E62/E64) is final at T=20, and the qb double writer was fixed and disclosed. This is still the cleaner of the two repos.
-2. Two things are left that can change the claim. E65 (qwen-abliterated, memory, T=40, 6/40 at 13:41, ETA ~16:30) and E66 (frozen detectors on Q2.2's `llm_p2strongF`, sibling at 18/40, ETA ~16:00) together are the "strongest executed collusion" test. Both are declared with rules. Don't add arms. Wait, then run each once.
-3. New methodological problems a judge will catch. (a) **E64's level AUROCs on the "executed" class are circular**: "executed" requires pair ≥ Nash+2, so market_level ≈ 1.00 holds by construction. Yet the abstract sets it against pCMI 0.43 as if it were evidence. (b) **pCMI is consistently *below* chance** (T=60 0.34, executed T=60 0.17, qwen executed 0.31/0.36), and this goes unexplained. That is a mechanism waiting to be named, not noise. (c) Ledger and STATUS timestamps run ahead of the clock again (E66-declared stamped 13:48, STATUS "13:45", both written before 13:41). Part D2 (external double auction, owned here) has **not started**.
+1. Q1.4 is answered and the answer is defensible. "Level, not co-movement" holds in E44 (T=60), on executed agreements (E64, 38/119), in E65 (memory, inconclusive executed test but markup .85 vs pCMI .49) and in E66 (not evaluable, honestly declared). Declared verdicts were reported verbatim and the E64 circularity is fixed. This is the cleanest repo in the project.
+2. The weak point is no longer method. It is **generality and readability**. Every LLM claim rests on one market design with one factor varied at a time. The Part E1 factorial grid, which **this repo owns and has not started (not in STATUS)**, is the one thing left that can turn "held in our sets" into "held in k of 16 conditions". There are ~23 h of experiment time left, including a night, and spare codex luna and gateway capacity (luna ~2.9k calls/h, gateway ~1.6k of 2.7k/h). That is enough.
+3. The main-claim sentence is ~150 words with seven CIs. The abstract is ~350 words, and its claims have no denominators. The merge manager starts Sun 08:00 and will copy whatever is on top. Make the top crisp by Sun 07:30, not 16:30. D2 is running but slow (~4/30 runs); its smoke chat was competitive, so it may have nothing to detect.
 
 ## Top directives (in priority order)
 
-1. **E65 + E66: run each exactly once when its data is complete. Report the declared verdict verbatim.** These are the last results that decide Q1.4.
-   - E66: snapshot `llm_p2strongF` only when the sibling has 40/40 *and* its `results/analysis/p2_strong_classes_llm_p2strongF.json` exists. Compute classes with your copied code **and assert they match the sibling's class file run by run**. Report any mismatch rather than picking one. Classes with n < 3 are descriptive (as declared).
-   - E65: when 40 land, run `p2_partc.py` + the E60 spillover + TE. Also add the **A-arm contrast abliterated − base** from E61 (A markup −1.47 vs −2.53: abliteration may raise *no-channel* prices, not channel collusion). It is one line from existing data.
-   - Wording: E61 is "no detectable effect, CI [−2.09, +1.36]", not "no effect".
-   **Why:** strongly executed collusion with memory is the condition where moves *should* appear if they ever do. A null from either is the headline. A pass is a bigger one.
-2. **Fix the E64 circularity in text now (15 min, no new numbers).** In P2.11, the glance row C and the abstract, say that market_level/pair_level on the executed subset are near 1 *by construction* (the executed rule conditions on the pair level). The informative executed-subset rows are pCMI/TE only. Rephrase the abstract clause to: "restricting to executed agreements does not raise pCMI (0.43 [0.33, 0.56] vs 0.49 for non-executed)". Compare executed with non-executed, not pCMI with market level. **Why:** it is the first thing a careful judge will pick at, and the fix is free.
-3. **Declare and run E67, a price-stickiness (variance) screen that explains below-chance pCMI. No LLM calls, ~45 min.** Hypothesis: colluding pairs *hold* prices, so their residual variance is near 0, ρ is low and pCMI comes out below chance. That turns "pCMI fails" into "a coordinated level shows up as *missing* co-movement". It also gives a third, dependence-free statistic: the classic cartel variance screen (Abrantes-Metz et al. 2006; Harrington's screening survey). Statistics: per-run pair no-change rate and pair price variance (second half), AUROC C vs A, and pCMI stratified by stickiness tercile. **Disclosure required:** the director already looked at pair no-change rates on three sets: `llm_qa_p2` C 0.88 vs A 0.52, `llm_v1` 0.75 vs 0.65, `llm_long_p2_T60` 0.81 vs 0.81. In A games "pair" meant the first two firms, so use the max/mean over pairs in your version. Those sets are therefore exploratory. E65, E66 and `llm_g56l_p2` are confirmatory if you declare before running on them. Write it up as ≤ 8 lines in P2.11 or P2.8, and as one clause in takeaway 7 only if it holds.
-4. **Part D2 double auction: start now, time-boxed. Generation has long lead time.** Copy `collusion_hackathon/llm-agent-collusion` into `external/cda/` (don't modify the starter). Add an adapter so `src/resources/model_wrappers.py` calls `llm.chat` with **backend aqueduct `qwen-3.6-35b`** (free). Fallback: Go deepseek-v4.1-flash. **Avoid codex**, which is saturated (≥ 12 codex processes at 13:41). Use **3 sellers, rule-based `zip` buyers (no calls), 30 rounds** (the default 15 is too short: the shift null needs ≥ 20 valid shifts), comms on vs off, ≥ 15 + 15 seeds. That's ~90 calls/run, ~2.7k calls in total. Gateway: ≤ 3 parallel calls from this repo (the sibling's qwenbS also uses it). Declare E68 first: frozen level screen (mean ask over CE / their collusion index), max-pair pCMI and TE on the seller ask series, and the E67 stickiness screen. Prediction: level AUROC > pCMI AUROC. **Milestones:** 2-run smoke by Sat 18:00; **if the smoke fails at Sat 20:00, DROP D2** and write one Limitations line. Full set by Sun 10:00; write-up ≤ 15 lines + 1 table by Sun 12:00. **Why:** "level, not dependence" is so far shown only in our toy market (and the sibling's). One different mechanism is the strongest external-validity answer and is assigned to you.
-5. **Checkpoint Sat 19:30, then freeze.** Rewrite P2.11 once with E65/E66 (or interim n if they're late, labelled as such) and E67. The main claim gains at most one clause. Run `p2_tables.py --check`, `tables.py --check` and `test_release_audit.py`, and export PDFs once. Run one adversarial review (Opus *or* codex, not both, since codex is saturated) of abstract + glance + P2.8 + P2.11 at ~18:30. The final review on Sun ~12:30 should include D2. Freeze numbers at Sun 14:00.
-
-**Housekeeping (5 min):** stamp every ledger/STATUS row from `date -u` at the moment of writing. Append one correction row for E66-declared (written ~13:3x, stamped 13:48). The commit hash is the proof of order. Commit the modified `llm_g56l_p2` / `llm_strong_qb_pilot` data only after confirming those generators have exited.
+1. **E69 (C3b) when `llm_qb36_p2` hits 30 (17/30 at 15:47, ETA ~17:30): run `p2_partc.py --label --run-eval` once and report the declared contrast verbatim.** Then build the single **three-pair abliteration table** that the C3b/C3c brief asks for. Rows: E61 Qwen3.8-27B (here), E69 Qwen3.6-35B (here), Q2.2 E100 Qwen3.8-27B (their market: premium diff −1.24 [−2.41, −0.03]), Q2.2 C3c Qwen3.5-9B (dropped at the registered pilot). Columns: abliterated − base agreement, executed, (C − A) markup, A-arm markup, serving precision (bf16 / FP8 / AWQ). This repo builds the table and Q2.2 cites it. Wording: "no detectable increase in channel collusion in k/3 pairs". Mention the A-arm +1.06 (exploratory) only as "abliteration may raise no-channel prices". ≤ 10 lines in P2.11.
+2. **Part E1 factorial grid: register by 17:30, smoke by 19:00, launch right after E69 frees the gateway.** This is now the main experimental job.
+   - **Design:** 2^(7−3) resolution IV, 16 cells, T=20, `--public` board ON in every cell (Q2.2 audits the text), A vs C on matched seeds inside each cell.
+   - **Factors:** (1) gpt-6-luna (codex) vs aqueduct qwen-3.6-35b; (2) 2 vs 4 firms; (3) rivals' prices visible vs hidden; (4) channel in round 1 only vs every round; (5) memory last-3 vs full; (6) shocks none vs random (your B/D machinery); (7) neutral vs long-run-profit framing (`FRAMING` exists).
+   - **Allowed substitution:** the LLM sim hard-codes 4 firms (`AGENTS`). If N=2 support takes > 45 min, swap factor 2 for **private cost: public vs private** (`--no-private-cost` exists) and say so in the registration *before* any data. Hidden-prices and channel-timing are the only switches you must add.
+   - **Queue order (critical):** run in *sweeps*. Each sweep = all 16 cells × (1 A + 1 C). Repeat for 3 sweeps (96 games). Whenever generation stops, the design is still balanced and analysable. Luna cells: codex ≤ 4 workers. Qwen cells: gateway ≤ 2 workers. One writer, resumable, model checked per game (`gt.model`, no fallback).
+   - **Declared analysis (write it before data):** outcomes per game are C − A markup over Nash, executed (shared definition), spillover (4-firm cells only), max-pair markup, pCMI, TE. Main effect of each factor = mean C − A at the high level minus the low level, with a game-cluster bootstrap CI. **Denominators:** the number of cells where C − A > 0 and where the level statistic's C-vs-A rank separation exceeds pCMI's, each with a sign test. Per-cell AUROCs on 3 + 3 are too coarse to headline: report them only in an appendix table.
+   - **Make TE confirmatory:** declare "TE AUROC C vs A > 0.5 pooled over cells" as a secondary hypothesis. E65's TE .71 [.53, .87] is a post-hoc hint among many statistics, and this tests it on fresh data.
+   - **Milestones:** sweep 1 complete → publish `data/llm_grid_p2/` + a cell manifest so Q2.2 can start its audit. All sweeps done by Sun 08:00. Analysis by Sun 11:00. ≤ 15 lines + 1 main-effects table + one sentence in the abstract by Sun 13:00. If only 1–2 sweeps exist at Sun 08:00, analyse what exists (balanced) and say n.
+   **Why:** Dennis asked for claims with denominators. It also answers sprint Q1.1 (which factor causes the lift) and Q1.5 (which restriction cuts it most). No other remaining experiment does either.
+3. **Claims × denominators table, now, no LLM calls (~40 min, before the 19:30 checkpoint).** One small script over existing `results/eval` produces a table: one row per abstract claim, with the count of LLM sets / seller models / markets where it holds. Examples: "pCMI CI includes 0.5 or lies below it in k/K LLM sets"; "max-pair markup AUROC > pCMI AUROC in k/K"; "C − A markup > 0 in k/K"; "executed rate ≤ 50% in k/K". Each abstract claim then carries "(k/K sets, M models)". E1 later adds "(+ k/16 cells)". Put the table into `p2_tables.py --check`.
+4. **D2 (E68): keep it running, but below E1 on the gateway (1 worker once E1 starts).** Before reading any D2 output, **append a declared manipulation check to the ledger**: mean seller ask, comms − nocomms, over the competitive equilibrium with a seed-bootstrap CI. If the CI includes 0, the verdict is "no collusion elicited; detector comparison uninformative". Disclose that the seed-0 smoke chat was competitive ("lowering my ask to compete"). Analyse once at 15 + 15 or at **Sun 10:00 with whatever n exists**, whichever comes first. Write ≤ 10 lines in P2.12. A clean "the starter CDA with qwen-3.6 does not elicit collusion" is a legitimate external-validity result, so do not tune the setup to get collusion.
+5. **Two consolidation passes:**
+   (a) **Checkpoint 19:30.** Split the main claim into ≤ 2 sentences. The second sentence carries the Part C summary. Cut the abstract to ≤ 250 words with denominators: move E65/E66 detail to the glance row, and keep the joint statement as a separate block. Run `p2_tables.py --check`, `tables.py --check` and the release audit, and export PDFs once. Do one Opus review of abstract + glance + P2.11 at ~18:30.
+   (b) **Merge-ready by Sun 07:30.** The top of REPORT.md (title, main claim, abstract, glance, takeaways) must be what the merge manager can lift verbatim. Mark E1/D2 "pending" there, not elsewhere. A final review at Sun ~12:30 includes E1 and D2. Freeze numbers at Sun 14:00.
 
 ## STOP doing
-- **No new Part C arms or seller families.** glm-5.2 is DROPPED: 0 complete games after ~2.5 h, no process running. Say so in P2.11. The luna memory pilot (`llm_strong_luna_pilot`, running) finishes as a *descriptive* pilot and is **not promoted**, because E65 is the promoted arm. Don't relaunch it if it dies.
-- Peeking at E65/E66 before completion, or running detectors on partial E65 data.
-- SALT (D1) pCMI: **DROPPED**. A SALT episode has one ACCEPT/REJECT decision per agent and no action time series, so dependence statistics don't apply. Say this in one line.
-- T=80 replays, new scripted conditions, extra wording variants.
-- Growing REPORT.md (≈ 950 lines). New text replaces old. E67/D2 each get ≤ 15 lines.
-- Two review passes per section, PDFs outside Sat 19:30 / Sun 16:30.
+- **No new Part C arms, models or pilots.** C is finished. In particular: no base-model E65 counterpart, no luna memory promotion, no gpt-6.1-sol pair, no glm retry.
+- **No more work on the below-chance-pCMI mechanism.** E67 tested the stickiness explanation and it failed (ρ ≈ 0 in 10/11 sets; confirmatory 1/3). Write one Limitations sentence: "unexplained; a candidate is that competitive undercutting in no-channel markets leaves reaction co-movement that lagged conditioning does not remove, which coordinated levels lack (untested)". Then move on.
+- No new watcher scripts per experiment. Use one queue script for E1 and one post script. The E66 watcher already used a wrong completion criterion once. Remember the `pgrep -f` self-match gotcha.
+- No more than one review per checkpoint (18:30, Sun 12:30). No PDF exports outside 19:30 and Sun 16:30.
+- REPORT.md is 968 lines: no net growth. E1 and D2 text must replace something, e.g. compress P2.3–P2.6 scripted detail to the glance rows plus 3 lines each.
+- Don't peek at D2 asks before the manipulation check is declared, or at E1 cells before a sweep is complete.
 
 ## Cross-pollination
-- **From Q2.2 → here:** (a) **SALT D1 (E104):** P(said | executed) 0.385 overall but ≈ 0 for gpt-5.6-luna/terra, which execute in ~51% of episodes and never state it. That is an external instance of "actions without words". Cite it in the takeaway on why price-only detection matters. (b) Sibling P2.10 asymmetry (legit cost edge flagged 7/10, competition predicts +1.45) is the LLM version of your P2.4 cost-asymmetry hard negative. Cite both ways. (c) The sibling's P2.9: monitor-aware luna pairs stop agreeing (0/10) rather than evade, so there is no evasion arm for dependence detectors to test. Mention it as a limitation, not a gap. (d) Use the sibling's class file for E66 (directive 1).
-- **From here → Q2.2:** E61 abliteration null at T=20 (−0.37 [−2.09, 1.36]) for their E100 cross-market comparison; older gpt-5.6-luna is **tacitly high 9/10** with markup AUROC down to 0.75 (pairs with their sol none ≈ Nash+4 and mimo); E64 executed-vs-not pCMI; E67 stickiness (if it holds, it is a cheap extra column in their action_stats view, but *not* to be added there now).
-- **Merger sentences (both REPORTs, verbatim):** "Detectability of LLM collusion by any price statistic is a property of the (seller model × prompt) pair. Relative screens survive a shared model but fail under market-wide spillover; absolute screens need model- and prompt-matched references." After E65/E66/E99 land: "With memory and a profit objective, LLM sellers raise prices market-wide without any channel; executed (kept) agreements are rare (X/Y), and channel labels stop being ground truth." Fill X/Y from the joint table (directive 4 of the 11:45 review, shared definitions unchanged).
+- **From Q2.2 → here:** (a) **Public board as the channel (E99-public):** in strong-framing no-channel markets, 43% of public messages are "hold price" vs 28% with a private channel. Tacit-high markets coordinate *in public*. This matches your E59 (deepseek public board +0.70) and is a reason E1 keeps `--public` on everywhere. (b) Q2.2 E108 (P2.13) anomaly hunt already sampled transcripts from **both** repos (including `g56l_C007`). Treat Part E4 as done for both and cite P2.13; don't run a second hunt. (c) Q2.2 E100's premium drop under abliteration (−1.24 [−2.41, −0.03]) goes into your three-pair table (directive 1). (d) Q2.2 will audit E1's public text (their directive 4): publish sweep 1 early.
+- **From here → Q2.2:** E66 frozen verdict on their strongF (pCMI .46, market level .44, TE .61, 0/40 class mismatches): they don't cite it yet. E69 + the three-pair table. E1 data + manifest.
+- **Joint sentence 2:** your REPORT already uses Q2.2's version plus the E65 qualifier. Make the qualifier part of the *verbatim* sentence so both repos carry the same scope (the luna-only finding must not read as general): "With memory and a profit objective, gpt-6-luna sellers raise prices market-wide without any channel (19/20 no-channel markets ≥ Nash + 2); agreements are then often kept (13/20) but add no detectable price, so channel labels stop being ground truth. Abliterated Qwen with memory differs (channel adds +2.13 [1.28, 3.00]; 5/20 executed), as the first sentence predicts." Q2.2 receives the same text.
 
 ---
 
@@ -55,7 +59,7 @@ floor clearly above Nash). Then run a properly sized set (≥ 20 C + 20 matched 
 detectors/auditors on executed-collusion runs vs controls. Report the executed-collusion rate per lever
 (how rare is sustained collusion?) — that rate is itself a headline number.
 Never instruct agents to collude; only opportunity, memory and profit objective.
-→ **IN PROGRESS (final stage).** DONE: executed/tacit rates on seven sets (33/99 executed C; tacit 1/94 current models), E64 executed-subset table (fix circular level rows, directive 2), E63 qwen memory pilots (abliterated 5/5 executed, base 3/5). **E65** promoted arm `llm_strong_qa` 20 + 20, T=40: generating, 6/40 at 13:41, ETA ~16:30 (directive 1). **E66** frozen detectors on sibling `llm_p2strongF`: declared and implemented; sibling 18/40, ETA ~16:00. Luna memory pilot: running, descriptive only, not promoted. Gpt-6.1-sol pair lever: **DROPPED** (codex saturated; the sibling's sol pilot showed 0/2 agreements).
+→ **DONE (15:45).** Executed 38/119 C over eight sets; E64 pooled pCMI executed .42 [.31, .52] vs .50; the circularity is stated. **E65** (qwen-abliterated, memory, T=40, 20 + 20): declared verdict **INCONCLUSIVE** (pCMI executed-only 0.33 [0.02, 0.66], 5/20 executed; the pilot's 5/5 did not replicate; markup .85, pCMI .49; TE .71 is exploratory → confirm in E1, directive 2). **E66** (Q2.2 strongF): **NOT EVALUABLE** (tacit-high 19/20; 0/40 class mismatches). Luna memory pilot: descriptive (3/5). gpt-6.1-sol pair: DROPPED (codex saturated; sibling pilot 0/2). Nothing more to run here.
 
 **C2 Older / weaker models as sellers** (model-generation lever: does collusion and its detectability
 change across model generations?). Available and verified working 10:25 UTC:
@@ -66,7 +70,7 @@ model name is unknown or limited — always check `r["model"]` and exclude/flag 
 Split: Q1.4 runs gpt-5.6-luna + glm-5.2; Q2.2 runs gpt-5.6-sol + mimo-v2.5. ~10–15 runs per model (A vs C
 matched seeds), base prompt. Report per-generation: agreement rate, execution rate, markup, detector AUROCs.
 Combine with C1 if a model executes collusion more readily (older models may comply/coordinate differently).
-→ gpt-5.6-luna **DONE** (E62, 10 + 10: tacit-high 9/10 in A, C − A +1.44 [0.23, 2.59], markup AUROC 0.75, pCMI 0.72 [0.47, 0.92]; n = 10, so describe pCMI 0.72 as "not distinguishable from the other sets", not as a pCMI success). Confirm 0 fallback runs (`gt.model`) in the table note. glm-5.2 **DROPPED** (0 complete games, generator gone).
+→ **DONE.** gpt-5.6-luna (E62, 10 + 10: tacit-high 9/10 in A, C − A +1.44 [0.23, 2.59], markup AUROC 0.75, pCMI 0.72 [0.47, 0.92], "not distinguishable", 0 fallback games). glm-5.2 **DROPPED** (0 complete games; Go stopped answering).
 
 **C3 Abliterated (refusal-removed) seller: does safety training suppress collusion?** (added 10:45 UTC)
 Model: `huihui-ai/Huihui-Qwen3.8-27B-abliterated` on Modal (1× A100-80GB, vLLM), via
@@ -87,7 +91,7 @@ Modal (bf16; note the FP8-vs-bf16 precision difference as a caveat). Run both on
 Gateway also serves `qwen-3.6-35b`, `glm-5.3-744b-experimental`, `deepseek-v4-vision-exp-284b` via
 `llm.chat(..., backend="aqueduct", model=...)` — extra seller families for C2/robustness (shared university
 gateway: keep ≤ 4 parallel calls, back off on 429).
-→ T=20 contrast **DONE** (E61: C − A abliterated +2.97 vs base +3.34, contrast −0.37 [−2.09, 1.36]; executed 8/15 vs 6/15; dedup incident disclosed; transcripts checked, undercutting is genuine). Strong lever set: E65 in progress (directive 1). Budget ok ($8.76/$70 at 13:41). A base-model E65 counterpart (20 + 20 on the gateway) is **not** to be added: pilot 5 + 5 is the matched reference, reported descriptively. Extra gateway families: **not now**, except qwen-3.6-35b as the D2 seller.
+→ **DONE.** E61 T=20: abliterated − base (C − A) −0.37 [−2.09, 1.36], "no detectable effect"; A-arm +1.06 [0.38, 1.74] (exploratory). E65 = memory lever (above). Budget ok ($17.75/$70 at 15:46). No base-model E65 counterpart; extra gateway families only as E1 factor 1 (qwen-3.6-35b).
 
 ---
 
@@ -121,7 +125,7 @@ Claude quota runs the managers. gpt-6.1-sol as a seller for a third family check
   numbers on the same data. Report agreement; fix any bug found (and re-state affected numbers).
   → **DONE** (E47, P2.2: 422/424 cells < 1e-9, all 20 AUROCs identical, no bug).
 
-## Gaps owned by THIS repo (Q1.4), in priority order (status as of 13:45 UTC)
+## Gaps owned by THIS repo (Q1.4), in priority order (status as of 15:50 UTC; all nine closed)
 1. **Prompt-wording robustness** (validity threat; you already saw the JSON-anchor effect). 3–5 prompt
    variants of your seller prompt (paraphrased instructions, different JSON template / no example,
    different order of information, reasoning on/off). Does the C − A markup and the level-vs-pCMI pattern
@@ -129,7 +133,7 @@ Claude quota runs the managers. gpt-6.1-sol as a seller for a third family check
    → **DONE** (E43, P2.7). Frozen.
 2. **Long LLM games**: settle whether pCMI fails for lack of data. ≥ 20 runs per condition (A, C, plus D if
    budget) at T = 60–100. Power-vs-T curve on LLM data (subsample prefixes). This is the decisive 1.4 result.
-   → **DONE** (E44, P2.8: "level, not short", pCMI 0.34 [0.18, 0.52] at T=60, decline from 0.52 at T=20; co-move excess +0.004 vs planting MDE). D and T=80 **DROPPED**. Open follow-up: the below-chance value has to be *explained* (E67, directive 3).
+   → **DONE** (E44, P2.8: "level, not short", pCMI 0.34 [0.18, 0.52] at T=60, decline from 0.52 at T=20 not significant (−0.18 [−0.41, +0.05]); co-move excess +0.004 vs planting MDE). D and T=80 **DROPPED**. Below-chance mechanism: E67 tested stickiness and it is **not supported**. Stop here; one Limitations sentence (STOP list).
 3. **Same-model confound as a headline**: in real deployments everyone runs the same few models. Quantify
    on LLM data: same-model no-channel pairs vs mixed-model pairs vs colluding pairs. Test mitigations
    (same-model surrogate null; conditioning on lagged prices of all firms; model-matched reference
@@ -155,7 +159,7 @@ Claude quota runs the managers. gpt-6.1-sol as a seller for a third family check
    simplest: run the starter double auction (`~/collusion/collusion_hackathon/llm-agent-collusion`, via our
    llm.py — it needs adaptation since it expects a Nebius/OpenRouter key) or a quantity/territory variant
    of your sim; check which detectors see it at all.
-   → **DONE (scripted bid rotation)** (E53, P2.6). The starter double auction is now Part D2 (directive 4).
+   → **DONE (scripted bid rotation)** (E53, P2.6). The starter double auction = Part D2 (in progress, directive 4).
 Items 1–4 must be done by Sat 20:00 if at all possible; 5–9 by Sun 15:00.
 
 
@@ -172,10 +176,12 @@ Each Modal endpoint cold-starts in up to ~10 min after 10 min idle → run each 
 Cost ≈ L40S $2.2/h, L4 $1/h each; the $70 guard covers all apps. Priority: after the running Part C arms and
 Part D1, before Part D2/D3. Report the three pairs in one table: abliterated − base (agreement, executed, markup,
 detector AUROCs) with CIs, and state the precision caveat (FP8/AWQ/bf16) per pair.
+→ **C3b IN PROGRESS** (E69 declared 14:24: `llm_qa36_p2` 30/30 labelled, C agreement 15/15; `llm_qb36_p2` 17/30 at 15:47, ETA ~17:30). Run the declared contrast once and build the three-pair table (directive 1). **C3c** (Q2.2): **DROPPED** at its registered pilot (E109: base 9B prices below Nash).
 
 
 
 **Serendipity Explorer (added 14:50 UTC):** a third agent runs wild cheap pilots in `~/collusion/collusion-serendipity` (other markets, hub-and-spoke advisor, leniency, counterfactual replay, steganography in prices, personas, ...). Read its `HITS.md` at the start of every iteration; if a hit bears on your headline claims, decide explicitly (in STATUS) whether to confirm it with a registered experiment. Don't duplicate its pilots.
+→ Status 15:47: **no promoted hits** (S01 dud, S02 odd/inconclusive, S04 uninformative). Nothing to confirm. Keep reading HITS.md each iteration; one STATUS line suffices.
 
 ## Part E — BROADEN THE DESIGN so we can make concrete, general claims (added by Dennis 14:30 UTC)
 **Why:** so far we varied one thing at a time (model, prompt, memory, channel) in mostly one market setup. Claims like
@@ -192,19 +198,25 @@ designs that turn one-off pilots into **general statements with a denominator** 
   Report main effects with CIs (which factors CAUSE the price lift — answers sprint Q1.1 — and which single restriction
   cuts it most — answers Q1.5) and the claim's **denominator** (in how many cells level > co-movement, text ≈ chance).
   Gateway is 45 calls/min shared: luna cells via codex, qwen cells via gateway; one queue, resumable, registered first.
+  → **NOT STARTED (owner: this repo). TOP experimental priority now** (directive 2: register 17:30, smoke 19:00, sweeps of 16 cells × 1 A + 1 C, done Sun 08:00; factor 2 may be swapped for private cost if N=2 is costly, declared up front).
 - **E2 Participant replacement mid-game (owner Q2.2; sprint Q1.2).** In executed-collusion games (strong arm / qwen memory),
   replace one colluder at round T/2 with a fresh agent (same model, no chat history) or a different model. Does the price
   level survive? Do detectors notice the break (changepoint)? Cheap, novel, and answers an official sprint question.
+  → Q2.2-owned (directed there for Sun 10:00). Nothing to do here; if Q2.2 asks, its changepoint test can reuse your E50 CUSUM code (they may copy it).
 - **E3 Cross-family collusion (owner Q2.2; sprint Q3.3 "can agents identify their peers?").** Pair = luna + qwen (different
   families) with a channel vs same-family pairs. Do mixed pairs agree / execute as often? Does pCMI see same-family pairs
   more (shared-policy confound)?
+  → Q2.2-owned, optional there. Nothing to do here.
 - **E4 Anomaly hunt (owner both, 30 min each, zero new games).** Have codex gpt-6.1-sol read ~40 randomly sampled
   transcripts across ALL datasets (both repos) and list the 5 most surprising behaviours with run ids. Each becomes a
   15-min test logged as `serendipity` in EXPERIMENTS.tsv. Report the hits and the duds.
+  → **DONE for both repos** by Q2.2's E108 (P2.13: 40 games sampled across both repos' datasets, 5 follow-ups, hits + duds, codex-verified). Here: cite P2.13 in one line. **Don't run a second hunt** (duplicate work).
 - **E5 One non-English market (owner Q2.2, small, 10+10).** Same game, all prompts and messages in German. Does the text
   auditor (English-prompted) still behave the same? Does collusion change with language?
+  → Q2.2-owned, in progress (E110). Nothing to do here.
 
 For every claim in the final abstract, write its denominator next to it (conditions tested, models, datasets).
+→ **NOT STARTED** → directive 3 (claims × denominators table from existing results, before 19:30; E1 adds cells later).
 
 ## Part D — EXTERNAL VALIDITY with the three proposed datasets (added by Dennis 14:05 UTC)
 **Priority:** after the important in-flight work (E44/P2.8, Part C strong arm + C3 qwen pair, the Sat 20:00
@@ -222,7 +234,7 @@ findings honestly, including where they don't transfer.
   Run the frozen auditor views (text, action, combined, action_stats where defined) + simple non-LLM baselines.
   Headline: Δ_hybrid on external data with bootstrap CI. Note: two-agent episodes → no pairwise net-influence;
   Q1.4 can still test pCMI/MI between the two agents over trajectories if they are long enough (optional).
-  → Q2.2 **IN PROGRESS** (E104 done, E105 text auditor 192/240 at 13:41). Q1.4 optional pCMI **DROPPED**: one verdict per agent per episode, no action time series.
+  → Q2.2 **DONE** (E104 P(said | executed) 0.385; E105 text auditor 0.87 [0.83, 0.91] vs TF-IDF 0.91). Q1.4 optional pCMI **DROPPED**: one verdict per agent per episode, no action time series. Cite SALT's silent luna/terra executors in the "why price-only detection" takeaway (done in Limitations).
 - **D2 Double auction** (owner: Q1.4). Starter `~/collusion/collusion_hackathon/llm-agent-collusion`
   (Agrawal et al. 2025, continuous double auction; 3 sellers + 3 buyers, seller communication optional). Copy the
   code into this repo (don't modify the starter), and write a small adapter so its model wrapper calls our
@@ -230,7 +242,7 @@ findings honestly, including where they don't transfer.
   qwen-3.6-35b — record the model per run). Conditions: seller communication on vs off, ≥ 15 + 15 runs. Apply
   the frozen level screen, pCMI and dependence detectors on seller ask series. Does price-level-not-dependence hold
   in a different market mechanism?
-  → **NOT STARTED, start now** (directive 4: aqueduct qwen-3.6-35b, zip buyers, 30 rounds, smoke by Sat 18:00, drop if the smoke fails at Sat 20:00).
+  → **IN PROGRESS** (E68 declared 14:23; v0 smoke discarded for a buyer bug; v1 smoke OK; `scripts/d2_queue.sh` ~4/30 runs at 15:47, 13–18 min/run → ETA ~23:00 if the gateway isn't contended). Seed-0 chat was competitive. Declare the manipulation check before reading; analyse at 15 + 15 or Sun 10:00 (directive 4).
 - **D3 LLM trust-breaking** (owner: Q2.2, lowest priority of the three). Starter
   `~/collusion/collusion_hackathon/llm-trust-breaking` (private plans, public announcements, actions, outcomes in
   repeated games). Measures promise-breaking, NOT collusion — use it only to validate our say-vs-do machinery
