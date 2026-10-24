@@ -60,7 +60,7 @@ def main():
     legit = v3["pair_level"]["auroc_legit_vs_none"]
 
     s = []
-    s.append(f"""# Conditioned mutual information catches coordinated price *moves*, not price *levels*
+    s.append(f"""# LLM price collusion shows up as a market-wide price *level*, not as coordinated price *moves*
 Apart AI Collusion Sprint · Q1.4 information-theoretic detection · action-only (prices + public state, no messages)
 
 **Question.** Can a pairwise dependence statistic flag colluding pricing agents *without* accusing agents that
