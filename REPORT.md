@@ -32,9 +32,8 @@ chance (0.5, dashed), while a price-level statistic separates channel from no-ch
 ## Phase 2 results (in progress; started 2026-10-24 06:30 UTC)
 Phase 2 closes known gaps; v1 numbers above are unchanged (git tag `v1-overnight`). Each Phase 2 experiment is declared in
 `EXPERIMENTS.tsv` (E43–E55) before its data exist; the new LLM datasets (`data/SPLITS.md`, "Phase 2") are all confirmatory because no detector setting is tuned on them.
-Status: prompt-wording robustness (E43: 5 wordings × A/C × 6 games, T=20), long games (E44: 20 A + 20 C, T=60) and a second
-seller family (E45: deepseek-v4.1-flash, 15 A + 15 C) are **generating**. Their results will be added here.
-Done: P2.1 precision at prevalence, P2.2 independent reimplementation, P2.3 same-model confound (gap 3), P2.4 scripted coalitions / onset / cost asymmetry (gaps 5, 6, 8; locked test), P2.5 market-model robustness (gap 7: N=2/6, demand elasticity; locked test), P2.6 bid rotation (gap 9 exploration; locked test).
+Status: long games (E44: 20 A + 20 C, T=60) and a second seller family (E45: deepseek-v4.1-flash, 15 A + 15 C) are **generating**. Their results will be added here.
+Done: P2.1 precision at prevalence, P2.2 independent reimplementation, P2.3 same-model confound (gap 3), P2.4 scripted coalitions / onset / cost asymmetry (gaps 5, 6, 8; locked test), P2.5 market-model robustness (gap 7: N=2/6, demand elasticity; locked test), P2.6 bid rotation (gap 9 exploration; locked test), **P2.7 prompt-wording robustness (gap 1)**, P2.8 long-game pilot (gap 2; confirmatory E44 pending).
 
 **Phase 2 takeaways so far.** (1) Price-*level* screens and co-*movement* statistics fail in opposite places. Unequal private costs make both tested level screens falsely
 flag 30/30 markets, while pCMI flags 4/30 (controls 1/30; P2.4). LLM collusion shows up in levels and is invisible to pCMI (§4.3). A deployer needs both, plus cost data.
@@ -44,6 +43,7 @@ gave pCMI 52% false flags (P2.3, exploratory). A fresh model-matched pool brings
 (5) Beyond the 4-seller, μ=3 market: pooled pCMI control false flags are 6.0% [3.8, 9.3] across N=2/4/6 and μ=1.5/3/4.5. The declared per-cell calibration criterion passes in 9/10 cells (elastic/A fails at 4/30), and strong-signal power holds in all 10.
 Which detector is strongest varies with market and horizon. Less elastic demand mostly weakens the level screens (P2.5).
 (6) Collusion whose schedule is predictable from public price history (deterministic bid rotation) is invisible to pCMI, because conditioning on lags absorbs it. Lagged TE sees part of it, and level screens see all of it (P2.6, scripted exploration).
+(7) **Across five prompt wordings the channel raises prices by +0.69 ± 0.17 (no heterogeneity, I² = 0), but the no-channel baseline moves from −0.19 to +2.56 with the wording.** Within-wording markup AUROC falls to 0.66 [0.53, 0.78] pooled (0.31 and 0.47 in two wordings); pCMI is at chance in all five (P2.7).
 
 **P2.1 Precision at realistic collusion prevalence (E46, from the saved v1 evaluations; `uv run python scripts/prevalence.py`
 → `results/eval/prevalence.{json,md}`).** At the frozen α = 0.05 run-level flags, precision = π·TPR / (π·TPR + (1−π)·FPR), with
@@ -99,12 +99,12 @@ A plausible driver: luna sellers vary prices less (within-seller SD 0.71 vs 0.96
 (c) **Reference markets: a fresh model-matched pool meets the declared false-flag criterion, but the prompt moves the price level as much as the model does (E54, declared before running; interim).**
 Run-level reference-market (surrogate) screens rank a market's max-pair score against a pool of no-channel markets.
 With a *mismatched* pool (12 mixed sol+luna markets, α = 0.10 because 12 games cannot reject at 0.05), pCMI falsely flagged 11/21 = 52% [32, 72] of the `llm_v1` no-channel markets (E48, exploratory).
-E54 uses a **fresh, independently generated** pool of luna no-channel markets: the Phase 2 A games (E43, four of five prompt wordings complete, 6 games each, seed 43; interim pool n = 24; the fifth wording and the 20 `llm_long_p2` A prefixes will be added).
+E54 uses a **fresh, independently generated** pool of luna no-channel markets: the Phase 2 A games (E43, five prompt wordings × 6 games, seed 43; interim pool n = 30; the 20 `llm_long_p2` A prefixes will be added).
 Out-of-sample false flags on the 21 `llm_v1` A markets at α = 0.05 are 0/21 [0, 16]% for pair markup, pair_level, pCMI and MI (at α = 0.10: pCMI 2/21, MI 1/21, levels 0/21).
 The declared criterion (false-flag rate ≤ 0.10 and Wilson upper bound < 52%) is met for all four. A conservative reference meets it trivially, so power matters: it **collapses** for the level screens. At α = 0.05 pair markup flags 1/16 `llm_v1` channel markets, pair_level 4/16, pCMI 0/16 (for comparison, markup flagged 15/16 at α = 0.10 against the 12-game mismatched pool, which cannot reject at 0.05).
 The reason is the price level of the reference: same model, different instructions. Mean no-channel markup over Nash is +0.02 [−0.35, +0.40] in `llm_v1` A and +0.26 [−0.38, +0.87] with the identical (v0) wording in E43,
-−0.19 [−0.83, +0.58] with reordered information, +0.75 [0.60, 0.86] with a paraphrase and **+2.56 [2.07, 3.05] with a different JSON template**, above the `llm_v1` *channel* markets (+1.78 [1.41, 2.23]). Which wording drives the power loss is analysed with the full E43 data in P2.7.
-Reversed, the `llm_v1` A pool falsely flags 5/24 [9, 40]% of the fresh markets on pair markup.
+−0.19 [−0.83, +0.58] with reordered information, +0.75 [0.60, 0.86] with a paraphrase, +1.97 [1.24, 2.54] without a reasoning field and **+2.56 [2.07, 3.05] with a different JSON template**, the last two above the `llm_v1` *channel* markets (+1.78 [1.41, 2.23]). The per-wording channel effects are in P2.7.
+Reversed, the `llm_v1` A pool falsely flags 10/30 [19, 51]% of the fresh markets on pair markup.
 *Deployer reading:* a pair standing out from its own market (pair_level, P2.3a) is robust to everyone running the same model. Absolute statistics (markup, pCMI, MI)
 need reference markets with the same model **and comparable instructions**, with ≥ 20 games for α = 0.05. In these data, matching on model alone kept false alarms down but left almost no level-screen power when prompts differed.
 Pending: the final E54 run adds the 20 `llm_long_p2` A prefixes, which gives a prompt-matched (v0) pool of 26.
@@ -193,6 +193,33 @@ Over 30 rounds pCMI flags 1/30 and 2/30 alternating-rotation games. (b) With a p
 (c) Level screens flag every rotation game: the cover price lifts the market mean price by 0.85 (A) and 0.75 (B) above controls. They would miss rotation with a competitive cover price, which we did not test.
 The controls' pCMI false-flag rate here (5/30, 4/30) is above α but within the interval of the pooled P2.5 estimate (6.0% [3.8, 9.3]).
 This is a scripted exploration with a single strength. It shows one more place where pCMI's conditioning removes real collusion along with confounds: when the coordination is a deterministic function of public history.
+
+
+**P2.7 Prompt-wording robustness: the channel markup holds across five wordings, the detectability does not (E43; gap 1; all games confirmatory, no tuning;
+`uv run python scripts/p2_variants.py --run-eval` → `results/eval/p2_variants.{json,md}`).** Five seller-prompt wordings (`sim/llm_market.py --variant`):
+v0 = the v1 prompt (byte-identical), para = paraphrased instructions, template = a different JSON reply template, order = information in a different order,
+noreason = no reasoning field. Each wording: 6 A + 6 C games, T=20, seed 43 (same seeds and costs across wordings), gpt-6-luna, frozen v1 detectors.
+Per-wording AUROCs are on 6 vs 6 games, so we do not compare wordings with each other on AUROC.
+
+| wording | n C/A | no-channel markup (A) | C − A markup [95% CI] | AUROC markup | AUROC pair_level | AUROC pCMI |
+|---|---|---|---|---|---|---|
+| v0 (v1 prompt) | 6/6 | +0.26 | 1.19 [0.44, 1.94] | 0.92 [0.69, 1.00] | 0.82 [0.56, 1.00] | 0.50 [0.17, 0.83] |
+| para | 6/6 | +0.75 | 0.53 [0.10, 0.99] | 0.81 [0.50, 1.00] | 0.75 [0.40, 1.00] | 0.67 [0.33, 1.00] |
+| template | 6/6 | +2.56 | 0.45 [−1.00, 2.62] | 0.31 [0.00, 0.64] | 0.35 [0.00, 0.69] | 0.17 [0.00, 0.33] |
+| order | 6/6 | −0.19 | 0.67 [−0.35, 1.59] | 0.78 [0.44, 1.00] | 0.86 [0.58, 1.00] | 0.39 [0.08, 0.75] |
+| noreason | 6/6 | +1.97 | 0.78 [−0.24, 2.02] | 0.47 [0.11, 0.83] | 0.42 [0.07, 0.83] | 0.47 [0.12, 0.79] |
+| **pooled** (30/30) | | +1.07 | fixed effect **0.69 ± 0.17** (SE); naive pool 0.72 [0.04, 1.46] | within-wording **0.66 [0.53, 0.78]** | 0.64 [0.50, 0.77] | **0.44 [0.30, 0.58]** |
+
+Declared rule (E43, before generation): the pattern HOLDS iff C − A > 0 in ≥ 4/5 wordings, the pooled CI excludes 0, and markup AUROC > pCMI AUROC in ≥ 4/5.
+Result: **HOLDS** (5/5 positive, pooled CI [0.04, 1.46], markup > pCMI in 4/5; noreason is a tie at 0.47).
+Heterogeneity (declared amendment, before per-wording detector output): Cochran Q = 2.22 on 4 df, p = 0.69, I² = 0. The channel's price effect is statistically indistinguishable across wordings.
+The pooled within-wording AUROC compares each C game only with A games of the same wording, with a stratified game bootstrap.
+Reading. (a) **The channel effect is robust; its size in v1 is at the high end.** v0 replicates `llm_v1` (C − A 1.19 vs 1.76 in v1; markup AUROC 0.92 vs 0.87). Pooled over wordings the effect is about +0.7 price units.
+(b) **What the wording moves is the no-channel baseline**, from −0.19 to +2.56 over Nash. In two wordings (template, noreason) the A markets already price high and vary more, and the level screen loses its separation (markup AUROC 0.31 and 0.47, CIs include 0.5).
+Pooled, the markup AUROC falls from 0.87 (v1) to 0.66 [0.53, 0.78].
+(c) **pCMI stays at chance in every wording** (0.17–0.67, pooled 0.44 [0.30, 0.58]). This is the v1 null, now replicated across five prompts.
+(d) Together with P2.3(c): the same model with different instructions shifts prices more than the channel does, so a level screen needs a reference that matches the *prompt*, not just the model. A deployer rarely knows the prompt.
+This is the main validity limit of the level screens in this repo.
 
 
 **P2.8 Long LLM games: is pCMI short of data, or is there no co-movement to find? (E55 declared before E44 output; pilot on the v1 `llm_long` data; E56 behaviour split.)**

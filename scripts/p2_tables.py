@@ -4,7 +4,7 @@ No experiments or LLM calls; nothing is written. Every number in a cell comes fr
 only row labels / annotation words are literal text here.
     uv run python scripts/p2_tables.py          # print regenerated tables
     uv run python scripts/p2_tables.py --check  # compare cell by cell with REPORT.md (exit 1 on failure)
-Tables: P2.1 prevalence, P2.3 same-model, P2.4 coalitions/cost asymmetry, P2.5 market robustness, P2.6 rotation.
+Tables: P2.1 prevalence, P2.3 same-model, P2.4 coalitions/cost asymmetry, P2.5 market robustness, P2.6 rotation, P2.7 prompt wording.
 """
 from __future__ import annotations
 
@@ -163,7 +163,25 @@ def p26():
     return table(["group", "mean price", "pCMI (shift)", "TE, lagged (shift)", "MI (shift)", "markup (surrogate)", "pair_level (surrogate)"], rows)
 
 
-BUILDERS = {"P2.1": p21, "P2.3": p23, "P2.4": p24, "P2.5": p25, "P2.6": p26}
+# ---------------------------------------------------------------- P2.7
+def p27():
+    d = jl("results/eval/p2_variants.json")
+    f = lambda x, ci: f"{x:.2f} [{ci[0]:.2f}, {ci[1]:.2f}]"
+    sg = lambda x: f"{x:+.2f}"
+    labels = {"v0": "v0 (v1 prompt)"}
+    rows = []
+    for v, r in d["arms"].items():
+        rows.append([labels.get(v, v), f"{r['n_C']}/{r['n_A']}", sg(r["A_markup"]), f(r["C_minus_A_markup"], r["C_minus_A_ci"]),
+                     *(f(r[f"auroc_{k}"], r[f"auroc_{k}_ci"]) for k in ("market_level", "pair_level", "pcmi"))])
+    h, pa = d["heterogeneity"], d["pooled_within_arm_auroc"]
+    allA = [x for v in d["arms"] for x in [d["arms"][v]["A_markup"]] * d["arms"][v]["n_A"]]
+    rows.append([f"**pooled** ({d['pooled_n'][0]}/{d['pooled_n'][1]})", "", sg(sum(allA) / len(allA)),
+                 f"fixed effect **{h['fixed_effect_C_minus_A']:.2f} ± {h['fixed_effect_se']:.2f}** (SE); naive pool {f(d['pooled_C_minus_A'], d['pooled_ci'])}",
+                 f"within-wording **{f(*pa['market_level'])}**", f(*pa["pair_level"]), f"**{f(*pa['pcmi'])}**"])
+    return table(["wording", "n C/A", "no-channel markup (A)", "C − A markup [95% CI]", "AUROC markup", "AUROC pair_level", "AUROC pCMI"], rows)
+
+
+BUILDERS = {"P2.1": p21, "P2.3": p23, "P2.4": p24, "P2.5": p25, "P2.6": p26, "P2.7": p27}
 
 
 def check(report):
