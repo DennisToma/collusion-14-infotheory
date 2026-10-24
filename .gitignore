@@ -8,3 +8,7 @@ __pycache__/
 /.p2_venv/
 data/gate_test/trajectories.jsonl
 data/ext_cda*/llm_cache.jsonl
+# E70 grid pipeline test on fake-LLM data (never results)
+data/llm_grid_dry_*/
+results/eval/llm_grid_dry_*
+results/eval/e70_dry.*
