@@ -871,6 +871,7 @@ This extends E32/E35 (placebo, monitor/firm framing): pair-specific prompting al
 * Legitimate asymmetry is a hard negative for level screens in both repos: our scripted cost asymmetry (P2.4) and the sibling's LLM cost/quality edges (flagged 7/10, 9/10 vs 2/10; Q2.2 P2.10).
 * Many comparisons, mostly unadjusted (detectors × conditions × T). Isolated nominal hits, e.g. TE top-1 in llm_v1 C
   (6/16, p = 0.038) and pCMI top-1 in llm_v3 (18/70, p = 0.036), should not be read as signal.
+* Below-chance pCMI in several LLM sets (e.g. E44 0.34, template wording 0.17) is unexplained. E67 tested and rejected price stickiness (ρ ≈ 0 in 10/11 sets). A candidate is that competitive undercutting in no-channel markets leaves reaction co-movement that lagged conditioning does not remove, and coordinated levels lack it (untested).
 
 ## 6. Reproduce
 For a release check without LLM calls or live sibling data, install Chromium once, then run:
@@ -919,7 +920,10 @@ uv run python scripts/e44_decline.py                     # P2.8 T=20→60 pCMI c
 uv run python scripts/strongF_ext.py [--snapshot]        # E66 frozen detectors on Q2.2 llm_p2strongF by behaviour class
 uv run python scripts/p2_partc.py                       # P2.11 part C table + E64 executed-subset AUROCs (results/eval/p2_partc.{json,md})
 uv run python scripts/e67_sticky.py                     # P2.11(e) E67 price-stickiness screen (results/eval/e67_sticky.{json,md})
-uv run python scripts/p2_tables.py --check              # Phase 2 tables (P2.1–P2.11) vs JSON
+uv run python scripts/claims_denominators.py            # P2.13 claims x denominators (results/eval/claims_denominators.{json,md})
+uv run python scripts/e1_grid.py cells                  # E70 grid: 16-cell manifest (data/llm_grid_p2_manifest.json); 'run --sweeps 3' generates (LLM calls)
+uv run python scripts/e70_grid.py [--label --eval]      # E70 declared analysis on complete sweeps (results/eval/e70_grid.{json,md})
+uv run python scripts/p2_tables.py --check              # Phase 2 tables (P2.1–P2.13) vs JSON
 ```
 For E39, the recovered provisional prices are committed in `data/{llm_v1,llm_long}/preplay.jsonl`; no cache is needed for the analysis. The optional provenance replay `uv run python scripts/preplay_extract.py` requires the original gitignored `cache/llm_market/*.jsonl` files and aborts on a cache miss. Only the first sender's provisional price precedes receipt of any partner message (§4.3.11).
 

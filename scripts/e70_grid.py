@@ -97,7 +97,8 @@ def main():
         name = data[c["cell"]]["name"]
         if a.label:
             subprocess.run([sys.executable, "-m", "experiments.llm_eval", "label", "--name", name], cwd=ROOT, check=True)
-        if a.eval:
+        evf, gtf = ROOT / "results" / "eval" / f"{name}.json", ROOT / "data" / name / "ground_truth.jsonl"
+        if a.eval and not (evf.exists() and evf.stat().st_mtime > gtf.stat().st_mtime):  # skip up-to-date evals
             subprocess.run([sys.executable, "-m", "experiments.llm_eval", "eval", "--name", name, "--Ts", "20"],
                            cwd=ROOT, check=True)
     games = []  # one dict per analysed game
