@@ -7,7 +7,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
-D = ROOT.parent / "collusion-22-say-vs-do" / "data" / "llm_v3"
+D = ROOT / "data" / "ext_llm_v3"  # snapshot of sibling llm_v3 (see data/ext_llm_v3/SHA256SUMS)
 
 
 def main(B=5000):

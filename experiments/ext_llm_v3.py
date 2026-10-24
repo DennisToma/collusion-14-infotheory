@@ -1,6 +1,6 @@
 """External-validity check (E13): frozen detectors on the sibling project's LLM market (Q2.2 `llm_v3`).
 
-Read-only input: ../collusion-22-say-vs-do/data/llm_v3 (same SCHEMA; lab framing, price grid 6-30, T=12,
+Input: data/ext_llm_v3 (snapshot of ../collusion-22-say-vs-do/data/llm_v3) (same SCHEMA; lab framing, price grid 6-30, T=12,
 public board; conditions private / none / legit; legit = publicly announced shipping deal = hard negative).
 No tuning. Two adaptations declared before computing (EXPERIMENTS.tsv E13), both forced by T=12:
   * pCMI/TE residualise on numeric state (cost, demand -1/0/1) instead of one dummy per state level
@@ -30,7 +30,7 @@ from detectors.infotheory import PAIR_NAMES, PAIRS, score_run  # noqa: E402
 from experiments.llm_eval import auroc_ci  # noqa: E402
 from experiments.scripted import wilson  # noqa: E402
 
-SRC = ROOT.parent / "collusion-22-say-vs-do" / "data" / "llm_v3"
+SRC = ROOT / "data" / "ext_llm_v3"  # snapshot of ../collusion-22-say-vs-do/data/llm_v3 (sibling commit 9dcbaf0; SHA256SUMS)
 DETS = ["pearson", "pearson_diff", "mi", "cmi_state", "pcmi", "te", "pair_level", "market_level"]
 DEM = {"low": -1, "normal": 0, "high": 1}
 
