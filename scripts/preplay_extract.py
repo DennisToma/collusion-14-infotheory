@@ -1,5 +1,5 @@
-"""E39 step 1: recover each pair member's provisional pre-play price (round -1, written before any partner message
-was read) by replaying llm_v1 / llm_long from the LLM cache. No LLM calls: a cache miss aborts. The replay must
+"""E39 step 1: recover each pair member's provisional pre-play price (round -1; only the first sender has not
+read a partner message) by replaying llm_v1 / llm_long from the LLM cache. No LLM calls: a cache miss aborts. The replay must
 reproduce every stored trajectory price exactly, otherwise the script fails.
 
     uv run python scripts/preplay_extract.py     # needs cache/llm_market/*.jsonl (gitignored)

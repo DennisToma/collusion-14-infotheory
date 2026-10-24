@@ -188,12 +188,12 @@ Rate = run-level flag rate at α=0.05 under the shift null, averaged over C and 
 | collusion type | setting | MI (coll./ctrl) | CMI\|state | pCMI | TE | pair top-1 pCMI / TE |
 |---|---|---|---|---|---|---|
 | shared signal | T=100, s=0.1 | 1.00 / 0.50 | 0.97 / 0.03 | **0.97 / 0.08** | 0.05 / 0.03 | 1.00 / 0.12 |
-| shared signal | T=100, s≥0.2 | 1.00 / 0.50 | 1.00 / 0.03 | **1.00 / 0.08** | ≤0.25 / 0.03 | 1.00 / ≤0.17 |
+| shared signal | T=100, s≥0.2 | 1.00 / 0.50 | 1.00 / 0.03 | **1.00 / 0.08** | ≤0.25 / 0.03 | 1.00 / ≤0.18 |
 | shared signal | T=10, s=0.3 | 0 / 0 | 0 / 0 | 0 / 0 (no test: <20 valid shifts) | 0 / 0 | 0.47 / 0.12 |
 | shared signal | T=20, s=0.3 | 0.90 / 0.50 | 0.60 / 0.12 | **0.80 / 0.05** | 0.08 / 0.12 | 0.95 / 0.08 |
 | shared signal | T=50, s=0.3 | 1.00 / 0.53 | 1.00 / 0.10 | **1.00 / 0.05** | 0.10 / 0.05 | 1.00 / 0.15 |
 | tit-for-tat | T=100, s=0.2 | 0.55 / 0.50 | 0.10 / 0.03 | 0.10 / 0.08 | **0.40 / 0.03** | 0.28 / 0.75 |
-| tit-for-tat | T=100, s≥0.45 | ≈0.55 / 0.50 | ≤0.20 / 0.03 | ≤0.05 / 0.08 | **≥0.97 / 0.03** | ≤0.28 / **≥0.97** |
+| tit-for-tat | T=100, s≥0.45 | 0.53–0.55 / 0.50 | ≤0.20 / 0.03 | ≤0.05 / 0.08 | **≥0.97 / 0.03** | ≤0.28 / **≥0.97** |
 | tit-for-tat | T=20 / 50, s=0.3 | 0.35 / 0.50 ; 0.53 / 0.53 | 0.17 ; 0.10 | 0.08 ; 0.08 | 0.20 / 0.12 ; 0.38 / 0.05 | 0.17 / 0.45 ; 0.28 / 0.75 |
 | stay-high (no shared variation) | T=100, s=0.8 | 0.45 / 0.50 | 0.28 / 0.03 | 0.07 / 0.08 | 0.47 / 0.03 | 0.17 / 0.00 |
 
@@ -531,12 +531,12 @@ Prompted by the sibling's finding that round-1 prices alone discriminate (run AU
 | | `llm_v1` C+D (32 games) | `llm_long` C (8 games) |
 |---|---|---|
 | (a1) **first sender's** provisional price − rivals' round-0 price (no partner message read) | +0.94 [0.38, 1.59] | +2.19 [0.56, 3.94] |
-| (a) pair-mean provisional price − rivals' round-0 price (declared quantity) | +0.95 [0.41, 1.63] | +2.25 [0.62, 4.00] |
+| (a) pair-mean provisional price − rivals' round-0 price (declared quantity) | +0.95 [0.41, 1.62] | +2.25 [0.62, 4.00] |
 | (b) pair round-0 price − rivals' round-0 price | +0.81 [0.36, 1.31] | +2.19 [0.75, 3.81] |
 | (c) pair − rivals, whole game (§4.3.4) | +0.45 [0.34, 0.57] | +0.42 [0.20, 0.65] |
 | round-0 market markup over Nash, run AUROC C vs A / D vs B | 0.77 [0.61, 0.89] / 0.68 [0.50, 0.85] | 0.66 [0.38, 0.92] (C vs A) |
 
-Reading. The declared rule's verdict is "offer cue present in our market" in both datasets, both for the declared pair mean and for the first sender alone ("offer cue" is the declared rule label and means "present before a partner message is read", not an offer effect separate from the seller's own proposal). The first pair member's provisional price is above its rivals' round-0 prices before it has received any partner message. That price is written in the same response as its own first private message, and it is typically the price that message proposes (e.g. "I propose we both start at 15 and avoid undercutting", provisional 15, `llm_v1_D_003`); the second sender matches it exactly in 27/32 games. So the premium does not require *reading* a partner's message, but this check does not separate it from the seller's own coordination attempt. Rivals' round-0 prices match those of control sellers (`llm_v1` C family: rivals 11.7, A sellers 11.7, pair provisional 12.8). The opening point estimates exceed the whole-game premium (in `llm_v1` the CIs of (b) and (c) overlap; no paired test), consistent with the premium shrinking over the game. This agrees in direction with the sibling's round-1 and placebo findings (§4.3.9, §4.4). It also agrees with the §4.3.9 point that received messages add no detected level signal: the second sender, who has read the first message, is at +0.97 [0.41, 1.63], and pair provisional minus own round-0 price is +0.14 [−0.03, 0.38]. It is a descriptive, exploratory result: it does not identify a causal channel-offer effect, does not tell how much of the whole-game premium the offer explains, and does not replace a placebo arm (a seller can anticipate coordination before reading anything). Caveats: post-hoc; small n (the `llm_long` CI is wide). The provisional and round prices are different decision tasks: the provisional price is requested with different wording ("price is provisional") and under the common cost without a private shock, while rivals' round-0 prices use the same public state plus their own private cost shock and no chat. The effect comes from a right tail of high openings. Per seller, provisional prices ≥ 14 occur in 8/32 C-pair and 18/32 D-pair prices in `llm_v1`, against 0/84 round-0 prices of A sellers and 34/84 of B sellers (cost-shocked, so D openings are less distinctive).
+Reading. The declared rule's verdict is "offer cue present in our market" in both datasets, both for the declared pair mean and for the first sender alone ("offer cue" is the declared rule label and means "present before a partner message is read", not an offer effect separate from the seller's own proposal). The first pair member's provisional price is above its rivals' round-0 prices before it has received any partner message. That price is written in the same response as its own first private message, and it is typically the price that message proposes (e.g. "I propose we both start at 15 and avoid undercutting", provisional 15, `llm_v1_D_003`); the second sender matches it exactly in 27/32 games. So the premium does not require *reading* a partner's message, but this check does not separate it from the seller's own coordination attempt. Rivals' round-0 prices match those of control sellers (`llm_v1` C family: rivals 11.7, A sellers 11.7, pair provisional 12.8). The opening point estimates exceed the whole-game premium (in `llm_v1` the CIs of (b) and (c) overlap; no paired test), consistent with the premium shrinking over the game. This agrees in direction with the sibling's round-1 and placebo findings (§4.3.9, §4.4). It also agrees with the §4.3.9 point that received messages add no detected level signal: the second sender, who has read the first message, is at +0.97 [0.41, 1.62], and pair provisional minus own round-0 price is +0.14 [−0.03, 0.38]. It is a descriptive, exploratory result: it does not identify a causal channel-offer effect, does not tell how much of the whole-game premium the offer explains, and does not replace a placebo arm (a seller can anticipate coordination before reading anything). Caveats: post-hoc; small n (the `llm_long` CI is wide). The provisional and round prices are different decision tasks: the provisional price is requested with different wording ("price is provisional") and under the common cost without a private shock, while rivals' round-0 prices use the same public state plus their own private cost shock and no chat. The effect comes from a right tail of high openings. Per seller, provisional prices ≥ 14 occur in 8/32 C-pair and 18/32 D-pair prices in `llm_v1`, against 0/84 round-0 prices of A sellers and 34/84 of B sellers (cost-shocked, so D openings are less distinctive).
 
 ### 4.4 Umbrella synthesis with the sibling project (Q2.2, text + action auditing)
 Numbers in this paragraph come from the sibling repo `collusion-22-say-vs-do` (REPORT abstract, locked test split n = 95, read 01:05 UTC; placebo result read 04:05 UTC at sibling commit 6a1de73; not regenerated here). The two projects reach a consistent conclusion from opposite directions.
@@ -569,6 +569,14 @@ Numbers in this paragraph come from the sibling repo `collusion-22-say-vs-do` (R
   (6/16, p = 0.038) and pCMI top-1 in llm_v3 (18/70, p = 0.036), should not be read as signal.
 
 ## 6. Reproduce
+For a release check without LLM calls or live sibling data, install Chromium once, then run:
+```
+uv run --group export playwright install chromium  # once
+uv run --group export python scripts/verify_release.py --recompute --export
+```
+This uses a disposable copy under `/var/tmp` without gitignored caches. It checks all five external snapshots' SHA256 manifests and local document links, regenerates the later exploratory analyses (E30/E32/E35/E39), descriptive summaries, LLM result tables, figures and talk deck, and requires byte-identical outputs. It also compares the headers and 404 body cells of all 11 quantitative results tables with committed JSON/labels (`scripts/tables.py --check`); the narrative overview and pilot history are excluded. PDF exports must preserve headings/table cells, slide count and titles, with no slide overflow. Evidence, including input/output hashes, is saved to `results/release_audit.json`. This checks reproduction of the reported results; it does not validate the estimators or re-run the locked scripted experiments.
+
+Individual commands:
 ```
 uv run python -m experiments.scripted both --name gate_test --n 50 --T 100 --strength 0.6 --B 200 --seed 1001  # §4.1 (locked)
 uv run python -m experiments.sweep --seed 1002 --workers 2 --out results/sweeps/power_test.json               # §4.2 (locked)
@@ -591,9 +599,14 @@ uv run python -m experiments.diag_llm_v3                 # E15 exploratory co-mo
 uv run python scripts/injection_mde.py                   # E30 exploratory planted-co-movement check (§4.3.8), ~2 min
 uv run python scripts/placebo_rep_ext.py                 # E32 sibling replication + placebo (§4.3.9), ~1 min; inputs data/ext_llm_v3{rep,plc}/
 uv run python scripts/nonagreement_ext.py                # E35 offered-but-no-agreement strata (§4.3.10), ~20 s; inputs data/ext_llm_v3{mon,fp}/
-uv run python scripts/tables.py                          # reprints §4.1/§4.2 tables from results/*.json (+ §4.3 generated tables)
+uv run python scripts/preplay_offer.py                   # E39 pre-play premiums (§4.3.11), from committed data/*/preplay.jsonl
+uv run python scripts/tables.py --report                 # all 11 quantitative results tables from JSON/labels
+uv run python scripts/tables.py --check                  # compare those tables with REPORT; nonzero exit on mismatch
+uv run python scripts/tables.py                         # detailed gate/sweep/LLM supporting tables
 uv run python -m experiments.llm_report --name llm_v1   # §4.3 tables (results/eval/llm_v1_report.md) + figures/llm_v1_*.png
 ```
+For E39, the recovered provisional prices are committed in `data/{llm_v1,llm_long}/preplay.jsonl`; no cache is needed for the analysis. The optional provenance replay `uv run python scripts/preplay_extract.py` requires the original gitignored `cache/llm_market/*.jsonl` files and aborts on a cache miss. Only the first sender's provisional price precedes receipt of any partner message (§4.3.11).
+
 Raw LLM trajectories are committed under `data/` (no LLM calls needed to re-run any analysis); scripted §4.1 trajectories are stored gzipped (`data/gate_test/trajectories.jsonl.gz`) and the `gen` step regenerates them byte-identically apart from the run_id prefix (checked 03:15 UTC).
 Splits: `data/SPLITS.md`; every experiment incl. discarded ones: `EXPERIMENTS.tsv`; reviews: `results/reviews/`.
 

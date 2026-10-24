@@ -1,0 +1,154 @@
+"""Audit the release in a disposable copy without caches, sibling repos, or LLM calls.
+
+uv run --group export python scripts/verify_release.py --recompute --export
+
+Always checks REPORT tables and snapshot checksums, then regenerates presentation/figures
+and LLM report tables. --recompute also re-runs E30/E32/E35/E39 and the small descriptive
+analyses from committed data. It never reruns the locked scripted experiments or LLM
+generation/judging. --export runs the PDF export's text/page/overflow checks.
+All regenerated outputs except PDFs must match the source bytes exactly. The source
+worktree is untouched except for results/release_audit.json (including failure evidence).
+Uses the current Python environment; sync dependencies (plus the export group if needed)
+and install Chromium first, as documented in REPORT §6.
+"""
+from __future__ import annotations
+
+import argparse
+import datetime as dt
+import hashlib
+import importlib.metadata
+import json
+import os
+import re
+import shutil
+import subprocess
+import sys
+import tempfile
+import time
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+
+RECOMPUTE = [
+    (["scripts/injection_mde.py"], ["results/eval/injection_mde.json"]),
+    (["scripts/placebo_rep_ext.py"], ["results/eval/placebo_rep_ext.json", "results/eval/placebo_rep_ext_report.md"]),
+    (["scripts/nonagreement_ext.py"], ["results/eval/nonagreement_ext.json", "results/eval/nonagreement_ext_report.md"]),
+    (["scripts/preplay_offer.py"], ["results/eval/preplay_offer.json"]),
+    (["scripts/mixed_price_by_model.py"], ["results/eval/llm_mixed2_price_by_model.json"]),
+    (["scripts/market_mean_ranges.py"], ["results/eval/llm_v1_market_mean_ranges.json"]),
+    (["-m", "experiments.premium_llm_v3"], ["results/eval/llm_v3_premium.json"]),
+]
+RENDER = [
+    (["-m", "experiments.llm_report", "--name", "llm_v1"], ["results/eval/llm_v1_report.md", "figures/llm_v1_prices.png", "figures/llm_v1_auroc.png", "figures/llm_v1_power_vs_T.png"]),
+    (["-m", "experiments.llm_report", "--name", "llm_long"], ["results/eval/llm_long_report.md", "figures/llm_long_prices.png", "figures/llm_long_auroc.png", "figures/llm_long_power_vs_T.png"]),
+    (["scripts/mixed_fig.py"], ["figures/llm_mixed2_same_vs_cross.png"]),
+    (["-m", "experiments.llm_fig"], ["figures/llm_auroc_both.png"]),
+    (["scripts/headline_fig.py"], ["figures/headline.png"]),
+    (["scripts/slides.py"], ["PRESENTATION.md"]),
+]
+
+
+def sha(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def git(*args):
+    return subprocess.check_output(["git", *args], cwd=ROOT).decode()
+
+
+def snapshot(dest):
+    # Include in-progress source edits so this also works before a milestone commit.
+    # Gitignored caches, environments, and the sibling's live files are never copied.
+    paths = git("ls-files", "--cached", "--others", "--exclude-standard", "-z").split("\0")
+    inputs = {}
+    for name in sorted(set(paths) - {""}):
+        src = ROOT / name
+        if not src.is_file():
+            continue
+        out = dest / name
+        out.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(src, out)
+        if src.suffix in {".py", ".json", ".jsonl", ".gz", ".toml", ".lock"} or name in {"REPORT.md", "PRESENTATION.md", "README.md", "EXPERIMENTS.tsv"}:
+            if not name.startswith("results/release_audit"):
+                inputs[name] = sha(src)
+    if (dest / "cache").exists():
+        raise ValueError("Snapshot unexpectedly contains an LLM cache")
+    return inputs
+
+
+def static_checks(dest):
+    checksums = 0
+    manifests = [dest / "data" / f"ext_llm_v3{suffix}" / "SHA256SUMS" for suffix in ["", "rep", "plc", "mon", "fp"]]
+    for manifest in manifests:
+        for line in manifest.read_text().splitlines():
+            digest, name = line.split(maxsplit=1)
+            p = manifest.parent / name.lstrip("*")
+            if sha(p) != digest:
+                raise ValueError(f"Checksum mismatch: {p.relative_to(dest)}")
+            checksums += 1
+    links = 0
+    for name in ["README.md", "REPORT.md", "PRESENTATION.md"]:
+        for target in re.findall(r"!?\[[^\]]*\]\(([^)]+)\)", (dest / name).read_text()):
+            target = target.split("#", 1)[0]
+            if not target or re.match(r"[a-z]+:", target):
+                continue
+            if not (dest / target).is_file():
+                raise ValueError(f"Broken local link in {name}: {target}")
+            links += 1
+    return {"snapshot_checksums": checksums, "local_links": links, "cache_present": False}
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--recompute", action="store_true")
+    ap.add_argument("--export", action="store_true")
+    args = ap.parse_args()
+    evidence = {"schema_version": 1, "started_utc": dt.datetime.now(dt.UTC).isoformat(),
+                "source_revision": git("rev-parse", "HEAD").strip(),
+                "source_worktree_dirty": bool(git("status", "--porcelain").strip()),
+                "python_version": sys.version,
+                "packages": {p: importlib.metadata.version(p) for p in ["numpy", "scipy", "matplotlib", "scikit-learn"]},
+                "recompute": args.recompute, "export": args.export, "checks": [], "passed": False}
+    try:
+        with tempfile.TemporaryDirectory(prefix="c14-release-", dir="/var/tmp") as td:
+            dest = Path(td)
+            evidence["input_sha256"] = snapshot(dest)
+            evidence["static_checks"] = static_checks(dest)
+            print("PASS: snapshot checksums and local links; no LLM cache in disposable copy", flush=True)
+            # Remove inherited Python import paths that could resolve modules in the live repo.
+            env = {k: v for k, v in os.environ.items() if k not in {"PYTHONPATH", "PYTHONHOME"}}
+            env["MPLCONFIGDIR"] = str(dest / ".mplconfig")
+            env["PYTHONUNBUFFERED"] = "1"
+            steps = (RECOMPUTE if args.recompute else []) + RENDER + [(["scripts/tables.py", "--check"], [])]
+            if args.export:
+                steps.append((["scripts/export_pdf.py"], ["REPORT.html"]))
+            expected_outputs = {p: sha(dest / p) for _, outputs in steps for p in outputs}
+            for command, outputs in steps:
+                t0 = time.monotonic()
+                print("RUN:", " ".join(command), flush=True)
+                proc = subprocess.run([sys.executable, *command], cwd=dest, env=env,
+                                      stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+                changed = [p for p in outputs if not (dest / p).is_file() or sha(dest / p) != expected_outputs[p]]
+                row = {"command": ["python", *command], "seconds": round(time.monotonic() - t0, 2),
+                       "exit_code": proc.returncode, "outputs": {p: sha(dest / p) for p in outputs if (dest / p).is_file()},
+                       "byte_mismatches": changed, "passed": proc.returncode == 0 and not changed}
+                evidence["checks"].append(row)
+                if not row["passed"]:
+                    row["diagnostics"] = proc.stdout[-6000:]
+                    raise ValueError(f"{' '.join(command)}: exit={proc.returncode}, changed={changed}\n{proc.stdout[-3000:]}")
+                # Keep compact diagnostics for table/export evidence, avoid large analysis logs.
+                if not outputs or command == ["scripts/export_pdf.py"]:
+                    row["diagnostics"] = proc.stdout[-6000:]
+                print(f"PASS: {len(outputs)} outputs byte-identical ({row['seconds']}s)" if outputs else proc.stdout.strip(), flush=True)
+            evidence["passed"] = True
+    except Exception as exc:
+        evidence["error"] = str(exc)
+        print("FAIL:", exc, flush=True)
+    evidence["finished_utc"] = dt.datetime.now(dt.UTC).isoformat()
+    (ROOT / "results/release_audit.json").write_text(json.dumps(evidence, indent=2) + "\n")
+    print(f"{'PASS' if evidence['passed'] else 'FAIL'}: evidence in results/release_audit.json", flush=True)
+    return 0 if evidence["passed"] else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

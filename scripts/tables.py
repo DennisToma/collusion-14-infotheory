@@ -1,12 +1,16 @@
 """Regenerate REPORT.md section 4.1/4.2/4.3 tables purely from results/*.json (no experiments run).
 
-Usage: uv run python scripts/tables.py > out.md
-CIs are the Wilson intervals already stored in the JSON by experiments.scripted.evaluate
-(experiments.scripted.wilson); nothing is recomputed here.
+Usage: uv run python scripts/tables.py > out.md       # supporting tables, detailed sweeps
+       uv run python scripts/tables.py --report      # REPORT quantitative results tables
+       uv run python scripts/tables.py --check       # fail on mismatch; no output files written
+Default gate CIs are stored Wilson intervals from experiments.scripted.evaluate.
+--report/--check also reproduce the label table's Wilson intervals from committed labels.
+No detector, simulation, bootstrap, or LLM call is run.
 """
 import glob
 import json
 import os
+import argparse
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DETS = ["pearson", "mi", "cmi_state", "pcmi", "te"]
@@ -41,8 +45,9 @@ GROUPS = [
 
 
 def gate():
-    m = json.load(open(os.path.join(ROOT, "results/eval/gate_test.json")))["metrics"]
-    a = json.load(open(os.path.join(ROOT, "results/eval/gate_test.json")))["args"]
+    with open(os.path.join(ROOT, "results/eval/gate_test.json")) as f:
+        data = json.load(f)
+    m, a = data["metrics"], data["args"]
     print(f"### 4.1 (gate_test.json: seed {a['seed']}, n={a['n']}, T={a['T']}, s={a['strength']}, B={a['B']})\n")
     print("| group | \\|Pearson\\| | MI | CMI\\|state | **pCMI** shift [CI] / surrogate [CI] | TE |")
     print("|---|---|---|---|---|---|")
@@ -129,7 +134,20 @@ def mixed(name="llm_mixed2"):
 
 
 if __name__ == "__main__":
-    gate()
-    sweep()
-    llm()
-    mixed()
+    ap = argparse.ArgumentParser(description=__doc__)
+    mode = ap.add_mutually_exclusive_group()
+    mode.add_argument("--check", action="store_true", help="fail if a quantitative REPORT results table differs from committed inputs")
+    mode.add_argument("--report", action="store_true", help="print all quantitative results tables in REPORT order")
+    args = ap.parse_args()
+    if args.check or args.report:
+        from report_tables import check, render
+        if args.check:
+            with open(os.path.join(ROOT, "REPORT.md")) as f:
+                report = f.read()
+            raise SystemExit(0 if check(report) else 1)
+        render()
+    else:
+        gate()
+        sweep()
+        llm()
+        mixed()

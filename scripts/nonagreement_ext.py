@@ -69,7 +69,8 @@ def main(B=50):
     for det in DETS:
         d = res["detectors"][det]
         x = d["auroc_mon_private_vs_none"]
-        L.append(f"| {NAMES[det]} | {t(d['top1_mon'])} | {t(d['top1_fp'])} | {t(d['top1_pooled'])} | "
+        label = NAMES[det].replace('|', '\\|')
+        L.append(f"| {label} | {t(d['top1_mon'])} | {t(d['top1_fp'])} | {t(d['top1_pooled'])} | "
                  f"{x['auroc']:.2f} [{x['ci'][0]:.2f}, {x['ci'][1]:.2f}] |")
     (ROOT / "results" / "eval" / "nonagreement_ext_report.md").write_text("\n".join(L) + "\n")
     print("\n".join(L))

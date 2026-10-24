@@ -57,8 +57,9 @@ th { background: #f2f5f9 } code { font-size: .88em }
 # shrink each slide's base font until it fits its page
 FIT_JS = """() => [...document.querySelectorAll('section')].map(s => {
   let pt = 14;
-  while (s.scrollHeight > s.clientHeight + 1 && pt > 8) { pt -= 0.5; s.style.fontSize = pt + 'pt'; }
-  return [pt, s.scrollHeight > s.clientHeight + 1];
+  const overflows = () => s.scrollHeight > s.clientHeight + 1 || s.scrollWidth > s.clientWidth + 1;
+  while (overflows() && pt > 8) { pt -= 0.5; s.style.fontSize = pt + 'pt'; }
+  return [pt, overflows()];
 })"""
 
 
@@ -98,7 +99,7 @@ def check_pdf(pdf, needles, label):
     text = norm("".join(p.extract_text() or "" for p in PdfReader(pdf).pages))
     missing = [n for n in needles if norm(n) and norm(n) not in text]
     if missing:
-        print(f"[warn] {label}: {len(missing)}/{len(needles)} fragments not found verbatim in PDF text: {missing}")
+        print(f"[FAIL] {label}: {len(missing)}/{len(needles)} fragments not found verbatim in PDF text: {missing}")
     else:
         print(f"[ok] {label}: all {len(needles)} fragments found in PDF text")
     return missing
@@ -136,15 +137,17 @@ def main():
     for line in report_md.splitlines():
         if line.startswith("|") and not re.match(r"^\|[\s:|-]+\|$", line):
             cells += [plain(c.replace("\\|", "|")) for c in re.split(r"(?<!\\)\|", line.strip().strip("|")) if plain(c)]
-    check_pdf(ROOT / "REPORT.pdf", heads, "REPORT headings")
-    check_pdf(ROOT / "REPORT.pdf", cells, "REPORT table cells")
+    missing = check_pdf(ROOT / "REPORT.pdf", heads, "REPORT headings")
+    missing += check_pdf(ROOT / "REPORT.pdf", cells, "REPORT table cells")
     n = len(PdfReader(ROOT / "PRESENTATION.pdf").pages)
     titles = [plain(re.search(r"(?m)^#{1,2} (.+)$", s).group(1)) for s in slides if re.search(r"(?m)^#{1,2} ", s)]
     print(f"[{'ok' if n == len(slides) else 'FAIL'}] deck: {n} PDF pages for {len(slides)} slides")
     if any(overflow):
         print(f"[FAIL] slides overflowing their page: {[i + 1 for i, o in enumerate(overflow) if o]}")
-    check_pdf(ROOT / "PRESENTATION.pdf", titles, "slide titles")
+    missing += check_pdf(ROOT / "PRESENTATION.pdf", titles, "slide titles")
     print(f"REPORT.pdf pages: {len(PdfReader(ROOT / 'REPORT.pdf').pages)}")
+    if missing or any(overflow) or n != len(slides):
+        raise SystemExit("Export verification failed; inspect the diagnostics above")
 
 
 if __name__ == "__main__":

@@ -23,4 +23,8 @@ Dependence measures ignore levels by construction, so simple level scores do muc
 | `EXPERIMENTS.tsv` | ledger of every experiment, including discarded and negative ones |
 
 Reproduce: `uv sync`, then the commands in REPORT §6. No re-analysis needs an LLM call, because the LLM trajectories
-and judge labels are committed. `uv run python scripts/tables.py` reprints every REPORT table from `results/`.
+and judge labels are committed. `uv run python scripts/tables.py --report` reprints the 11 quantitative results tables from JSON/labels;
+`--check` compares them with REPORT (overview and pilot history excluded).
+Run `uv run --group export python scripts/verify_release.py --recompute --export` to check the later analyses, tables, figures,
+deck and PDF export in a disposable copy without LLM caches or a live sibling repo (export dependencies: REPORT §6).
+The check records input/output hashes and failures in `results/release_audit.json`.

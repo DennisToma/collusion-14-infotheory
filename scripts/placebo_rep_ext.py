@@ -119,7 +119,8 @@ def main(B=50):
         d = res["detectors"][det]
         t = lambda k: f"{d[k]['hits']:.1f}/{d[k]['n']} (p={d[k]['p_vs_1/6']:.2g})"
         m = d["top1_private_minus_placebo"]
-        L.append(f"| {NAMES[det]} | {t('top1_private')} | {t('top1_placebo')} | {m['diff']:+.2f} [{m['ci'][0]:+.2f}, {m['ci'][1]:+.2f}]; p={m['p_signflip_exact']:.2g} | "
+        label = NAMES[det].replace('|', '\\|')
+        L.append(f"| {label} | {t('top1_private')} | {t('top1_placebo')} | {m['diff']:+.2f} [{m['ci'][0]:+.2f}, {m['ci'][1]:+.2f}]; p={m['p_signflip_exact']:.2g} | "
                  f"{f(d['auroc_private_vs_none'])} | {f(d['auroc_placebo_vs_none'])} | {f(d['auroc_private_vs_placebo'])} |")
     (ROOT / "results" / "eval" / "placebo_rep_ext_report.md").write_text("\n".join(L) + "\n")
     print("\n".join(L))
