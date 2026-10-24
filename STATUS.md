@@ -4,12 +4,13 @@
 
 **Phase 2 running.** REPORT "Phase 2 results": P2.1–P2.6 + **P2.3(c) rewritten with E54 (matched reference)** + **P2.8 long-game pilot (E55 on v1 llm_long, E56 behaviour split)**. P2.3 trimmed.
 **Generating:** `llm_queue_p2.sh` E43 order arm 10/12 → noreason (~09:00) → E44 llm_long_p2 (→ ~13:00) → p2b T=80. E45 deepseek 7/30 (4A/3C), non-degenerate (seller SD 0.55–3.7, 0 parse failures; A markup −1.25..+0.14, C +1.0..+2.9).
-**E54 interim (pool 21 fresh luna A):** llm_v1 A false flags @.05 0/21 for markup/pair_level/pCMI/MI → declared rule "restores" ✓; but power collapses (markup 1/16) because the prompt wording moves no-channel prices (template A +2.56 > llm_v1 C +1.78).
+**E54 interim (pool 24 fresh luna A: v0/para/template/order):** llm_v1 A false flags @.05 0/21 for markup/pair_level/pCMI/MI → declared rule "restores" ✓; but power collapses (markup 1/16) because the prompt wording moves no-channel prices (template A +2.56 > llm_v1 C +1.78).
 **E55 pilot (old llm_long 8+8, T=50):** pCMI AUROC flat 0.36–0.45 over T; MDE q=0.2 at T=50 but observed co-move excess −0.008 [−0.023, 0.009] → "signal absent, not too short"; premium decays 1.12 → 0.16.
 **E56:** agreements mostly followed (12/16, 6/8) at low floors (12); followed pairs pCMI AUROC 0.16/0.06 (reversed).
 **E43 interim (3 full arms + order 5/5):** C−A markup v0 1.19 [0.44,1.94], para 0.53 [0.10,0.99], template 0.45 [−1.0,2.6]; Cochran Q 2.31 p=.51; fixed effect 0.67 ± 0.18; within-arm AUROC markup .68 [.53,.81], pair_level .64, pCMI .44. Template wording breaks the level screen (markup AUROC 0.31). NOT yet in REPORT (wait for 5/5 arms).
-**Fixed:** `scripts/test_release_audit.py` (8/8 OK; report_tables.check now skips the Phase 2 section); `tables.py --check` PASS.
-**Next:** (1) ~09:00 `uv run python scripts/p2_variants.py --run-eval` (after order+noreason) → REPORT P2.7 (gap 1; pooled + heterogeneity + sign count); (2) E44 done → `uv run python -m experiments.llm_eval label --name llm_long_p2` (judge) then `scripts/long_power.py` (declared rule) + `scripts/matched_ref.py` final + `behaviour_split.py --names llm_v1,llm_long,llm_long_p2` → replace P2.8 pilot; (3) deepseek at checkpoint: markup C−A at whatever n; (4) p2_tables.py --check; abstract rewrite + takeaways table by 19:30; codex review of P2.3/P2.7/P2.8.
+**Fixed:** `scripts/test_release_audit.py` (8/8 OK; report_tables.check skips the Phase 2 section); `tables.py --check` PASS; new `scripts/p2_tables.py --check` PASS (192 cells) after refreshing stale P2.3 table CIs.
+**Codex review of E55 (before E44 output):** primary decision = the stricter E44 rule (06:29); E55 clauses supporting; scripts enforce complete cohorts. Pilot on old llm_long: E44 rule inconclusive (upper CI .75).
+**Next:** (1) ~09:00 `uv run python scripts/p2_variants.py --run-eval` (after order+noreason) → REPORT P2.7 (gap 1; pooled + heterogeneity + sign count); (2) E44 done → `uv run python -m experiments.llm_eval label --name llm_long_p2` (judge) then `scripts/long_power.py` (E44 rule primary; refuses incomplete cohort) + `scripts/matched_ref.py` final + `behaviour_split.py --names llm_v1,llm_long,llm_long_p2` → replace P2.8 pilot; (3) deepseek at checkpoint: markup C−A at whatever n; (4) p2_tables.py --check; abstract rewrite + takeaways table by 19:30; codex review of P2.3/P2.7/P2.8.
 **Risks:** E44 timing (~13:00); Go throughput; the template-wording result may weaken the "level screens work" headline — report as robustness band.
 
 # STATUS (updated 2026-10-24 07:55 UTC, Phase 2 iteration 3)
@@ -39,6 +40,7 @@ Codex review of P2.4–P2.5 applied (1 P0 summary-only bug, no reported number c
 **Risks:** small LLM n, OpenAI-family sellers only, no own-market placebo; surplus dependence is not proof of an agreement.
 
 ## Log
+- P2 iter 4 08:10–08:20: codex review E55 → E44 rule primary, script P0 fixes; p2_tables.py (sonnet) found stale P2.3 CIs → fixed.
 - P2 iter 4 07:53–08:10: declared E54/E55/E43-amendment/E56; E54 interim; E55 pipeline pilot on llm_long; E56 behaviour split; E43 interim with heterogeneity; P2.3 rewritten+trimmed, P2.8 added; release-audit test fixed.
 - P2 iter 3 07:30–07:55: gap 9 exploration E53 (sim colluder_rotation, experiments/p2_rotation.py, dev → test once) → REPORT P2.6; codex review of P2.4–P2.5 → summary fix + wording; E52 rerun after refactor identical.
 - P2 iter 3 07:07–07:30: gap 7 (E52): generalised sim/detectors to N sellers + μ (byte-identical compat), experiments/p2_market.py, dev → amended (ceiling) → locked test once → REPORT P2.5 + scripts/p2_market_table.py; abstract Phase 2 sentence; deepseek slowed by Go 429.

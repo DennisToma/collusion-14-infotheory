@@ -1,0 +1,204 @@
+"""Regenerate and check the Markdown tables in REPORT.md "## Phase 2 results" from committed JSON.
+
+No experiments or LLM calls; nothing is written. Every number in a cell comes from JSON in results/;
+only row labels / annotation words are literal text here.
+    uv run python scripts/p2_tables.py          # print regenerated tables
+    uv run python scripts/p2_tables.py --check  # compare cell by cell with REPORT.md (exit 1 on failure)
+Tables: P2.1 prevalence, P2.3 same-model, P2.4 coalitions/cost asymmetry, P2.5 market robustness, P2.6 rotation.
+"""
+from __future__ import annotations
+
+import contextlib
+import io
+import json
+import runpy
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / "scripts"))
+from report_tables import normalized, parse_tables, table  # noqa: E402
+
+# Cells in the Phase 2 tables that cannot be derived from JSON (none at present).
+UNCHECKED: list[str] = []
+# Not tables: P2.4 onset (E50, results/p2/onset_test.json) is reported in prose only, so it is not checked here.
+
+
+def jl(path):
+    return json.loads((ROOT / path).read_text())
+
+
+def k30(d):
+    return round(d["rate"] * d["n"]) if "n" in d else round(d["rate"] * 30)
+
+
+# ---------------------------------------------------------------- P2.1
+def p21():
+    rows = jl("results/eval/prevalence.json")
+
+    def find(setting, det, null, neg):
+        m = [r for r in rows if r["setting"].startswith(setting) and r["detector"] == det and r["null"] == null and r["neg"] == neg]
+        assert len(m) == 1, (setting, det, null, neg, len(m))
+        return m[0]
+
+    def prec(r, with_ci=True):
+        out = []
+        for pi in ("0.01", "0.05", "0.2"):
+            p, ci = r[f"precision@{pi}"], r[f"precision@{pi}_ci"]
+            out.append(f"{p:.2f} [{ci[0]:.2f}, {ci[1]:.2f}]" if with_ci else f"{p:.2f}")
+        return out
+
+    spec = [  # (label setting, label detector, setting key, det, null, neg, neg label, ci?)
+        ("scripted, T=100", "pCMI (shift)", "scripted gate_test", "pcmi", "shift", "A", "independent", True),
+        ("scripted, T=100", "pCMI (shift)", "scripted gate_test", "pcmi", "shift", "B", "common shock", True),
+        ("scripted, T=100", "pCMI (shift)", "scripted gate_test", "pcmi", "shift", "A+shared_seed", "shared-seed copies", True),
+        ("scripted, T=100", "MI (shift)", "scripted gate_test", "mi", "shift", "B", "common shock", False),
+        ("`llm_v1`, T=20", "pCMI (shift)", "LLM llm_v1", "pcmi", "shift", "A+B", "A+B controls", True),
+        ("`llm_v1`, T=20", "pair_level (surrogate)", "LLM llm_v1", "pair_level", "surrogate", "A+B", "A+B)\\*", True),
+        ("sibling `llm_v3`, T=12", "pair_level (surrogate)", "LLM sibling llm_v3", "pair_level", "surrogate", "legit", "legit partnership", True),
+    ]
+    out = []
+    for ls, ld, sk, det, null, neg, nl, ci in spec:
+        r = find(sk, det, null, neg)
+        fp = f"{r['fp'][0]}/{r['fp'][1]} ({nl})" if not nl.endswith("\\*") else f"{r['fp'][0]}/{r['fp'][1]} ({nl}"
+        out.append([ls, ld, f"{r['tp'][0]}/{r['tp'][1]}", fp, *prec(r, ci)])
+    return table(["setting", "detector (null)", "TPR", "FPR (negative type)", "precision @ 1%", "@ 5%", "@ 20%"], out)
+
+
+# ---------------------------------------------------------------- P2.3
+def p23():
+    a = jl("results/eval/same_model.json")["auroc"]
+    cols = ["pcmi", "pcmi_ownlag", "mi", "pair_level", "pair_markup"]
+    labels = [("channel_all|luna-luna", "luna–luna, no channel (same model as colluders)"),
+              ("channel_all|sol-sol", "sol–sol, no channel"),
+              ("channel_all|cross", "luna–sol cross, no channel"),
+              ("channel_all|bystander", "same-market bystander pairs")]
+    rows = [[lab, *[f"{a[key][c][0]:.2f} [{a[key][c][1][0]:.2f}, {a[key][c][1][1]:.2f}]" for c in cols]] for key, lab in labels]
+    return table(["channel-assigned pair vs …", "pCMI", "pCMI, own lag only", "MI", "pair_level", "pair markup over Nash"], rows)
+
+
+# ---------------------------------------------------------------- P2.4
+def p24():
+    co = jl("results/p2/coalition_test.json")["summaries"]
+    ca = jl("results/p2/costasym_test.json")["summaries"]
+
+    def ab(key, m, bold=False):
+        s = f"{k30(co['A/' + key][m])}/30, {k30(co['B/' + key][m])}/30"
+        return f"**{s}**" if bold else s
+
+    def tc(key):
+        s = ab(key, "tc4_flag")
+        if ab(key, "tc3_flag") != s:  # the table shows one pair of counts for TC4 / TC3
+            s += f" [TC3 {ab(key, 'tc3_flag')}]"
+        return s
+
+    def f(m, key="A/costasym"):
+        return k30(ca[key][m])
+
+    ctrl = (f"pCMI {ab('control', 'pcmi_flag')}; TC4 {ab('control', 'tc4_flag')}; "
+            f"pair_level {ab('control', 'pair_level_surrogate_flag')}")
+    au = [co[f"{fam}/coalition4"]["auroc_vs_control"]["pair_level"]["auc"] for fam in "AB"]
+    rows = [
+        ["3 of 4 collude (A / B)", ab("coalition3", "pair_level_surrogate_flag"), ab("coalition3", "market_level_surrogate_flag"),
+         ab("coalition3", "pcmi_flag"), tc("coalition3"), ab("coalition3", "ni_pcmi_surrogate_flag"), ctrl],
+        ["**all 4 collude** (A / B)", ab("coalition4", "pair_level_surrogate_flag", True) + f" (AUROC {au[0]:.2f}, {au[1]:.2f})",
+         ab("coalition4", "market_level_surrogate_flag"), ab("coalition4", "pcmi_flag"), tc("coalition4"),
+         ab("coalition4", "ni_pcmi_surrogate_flag"), "as above"],
+        ["**cost asymmetry** (2 sellers +2 private cost, no channel)",
+         f"**{f('pair_level_surrogate_flag')}/30 false** (names the high-cost pair {f('high_cost_pair_top_pair_level')}/30)",
+         f"**{f('market_level_surrogate_flag')}/30 false**", f"{f('pcmi_flag')}/30 false (MI {f('mi_flag')}/30)", "–",
+         f"{f('ni_pcmi_surrogate_flag')}/30 false",
+         f"pCMI {f('pcmi_flag', 'A/control')}/30, pair_level {f('pair_level_surrogate_flag', 'A/control')}/30, MI {f('mi_flag', 'A/control')}/30"],
+    ]
+    return table(["test (locked)", "pair_level (surrogate)", "max-pair markup (surrogate)", "pCMI (shift)",
+                  "group TC4 / TC3 (shift)", "ni_pCMI (surrogate)", "controls (same family)"], rows)
+
+
+# ---------------------------------------------------------------- P2.5
+def p25():
+    buf = io.StringIO()
+    argv = sys.argv
+    sys.argv = ["p2_market_table.py", "--split", "test"]
+    try:
+        with contextlib.redirect_stdout(buf):
+            runpy.run_path(str(ROOT / "scripts" / "p2_market_table.py"), run_name="__p2_market__")
+    finally:
+        sys.argv = argv
+    return "\n".join(l for l in buf.getvalue().splitlines() if l.startswith("|"))
+
+
+# ---------------------------------------------------------------- P2.6
+def p26():
+    S = jl("results/p2/rotation_test.json")["summaries"]
+
+    def ab(g, m):
+        return [k30(S[f"{fam}/T100/{g}"][m]) for fam in "AB"]
+
+    def pair(g, m, ann=""):
+        v = ab(g, m)
+        return f"{v[0]}, {v[1]}" + ann
+
+    def wil(g, m):  # Wilson percent annotation, both families
+        parts = []
+        for fam in "AB":
+            d = S[f"{fam}/T100/{g}"][m]
+            parts.append(f"{round(d['rate'] * 100)}% [{round(d['ci95'][0] * 100)}, {round(d['ci95'][1] * 100)}]")
+        return f" ({parts[0]}, {parts[1]})"
+
+    def price(g):
+        return " / ".join(f"{S[f'{fam}/T100/{g}']['mean_price']['mean']:.2f}" for fam in "AB")
+
+    def row(label, g, pc=None, te=None):
+        return [label, price(g), pc or pair(g, "pcmi_flag"), te or pair(g, "te_flag"), pair(g, "mi_flag"),
+                pair(g, "markup_surrogate_flag"), pair(g, "pair_level_surrogate_flag")]
+
+    rows = [
+        row("controls", "control", pc=pair("control", "pcmi_flag", wil("control", "pcmi_flag"))),
+        row("shared-signal pair (reference)", "signal"),
+        row("**rotation, alternating winner**", "rot_alt", pc=f"**{pair('rot_alt', 'pcmi_flag')}** (= controls)",
+            te=f"**{pair('rot_alt', 'te_flag')}**" + wil("rot_alt", "te_flag")),
+        row("rotation, private random winner", "rot_rand"),
+    ]
+    return table(["group", "mean price", "pCMI (shift)", "TE, lagged (shift)", "MI (shift)", "markup (surrogate)", "pair_level (surrogate)"], rows)
+
+
+BUILDERS = {"P2.1": p21, "P2.3": p23, "P2.4": p24, "P2.5": p25, "P2.6": p26}
+
+
+def check(report):
+    a, b = report.index("## Phase 2 results"), report.index("\n## Abstract")
+    blocks = parse_tables(report[a:b], include_header=True)
+    if len(blocks) != len(BUILDERS):
+        print(f"FAIL: expected {len(BUILDERS)} tables in Phase 2 section, found {len(blocks)}")
+        return False
+    errors, cells = [], 0
+    for (section, build), actual in zip(BUILDERS.items(), blocks):
+        expected = parse_tables(build(), include_header=True)[0]
+        if len(actual) != len(expected):
+            errors.append(f"{section}: expected {len(expected)} rows, found {len(actual)}")
+            continue
+        for i, (ar, er) in enumerate(zip(actual, expected), 1):
+            if len(ar) != len(er):
+                errors.append(f"{section}, row {i}: expected {len(er)} cells, found {len(ar)}")
+                continue
+            for j, (av, ev) in enumerate(zip(ar, er), 1):
+                if i == 1:
+                    continue  # header text is not a result
+                cells += 1
+                if normalized(av) != normalized(ev):
+                    errors.append(f"{section}, row {i} ({ar[0][:30]}), cell {j}: REPORT {av!r} != JSON-generated {ev!r}")
+    for e in errors:
+        print("FAIL:", e)
+    for u in UNCHECKED:
+        print("UNCHECKED:", u)
+    print(f"{'FAIL' if errors else 'PASS'}: {len(BUILDERS)} Phase 2 tables, {cells} body cells checked, "
+          f"{len(UNCHECKED)} unchecked, {len(errors)} mismatches")
+    return not errors
+
+
+if __name__ == "__main__":
+    if "--check" in sys.argv:
+        sys.exit(0 if check((ROOT / "REPORT.md").read_text()) else 1)
+    for s, b in BUILDERS.items():
+        print(f"### REPORT {s}\n\n{b()}\n")

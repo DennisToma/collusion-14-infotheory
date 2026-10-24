@@ -6,7 +6,8 @@ Uses the existing gpt-6.1-sol judge labels (results/llm_judge/<name>.jsonl: agre
                in at least half of them (the Q2.2 E84 rule)
   abandoned    agreement, not followed
   no_agreement no agreement extracted (or ambiguous)
-Per class: assigned-pair premium (pair mean - rival mean), assigned-pair markup over Nash, assigned-pair pCMI, and AUROC of each
+Per class: assigned-pair premium (NOTE: assigned-pair C scores vs max-of-6-pairs A scores is conservative and depresses
+the AUROCs; the class means are the comparable quantities) (pair mean - rival mean), assigned-pair markup over Nash, assigned-pair pCMI, and AUROC of each
 against the max-pair score of the A controls of the same dataset (frozen detectors, score_run B=0). Descriptive only.
 
     uv run python scripts/behaviour_split.py [--names llm_v1,llm_long,llm_long_p2] [--T 20]   # -> results/eval/behaviour_split.json
@@ -77,10 +78,14 @@ def main():
             i, j = sorted(ids.index(x) for x in gt[rid]["assigned_pair"])
             lb = lab.get(rid, {})
             if lb.get("agreement") == "yes" and lb.get("agreed_price") is not None:
-                start = max(int(lb.get("first_round") or 0), 0)
-                post = P[start:, [i, j]] if start < len(P) else P[-1:, [i, j]]
-                ok = (post >= lb["agreed_price"] - 1).all(1).mean() >= 0.5
-                c = "followed" if ok else "abandoned"
+                # rounds are 0-indexed; a message in round k first affects round k+1 prices; pre-play (-1) -> all rounds
+                fr = lb.get("first_round")
+                start = max(int(fr) + 1, 0) if fr is not None else 0
+                post = P[start:, [i, j]]
+                if len(post) == 0:
+                    c = "undetermined"
+                else:
+                    c = "followed" if (post >= lb["agreed_price"] - 1).all(1).mean() >= 0.5 else "abandoned"
             else:
                 c = "no_agreement"
             cls.setdefault(c, []).append(dict(pair_stats(P, S, nash, i, j), run_id=rid, agreed=lb.get("agreed_price")))

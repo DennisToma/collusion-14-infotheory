@@ -74,6 +74,11 @@ def main():
     v1A, v1C, mixed = score("llm_v1", "A"), score("llm_v1", "C"), score("llm_mixed2", "A")
     longA = score("llm_long_p2", "A")
     var = {v: score(f"llm_p2_{v}", "A") for v in VARIANTS}
+    if not a.interim:
+        need = {**{f"llm_p2_{v}": 6 for v in VARIANTS}, "llm_long_p2": 20}
+        got = {**{f"llm_p2_{v}": len(d) for v, d in var.items()}, "llm_long_p2": len(longA)}
+        if got != need:
+            sys.exit(f"pool incomplete {got} (declared {need}); rerun with --interim")
     fresh_all = {k: x for d in list(var.values()) + [longA] for k, x in d.items()}
     fresh_v0 = {**var["v0"], **longA}
     pools = {"fresh_all": fresh_all, "fresh_v0": fresh_v0, "mixed": mixed}
