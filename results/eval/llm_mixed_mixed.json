@@ -1,0 +1,17 @@
+{
+ "near_constant_sellers": [],
+ "excluded_not_mixed_model": [
+  "llm_mixed_A_000",
+  "llm_mixed_A_001",
+  "llm_mixed_A_002",
+  "llm_mixed_A_003",
+  "llm_mixed_A_004",
+  "llm_mixed_A_005",
+  "llm_mixed_A_006",
+  "llm_mixed_A_007",
+  "llm_mixed_A_008",
+  "llm_mixed_A_009",
+  "llm_mixed_A_010",
+  "llm_mixed_A_011"
+ ]
+}

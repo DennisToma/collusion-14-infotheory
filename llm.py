@@ -121,6 +121,8 @@ def chat(prompt, system=None, model=None, temperature=0.7, max_tokens=512, backe
     msgs = _messages(prompt, system)
     if tier == "big" and not backend:
         backend, model = "codex", CODEX_BIG
+    elif tier == "big" and backend == "codex" and model is None:  # E21: explicit codex backend used to drop to luna
+        model = CODEX_BIG
     order = [backend] if backend else ["keyed", "go", "codex"]
     err = None
     for attempt in range(retries):

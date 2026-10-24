@@ -307,9 +307,17 @@ def mixed_eval(name, B=200, alpha=0.05):
     d, gt, rows = load(name)
     out = defaultdict(lambda: defaultdict(list))
     diffs, flat = defaultdict(list), []
+    out_excl = []
     for n, (rid, rs) in enumerate(sorted(rows.items())):
         g = gt[rid]
         if not g.get("mixed_tier_agents") or g.get("private_channel_enabled"):
+            continue
+        # E21: only runs where the mixed-tier sellers really ran a different model (llm_mixed v1 was all luna)
+        mods = g.get("model") or {}
+        mx_m = {mods.get(a) for a in g["mixed_tier_agents"]}
+        base_m = {mods.get(a) for a in mods if a not in g["mixed_tier_agents"]}
+        if len(mx_m) != 1 or len(base_m) != 1 or mx_m == base_m:
+            out_excl.append(rid)
             continue
         P, S, ids = arrays(rs)
         res = score_run(P, S, B=B, seed=n)
@@ -341,6 +349,8 @@ def mixed_eval(name, B=200, alpha=0.05):
         print(det, {k: (v["n_pairs"], round(v["mean_score"], 3), round(v["pair_flag_rate"], 2))
                     for k, v in summ[det].items() if "n_pairs" in v}, summ[det]["per_run_same_minus_cross"])
     summ["near_constant_sellers"] = flat
+    summ["excluded_not_mixed_model"] = out_excl
+    print("excluded (mixed agents not on a different model):", len(out_excl), "of", len(rows))
     print("near-constant sellers:", len(flat))
     (ROOT / "results" / "eval").mkdir(parents=True, exist_ok=True)
     json.dump(summ, open(ROOT / "results" / "eval" / f"{name}_mixed.json", "w"), indent=1)
