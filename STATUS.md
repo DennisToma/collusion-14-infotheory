@@ -1,4 +1,4 @@
-# STATUS (top = current state; updated 2026-10-24 02:45 UTC, iteration 10)
+# STATUS (top = current state; updated 2026-10-24 02:26 UTC, iteration 10)
 
 **All declared analyses DONE** (§4.3 (i)–(v) filled). Scripted half done; LLM: llm_v1 (E18/E19), llm_v3 ext (E13), llm_long (E20), llm_mixed2 (E22).
 Level stats run AUROC 0.87/0.98/0.95; pCMI 0.45/0.52/0.45. pCMI adds nothing to markup. T=50 does not rescue pCMI (declared rule not met; CI wide).
@@ -6,7 +6,7 @@ Level stats run AUROC 0.87/0.98/0.95; pCMI 0.45/0.52/0.45. pCMI adds nothing to 
 TE +0.047 [+0.002, +0.104] (1 of 5 detectors, unadjusted, sign p=.15 → weak at most). No detectable same-model excess; n=12 excludes only large effects.
 **E23:** codex claims review applied (no table-number errors; fixed shared-seed 44–100%, legit top-1 5/20, CMI|state 0.64 on llm_v3 disclosed,
 softened "invisible/never/rescue/causal" wording, stale m=16). Review text: /var/tmp/c14/review_claims_iter10.md.
-**Next (no new LLM runs; directive: none after 04:00):** (1) abstract rewrite ONCE, now that §4.3 is complete (keep ≤ 250 words);
+**Next (no new LLM runs after 04:00):** (1) abstract rewritten once (02:25) — do not rewrite again;
 (2) tables.py: add llm_mixed2/llm_long rows, diff against REPORT; (3) final Opus subagent read of the whole REPORT for coherence;
 (4) fill ledger hashes E22/E23. Optional: an LLM figure panel for mixed2 (same vs cross bars).
 **Risks:** low n everywhere on LLM; only OpenAI-family sellers (cross-family Claude sellers not run, quota cost).
@@ -31,4 +31,4 @@ softened "invisible/never/rescue/causal" wording, stale m=16). Review text: /var
 - iter 8 00:45–01:15: codex review of llm_v1 text (numbers all OK; P0s on inference: incremental-value untested, surrogate pool per family not pooled, 'flat vs T' false) → E19 diag_llm_v1 (incremental logistic + detrend/diff) → §4.3 + abstract rewritten accordingly.
 - iter 9 01:02–01:10: E20 declared; §4.4 umbrella; Opus claims review applied (P0s + limitations).
 - iter 9 01:10–02:15: llm_long label+eval (I accidentally pkilled the queue's eval and reran it) → E20 final in §4.3 (v); found E21 mixed-tier bug, fixed, llm_mixed2 launched.
-- iter 10 02:17–02:45: llm_mixed2 finished + evaluated → §4.3 (iv), abstract sentence; scripts/mixed_price_by_model.py; codex claims review → E23 edits.
+- iter 10 02:17–02:26: llm_mixed2 finished + evaluated → §4.3 (iv), abstract sentence; scripts/mixed_price_by_model.py; codex claims review → E23 edits.
