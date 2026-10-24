@@ -104,7 +104,7 @@ def fig_prices(name, gt, rows):
         ax.axhline(NASH[6], color="k", ls="--", lw=0.8)
         ax.set_title(f"{COND[c]} (n={len(rids)})", fontsize=10); ax.set_xlabel("round")
         ax.legend(fontsize=7, loc="upper right")
-    axes[0].set_ylabel("price (grey: per-run market mean)\ndashed: Nash at cost 6")
+    axes[0].set_ylabel("price (grey: per-run market mean)\ndashed: Nash at cost 6 (B/D: 10-12)")
     fig.suptitle(f"{name}: LLM seller prices by condition")
     fig.tight_layout(); fig.savefig(ROOT / "figures" / f"{name}_prices.png", dpi=130); plt.close(fig)
 

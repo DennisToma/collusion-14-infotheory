@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 
 ROOT = Path(__file__).resolve().parent.parent
 DETS = [("pearson", "|Pearson|", "#9e9e9e"), ("mi", "MI", "#1f77b4"), ("cmi_state", "CMI | state", "#2ca02c"),
-        ("pcmi", "CMI | state + lags (Gaussian)", "#d62728"), ("te", "lagged CMI (TE)", "#9467bd")]
+        ("pcmi", "pCMI (CMI | state + lags)", "#d62728"), ("te", "lagged CMI (TE)", "#9467bd")]
 TYPES = {"signal": "shared-signal collusion", "tft": "tit-for-tat price matching", "fixed_high": "independent 'stay high'"}
 
 
@@ -29,7 +29,10 @@ def main(path=ROOT / "results/sweeps/power.json"):
             ax.set_title(title); ax.set_xlabel(xlabel)
             if xkey == "T":
                 ax.set_xscale("log")
+                ax.text(0.02, 0.97, "T=10: shift-null detectors untested\n(<20 valid shifts), plotted as 0",
+                        transform=ax.transAxes, fontsize=7, va="top")
         axes[0].set_ylabel("run-level detection rate at α=0.05\n(solid: collusive C/D, dotted: controls A/B)")
+        axes[-1].plot([], [], "k:", alpha=0.6, label="dotted: controls A/B")
         axes[-1].legend(fontsize=8, loc="center right")
         fig.suptitle(f"Scripted market: power vs {xkey} ({fixed[0]}={fixed[1]}, n=20 runs per condition)")
         fig.tight_layout(); fig.savefig(ROOT / "figures" / fname, dpi=130); plt.close(fig)

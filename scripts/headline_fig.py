@@ -57,7 +57,7 @@ def main():
     ax2.set_xticks(range(len(sets)), [s for s, _ in sets], fontsize=8)
     ax2.set_ylim(0, 1.08)
     ax2.set_ylabel("run AUROC, channel vs no-channel\n[bootstrap 95% CI]")
-    ax2.set_title("(b) LLM sellers (gpt-6-luna): collusion is a price level", fontsize=10)
+    ax2.set_title("(b) Two LLM markets (gpt-6-luna):\nchannel shows up as a price level; pCMI ≈ chance", fontsize=10)
     ax2.legend(fontsize=8, loc="lower right")
 
     fig.tight_layout()
