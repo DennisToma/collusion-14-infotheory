@@ -274,8 +274,9 @@ def p212(path="results/eval/e68_cda.json"):
     rows = [["mean ask − 80, all rounds (manipulation check)", f"{f(m['mean_comms'])} / {f(m['mean_nocomms'])}",
              f"diff {f(m['diff'])} [{f(m['ci'][0])}, {f(m['ci'][1])}]"]]
     for k, v in d["auroc"].items():
-        rows.append([k, f"{d['mean'][k][0]:.2f} / {d['mean'][k][1]:.2f}",
-                     f"{v['auroc']:.2f} [{v['ci'][0]:.2f}, {v['ci'][1]:.2f}] (n {v['n'][0]} + {v['n'][1]})"])
+        means = " / ".join("N/A" if x is None else f"{x:.2f}" for x in d["mean"][k])
+        auc = "not evaluable (no trades in an arm)" if v["auroc"] is None else f"{v['auroc']:.2f} [{v['ci'][0]:.2f}, {v['ci'][1]:.2f}]"
+        rows.append([k, means, f"{auc} (n {v['n'][0]} + {v['n'][1]})"])
     return table(["statistic", "mean comms / nocomms", "AUROC comms vs nocomms [95% CI]"], rows)
 
 

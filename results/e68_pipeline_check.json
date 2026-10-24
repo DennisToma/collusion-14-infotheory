@@ -1,0 +1,17 @@
+{
+  "time_utc": "2026-10-24T19:25:27.490591+00:00",
+  "command": "uv run python scripts/test_e68_pipeline.py --evidence",
+  "synthetic_only": true,
+  "baseline_revision": "7cd2151",
+  "implementation_sha256": "0bb6b5b05a9101d9ec97e82d2371a1cdc8f868530e00d37402c14f432f9e1508",
+  "tests_run": 20,
+  "failures": 0,
+  "errors": 0,
+  "passed": true,
+  "permutation_draws_in_parity_check": 200,
+  "synthetic_games_in_parity_check": 30,
+  "frozen_scores_aurocs_parse_counts_exact": true,
+  "actual_generator_schema_accepted": true,
+  "shared_seed_variation_cancels": true,
+  "negative_effect_cannot_pass": true
+}
