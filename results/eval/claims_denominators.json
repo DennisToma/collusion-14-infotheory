@@ -1,0 +1,527 @@
+{
+ "sets": [
+  {
+   "set": "llm_v1",
+   "group": "main",
+   "models": [
+    "gpt-6-luna"
+   ],
+   "n": [
+    21,
+    16
+   ],
+   "d": 1.756,
+   "d_ci": [
+    1.222,
+    2.315
+   ],
+   "ml": 0.9434523809523809,
+   "pl": 0.7485119047619048,
+   "pcmi": 0.47470238095238104,
+   "pcmi_ci": [
+    0.28273809523809523,
+    0.6666666666666666
+   ],
+   "executed": [
+    6,
+    16
+   ],
+   "tacit": [
+    0,
+    21
+   ]
+  },
+  {
+   "set": "llm_ds_p2",
+   "group": "main",
+   "models": [
+    "deepseek-v4.1-flash"
+   ],
+   "n": [
+    15,
+    15
+   ],
+   "d": 3.749,
+   "d_ci": [
+    2.768,
+    4.679
+   ],
+   "ml": 0.9911111111111112,
+   "pl": 0.9955555555555556,
+   "pcmi": 0.5733333333333334,
+   "pcmi_ci": [
+    0.35555555555555557,
+    0.7733333333333333
+   ],
+   "executed": [
+    2,
+    15
+   ],
+   "tacit": [
+    0,
+    15
+   ]
+  },
+  {
+   "set": "llm_long_p2_T60",
+   "group": "main",
+   "models": [
+    "gpt-6-luna"
+   ],
+   "n": [
+    20,
+    20
+   ],
+   "d": 1.879,
+   "d_ci": [
+    1.342,
+    2.436
+   ],
+   "ml": 0.9425,
+   "pl": 0.7737499999999999,
+   "pcmi": 0.33749999999999997,
+   "pcmi_ci": [
+    0.17750000000000005,
+    0.5175000000000001
+   ],
+   "executed": [
+    4,
+    20
+   ],
+   "tacit": [
+    0,
+    20
+   ]
+  },
+  {
+   "set": "llm_qa_p2",
+   "group": "main",
+   "models": [
+    "qwen-abliterated"
+   ],
+   "n": [
+    15,
+    15
+   ],
+   "d": 2.967,
+   "d_ci": [
+    1.821,
+    4.261
+   ],
+   "ml": 0.9511111111111111,
+   "pl": 1.0,
+   "pcmi": 0.52,
+   "pcmi_ci": [
+    0.2932222222222222,
+    0.7422222222222223
+   ],
+   "executed": [
+    8,
+    15
+   ],
+   "tacit": [
+    0,
+    15
+   ]
+  },
+  {
+   "set": "llm_qb_p2",
+   "group": "main",
+   "models": [
+    "qwen-base(aqueduct qwen-3.8-27b)"
+   ],
+   "n": [
+    15,
+    15
+   ],
+   "d": 3.337,
+   "d_ci": [
+    2.235,
+    4.543
+   ],
+   "ml": 0.9622222222222222,
+   "pl": 0.92,
+   "pcmi": 0.4622222222222222,
+   "pcmi_ci": [
+    0.25333333333333335,
+    0.6755555555555556
+   ],
+   "executed": [
+    6,
+    15
+   ],
+   "tacit": [
+    0,
+    15
+   ]
+  },
+  {
+   "set": "llm_g56l_p2",
+   "group": "main",
+   "models": [
+    "gpt-5.6-luna"
+   ],
+   "n": [
+    10,
+    10
+   ],
+   "d": 1.438,
+   "d_ci": [
+    0.226,
+    2.588
+   ],
+   "ml": 0.75,
+   "pl": 0.795,
+   "pcmi": 0.72,
+   "pcmi_ci": [
+    0.47000000000000003,
+    0.92
+   ],
+   "executed": [
+    4,
+    10
+   ],
+   "tacit": [
+    9,
+    10
+   ]
+  },
+  {
+   "set": "llm_strong_qa",
+   "group": "main",
+   "models": [
+    "qwen-abliterated"
+   ],
+   "n": [
+    20,
+    20
+   ],
+   "d": 2.135,
+   "d_ci": [
+    1.285,
+    3.005
+   ],
+   "ml": 0.84875,
+   "pl": 0.80375,
+   "pcmi": 0.49,
+   "pcmi_ci": [
+    0.30000000000000004,
+    0.6700624999999997
+   ],
+   "executed": [
+    5,
+    20
+   ],
+   "tacit": [
+    0,
+    20
+   ]
+  },
+  {
+   "set": "wording:v0",
+   "group": "wording",
+   "models": [
+    "gpt-6-luna"
+   ],
+   "n": [
+    6,
+    6
+   ],
+   "d": 1.1875000000000002,
+   "d_ci": [
+    0.4354166666666668,
+    1.9354166666666663
+   ],
+   "ml": 0.9166666666666667,
+   "pl": 0.8194444444444445,
+   "pcmi": 0.5,
+   "pcmi_ci": [
+    0.16666666666666666,
+    0.8333333333333335
+   ],
+   "executed": [
+    null,
+    null
+   ],
+   "tacit": [
+    null,
+    null
+   ]
+  },
+  {
+   "set": "wording:para",
+   "group": "wording",
+   "models": [
+    "gpt-6-luna"
+   ],
+   "n": [
+    6,
+    6
+   ],
+   "d": 0.5270833333333335,
+   "d_ci": [
+    0.09578125000000004,
+    0.9854166666666667
+   ],
+   "ml": 0.8055555555555556,
+   "pl": 0.7500000000000001,
+   "pcmi": 0.6666666666666667,
+   "pcmi_ci": [
+    0.3333333333333333,
+    1.0
+   ],
+   "executed": [
+    null,
+    null
+   ],
+   "tacit": [
+    null,
+    null
+   ]
+  },
+  {
+   "set": "wording:template",
+   "group": "wording",
+   "models": [
+    "gpt-6-luna"
+   ],
+   "n": [
+    6,
+    6
+   ],
+   "d": 0.4541666666666666,
+   "d_ci": [
+    -0.9979166666666663,
+    2.622968749999999
+   ],
+   "ml": 0.3055555555555556,
+   "pl": 0.3472222222222222,
+   "pcmi": 0.16666666666666669,
+   "pcmi_ci": [
+    0.0,
+    0.33333333333333337
+   ],
+   "executed": [
+    null,
+    null
+   ],
+   "tacit": [
+    null,
+    null
+   ]
+  },
+  {
+   "set": "wording:order",
+   "group": "wording",
+   "models": [
+    "gpt-6-luna"
+   ],
+   "n": [
+    6,
+    6
+   ],
+   "d": 0.6729166666666665,
+   "d_ci": [
+    -0.3458854166666666,
+    1.5895833333333331
+   ],
+   "ml": 0.7777777777777779,
+   "pl": 0.8611111111111112,
+   "pcmi": 0.38888888888888884,
+   "pcmi_ci": [
+    0.08333333333333333,
+    0.75
+   ],
+   "executed": [
+    null,
+    null
+   ],
+   "tacit": [
+    null,
+    null
+   ]
+  },
+  {
+   "set": "wording:noreason",
+   "group": "wording",
+   "models": [
+    "gpt-6-luna"
+   ],
+   "n": [
+    6,
+    6
+   ],
+   "d": 0.78125,
+   "d_ci": [
+    -0.23958333333333304,
+    2.0208854166666663
+   ],
+   "ml": 0.4722222222222222,
+   "pl": 0.4166666666666667,
+   "pcmi": 0.4722222222222222,
+   "pcmi_ci": [
+    0.12499999999999997,
+    0.7916666666666667
+   ],
+   "executed": [
+    null,
+    null
+   ],
+   "tacit": [
+    null,
+    null
+   ]
+  }
+ ],
+ "claims": [
+  {
+   "claim": "premium",
+   "text": "channel raises markup (C - A CI > 0)",
+   "group": "main",
+   "k": 7,
+   "K": 7,
+   "models_where_holds": [
+    "deepseek-v4.1-flash",
+    "gpt-5.6-luna",
+    "gpt-6-luna",
+    "qwen-abliterated",
+    "qwen-base(aqueduct qwen-3.8-27b)"
+   ],
+   "fails": []
+  },
+  {
+   "claim": "premium",
+   "text": "channel raises markup (C - A CI > 0)",
+   "group": "wording",
+   "k": 2,
+   "K": 5,
+   "models_where_holds": [
+    "gpt-6-luna"
+   ],
+   "fails": [
+    "wording:template",
+    "wording:order",
+    "wording:noreason"
+   ]
+  },
+  {
+   "claim": "pcmi_null",
+   "text": "pCMI not above chance (AUROC CI includes 0.5 or lies below)",
+   "group": "main",
+   "k": 7,
+   "K": 7,
+   "models_where_holds": [
+    "deepseek-v4.1-flash",
+    "gpt-5.6-luna",
+    "gpt-6-luna",
+    "qwen-abliterated",
+    "qwen-base(aqueduct qwen-3.8-27b)"
+   ],
+   "fails": []
+  },
+  {
+   "claim": "pcmi_null",
+   "text": "pCMI not above chance (AUROC CI includes 0.5 or lies below)",
+   "group": "wording",
+   "k": 5,
+   "K": 5,
+   "models_where_holds": [
+    "gpt-6-luna"
+   ],
+   "fails": []
+  },
+  {
+   "claim": "level_beats_pcmi",
+   "text": "market-level markup AUROC > pCMI AUROC",
+   "group": "main",
+   "k": 7,
+   "K": 7,
+   "models_where_holds": [
+    "deepseek-v4.1-flash",
+    "gpt-5.6-luna",
+    "gpt-6-luna",
+    "qwen-abliterated",
+    "qwen-base(aqueduct qwen-3.8-27b)"
+   ],
+   "fails": []
+  },
+  {
+   "claim": "level_beats_pcmi",
+   "text": "market-level markup AUROC > pCMI AUROC",
+   "group": "wording",
+   "k": 4,
+   "K": 5,
+   "models_where_holds": [
+    "gpt-6-luna"
+   ],
+   "fails": [
+    "wording:noreason"
+   ]
+  },
+  {
+   "claim": "spill",
+   "text": "pair_level AUROC <= market-level AUROC (spillover costs the relative screen)",
+   "group": "main",
+   "k": 4,
+   "K": 7,
+   "models_where_holds": [
+    "gpt-6-luna",
+    "qwen-abliterated",
+    "qwen-base(aqueduct qwen-3.8-27b)"
+   ],
+   "fails": [
+    "llm_ds_p2",
+    "llm_qa_p2",
+    "llm_g56l_p2"
+   ]
+  },
+  {
+   "claim": "spill",
+   "text": "pair_level AUROC <= market-level AUROC (spillover costs the relative screen)",
+   "group": "wording",
+   "k": 3,
+   "K": 5,
+   "models_where_holds": [
+    "gpt-6-luna"
+   ],
+   "fails": [
+    "wording:template",
+    "wording:order"
+   ]
+  },
+  {
+   "claim": "exec_minority",
+   "text": "agreements executed in <= 50% of channel games",
+   "group": "main",
+   "k": 6,
+   "K": 7,
+   "models_where_holds": [
+    "deepseek-v4.1-flash",
+    "gpt-5.6-luna",
+    "gpt-6-luna",
+    "qwen-abliterated",
+    "qwen-base(aqueduct qwen-3.8-27b)"
+   ],
+   "fails": [
+    "llm_qa_p2"
+   ]
+  },
+  {
+   "claim": "no_tacit",
+   "text": "no-channel markets rarely tacit-high (<= 10%)",
+   "group": "main",
+   "k": 6,
+   "K": 7,
+   "models_where_holds": [
+    "deepseek-v4.1-flash",
+    "gpt-6-luna",
+    "qwen-abliterated",
+    "qwen-base(aqueduct qwen-3.8-27b)"
+   ],
+   "fails": [
+    "llm_g56l_p2"
+   ]
+  }
+ ],
+ "note": "E66 (Q2.2 strong framing) is not a C-vs-A set here: channel labels are not ground truth there (tacit 19/20); see results/eval/strongF_ext.json"
+}
