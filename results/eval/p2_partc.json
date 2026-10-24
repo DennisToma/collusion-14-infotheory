@@ -55,6 +55,62 @@
    ]
   }
  },
+ "llm_long": {
+  "label": "gpt-6-luna, T=50 (v1 llm_long)",
+  "dataset": "llm_long",
+  "n_A": 8,
+  "n_C": 8,
+  "excluded_model_mismatch": 0,
+  "T": 50,
+  "models": [
+   "gpt-6-luna"
+  ],
+  "A_markup": 0.179,
+  "C_markup": 2.459,
+  "C_minus_A_markup": 2.279,
+  "C_minus_A_ci": [
+   1.284,
+   3.354
+  ],
+  "auroc_market_level": 0.953125,
+  "auroc_market_level_ci": [
+   0.8125,
+   1.0
+  ],
+  "auroc_pair_level": 0.8359375,
+  "auroc_pair_level_ci": [
+   0.59375,
+   0.984375
+  ],
+  "auroc_pcmi": 0.453125,
+  "auroc_pcmi_ci": [
+   0.15625,
+   0.75
+  ],
+  "degeneracy": {
+   "n_sellers": 64,
+   "sd_median": 0.49,
+   "sd_min": 0.2,
+   "constant_sellers": 0,
+   "distinct_prices_median": 3.0
+  },
+  "behaviour": {
+   "n_C_labelled": 8,
+   "agreement": 8,
+   "followed": 6,
+   "executed": 3,
+   "agreement_rate": 1.0,
+   "agreement_ci": [
+    0.738,
+    1.0
+   ],
+   "executed_rate": 0.375,
+   "executed_ci": [
+    0.119,
+    0.705
+   ]
+  }
+ },
  "llm_ds_p2": {
   "label": "deepseek-v4.1-flash",
   "dataset": "llm_ds_p2",
@@ -110,5 +166,31 @@
     0.363
    ]
   }
+ },
+ "llm_qb_p2": {
+  "label": "qwen3.8-27B base",
+  "dataset": "llm_qb_p2",
+  "n_A": 2,
+  "n_C": 2,
+  "excluded_model_mismatch": 0,
+  "T": 20,
+  "models": [
+   "qwen-base(aqueduct qwen-3.8-27b)"
+  ],
+  "A_markup": -2.469,
+  "C_markup": -0.65,
+  "C_minus_A_markup": 1.819,
+  "C_minus_A_ci": [
+   0.375,
+   3.263
+  ],
+  "degeneracy": {
+   "n_sellers": 16,
+   "sd_median": 1.07,
+   "sd_min": 0.43,
+   "constant_sellers": 0,
+   "distinct_prices_median": 4.0
+  },
+  "behaviour": null
  }
 }

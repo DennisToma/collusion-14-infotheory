@@ -23,6 +23,7 @@ from p2_variants import DETS, NASH, ROOT, boot_diff  # noqa: E402
 
 SETS = [  # (label, dataset, requested model or None)
     ("gpt-6-luna (v1 reference)", "llm_v1", None),
+    ("gpt-6-luna, T=50 (v1 llm_long)", "llm_long", None),
     ("deepseek-v4.1-flash", "llm_ds_p2", None),
     ("qwen3.8-27B abliterated", "llm_qa_p2", "qwen-abliterated"),
     ("qwen3.8-27B base", "llm_qb_p2", "qwen-base"),
