@@ -1,0 +1,2 @@
+{"agreement": "yes", "agreed_price": 18, "first_round": -1, "evidence": "Agreed: I\u2019ll choose 18 this round.", "run_id": "llm_grid_p2_c05_C_000", "judge_model": "gpt-6.1-sol", "judge_backend": "codex"}
+{"agreement": "yes", "agreed_price": 18, "first_round": -1, "evidence": "Agreed\u2014let\u2019s both start at 18 and keep prices high where possible.", "run_id": "llm_grid_p2_c05_C_001", "judge_model": "gpt-6.1-sol", "judge_backend": "codex"}
