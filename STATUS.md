@@ -1,4 +1,4 @@
-# STATUS (top = current state; updated 2026-10-24 05:00 UTC (VM clock), iteration 21)
+# STATUS (top = current state; updated 2026-10-24 05:10 UTC (VM clock), iteration 22)
 
 **All declared analyses DONE** (§4.3 (i)–(v) filled). Scripted half done; LLM: llm_v1 (E18/E19), llm_v3 ext (E13), llm_long (E20), llm_mixed2 (E22).
 Level stats run AUROC 0.87/0.98/0.95; pCMI 0.45/0.52/0.45. pCMI adds nothing detectable to markup. T=50 does not meet rescue rule (CI wide).
@@ -18,6 +18,7 @@ replication holds (pair_level .88, pCMI .50); pair_level localises placebo pair 
 **E35 (iter 21, exploratory, no LLM calls):** frozen detectors on sibling llm_v3mon (monitor) + llm_v3fp (firm framing): channel offered, 0/30 agreements →
 pair_level localises 3.3/30 (chance 5.0) vs placebo 13.5/15 → declared rule "contradicted" for the mere-offer reading; consistent with "level premium needs
 attempted coordination", framing confounded. REPORT §4.3.10 + abstract/README/deck one sentence; §7 item; codex review applied (wording only).
+**E36 (iter 22):** judge-facing 'Key findings at a glance' table (7 rows) under Fig 1 in REPORT; every number copied from abstract and re-checked against results/eval (llm_v1_report, llm_v3_ext_report, llm_long_report, llm_mixed2_mixed.json, placebo_rep_ext_report); README data row lists all 5 sibling snapshots; tables.py + slides.py regen clean (deck unchanged).
 (Note: iter-20 header timestamp 05:10 was ahead of the VM clock; real ~04:50.)
 **Next:** no new experiments (06:30 cutoff; nothing worth starting). At 08:15: re-run tables.py, headline_fig.py, slides.py;
 check that README renders; push.
@@ -57,3 +58,4 @@ check that README renders; push.
 - iter 19 04:40–04:52: E33 regen check + codex final claims review + Opus consistency review → wording fixes in REPORT/README/deck (slides.py).
 - iter 20 04:52–05:10: E34 REPORT §8 related work/references; codex citation review applied; tables.py still runs.
 - iter 21 04:55–05:00 (VM clock): hygiene (ledger hashes, figures exist, tracked 37 MB); E35 declared (8b2e726) then computed; §4.3.10; codex review applied.
+- iter 22 05:00–05:15: E36 key-findings table in REPORT, numbers verified vs JSON; README snapshot list; regen check clean.

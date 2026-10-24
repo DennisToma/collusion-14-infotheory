@@ -17,7 +17,7 @@ Dependence measures ignore levels by construction, so simple level scores do muc
 | `sim/` | scripted market (`market.py`) and LLM-seller market (`llm_market.py`) |
 | `detectors/infotheory.py` | detectors; they read `trajectories.jsonl` only |
 | `experiments/`, `scripts/` | generation, evaluation, reports, figures (commands in REPORT §6) |
-| `data/` | trajectories (schema: `SCHEMA.md`), splits (`data/SPLITS.md`), external sibling snapshots `data/ext_llm_v3/`, `data/ext_llm_v3rep/`, `data/ext_llm_v3plc/` (SHA256SUMS) |
+| `data/` | trajectories (schema: `SCHEMA.md`), splits (`data/SPLITS.md`), external sibling snapshots `data/ext_llm_v3{,rep,plc,mon,fp}/` (SHA256SUMS) |
 | `results/` | every number in REPORT (`results/eval/*.json`), LLM judge labels, reviews |
 | `figures/` | all figures |
 | `EXPERIMENTS.tsv` | ledger of every experiment, including discarded and negative ones |
