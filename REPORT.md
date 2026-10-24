@@ -35,6 +35,23 @@ Phase 2 closes known gaps; v1 numbers above are unchanged (git tag `v1-overnight
 Status: long games (E44: 20 A + 20 C, T=60) and a second seller family (E45: deepseek-v4.1-flash, 15 A + 15 C) are **generating**. Their results will be added here.
 Done: P2.1 precision at prevalence, P2.2 independent reimplementation, P2.3 same-model confound (gap 3), P2.4 scripted coalitions / onset / cost asymmetry (gaps 5, 6, 8; locked test), P2.5 market-model robustness (gap 7: N=2/6, demand elasticity; locked test), P2.6 bid rotation (gap 9 exploration; locked test), **P2.7 prompt-wording robustness (gap 1)**, P2.8 long-game pilot (gap 2; confirmatory E44 pending).
 
+**Phase 2 at a glance** (one row per gap; [95% CI]; Wilson for k/n flags; the full reading of each row is in the section named).
+
+| gap | question | key numbers | source (`results/…`) | § |
+|---|---|---|---|---|
+| shared | precision at realistic prevalence | at 1% prevalence no frozen flag reaches precision 0.25 (Jeffreys intervals for TPR/FPR) | `eval/prevalence.json` | P2.1 |
+| shared | independent reimplementation | 234/236 run × statistic cells agree < 1e-9; all 20 AUROCs identical; no bug | `reimpl/compare.json` | P2.2 |
+| 1 | prompt wording (5 wordings, 6 + 6 each) | channel C − A +0.69 (SE 0.17), Q p = 0.69; no-channel baseline −0.19 … +2.56; within-wording markup AUROC 0.66 [0.53, 0.78]; pCMI 0.44 [0.30, 0.58] | `eval/p2_variants.json` | P2.7 |
+| 2 | long games (T=60, 20 + 20) | *generating (E44)*; pilot (T=50, 8 + 8): pCMI AUROC 0.36–0.45 at every prefix; pair premium +1.12 → +0.16 while market markup stays high | `eval/long_power_llm_long.json` | P2.8 |
+| 3 | same-model confound | mismatched reference: pCMI 52% false flags (exploratory); model-matched fresh pool: 0/21 [0, 16]% false flags, but markup power 1/16 (prompt mismatch) | `eval/same_model.json`, `eval/matched_ref.json` | P2.3 |
+| 4 | second seller family (deepseek) | *see P2.9* | `eval/p2_family.json` | P2.9 |
+| 5 | coalition structure (scripted) | all-4 cartel: pair_level AUROC 0.25 (1/30, 0/30 flagged); markup, pCMI, TC 30/30 | `p2/coalition_test.json` | P2.4 |
+| 6 | onset (scripted) | level CUSUM 0/30 false alarms, 30/30 detected, median delay 7–7.5 rounds; repeated-look pCMI 5/30 = 17% [7, 34] false | `p2/onset_test.json` | P2.4 |
+| 7 | market model (N = 2/4/6, μ) | pooled pCMI control false flags 18/300 = 6.0% [3.8, 9.3]; 9/10 cells pass; s = 0.6 power 30/30 everywhere | `p2/market_test.json` | P2.5 |
+| 8 | private cost asymmetry (hard negative) | pair_level and markup 30/30 false; pCMI 4/30 [5, 30]% (controls 1/30) | `p2/costasym_test.json` | P2.4 |
+| 9 | bid rotation (exploration) | predictable rotation: pCMI 6/30, 2/30 (= controls); TE 13/30, 17/30; levels 30/30 | `p2/rotation_test.json` | P2.6 |
+| extra | sibling's six channel arms | undelivered notepad (0/14 agreements): pair_level names the pair 11/15, AUROC vs none 0.89 [0.76, 0.98], as private 12/15, 0.91 | `eval/p2cue_ext.json` | P2.10 |
+
 **Phase 2 takeaways so far.** (1) Price-*level* screens and co-*movement* statistics fail in opposite places. Unequal private costs make both tested level screens falsely
 flag 30/30 markets, while pCMI flags 4/30 (controls 1/30; P2.4). LLM collusion shows up in levels and is invisible to pCMI (§4.3). A deployer needs both, plus cost data.
 (2) The upper-tail relative screen (pair vs rivals) loses its power against an all-firm cartel (AUROC 0.25, i.e. reversed), so it needs an absolute companion (markup, pCMI, group TC; P2.4).
@@ -231,6 +248,8 @@ Planted pairs at q = 0.2 show a co-move excess of +0.26 (unplanted controls +0.0
 So at T=50 pCMI separates this kind of planted shared move, and the channel pairs show no excess co-movement of that kind. The planting is a shared ±1 offset, not a model of LLM collusion, so this is injection-specific sensitivity, not a general power bound. The q80 crossing is a point on a discrimination grid, not a power-based MDE.
 The pre-registered E44 rule ("too short" iff AUROC(pCMI) ≥ 0.65 with lower CI > 0.5 and a gain ≥ 0.15 over T=20; "level, not short" iff the upper CI < 0.65) gives **inconclusive** on this pilot: the upper CI is 0.75 with 8 + 8 games.
 (c) The assigned pair's premium over rivals shrinks: +1.12 [0.56, 1.76] in rounds 1–10, +0.16 [−0.16, +0.53] in rounds 41–50 (per-game slope −0.021 [−0.039, −0.005] per round; 5/8 games end below half their opening premium). The market *markup* stays high, so the rivals' prices rise towards the pair's. A shrinking relative premium does not by itself show that collusion ends.
+![premium decay llm_long](figures/premium_decay_llm_long.png)
+*Per-round market markup over Nash (C vs A) and assigned-pair premium over rivals (C), `llm_long` pilot, 8 + 8 games, game-bootstrap 95% bands; `uv run python scripts/premium_decay_fig.py --name llm_long`. A markets fall to Nash within ~6 rounds, C markets stay ≈ +2.4 throughout, while the pair's lead over its rivals is mostly gone by round ~15.*
 (d) Behaviour split (E56, from the existing judge labels; no new calls). Unlike the sibling's games (36/50 agreements abandoned), most of our agreements are *followed*: 12/16 `llm_v1` C and 6/8 `llm_long` C.
 But the agreed floors are low (12 in 15/18 followed games; static Nash is 10–12). Followed pairs score *below* controls on pCMI (AUROC 0.16 and 0.06) and high on markup (0.94, 0.94). These compare the assigned pair with the A games' maximum over six pairs, which is conservative. Mean assigned-pair pCMI is 0.08 and 0.01, against markups of +1.96 and +2.51.
 *Pilot reading (n = 8 + 8, exploratory):* the channel signal here is a price level, with no detectable shared move, so more rounds are not expected to help pCMI. E44 tests this with 20 + 20 games at T = 60, with the same declared decision rule.
