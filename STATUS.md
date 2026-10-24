@@ -1,14 +1,14 @@
-# STATUS (top = current state; updated 2026-10-24 03:12 UTC, iteration 11)
+# STATUS (top = current state; updated 2026-10-24 03:40 UTC, iteration 12)
 
 **All declared analyses DONE** (§4.3 (i)–(v) filled). Scripted half done; LLM: llm_v1 (E18/E19), llm_v3 ext (E13), llm_long (E20), llm_mixed2 (E22).
 Level stats run AUROC 0.87/0.98/0.95; pCMI 0.45/0.52/0.45. pCMI adds nothing to markup. T=50 does not rescue pCMI (declared rule not met; CI wide).
-**llm_mixed2 (E22):** 12 games, 2 sol + 2 luna each, all pass model check. Same − cross per run: pCMI +0.003 [−0.025, +0.032];
-TE +0.047 [+0.002, +0.104] (1 of 5 detectors, unadjusted, sign p=.15 → weak at most). No detectable same-model excess; n=12 excludes only large effects.
-**E23:** codex claims review applied (no table-number errors; fixed shared-seed 44–100%, legit top-1 5/20, CMI|state 0.64 on llm_v3 disclosed,
-softened "invisible/never/rescue/causal" wording, stale m=16). Review text: results/reviews/codex_claims_review_iter10.md. **E24:** Opus coherence review applied (order (iv)→(v), §6 repro fixed, abstract attributions).
-**E25 (iter 11):** full number audit (sonnet worker): 0 mismatches; dropped 1 untraceable claim, added scripts/market_mean_ranges.py; mixed2 forest figure added; table lint OK.
-**Next:** abstract frozen (do not rewrite). No new LLM batch (E20 rule not met). Remaining: optional final codex read of REPORT
-for clarity only; re-run tables.py once in finalize (08:15) and push. §4.3.1 pilot descriptives have no results file (ledger E04/E05 only) — acceptable, labelled descriptive.
+llm_mixed2: same − cross pCMI +0.003 [−0.025, +0.032]; TE +0.047 [+0.002, +0.104] (1 of 5 detectors, unadjusted) → no detectable same-model excess.
+Reviews applied: E23 (codex claims), E24 (Opus coherence), E25 (full number audit, 0 mismatches).
+**E26 (iter 12): clean-clone reproducibility verified.** Sibling llm_v3 inputs are snapshotted into data/ext_llm_v3 (SHA256SUMS), so the clone does not need the sibling.
+In a fresh git clone, every LLM eval/report/diag/figure script re-ran → results JSON + PNGs byte-identical; tables.py output identical; scripted seed-1001
+gen identical to committed .gz (except run_id prefix). Added README.md (judge entry point). No LLM calls needed for any re-analysis.
+**Next:** abstract frozen (do not rewrite). No new LLM batch (E20 rule not met; no launches after 04:00). Remaining: optional codex clarity read;
+re-run tables.py in finalize (08:15) and push. §4.3.1 pilot descriptives have no results file (ledger E04/E05 only), labelled descriptive.
 **Risks:** low n everywhere on LLM; only OpenAI-family sellers (cross-family Claude sellers not run, quota cost).
 
 ## Log
@@ -35,3 +35,4 @@ for clarity only; re-run tables.py once in finalize (08:15) and push. §4.3.1 pi
 - iter 10 02:26–02:29: tables.py mixed(); Opus coherence review → E24 edits.
 - iter 10 02:29: §4.3 restructured into subsections (no number changes).
 - iter 11 02:58–03:12: figures/llm_mixed2_same_vs_cross.png (scripts/mixed_fig.py) → §4.3.5 + §6; table lint OK; no new LLM batch (directive 4); E25 number audit + fixes.
+- iter 12 03:01–03:40: E26 clean-clone regeneration (all byte-identical), data/ext_llm_v3 snapshot, README.md, §6 note.
