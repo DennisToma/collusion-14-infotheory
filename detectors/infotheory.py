@@ -25,6 +25,7 @@ import numpy as np
 AGENTS = ["A", "B", "C", "D"]
 PAIRS = list(itertools.combinations(range(4), 2))
 PAIR_NAMES = ["".join(AGENTS[k] for k in p) for p in PAIRS]
+_PAIRS4, _NAMES4 = PAIRS, PAIR_NAMES
 
 
 def load_runs(path):
@@ -131,12 +132,12 @@ def _strat_roll(y, S, s):
     return out
 
 
-def _draw_shifts(n, rng, min_shift, tries=50):
-    """4 offsets whose pairwise relative offsets (mod n) all lie in [min_shift, n - min_shift]."""
+def _draw_shifts(n, rng, min_shift, tries=50, k=4):
+    """k offsets whose pairwise relative offsets (mod n) all lie in [min_shift, n - min_shift]."""
     for _ in range(tries):
-        sh = rng.integers(0, n, size=4)
+        sh = rng.integers(0, n, size=k)
         rel = (sh[:, None] - sh[None, :]) % n
-        off = rel[np.triu_indices(4, 1)]
+        off = rel[np.triu_indices(k, 1)]
         if np.all((off >= min_shift) & (off <= n - min_shift)):
             return sh
     return None
@@ -150,12 +151,18 @@ def score_run(P, S, B=200, seed=0, min_shift=3, min_draws=20):
     CMI|state shifts within each state stratum; pCMI/TE re-residualise the shifted residuals on the
     design (keeps orthogonality to state + lags). Per-pair p = P(null pair stat >= obs); run-level p =
     P(max_pair null >= max_pair obs) (max-statistic correction over the 6 pairs).
-    If fewer than `min_draws` valid draws exist (very short T) all p-values are 1 (no test)."""
+    If fewer than `min_draws` valid draws exist (very short T) all p-values are 1 (no test).
+    Any number of sellers N = P.shape[1] works (pairs named by letters A, B, ...); N=4 is the default."""
     rng = np.random.default_rng(seed)
-    T = len(P)
+    T, N = P.shape
+    if N == 4:
+        PAIRS, PAIR_NAMES = _PAIRS4, _NAMES4
+    else:
+        PAIRS = list(itertools.combinations(range(N), 2))
+        PAIR_NAMES = [chr(65 + i) + chr(65 + j) for i, j in PAIRS]
     t_idx = np.arange(1, T)
     X = _design(S, P, t_idx)
-    R = np.column_stack([_resid(P[t_idx, k], X) for k in range(4)])
+    R = np.column_stack([_resid(P[t_idx, k], X) for k in range(N)])
     dP = np.diff(P, axis=0)
     te_res = {name: _te_pairs(P, S, t_idx, i, j) for (i, j), name in zip(PAIRS, PAIR_NAMES)}
     Xte = {name: [_design(S, P, t_idx, exclude_lag=a) for a in (i, j)] for (i, j), name in zip(PAIRS, PAIR_NAMES)}
@@ -186,13 +193,13 @@ def score_run(P, S, B=200, seed=0, min_shift=3, min_draws=20):
     obs_max = {k: max(obs[n][k] for n in PAIR_NAMES) for k in keys}
     n_draws = 0
     for _ in range(B):
-        sh = _draw_shifts(T - 1, rng, min_shift)
+        sh = _draw_shifts(T - 1, rng, min_shift, k=N)
         if sh is None:
             continue
         n_draws += 1
-        Ps = np.column_stack([np.roll(P[:, k], sh[k]) for k in range(4)])
-        Pst = np.column_stack([_strat_roll(P[:, k], S, sh[k]) for k in range(4)])
-        Rs = np.column_stack([_resid(np.roll(R[:, k], sh[k]), X) for k in range(4)])
+        Ps = np.column_stack([np.roll(P[:, k], sh[k]) for k in range(N)])
+        Pst = np.column_stack([_strat_roll(P[:, k], S, sh[k]) for k in range(N)])
+        Rs = np.column_stack([_resid(np.roll(R[:, k], sh[k]), X) for k in range(N)])
         nd = stats(Ps, np.diff(Ps, axis=0), Rs, Pst, sh)
         for k in keys:
             mx = max(nd[n][k] for n in PAIR_NAMES)
@@ -207,8 +214,8 @@ def score_run(P, S, B=200, seed=0, min_shift=3, min_draws=20):
     # net influence: excess over mean of other pairs
     for key in ["mi", "cmi_state", "pcmi"]:
         vals = np.array([out[n]["score"][key] for n in PAIR_NAMES])
-        for k, n in enumerate(PAIR_NAMES):
-            out[n]["score"][f"ni_{key}"] = float(vals[k] - np.delete(vals, k).mean())
+        for k, n in enumerate(PAIR_NAMES):  # N=2: one pair, no comparison pairs -> 0
+            out[n]["score"][f"ni_{key}"] = float(vals[k] - np.delete(vals, k).mean()) if len(vals) > 1 else 0.0
     out["_run_p"] = run_p
     out["_n_null"] = n_draws
     return out

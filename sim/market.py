@@ -27,19 +27,19 @@ M = {"low": 100.0, "high": 160.0}
 COSTS = (6, 8)
 
 
-def profits(prices, cost, demand):
+def profits(prices, cost, demand, mu=MU):
     """Profits with a scalar cost, an aligned cost vector, or agent-keyed costs."""
     p = np.asarray(prices, float)
     if isinstance(cost, dict):
         cost = np.array([cost[a] for a in AGENTS])
-    e = np.exp((Q - p) / MU)
+    e = np.exp((Q - p) / mu)
     share = e / (np.exp(Q0 / MU) + e.sum())
     return (p - cost) * M[demand] * share
 
 
-def expected_profit_grid(others, cost, demand):
-    """Own profit for each candidate price given the other 3 prices."""
-    return np.array([profits([q, *others], cost, demand)[0] for q in PRICES])
+def expected_profit_grid(others, cost, demand, mu=MU):
+    """Own profit for each candidate price given the other sellers' prices."""
+    return np.array([profits([q, *others], cost, demand, mu)[0] for q in PRICES])
 
 
 def benchmarks(cost=6, demand="low"):
@@ -69,6 +69,7 @@ class Ctx:
     demand: str
     rng: np.random.Generator
     shared: dict = field(default_factory=dict)  # private shared state for colluding agents
+    mu: float = MU  # logit demand scale of this market (Phase 2 gap 7)
 
 
 def quantal_br(ctx: Ctx, temp=4.0, eps=0.15):
@@ -76,7 +77,7 @@ def quantal_br(ctx: Ctx, temp=4.0, eps=0.15):
     if ctx.rng.random() < eps or ctx.last is None:
         return int(ctx.rng.choice(PRICES))
     others = np.delete(ctx.last, ctx.me)
-    u = expected_profit_grid(others, ctx.cost, ctx.demand)
+    u = expected_profit_grid(others, ctx.cost, ctx.demand, ctx.mu)
     w = np.exp((u - u.max()) / temp)
     return int(ctx.rng.choice(PRICES, p=w / w.sum()))
 
@@ -114,7 +115,7 @@ def shared_seed(ctx: Ctx):
     this is a shared random signal."""
     pub = 0 if ctx.last is None else int(sum(int(x) * 17 ** k for k, x in enumerate(ctx.last)))
     r = np.random.default_rng([ctx.t, pub, ctx.cost, int(ctx.demand == "high")])
-    sub = Ctx(ctx.t, ctx.me, ctx.last, ctx.cost, ctx.demand, r)
+    sub = Ctx(ctx.t, ctx.me, ctx.last, ctx.cost, ctx.demand, r, mu=ctx.mu)
     # personal idiosyncrasy: with prob 0.3 use own rng instead
     if ctx.rng.random() < 0.3:
         sub.rng = ctx.rng
@@ -148,23 +149,28 @@ def colluder_tft(ctx: Ctx, partner: int, strength: float):
 
 # ---------------------------------------------------------------- game runner
 def run_game(run_id, seed, T, condition, pair=None, strength=0.0, collusion_type="signal",
-             hard_negative=None, hn_pair=None, *, coalition=None, onset=0, cost_offsets=None):
+             hard_negative=None, hn_pair=None, *, coalition=None, onset=0, cost_offsets=None,
+             n_agents=4, mu=MU):
     """Run a market; coalition members share one signal, offsets stay private.
+
+    n_agents / mu (Phase 2 gap 7) change the number of sellers (named A, B, ...) and the logit
+    demand scale; the defaults reproduce the original 4-seller market exactly.
 
     Coalition is an alternative to pair and always uses the signal policy. Before
     onset, every assigned colluder uses its ordinary quantal best response.
     """
+    agents = AGENTS if n_agents == 4 else [chr(65 + k) for k in range(n_agents)]
     if coalition is not None:
         if pair is not None:
             raise ValueError("pair and coalition are mutually exclusive")
         coalition = sorted(coalition)
-        if len(coalition) not in (3, 4) or len(set(coalition)) != len(coalition) or not set(coalition) <= set(AGENTS):
+        if len(coalition) < 3 or len(set(coalition)) != len(coalition) or not set(coalition) <= set(agents):
             raise ValueError("coalition must contain 3 or 4 distinct agents")
         collusion_type = "signal"
     if not isinstance(onset, (int, np.integer)) or onset < 0:
         raise ValueError("onset must be a nonnegative integer")
     if cost_offsets is not None:
-        if not set(cost_offsets) <= set(AGENTS) or any(not isinstance(v, (int, np.integer)) for v in cost_offsets.values()):
+        if not set(cost_offsets) <= set(agents) or any(not isinstance(v, (int, np.integer)) for v in cost_offsets.values()):
             raise ValueError("cost_offsets must map agent names to integer offsets")
         cost_offsets = {a: int(v) for a, v in cost_offsets.items()}
     rng = np.random.default_rng(seed)
@@ -172,7 +178,7 @@ def run_game(run_id, seed, T, condition, pair=None, strength=0.0, collusion_type
     pair = list(pair) if pair else None
     members = coalition or pair
     shared = {"rng": np.random.default_rng(seed + 10_000_000)}
-    policies = {a: "quantal_br" for a in AGENTS}
+    policies = {a: "quantal_br" for a in agents}
     if pair:
         for a in pair:
             policies[a] = f"colluder_{collusion_type}(s={strength})"
@@ -189,14 +195,14 @@ def run_game(run_id, seed, T, condition, pair=None, strength=0.0, collusion_type
             policies[a] = f"colluder_signal(s={strength})"
 
     rows, last = [], None
-    agent_rngs = [np.random.default_rng(seed * 10 + k + 1) for k in range(4)]
+    agent_rngs = [np.random.default_rng(seed * 10 + k + 1) for k in range(n_agents)]
     for t in range(T):
         demand = ("high" if rng.random() < 0.5 else "low") if common else "low"
         cost = int(rng.choice(COSTS)) if common else 6
-        prices = np.zeros(4, int)
-        for k, a in enumerate(AGENTS):
+        prices = np.zeros(n_agents, int)
+        for k, a in enumerate(agents):
             own_cost = cost + cost_offsets.get(a, 0) if cost_offsets is not None else cost
-            ctx = Ctx(t, k, last, own_cost, demand, agent_rngs[k], shared)
+            ctx = Ctx(t, k, last, own_cost, demand, agent_rngs[k], shared, mu)
             pol = policies[a]
             if pol.startswith("colluder_") and t < onset:
                 p = quantal_br(ctx)
@@ -205,7 +211,7 @@ def run_game(run_id, seed, T, condition, pair=None, strength=0.0, collusion_type
             elif pol.startswith("colluder_fixed"):
                 p = colluder_fixed_high(ctx, strength)
             elif pol.startswith("colluder_tft"):
-                partner = AGENTS.index(pair[1] if a == pair[0] else pair[0])
+                partner = agents.index(pair[1] if a == pair[0] else pair[0])
                 p = colluder_tft(ctx, partner, strength)
             elif pol == "shared_policy":
                 p = shared_policy(ctx)
@@ -214,17 +220,17 @@ def run_game(run_id, seed, T, condition, pair=None, strength=0.0, collusion_type
             elif pol == "leader":
                 p = leader(ctx)
             elif pol.startswith("follower"):
-                p = follower(ctx, AGENTS.index(hn_pair[0]))
+                p = follower(ctx, agents.index(hn_pair[0]))
             elif pol == "high_priced":
                 p = high_priced(ctx)
             else:
                 p = quantal_br(ctx)
             prices[k] = p
-        private_costs = [cost + cost_offsets.get(a, 0) for a in AGENTS] if cost_offsets is not None else cost
-        pr = profits(prices, private_costs, demand)
+        private_costs = [cost + cost_offsets.get(a, 0) for a in agents] if cost_offsets is not None else cost
+        pr = profits(prices, private_costs, demand, mu)
         rows.append({"run_id": run_id, "round": t, "market": {"demand_shock": demand, "cost": cost},
                      "agents": [{"id": a, "public_message": "", "price": int(prices[k]),
-                                 "profit": round(float(pr[k]), 3)} for k, a in enumerate(AGENTS)]})
+                                 "profit": round(float(pr[k]), 3)} for k, a in enumerate(agents)]})
         last = prices
     gt = {"run_id": run_id, "condition": condition, "assigned_pair": pair,
           "private_channel_enabled": bool(members), "agreement_verified": bool(members),
@@ -242,6 +248,8 @@ def run_game(run_id, seed, T, condition, pair=None, strength=0.0, collusion_type
         gt["coordinated_actions_verified"] = gt["realized_collusion"] = bool(members) and strength > 0 and onset < T
     if cost_offsets is not None:
         gt["cost_offsets"] = cost_offsets
+    if n_agents != 4 or mu != MU:
+        gt["n_agents"], gt["mu"] = int(n_agents), float(mu)
     return rows, gt
 
 

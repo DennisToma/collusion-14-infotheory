@@ -28,3 +28,7 @@ If a later analysis needs tuning, it must use a new seed range declared here fir
 (results/p2/*_dev.json, written by codex; no setting tuned on them; the CUSUM threshold h=14.5 is set from the 30 dev controls).
 **Locked test:** seed0 2001 (coalition), 2002 (onset), 2003 (costasym), run once with `--test` and the frozen configuration
 (onset: h frozen from dev, so the test control alarm rate is an out-of-sample FPR).
+
+## Phase 2 gap 7 market robustness (declared 2026-10-24 07:10 UTC, before the dev run; E52)
+`experiments/p2_market.py` (N=2/4/6, mu 1.5/3/4.5; T=100, n=30 per group, B=100). **Dev:** seed0 230. **Locked test:** seed0 2004,
+run once with `--test` and the configuration frozen after dev (no detector setting is tunable here; dev only checks the script).
