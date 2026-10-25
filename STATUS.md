@@ -1,4 +1,4 @@
-# STATUS (updated 2026-10-25 11:05 UTC, Phase 2 iteration 126; DIRECTION 10:30)
+# STATUS (updated 2026-10-25 11:20 UTC, Phase 2 iteration 128; DIRECTION 10:30)
 
 **State:** Q1.4 experiments final; scientific REPORT and headline numbers remain frozen from `7b337e4`. No new experiment, estimator, review round or LLM call this iteration.
 **Headline:** channel raises markup in 9/9 main sets (7 models); max-pair markup > pCMI point AUROC in 9/9, paired Δ CI > 0 in 8/9 (gpt-5.6-luna unresolved); pCMI CI includes 0.5 in 8/9 (REPORT main claim/P2.13; `eval/claims_denominators.json`, `eval/e74_paired_diff.json`).
@@ -8,12 +8,15 @@
 **For Q2.2 / merge manager:** freeze holds (no science edit since `7b337e4`). The flags now go through the channel the merge manager reads: REPORT “Changes after 08:00” has an 08:39 line → `results/reviews/merge_flags.md` (table: id, severity, line, current text, exact replacement, REPORT §, JSON key, status).
 **Merge check I122 (DIRECTION #2):** merge HEAD `6a295b5` → `3360cfa` (v1.5 scope fixes, README, evidence bundle). `check_merge_sources.py`: 35/35 match, F1/F3 applied. New Q1.4 text (Fig. 1 TE caption vs §4.1 TE column, "contemporaneous co-movement", "markup level in Q1.4") checked by hand: correct. **No open Q1.4 flags.** Merge evidence bundle pins our `732f08c` incl. REPORT.md → **do not edit REPORT.md** unless a science error appears (keeps their `--live` hash check green); bookkeeping goes to `merge_flags.md`/STATUS only.
 **Scope check I124 (DIRECTION 10:30 #2):** merge `ce0fd42` + working tree vs `3360cfa`: Q1.4 hunks ("no robust co-movement", "Base Qwen3.6 separates once, without grid replication") correct, 0 P1. Evidence pin: 27/27 files byte-identical to `732f08c`. 35/35 re-audit retired per DIRECTION; next: one final scope read 14:00–15:00, export 16:30.
+**Scope check I128:** merge `f5e91e5`: new §9 Conclusion Q1.4 sentences are scoped correctly, 0 P1; the manifest still pins `732f08c`, and 28/28 pinned files are SHA256-identical.
 **Scope check I126:** merge `5ccd0b7`: re-rendered Figs. 1/3 (from our pinned JSON) visually verified against our values, 0 P1; pin `732f08c` intact.
 **Checks I116:** p2_tables PASS (14 tables, 543 cells, 0 unchecked/mismatches); tables PASS (11 tables, 404 cells). Prior I107 audit checked ~30 merge Q1.4 numbers; no numerical discrepancy. No new review round.
 **Next:** answer Q1.4 merge asks via STATUS; no new experiments/reviews. Numbers freeze 14:00; scheduled export pass 16:30 (slides → PRESENTATION, PDF/HTML, both checks). Between asks, no idle entry within 60 minutes.
 **Risks:** nulls do not establish absence; T=20 planted-move sensitivity is only 0.58–0.65 at q=0.1; weak lagged dependence remains. Serendipity HITS: no promoted hits, no confirmation.
 
 ## Dated log (append-only; prior state summaries retained verbatim)
+
+**Iteration 128 (11:20 UTC) — DIRECTION 10:30 #2.** Merge `5ccd0b7`→`f5e91e5`: the §9 Conclusion is the only Q1.4 hunk. It is checked against the main claim, l.666 cost asymmetry and Limitations: 0 P1. 28/28 pinned files are byte-identical to the manifest hashes. Logged in `merge_flags.md`. REPORT.md untouched. No calls.
 
 **Iteration 126 (11:05 UTC) — DIRECTION 10:30 #2.** I ran a scope check of merge `ce0fd42`→`5ccd0b7`. Figs. 1 and 3 were re-rendered from our pinned gate_test/e70_grid JSON; their plotted values and the Fig. 3 caption match REPORT/JSON, and the main effects are labelled descriptive. 0 P1, logged in `merge_flags.md`. REPORT.md and the pinned files are untouched. No calls.
 
