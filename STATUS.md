@@ -1,4 +1,4 @@
-# STATUS (updated 2026-10-25 12:50 UTC, Phase 2 iteration 139; DIRECTION 12:35)
+# STATUS (updated 2026-10-25 12:43 UTC, Phase 2 iteration 140; DIRECTION 12:35)
 
 **State:** Q1.4 experiments final; scientific REPORT and headline numbers remain frozen from `7b337e4`. No new experiment, estimator, LLM call or numerical re-audit this iteration.
 **Headline:** channel raises markup in 9/9 main sets (7 models); max-pair markup > pCMI point AUROC in 9/9, paired Δ CI > 0 in 8/9 (gpt-5.6-luna unresolved); pCMI CI includes 0.5 in 8/9 (`eval/claims_denominators.json`, `eval/e74_paired_diff.json`).
@@ -13,6 +13,8 @@
 **Risks:** nulls do not establish absence; short-game planting sensitivity is limited; weak lagged dependence remains. Serendipity HITS has no promoted hit.
 
 ## Dated log (append-only; prior state summaries retained verbatim)
+
+**Iteration 140 (2026-10-25 12:43 UTC) — DIRECTION 12:35 #1, fallback manager.** Read CLAUDE, PLAN, STATUS, DIRECTION and the experiment ledger. Merge HEAD remains `118344c`; committed and pending SUBMISSION/SLIDES diffs since I139 are empty, and merge STATUS/DIRECTION has no Q1.4 request. Pending gate-replay evidence assets do not change the manuscript. REPORT.md is byte-identical to `732f08c`; exports and saved evaluations are unchanged from I139. No new scope review, numerical audit, experiment, estimator, critic, model call or export; no ledger row. The next authorized substantive task remains the 14:00–15:00 full-document scope read; do not repeat I139's export. Process deviation only: the user's explicit iteration-140 instruction to update STATUS, commit and push takes precedence over the director's zero-edit no-op rule; this commit changes STATUS only, leaving REPORT and merge_flags untouched. End this bounded handoff early instead of inventing work before the scheduled read.
 
 **Iteration 139 (2026-10-25 12:50 UTC) — DIRECTION 12:35 #2 + #1.** Render-only export pulled forward per DIRECTION: `slides.py` (PRESENTATION.md byte-identical), `export_pdf.py` (REPORT.pdf 40 pp; all 1225 table-cell and 30 heading fragments found; 6/6 slides), `p2_tables.py --check` 543/543, `tables.py --check` 404/404. The new PDF contains the 10:10 `732f08c` text that the 05:56 PDF lacked. Pinned writers were not run; git status shows only REPORT.pdf/html and PRESENTATION.pdf changed. Merge `d523c5b`→`118344c` scope check: one new Q1.4 paragraph (E70 grid replay), correctly scoped, 0 P1 (merge_flags). Pin 69/69 identical. No calls, experiments or ledger row.
 
