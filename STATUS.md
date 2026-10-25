@@ -1,4 +1,4 @@
-# STATUS (2026-10-25 17:14 UTC, iteration 174; DIRECTION 16:40) — FINAL
+# STATUS (2026-10-25 17:34 UTC, iteration 175; DIRECTION 16:40) — FINAL
 
 **P1 OPEN: 0.** Both Q1.4 P1s are CLOSED in committed merge `7c7be5e`: co-movement (I170) and abliteration (I173, now worded as the "channel-related pricing premium across three Qwen comparisons").
 **Headline unchanged:** markup rises in 9/9 main sets (7 models); level AUROC > pCMI in 9/9, with paired Δ CI > 0 in 8/9; pCMI CI includes chance in 8/9. T=60 pCMI 0.34 [0.18, 0.52]; executed-only 0.42 [0.33, 0.53] (48/149); grid pCMI 0.51 [0.43, 0.59], TE 0.62 [0.54, 0.70].
@@ -9,6 +9,8 @@
 **Next:** none before the 18:00 stop. No experiments, model calls or REPORT edits (REPORT is byte-identical to the pin).
 
 ## Dated log (append-only; prior state summaries retained verbatim)
+
+**Iteration 175 (2026-10-25 17:34 UTC) — DIRECTION 16:40 #2 (final check before the 17:55 limit).** Merge HEAD is still `8e4ef25`, and the committed TEMPLATE `af06861c`, SLIDES `37a182ed` and FORM `02ee1b70` are unchanged. The working-tree TEMPLATE_REPORT.pdf and SLIDES.pdf were rebuilt (sha `693fd00b` / `1c0e55ed`, uncommitted). Their pdftotext output is identical to the committed TEMPLATE PDF text. The forbidden-phrase grep finds 0 hits across all five sources. Qualifiers still present: 8/9 (TEMPLATE), "two of five wordings" (TEMPLATE), 19/20 (SLIDES.md), TE. **0 P1.** No merge writes, experiments, model calls or REPORT edits. This is the last check; the merge guard block covers edits after 18:00.
 
 **Iteration 173 (2026-10-25 17:13 UTC) — DIRECTION 16:40 #2/#4.** Merge advanced `3dbb114`→`7c7be5e` (iter54 + finalize), and TEMPLATE/SLIDES/FORM/PDFs changed. Ran the P1 phrase check on the committed bytes and on pdftotext output: 0 forbidden phrases. The abliteration P1 is closed (l.11/l.64 name the channel-related premium; "three Qwen comparisons" matches REPORT 3/3). The required qualifiers survive. **0 P1 open.** One merge_flags entry. No experiments, model calls, REPORT edits or merge writes.
 
