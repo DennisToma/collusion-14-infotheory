@@ -1,50 +1,54 @@
-# DIRECTION — Phase 2, director review 2026-10-25 08:23 UTC (Sun morning)
-(experiments end **Sun 15:00** · numbers freeze **14:00** · finalize-only **16:30** · hard stop **18:00** · top/merge block frozen since **07:30** at `7b337e4` · merge manager `collusion-beyond-words` **started 08:03**: SUBMISSION v0 at `fbed25a`, Opus review applied at `02ebfd2`)
+# DIRECTION — Phase 2, director review 2026-10-25 10:30 UTC (Sun morning)
+(experiments end **Sun 15:00** · numbers freeze **14:00** · finalize-only **16:30** · hard stop **18:00** · merge `collusion-beyond-words` is at v1.6 `9664022`; it pins **Q1.4 evidence at `732f08c`** (27 files incl. `REPORT.md`, SHA256 in `collusion-beyond-words/evidence/manifest.json`) · Q1.4 HEAD `65d44bb`; since the pin only STATUS / EXPERIMENTS / `results/reviews/*` have changed, so the evidence is still identical)
 
 **Verdict (3 lines).**
-1. **Q1.4 is answered and defensible.** Level beats pCMI in 9/9 sets, with the paired CI > 0 in 8/9 (E74). The null holds at T=60 (E44), on executed games only, and for nonlinear estimators (E73). TE is the one weak positive, and it is labelled. All 06:20 directives are done: the sweep was clean (I94), the "Changes after 08:00" heading exists, and E73/E74 regenerate byte-identically (I98). Both table checks PASS.
-2. **The only live risk is the merged text, not this repo.** SUBMISSION §5.2 l.174–175 still says "not an estimator artefact … not a pure power failure". That is the overclaim you flagged as P1 in I107, and as of `02ebfd2` + working tree it is **not applied**. Your flag lives only in your STATUS. The merge PLAN tells the merge manager to read your REPORT and "Changes after 08:00", not your STATUS, so it may never see the flag.
-3. **Explore vs exploit: exploit only.** About 6.5 h of experiment time is left, but no new number can change the answer, and each new number would now break a frozen input the merge is already reviewing. Exploration is closed. Value left: get the flags *seen and applied*, check each new merge commit, then do one clean export.
+1. **Q1.4 is answered, and the merged text now says it faithfully.** All 08:23 directives are done. The flags went out via the Changes line and `merge_flags.md` (I109). F1 (P1) and F3 were applied at `f88618d`. Every merge commit since then has matched 35/35 with 0 open flags (I112–I122). SUBMISSION now says "no *robust* co-movement … all three CIs include 0.5", which is scoped correctly.
+2. **The per-commit 35/35 re-audit has become redundant work.** The merge now machine-checks 57 source assertions, 64 report/slide numeric bindings and 66 hashed source blobs on every build. Re-checking the same 35 numbers every ~17 min adds nothing. What the merge's checks do **not** cover is qualitative scope (its own STATUS lists this as a risk). Scope is now the only review job left for this repo.
+3. **Explore vs exploit: exploit only, and that is the right call, not inertia.** I re-checked whether 4.5 h of experiment time could buy anything a judge would value. The obvious open gap is "no evasion / red-team test" (Limitations). It is rejected for three reasons: (a) it needs instructed colluders, which conflicts with Dennis's "never instruct agents to collude"; (b) it would land after the 14:00 numbers freeze with no time for review; (c) it cannot change the headline. The unexplained below-chance pCMI is also not worth reopening, since E67 already tested stickiness. Exploration is closed.
 
 ## Top directives (in priority order)
 
-1. **Deliver the merge flags through a channel the merge manager actually reads (now, ≤ 15 min, no REPORT science edit).**
-   - Add one dated line under `### Changes after 08:00 (for the merge manager)` in REPORT. Replace "None so far" with something like: "2026-10-25 08:3x: no scientific change. Merge-draft check: 1 P1 + 2 P2 wording flags with exact replacements and JSON keys → STATUS 'For merge manager' (or `results/reviews/merge_flags.md`)."
-   - Q2.2 already does this (see its 08:12 line and `merge_source_audit_i116.json`), and it is the right pattern.
-   - Put the flags in a small file `results/reviews/merge_flags.md`. Use one table: id, severity, SUBMISSION line, current text, exact replacement, REPORT §, JSON key, status (open / applied / rejected).
-   - **Why:** a correct flag that never reaches the merge manager is worth zero, and §5.2 is the core Q1.4 sentence in the submission.
-2. **Re-check each new merge commit and close flags; don't expand them (every iteration until 16:30).**
-   - When `git -C ~/collusion/collusion-beyond-words log -1` changes, re-grep SUBMISSION for every Q1.4 number and the P1 sentence. Mark each flag applied/open in `merge_flags.md`, and check any *new* Q1.4 text against REPORT + JSON.
-   - Severity bar: only P1 (wrong number, wrong direction, or a claim stronger than REPORT) gets posted. P2 style preferences: at most two, already posted, and don't add more.
-   - Especially watch for: "pCMI cannot detect collusion", "no co-movement exists", "TE detects collusion", "executed collusion is undetectable", the two markets merged into one (T=20 Nash 10 vs Q2.2 T=12 Nash ≈ 11), and the E70 main effects presented as causal.
-   - If the merge manager rejects a flag, accept it and record that. Don't re-litigate.
-3. **Answer merge asks within one iteration.** Quote REPORT § + JSON key. If the merge manager needs a number REPORT doesn't state, tell them it isn't in REPORT; don't compute it. The numbers freeze is 14:00, and after 07:30 any new number needs a "Changes after 08:00" line plus a merge re-sync.
-4. **16:30 export pass (unchanged, once).** slides.py → PRESENTATION, REPORT.pdf/html, PRESENTATION.pdf, both table checks, one commit. Confirm that pinned `e68_cda.json` / `e70_grid.json` SHA256 are unchanged. Nothing after 17:30 except fixing an error the merge manager reports.
-5. **Idle properly between merge commits.**
-   - With no new merge commit and no ask, **do not commit**. Fourteen of the last 20 commits are "idle"/"honor freeze" lines, which is git noise a judge will see in the history.
-   - At most one STATUS line per hour, folded into the next real commit.
-   - Use `date -u` for every timestamp. I107 is stamped "08:35 UTC" but was committed at 08:20, the third future-timestamp slip. Don't spend an iteration fixing old ones.
+1. **Pin discipline: do not touch any of the 27 pinned files (now → 18:00).**
+   - The merge's evidence bundle hashes `REPORT.md`, `data/SPLITS.md`, `sim/market.py` and 24 other `results/eval|p2|reimpl` files at `732f08c`. Its `--live` check requires them byte-identical.
+   - **No more "Changes after 08:00" lines in REPORT.md.** Further handoff notes go only in `results/reviews/merge_flags.md`, which is not pinned. I122 already did this correctly; keep it that way.
+   - If a true P1 ever forces a REPORT.md change, make it **once, before 14:00**. Then put a re-pin request as the top row of `merge_flags.md`, with the new commit hash and the changed lines.
+   - **Why:** a silent source edit makes the merge's reproducibility claim ("66/66 hashes match") false at the moment a judge clones it.
+2. **Replace the per-commit 35/35 audit with a diff-triggered scope check (every iteration until 16:30).**
+   - On a new merge HEAD, run `git -C ~/collusion/collusion-beyond-words diff <last-checked> HEAD -- SUBMISSION.md SLIDES.md`.
+   - If no changed hunk touches Q1.4 content (pCMI, TE, level/markup, E44/E70/E73/E74, executed, T=60, D2/E68, same-model, prevalence): log one line in `merge_flags.md` and **do not commit**.
+   - If a hunk does touch Q1.4 content, read the hunk for **scope** only. Use the watch list: "no co-movement exists", "pCMI cannot detect", "TE detects collusion", "executed collusion is undetectable", E70 main effects stated as causal, "not a power failure", and a merged single market.
+   - Post a flag only if it is P1. Numbers are the merge's checker's job now.
+3. **One final judge-style scope read of all Q1.4-tagged text at the merge's content freeze (once, 14:00–15:00, ≤ 40 min).**
+   - Read SUBMISSION §1–§8, the abstract, the TL;DR and all 8 slides end to end, the way a sceptical judge would. Check every Q1.4 sentence for direction, scope, denominator and "post hoc"/"exploratory" tags against REPORT.
+   - Output one table in `merge_flags.md` (P1 only, exact replacement, REPORT §, JSON key). Then say "final scope read done, N P1" in one STATUS line.
+   - **Why:** this is the last point where a wording fix is cheap. After 16:30 the merge is export-only.
+4. **16:30 export pass (once, render-only).**
+   - Rebuild REPORT.pdf/html, PRESENTATION.md (slides.py) and PRESENTATION.pdf from the **unchanged** REPORT.md. Run both table checks.
+   - Then verify that all 27 pinned files are byte-identical to `git show 732f08c:<path>` (a 10-line loop over `evidence/manifest.json`; read-only). Include the result in the single export commit.
+   - Nothing after 17:30 except fixing an error the merge manager reports.
+5. **Wind down.** After the export commit, stop iterating unless the merge's STATUS or DIRECTION names a Q1.4 ask. In the final STATUS line, state "Q1.4 final at <hash>; evidence pin 732f08c unchanged".
 
 ## STOP doing
-- No new games, estimators, slices, sets, critics or review rounds. R35/R62/R77/R86/R91 + I94 + I107 are enough.
-- No idle-only commits. No "honor freeze" iterations that only restate the freeze.
-- No REPORT restructuring or length-cutting. The merge manager is lifting text, and § pointers must stay stable.
-- Don't regenerate `e68_cda.json` / `e70_grid.json` (Q2.2 pins them). Don't edit the joint statement.
-- Don't edit the merge repo, even to "help". Flags only, delivered via directive 1.
-- No serendipity confirmation (no promoted hits through S56).
+- **Stop the 35/35 re-audit on every merge commit** (directive 2). Also stop commits whose only content is "N/N match, no open flags". Four of the last seven commits (I112, I116, I120, I122) are mostly this.
+- No new games, estimators, slices, critics or review rounds. That includes red-team/evasion arms and the below-chance-pCMI mechanism (verdict 3).
+- No REPORT.md edits of any kind (directive 1). No REPORT restructuring or length-cutting.
+- Don't regenerate `e68_cda.json` / `e70_grid.json` or any pinned JSON. Don't edit the joint statement. Don't edit the merge repo.
+- Don't spend iterations correcting old timestamps.
+- No serendipity confirmation. HITS has no promoted hits through S67; the S65/S67 organisational-approval pilots are outside Q1.4's market.
 
 ## Cross-pollination
-- **From Q2.2 → here (copy it):** `check_merge_sources.py` + `results/analysis/merge_source_audit_i116.json` is a machine check: 69 saved-value checks of SUBMISSION numbers against frozen JSON, with source hashes. Q2.2's Changes-after-08:00 line links it. A 30-line equivalent for your ~30 Q1.4 numbers (from I107) is a fine use of one iteration, if it is read-only and zero-call. Rerun it on every merge commit (directive 2).
-- **From here → Q2.2:** the market-difference risk (two different Nash levels and horizons) applies to both repos. If the merge writes one "shared market" in Methods, both repos should flag it with one combined line. Coordinate via the sibling's STATUS so the merge gets one flag, not two.
-- Joint statement: unchanged in both repos, so no action.
+- **From the merge → here:** the merge's `scripts/check_sources.py` plus the evidence bundle now supersede your `check_merge_sources.py`. Read the merge's STATUS check line ("57 + 64 + 66 pass") rather than recomputing it. Run your own checker at most once more, at the 14:00 scope read.
+- **From Q2.2 → here:** none needed. Q2.2's I133 confirms its own flags are closed. Its Fig. 6 window fix (rounds 11–40) is Q2.2-only.
+- **Here → Q2.2:** pin discipline (directive 1) applies to them too. Their REPORT.md already differs from the merge pin `91ffb2d` by one review line; they are told the same.
+- Shared-market risk: **closed.** SUBMISSION's preamble now states "The two ran separate markets", with per-result source tags.
 
-## Phase 2 gap-list status summary (08:23 Sun)
+## Phase 2 gap-list status summary (10:30 Sun)
 | item | status |
 |---|---|
 | Shared: precision at prevalence (E46) · reimplementation (E47) | DONE |
 | Q1.4 gaps 1–4, 7 (E43, E44, E48/E54, E45/58/59, E52) | DONE / frozen |
-| Q1.4 gaps 5, 6, 8, 9 (E49, E50, E51, E53) | DONE (scripted); LLM variants of 5/6 DROPPED (needs a new channel design; codex budget) |
-| Part C: C1 (E64/E65/E66/E71), C2 (E62), C3 (E61), C3b (E69) | DONE; glm-5.2 and gpt-6.1-sol pair DROPPED (no complete games; codex saturated); C3c DROPPED by Q2.2 (E109) |
+| Q1.4 gaps 5, 6, 8, 9 (E49, E50, E51, E53) | DONE (scripted); LLM variants of 5/6 DROPPED (they need a new channel design; codex budget) |
+| Part C: C1 (E64/E65/E66/E71), C2 (E62), C3 (E61), C3b (E69) | DONE. glm-5.2 and the gpt-6.1-sol pair DROPPED (no complete games; codex saturated). C3c DROPPED by Q2.2 (E109) |
 | Part D: D1 Q1.4 pCMI part | DROPPED (no action time series in SALT) |
 | Part D: D2 double auction (E68) | DONE, inconclusive, pinned |
 | Part D: D3 | n/a (Q2.2; DROPPED there) |
@@ -53,12 +57,17 @@
 | Part E: E2, E4, E5 | DONE by Q2.2 · E3 DROPPED by Q2.2 |
 | Denominators · one-minute box | DONE |
 | E73 nonlinear robustness · E74 paired Δ | DONE |
-| R91 fact-check · stale-label sweep + table checks (I94) | DONE (clean, E54 numbers match `matched_ref.json`) |
-| "Changes after 08:00" heading (07:30 freeze) | DONE (still says "None so far"; directive 1 adds a pointer line) |
-| Regenerability check E73/E74 | DONE early (I98, byte-identical) |
-| Merge support | IN PROGRESS: I107 audit of ~30 numbers, 0 numeric errors; 1 P1 + 2 P2 flags **not yet applied in SUBMISSION** → directives 1–2 |
+| R91 fact-check · stale-label sweep + table checks (I94) | DONE |
+| Regenerability check E73/E74 | DONE (I98, byte-identical) |
+| Merge flags delivered via a channel the merge reads (08:23 #1) | DONE (I109: Changes line + `merge_flags.md` + `check_merge_sources.py`) |
+| Merge flags applied | DONE: F1 (P1) + F3 applied at `f88618d`; F2 not needed; 0 open through merge `3360cfa` (I122) |
+| Shared-market flag (08:23 cross-pollination) | DONE / not needed (SUBMISSION says the two ran separate markets) |
+| Per-commit merge re-check | SUPERSEDED: replaced by the diff-triggered scope check (directive 2), since the merge machine-checks numbers |
+| Pin discipline (pinned at `732f08c`) | IN PROGRESS: holds so far; keep it until 18:00 (directive 1) |
+| Final scope read of Q1.4 text | NOT STARTED → directive 3 (14:00–15:00) |
 | Export pass (16:30) | NOT STARTED → directive 4 |
-| Serendipity | no promoted hits |
+| Evasion / red-team arm | DROPPED (conflicts with the "never instruct" rule; lands after the freeze; already a Limitations bullet) |
+| Serendipity | no promoted hits (through S67) |
 
 ---
 
