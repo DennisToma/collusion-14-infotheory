@@ -1,11 +1,11 @@
-# STATUS (updated 2026-10-25 13:02 UTC, Phase 2 iteration 143; DIRECTION 12:35)
+# STATUS (updated 2026-10-25 13:25 UTC, Phase 2 iteration 144; DIRECTION 12:35)
 
 **State:** Q1.4 experiments final; scientific REPORT and headline numbers remain frozen from `7b337e4`. No new experiment, estimator, LLM call or numerical re-audit this iteration.
 **Headline:** channel raises markup in 9/9 main sets (7 models); max-pair markup > pCMI point AUROC in 9/9, paired Δ CI > 0 in 8/9 (gpt-5.6-luna unresolved); pCMI CI includes 0.5 in 8/9 (`eval/claims_denominators.json`, `eval/e74_paired_diff.json`).
 **Long / executed:** E44 T=60 pCMI 0.34 [0.18, 0.52], level 0.94; executed-only pCMI 0.42 [0.33, 0.53], 48/149; E71 definition range 0.343–0.531 (P2.8/P2.11).
 **Grid:** E70 192 games: C − A positive 13/16, level > pCMI 12/16; pooled pCMI 0.51 [0.43, 0.59], TE 0.62 [0.54, 0.70]; level − TE +0.12 [+0.01, +0.22] (P2.14/E74). E72 execution split remains exploratory.
 **Evidence pin:** `732f08c`, including REPORT.md; no pinned-file edits. Handoff notes go only to `results/reviews/merge_flags.md` / STATUS. F1/F3 applied; no open Q1.4 P1.
-**Scope coverage:** through merge `d8ebfab` (I142, 0 Q1.4 P1; iter28 gate-replay paragraph correctly scoped to saved aggregation). Pin check I142: 80/80 manifest files SHA-identical at `732f08c`.
+**Scope coverage:** through merge `c1e7fdd` (I144, 0 Q1.4 P1; iter30 gate pCMI/shift-null replay paragraph correctly scoped, counts 500 runs / 3000 pairs / B=200 match our data). Pin check I144: 81/81 manifest files SHA-identical at `732f08c`.
 **Scope nuance:** the wording set includes baseline v0 plus four variants (6+6 each); only v0 and para have positive C − A CI lower bounds. This does not generalise the 9/9 main-set result to arbitrary prompts.
 **Known rounding:** I130 independently confirmed merge E70 upper CI 0.80 and E65 +2.14 [1.29, 3.00]; pinned REPORT retains 0.81 / +2.13 [1.28, 3.00]. Disclosed on merge side; not P1.
 **Exports:** REPORT.pdf/html + PRESENTATION.pdf rebuilt I139 (12:50) from unchanged REPORT.md (DIRECTION 12:35 #2); 1225 table cells, 30 headings, 6 slide titles found in PDF text; p2_tables 543/543 and tables 404/404 PASS; slides.py output byte-identical.
@@ -13,6 +13,8 @@
 **Risks:** nulls do not establish absence; short-game planting sensitivity is limited; weak lagged dependence remains. Serendipity HITS has no promoted hit.
 
 ## Dated log (append-only; prior state summaries retained verbatim)
+
+**Iteration 144 (2026-10-25 13:25 UTC) — DIRECTION 12:35 #1 (diff-triggered).** Merge HEAD advanced `d8ebfab`→`c1e7fdd` (iter30 gate pCMI + shift-null replay from archived trajectories; iter31–32 freeze holds). Scope-read SUBMISSION hunks: counts/process numbers plus one Q1.4 paragraph; its 3000 pair scores, 500 runs and 200 draws/run match `data/gate_test` (500 runs, 4 sellers) and `score_run(B=200)`; explicitly scoped to the replay. **0 P1**, SLIDES unchanged, merge STATUS has no Q1.4 ask. Pin 81/81 identical; REPORT.md byte-identical to `732f08c`. One merge_flags entry. No experiment, model call, export or ledger row. Next: final scope read 14:00–15:00 (+ check_merge_sources.py).
 
 **Iteration 143 (2026-10-25 13:02 UTC) — DIRECTION 12:35 #1, fallback manager.** Read CLAUDE, PLAN, STATUS, DIRECTION, experiment ledger and serendipity HITS (no promoted hit or confirmation request). Merge HEAD remains `d8ebfab`; committed and pending SUBMISSION/SLIDES diffs since I142 are empty, and merge STATUS/DIRECTION has no Q1.4 request. The pending merge manifest adds the archived gate trajectories without changing manuscript scope; all **81/81** Q1.4 manifest files match their SHA256, and REPORT.md is byte-identical to `732f08c`. No experiment, numerical re-audit, model call, export or ledger row. REPORT and exports remain current and frozen. End this bounded handoff early; the final scope read remains due 14:00–15:00, and 16:30 is a freshness check only. Process deviation only: the user's explicit iteration-143 request to update STATUS, commit and push takes precedence over DIRECTION's zero-edit no-op rule; this commit changes STATUS only, preserving the pinned REPORT and avoiding a duplicate merge_flags entry.
 
