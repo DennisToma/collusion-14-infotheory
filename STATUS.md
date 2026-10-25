@@ -1,4 +1,17 @@
-# STATUS (updated 2026-10-25 00:28 UTC, Phase 2 iteration 46; follows DIRECTION 00:10)
+# STATUS (updated 2026-10-25 02:55 UTC, Phase 2 iteration 61; follows DIRECTION 02:15) — top frozen for the merge manager
+
+**State:** Q1.4 answered; all experiments final; nothing running. Since 00:28 only E73 (zero-call robustness) was added. No new games.
+**Frozen headline numbers (REPORT § / JSON):** channel raises markup over Nash in 9/9 sets, max-pair markup > pCMI point AUROC 9/9 (0.75–0.99 vs 0.34–0.72), pCMI CI ∋ 0.5 in 8/9 (Main claim, P2.13 / `eval/claims_denominators.json`). E44 T=60 pCMI 0.34 [0.18, 0.52], level 0.94 (P2.8 / `eval/long_power_llm_long_p2_T60.json`). Executed-only pCMI 0.42 [0.33, 0.53], 48/149 (P2.11 / `eval/p2_partc.json`; E71 range 0.343–0.531). E70 grid 192 games: C − A > 0 13/16, level > pCMI 12/16, pCMI 0.51 [0.43, 0.59], TE 0.62 [0.54, 0.70] (P2.14 / `eval/e70_grid.json`). Planted ±1 q=0.1: pCMI 0.79 at T=60, 0.62 at T=20.
+**E73 verdict (declared, null branch):** copula pCMI / sign MI at chance — E70 0.53 [0.44, 0.61] / 0.44 [0.36, 0.52]; E44 0.40 [0.23, 0.58] / 0.54 [0.35, 0.72]; executed-only 0.40 / 0.41; planted-move sensitivity T=20 0.65 / 0.58, T=60 0.84 / 0.81 (P2.8f / `eval/e73_nonlinear.json`). Linear numbers unchanged.
+**Post hoc / exploratory (do not headline):** E72 (TE names pair 30/96, sits in non-executed 0.73 vs executed 0.49), E71 definition range, per-cell E70 AUROCs, E70 main effects, E61 A-arm, E65 TE.
+**For Q2.2:** E73 (declared, zero calls): rank-based and sign-change CMI are also at chance on E70, E44 and executed-only games, so the "no co-movement" null is not a linear-estimator artefact; the joint inference is unchanged.
+**Checks:** p2_tables PASS (463), tables PASS (404) after E73.
+**Next:** 07:30 freeze; from 08:00 read collusion-beyond-words STATUS/DIRECTION each iteration, answer Q1.4 asks, log top/headline changes under the merge block ("Changes after 08:00"). 16:30 export pass (slides → PRESENTATION, PDFs/HTML, both checks). Idle lines ≤ 1/hour.
+**Risks:** at T=20 small co-movement is not excluded (sensitivity 0.58–0.65 at q=0.1); E72 is post hoc; lagged dependence (TE) is weakly present.
+
+## Dated log (append-only; prior state summaries retained verbatim)
+
+# STATUS (iteration 46 snapshot, 2026-10-25 00:28 UTC, Phase 2 iteration 46; follows DIRECTION 00:10)
 
 **E72 TE diagnostic DONE (exploratory, zero calls; `scripts/e72_te_diag.py` → `results/eval/e72_te_diag.{json,md}`; reproduces E70 TE scores exactly, pooled 0.62).** (a) TE names the channel pair in 30/96 games, 0.31 [0.23, 0.41] vs chance 1/6 (level names it 57/96). (b) Rounds 1–10 / 11–20 alone: 0.46 [0.39, 0.54] / 0.49 [0.42, 0.58], late − early +0.03 [−0.07, +0.14], so timing is unresolved. (c) Non-executed C vs A 0.73 [0.64, 0.80] (n=52: 38 agreed not held, 14 none); executed C vs A 0.49 [0.38, 0.60] (n=44).
 **Pre-committed branches:** none fires exactly. (a) is above chance, so the "does not name the pair" branch does NOT apply. (b) is not early-only, and the late window is not above 0.5, so the "stronger/sustained" branch does NOT apply either. REPORT says this plainly: TE is weakly pair-specific, comes from channel games without a held agreement, and its timing is unresolved.

@@ -1,0 +1,138 @@
+{
+ "experiment": "E73",
+ "status": "robustness, declared before computing (EXPERIMENTS.tsv E73-declared, STATUS iter 61)",
+ "estimators": {
+  "pcmi": "frozen linear-Gaussian pCMI (reference)",
+  "copula_pcmi": "normal-score rank transform per seller, then identical pCMI",
+  "sign_mi": "Miller-Madow CMI(sign dp_i; sign dp_j | public state)"
+ },
+ "E70": {
+  "pcmi": {
+   "auroc": 0.51,
+   "ci": [
+    0.431,
+    0.59
+   ]
+  },
+  "copula_pcmi": {
+   "auroc": 0.526,
+   "ci": [
+    0.443,
+    0.613
+   ]
+  },
+  "sign_mi": {
+   "auroc": 0.442,
+   "ci": [
+    0.359,
+    0.523
+   ]
+  },
+  "n": 192
+ },
+ "E44_T60": {
+  "n_C": 20,
+  "n_A": 20,
+  "pcmi": {
+   "auroc": 0.338,
+   "ci": [
+    0.177,
+    0.517
+   ]
+  },
+  "copula_pcmi": {
+   "auroc": 0.4,
+   "ci": [
+    0.23,
+    0.58
+   ]
+  },
+  "sign_mi": {
+   "auroc": 0.542,
+   "ci": [
+    0.35,
+    0.723
+   ]
+  }
+ },
+ "executed_only": {
+  "n_executed": 48,
+  "sets_contributing": 10,
+  "pcmi": {
+   "auroc": 0.422,
+   "ci": [
+    0.328,
+    0.532
+   ]
+  },
+  "copula_pcmi": {
+   "auroc": 0.397,
+   "ci": [
+    0.297,
+    0.503
+   ]
+  },
+  "sign_mi": {
+   "auroc": 0.408,
+   "ci": [
+    0.313,
+    0.504
+   ]
+  }
+ },
+ "sensitivity_q0.1": [
+  {
+   "T": 20,
+   "q": 0.1,
+   "n_controls": 20,
+   "pcmi": {
+    "auroc": 0.622,
+    "ci": [
+     0.52,
+     0.713
+    ]
+   },
+   "copula_pcmi": {
+    "auroc": 0.65,
+    "ci": [
+     0.554,
+     0.741
+    ]
+   },
+   "sign_mi": {
+    "auroc": 0.579,
+    "ci": [
+     0.512,
+     0.648
+    ]
+   }
+  },
+  {
+   "T": 60,
+   "q": 0.1,
+   "n_controls": 20,
+   "pcmi": {
+    "auroc": 0.794,
+    "ci": [
+     0.704,
+     0.884
+    ]
+   },
+   "copula_pcmi": {
+    "auroc": 0.838,
+    "ci": [
+     0.753,
+     0.923
+    ]
+   },
+   "sign_mi": {
+    "auroc": 0.812,
+    "ci": [
+     0.753,
+     0.874
+    ]
+   }
+  }
+ ],
+ "branch": "null: both nonlinear estimators' CIs include 0.5 (or lie below) on E70 and E44"
+}
