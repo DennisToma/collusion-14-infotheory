@@ -29,7 +29,7 @@ Can a prices-only detector find colluding agents without accusing agents sharing
 > Do not quote as headline evidence: per-cell E70 AUROCs, E61's unreplicated exploratory A-arm effect, or E65's exploratory TE. E70's seven main effects are descriptive (resolution IV, 6 + 6 games per cell, no multiplicity control); the declared fresh-sample follow-up on model (12 + 12 per level): C − A +0.88 (gpt-6-luna) vs +1.96 (qwen-3.6-35b), difference +1.07 [−0.20, +2.41], not confirmed (`eval/e70_followup.json`), so no factor is shown to move the premium. E68 (external CDA) is an inconclusive external check: chat raises asks by only +0.39 [+0.06, +0.69] of a 20-unit surplus (15 + 15); quote it as such, not as support.
 
 ### Changes after 08:00 (for the merge manager)
-*Top, one-minute box, merge block and headline numbers frozen from 2026-10-25 07:30 UTC; each later edit gets one dated line here (what changed, old → new, why). None so far.*
+*Freeze confirmed 2026-10-25 07:30 UTC: top, one-minute box, merge block and headline numbers unchanged from commit `7b337e4`; each later edit gets one dated line here (what changed, old → new, why). None so far.*
 
 ![Phase 2 overview](figures/phase2_headline.png)
 *Phase 2 overview: all nine P2.13 main sets (seven seller models), channel − no-channel markup and run AUROC with game-bootstrap 95% CIs. Scores target channel assignment, not execution; these sets share designs/models. Base Qwen3.6 is the pCMI exception (lower CI 0.507; not replicated in E70's design, P2.14). Regenerate from saved `p2_partc.json` and `claims_denominators.json`: `uv run python scripts/phase2_fig.py`.*
