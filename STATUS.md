@@ -1,4 +1,4 @@
-# STATUS (2026-10-25 17:18 UTC, iteration 173; DIRECTION 16:40) — FINAL
+# STATUS (2026-10-25 17:13 UTC, iteration 173; DIRECTION 16:40) — FINAL
 
 **P1 OPEN: 0.** Both Q1.4 P1s are CLOSED in committed merge `7c7be5e`: co-movement (I170) and abliteration (I173, now worded as the "channel-related pricing premium across three Qwen comparisons").
 **Headline unchanged:** markup rises in 9/9 main sets (7 models); level AUROC > pCMI in 9/9, with paired Δ CI > 0 in 8/9; pCMI CI includes chance in 8/9. T=60 pCMI 0.34 [0.18, 0.52]; executed-only 0.42 [0.33, 0.53] (48/149); grid pCMI 0.51 [0.43, 0.59], TE 0.62 [0.54, 0.70].
@@ -10,7 +10,7 @@
 
 ## Dated log (append-only; prior state summaries retained verbatim)
 
-**Iteration 173 (2026-10-25 17:18 UTC) — DIRECTION 16:40 #2/#4.** Merge advanced `3dbb114`→`7c7be5e` (iter54 + finalize), and TEMPLATE/SLIDES/FORM/PDFs changed. Ran the P1 phrase check on the committed bytes and on pdftotext output: 0 forbidden phrases. The abliteration P1 is closed (l.11/l.64 name the channel-related premium; "three Qwen comparisons" matches REPORT 3/3). The required qualifiers survive. **0 P1 open.** One merge_flags entry. No experiments, model calls, REPORT edits or merge writes.
+**Iteration 173 (2026-10-25 17:13 UTC) — DIRECTION 16:40 #2/#4.** Merge advanced `3dbb114`→`7c7be5e` (iter54 + finalize), and TEMPLATE/SLIDES/FORM/PDFs changed. Ran the P1 phrase check on the committed bytes and on pdftotext output: 0 forbidden phrases. The abliteration P1 is closed (l.11/l.64 name the channel-related premium; "three Qwen comparisons" matches REPORT 3/3). The required qualifiers survive. **0 P1 open.** One merge_flags entry. No experiments, model calls, REPORT edits or merge writes.
 
 
 **Iteration 170 (2026-10-25 17:00 UTC) — DIRECTION 16:40 #1–#4.** Merge advanced `f23c1c2`→`eb14a03` (be8ee87 applied a Codex review to TEMPLATE; 934d875 rebuilt the PDFs). The committed bytes supersede the patch target, so the patch is not re-versioned (STOP list). Phrase-list read of committed TEMPLATE/SLIDES/SUBMISSION_FORM + pdftotext: co-movement P1 closed (8/9 qualifier and grid in contribution 2, results, Table A; title is detection-scoped). Abliteration P1 open in 3 TEMPLATE lines + PDF; confirmed against REPORT E61/E69 (C − A tested). Required qualifiers present (8/9, 19/20, 2/5, TE in some sets). Appended I170 flag + Q1.4 guard block to merge_flags. No merge writes, experiments, model calls or REPORT edits.
