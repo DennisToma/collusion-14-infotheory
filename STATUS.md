@@ -1,16 +1,11 @@
-# STATUS (updated 2026-10-25 14:30 UTC, Phase 2 iteration 153; DIRECTION 12:35)
+# STATUS (final block, 2026-10-25 16:13 UTC, iteration 164; DIRECTION 14:32 #4)
 
-**State:** Q1.4 experiments final; scientific REPORT and headline numbers remain frozen from `7b337e4`. No new experiment, estimator, LLM call or numerical re-audit this iteration.
-**Headline:** channel raises markup in 9/9 main sets (7 models); max-pair markup > pCMI point AUROC in 9/9, paired Δ CI > 0 in 8/9 (gpt-5.6-luna unresolved); pCMI CI includes 0.5 in 8/9 (`eval/claims_denominators.json`, `eval/e74_paired_diff.json`).
-**Long / executed:** E44 T=60 pCMI 0.34 [0.18, 0.52], level 0.94; executed-only pCMI 0.42 [0.33, 0.53], 48/149; E71 definition range 0.343–0.531 (P2.8/P2.11).
-**Grid:** E70 192 games: C − A positive 13/16, level > pCMI 12/16; pooled pCMI 0.51 [0.43, 0.59], TE 0.62 [0.54, 0.70]; level − TE +0.12 [+0.01, +0.22] (P2.14/E74). E72 execution split remains exploratory.
-**Evidence pin:** `732f08c`, including REPORT.md; no pinned-file edits. Handoff notes go only to `results/reviews/merge_flags.md` / STATUS. F1/F3 applied; no open Q1.4 P1.
-**Scope coverage:** Merge `2add728`; final scope read (DIRECTION #3) satisfied by I146+I147+I148, **0 Q1.4 P1**. I152 diff-checked `f82acb0` (SUBMISSION `96d0ed7b…`, which I151 had not seen): abstract TE wording + §6 "we detected no" wording, **0 P1**. I153 confirms those manuscript bytes and SLIDES `4a66dd9b…` unchanged, no new Q1.4 ask; pin **81/81** SHA-identical at `732f08c`. Only diff-triggered checks remain.
-**Scope nuance:** the wording set includes baseline v0 plus four variants (6+6 each); only v0 and para have positive C − A CI lower bounds. This does not generalise the 9/9 main-set result to arbitrary prompts.
-**Known rounding:** I130 independently confirmed merge E70 upper CI 0.80 and E65 +2.14 [1.29, 3.00]; pinned REPORT retains 0.81 / +2.13 [1.28, 3.00]. Disclosed on merge side; not P1.
-**Exports:** REPORT.pdf/html + PRESENTATION.pdf rebuilt I139 (12:50) from unchanged REPORT.md (DIRECTION 12:35 #2); 1225 table cells, 30 headings, 6 slide titles found in PDF text; p2_tables 543/543 and tables 404/404 PASS; slides.py output byte-identical.
-**Next:** diff-triggered Q1.4 scope checks only for new content (I147 records reviewed working-tree hashes); 16:30 freshness check (no rebuild unless sources changed); final STATUS line by 17:30.
-**Risks:** nulls do not establish absence; short-game planting sensitivity is limited; weak lagged dependence remains. Serendipity HITS has no promoted hit.
+**Headline (unchanged):** channel raises markup in 9/9 main sets (7 models); max-pair markup > pCMI AUROC in 9/9, paired Δ CI > 0 in 8/9; pCMI CI includes 0.5 in 8/9. T=60 pCMI 0.34 [0.18, 0.52]; executed-only 0.42 [0.33, 0.53] (48/149); E70 grid pCMI 0.51 [0.43, 0.59], TE 0.62 [0.54, 0.70], level − TE +0.12 [+0.01, +0.22].
+**Final:** Q1.4 final at `c466a4b`+STATUS-only; evidence pin `732f08c` 81/81; last merge bytes read: merge `42c5b16`, SUBMISSION sha `96d0ed7b…`, SLIDES `4a66dd9b…`, 0 P1. Post-16:30 merge finalize read still due (directive 3, Q1.4-term filter only).
+**Freshness (16:13):** p2_tables 543/543 PASS, tables 404/404 PASS; REPORT.md, PRESENTATION.md and exports unchanged since `dde713c` → no re-export.
+**Limitations:** nulls ≠ absence; T=20 planted-move sensitivity 0.58–0.65; E72 post hoc; one prompt family (2/5 wordings resolved).
+**Likely judge question** ("isn't the level screen trivially the treatment?") → REPORT P2.11 (a) E62 + (g) E66 (level can't separate channel from tacit-high no-channel: luna 9/10, strong framing 19/20) and abstract/P2.11 executed-only pCMI 0.42 [0.33, 0.53].
+**Next:** after merge 16:30 finalize, one Q1.4-term diff of final SUBMISSION/SLIDES, record sha; otherwise act only on a merge error naming Q1.4.
 
 ## Dated log (append-only; prior state summaries retained verbatim)
 
@@ -656,3 +651,4 @@ Completion metadata only: D2 25/30 (nocomms seed 12 active); E70 c00–01 10 gam
 - I161 2026-10-25 15:38:12 UTC: merge 7b44715, SUBMISSION sha 96d0ed7b, no Q1.4 hunk; pin 81/81 (last verified I160).
 - I162 2026-10-25 15:53 UTC: merge 42c5b16, SUBMISSION sha 96d0ed7b, no Q1.4 hunk; pin 81/81.
 - I163 2026-10-25 15:54:31 UTC: merge 42c5b16, SUBMISSION sha 96d0ed7b, no Q1.4 hunk; pin 81/81 (last verified I162).
+- I164 2026-10-25 16:13 UTC: merge 42c5b16, SUBMISSION sha 96d0ed7b, no Q1.4 hunk; pin 81/81; freshness checks PASS (543/543, 404/404), no re-export; final STATUS top written.
