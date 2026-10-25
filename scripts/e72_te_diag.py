@@ -91,6 +91,7 @@ def main():
         Pl, Sl, _ = arrays(rs[10:])
         t = np.arange(1, 20)
         g = dict(cell=g0["cell"], run_id=rid, channel=g0["channel"], executed=g0["executed"],
+                 price_sd=float(P.std(0).mean()), change_share=float((np.diff(P, axis=0) != 0).mean()),
                  te=max(full.values()), te_early=max(te_scores(Pe, Se).values()),
                  te_late=max(te_scores(Pl, Sl).values()),
                  te_early_res=max(te_scores(P, S, t <= 9).values()), te_late_res=max(te_scores(P, S, t >= 10).values()))
@@ -146,6 +147,10 @@ def main():
     ne = [g for g in C if not g["executed"]]
     ex["not_executed"]["judge_agreement_yes"] = sum(lab[g["run_id"]].get("agreement") == "yes" for g in ne)
     ex["not_executed"]["judge_agreement_no"] = len(ne) - ex["not_executed"]["judge_agreement_yes"]
+    for tag, sub in (("executed", [g for g in C if g["executed"]]), ("not_executed", ne), ("no_channel", A)):
+        ex.setdefault(tag, {}).update(mean_seller_price_sd=round(float(np.mean([g["price_sd"] for g in sub])), 2),
+                                      share_rounds_price_change=round(float(np.mean([g["change_share"] for g in sub])), 2))
+    ex["not_executed"]["pair_named"] = sum(g["named"] for g in ne)
     out["c_execution"] = ex
     a, w = out["a_pair_naming"], tim["windows_1_10_vs_11_20"]
     names_pair = a["wilson_ci"][0] > 1 / 6
@@ -169,9 +174,10 @@ def main():
         md.append(f"(b) {lab}: early {v['early']['auroc']:.2f} {v['early']['ci']}, late {v['late']['auroc']:.2f} "
                   f"{v['late']['ci']}, late − early {v['late_minus_early']['diff']:+.2f} {v['late_minus_early']['ci']} "
                   f"(full {v['full']['auroc']:.2f})")
-    md.append("(c) " + "; ".join(f"{t} C (n={v['n_C']}) vs A: {v['auroc']:.2f} {v['ci']}" for t, v in ex.items())
+    md.append("(c) " + "; ".join(f"{t} C (n={v['n_C']}) vs A: {v['auroc']:.2f} {v['ci']}" for t, v in ex.items() if 'n_C' in v)
               + f" (not executed: {ex['not_executed']['judge_agreement_yes']} judge agreement, "
-                f"{ex['not_executed']['judge_agreement_no']} none)")
+                f"{ex['not_executed']['judge_agreement_no']} none); mean seller price SD executed / not executed / no-channel "
+              + " / ".join(f"{ex[t]['mean_seller_price_sd']:.2f}" for t in ("executed", "not_executed", "no_channel")))
     md.append(f"branches: {out['branches']}")
     (ROOT / "results" / "eval" / "e72_te_diag.md").write_text("\n".join(md) + "\n")
     print("\n".join(md))
