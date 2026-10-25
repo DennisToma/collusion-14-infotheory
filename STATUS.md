@@ -1,11 +1,11 @@
-# STATUS (final block, 2026-10-25 16:13 UTC, iteration 164; DIRECTION 14:32 #4)
+# STATUS (final block, 2026-10-25 16:31:40 UTC, iteration 167; DIRECTION 14:32)
 
-**Headline (unchanged):** channel raises markup in 9/9 main sets (7 models); max-pair markup > pCMI AUROC in 9/9, paired Δ CI > 0 in 8/9; pCMI CI includes 0.5 in 8/9. T=60 pCMI 0.34 [0.18, 0.52]; executed-only 0.42 [0.33, 0.53] (48/149); E70 grid pCMI 0.51 [0.43, 0.59], TE 0.62 [0.54, 0.70], level − TE +0.12 [+0.01, +0.22].
-**Final:** Q1.4 final at `c466a4b`+STATUS-only; evidence pin `732f08c` 81/81; last merge bytes read: merge `42c5b16`, SUBMISSION sha `96d0ed7b…`, SLIDES `4a66dd9b…`, 0 P1. Post-16:30 merge finalize read still due (directive 3, Q1.4-term filter only).
-**Freshness (16:13):** p2_tables 543/543 PASS, tables 404/404 PASS; REPORT.md, PRESENTATION.md and exports unchanged since `dde713c` → no re-export.
+**Headline:** channel raises markup in 9/9 main sets (7 models); max-pair markup > pCMI AUROC in 9/9, paired Δ CI > 0 in 8/9; pCMI CI includes 0.5 in 8/9. T=60 pCMI 0.34 [0.18, 0.52]; executed-only 0.42 [0.33, 0.53] (48/149); E70 grid pCMI 0.51 [0.43, 0.59], TE 0.62 [0.54, 0.70].
+**Final evidence:** pin `732f08c` 81/81; REPORT/PRESENTATION and exports unchanged since `dde713c`; freshness 543/543 + 404/404 PASS. No re-export.
+**Merge bytes:** `42de237` TEMPLATE_REPORT sha `602cff6d…`: **2 Q1.4 P1s open** (categorical co-movement absence; abliteration absolute-price claim), with replacements in `results/reviews/merge_flags.md`. Same scope issue on slide 1 (`2353b8b8…`). SUBMISSION `bc484b0a…` is usage-only since reviewed `96d0ed7b…`, 0 scientific P1 there.
 **Limitations:** nulls ≠ absence; T=20 planted-move sensitivity 0.58–0.65; E72 post hoc; one prompt family (2/5 wordings resolved).
-**Likely judge question** ("isn't the level screen trivially the treatment?") → REPORT P2.11 (a) E62 + (g) E66 (level can't separate channel from tacit-high no-channel: luna 9/10, strong framing 19/20) and abstract/P2.11 executed-only pCMI 0.42 [0.33, 0.53].
-**Next:** merge is rewriting to Apart template (deadline 18:30, Figure 1 uses Q1.4 JSON — inputs verified I166). Final Q1.4-term read on the template bytes once committed; P1 only: keep "no robust co-movement detected" (not "absent") and level-screen tacit-high caveat.
+**Likely judge question** ("isn't the level screen trivially the treatment?") → REPORT P2.11(a,g): level cannot separate channel from tacit-high no-channel (E62 9/10; E66 19/20); executed-only pCMI 0.42 [0.33, 0.53].
+**Next:** merge applies the two wording fixes and rebuilds; Q1.4-term diff on the corrected committed template/slide bytes only. No new experiments or REPORT edits. Serendipity: no promoted hit or confirmation trigger.
 
 ## Dated log (append-only; prior state summaries retained verbatim)
 
@@ -654,3 +654,5 @@ Completion metadata only: D2 25/30 (nocomms seed 12 active); E70 c00–01 10 gam
 - I164 2026-10-25 16:13 UTC: merge 42c5b16, SUBMISSION sha 96d0ed7b, no Q1.4 hunk; pin 81/81; freshness checks PASS (543/543, 404/404), no re-export; final STATUS top written.
 - I165 2026-10-25 16:11:22 UTC: merge 42c5b16, SUBMISSION sha 96d0ed7b, no Q1.4 hunk; pin 81/81 (last verified I164).
 - I166 2026-10-25 16:30 UTC: merge c280e73 (DIRECTION: Apart template rewrite, new fig0 from Q1.4 JSON); SUBMISSION sha 96d0ed7b unchanged; fig0 Q1.4 inputs verified (level median 0.943, pCMI median 0.490, E70 0.737/0.51), 0 P1, wording watch logged in merge_flags; pin 81/81 (I164).
+
+- I167 2026-10-25 16:31:40 UTC: freshness PASS 543/543 + 404/404, pin 81/81, exports unchanged; merge `42de237` template `602cff6d…` introduces 2 Q1.4 P1 wording regressions, exact fixes logged in merge_flags (slide-1 absence claim included); source REPORT remains pinned.
