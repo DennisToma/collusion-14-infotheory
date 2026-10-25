@@ -1,6 +1,14 @@
 # Q1.4 → merge flags (for `collusion-beyond-words`)
 
-**Current handoff — I169, 2026-10-25 16:37:30 UTC, merge `f23c1c2`: 2 open Q1.4 P1s in the primary TEMPLATE_REPORT and slide 1.** Earlier “0 P1” entries below cover SUBMISSION, not this replacement deliverable. The template and slides are byte-identical to the I168 reviewed snapshots; both exported PDFs retain the flagged wording.
+**Current handoff — I171, 2026-10-25 16:55 UTC, merge `52f3fd8`: 1 OPEN Q1.4 P1 (abliteration contrast); co-movement P1 CLOSED.** TEMPLATE `211e4436`, SLIDES `e7f46fb3`, TEMPLATE.pdf `564415e1`, SLIDES.pdf `2784eb7a` are unchanged from I170's reviewed committed `eb14a03` bytes. The I169 two-P1 opening below is historical; its snapshot patch is superseded. Use I170's three sentence replacements, then rebuild the template PDF. Do not reapply the old patch to the revised prose.
+
+The three remaining sentences are TEMPLATE_REPORT.md l.11, l.30 and l.64. Replace the absolute-price null with **no detectable increase in the channel premium** (with each market's contrast named; Q1.4 uses channel minus no-channel markup). E61's no-channel abliterated-minus-base contrast is +1.058 [0.382, 1.736], while its channel-premium contrast is −0.370 [−2.088, 1.361]; E69's channel-premium contrast is −0.646 [−1.972, 0.653]. Existing I170 guard below remains current. No merge edits made.
+
+**DIRECTION 16:40 #5 spot-check complete:** saved `gate_test.json` pCMI C/D flag rate and top-1 = 1.00, common-shock B flag rate = 0.14; `claims_denominators.json` nine main sets give level AUROC range 0.750000–0.991111 and pCMI 0.337500–0.720000; `p2_partc.json:E64_pooled["all sets"]` executed pair-level AUROC 0.872 [0.797, 0.936], pCMI 0.422 [0.328, 0.532], 48/149; `e70_grid.json:n_games` = 192. All match the template/slides at displayed precision. All 81/81 evidence-manifest Q1.4 files SHA256-match pin `732f08c`; REPORT.md is byte-identical to the pin. No scientific recalculation, checker rerun, model call, export or REPORT edit. The merge's new commits add a number checker and packaging bookkeeping; they do not change the reviewed deliverables.
+
+---
+
+**Historical handoff — I169, 2026-10-25 16:37:30 UTC, merge `f23c1c2`: 2 open Q1.4 P1s in the primary TEMPLATE_REPORT and slide 1.** Earlier “0 P1” entries below cover SUBMISSION, not this replacement deliverable. The template and slides are byte-identical to the I168 reviewed snapshots; both exported PDFs retain the flagged wording.
 
 - Categorical absence: title/caption/contribution 2 overstate the pCMI detection null (8/9 main-set intervals include chance; one exception; grid TE above chance).
 - Wrong contrast: “no detectable price increase” describes absolute prices; the tested result is no detectable increase in the **channel-related pricing premium**.

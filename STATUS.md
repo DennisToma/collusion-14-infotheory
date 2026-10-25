@@ -1,12 +1,13 @@
-# STATUS (final block, 2026-10-25 17:00 UTC, iteration 170; DIRECTION 16:40)
+# STATUS (2026-10-25 16:55 UTC, iteration 171; DIRECTION 16:40)
 
-**P1 OPEN: 1** (abliteration wording) in merge committed `eb14a03`. Template l.11/30/64 state an absolute-price null; the tested quantity is the channel premium (C − A). Fix text in `results/reviews/merge_flags.md` I170. Co-movement P1 CLOSED (equivalent rewrite accepted).
-**Headline (unchanged):** channel raises markup in 9/9 main sets (7 models); max-pair markup > pCMI AUROC in 9/9, paired Δ CI > 0 in 8/9; pCMI CI includes 0.5 in 8/9. T=60 pCMI 0.34 [0.18, 0.52]; executed-only 0.42 [0.33, 0.53] (48/149); E70 grid pCMI 0.51 [0.43, 0.59], TE 0.62 [0.54, 0.70].
-**Q1.4 final at** this commit; pin `732f08c` 81/81 (I169; REPORT untouched since); **last merge bytes read:** `eb14a03`, TEMPLATE `211e4436`, SLIDES `e7f46fb3`, TEMPLATE.pdf `564415e1`, SLIDES.pdf `2784eb7a`.
-**Q1.4 guard** (forbidden phrases + 4 required qualifiers + grep command) is appended to merge_flags so the merge can self-check after 18:00.
+**P1 OPEN: 1** in merge `52f3fd8`: TEMPLATE l.11/30/64 claim an absolute-price null; name the channel premium. Current handoff corrected in `results/reviews/merge_flags.md` I171; I170 has exact replacements. Co-movement P1 CLOSED.
+**Headline unchanged:** markup rises in 9/9 main sets (7 models); level AUROC > pCMI in 9/9, paired Δ CI > 0 in 8/9; pCMI CI includes chance in 8/9. T=60 pCMI 0.34 [0.18, 0.52]; executed-only 0.42 [0.33, 0.53] (48/149); grid pCMI 0.51 [0.43, 0.59], TE 0.62 [0.54, 0.70].
+**Q1.4 science final at `732f08c`; pin 81/81 (I171). Last merge bytes verified:** `52f3fd8`, TEMPLATE `211e4436`, SLIDES `e7f46fb3`, TEMPLATE.pdf `564415e1`, SLIDES.pdf `2784eb7a`; identical to I170.
+**Verified:** optional template-number spot-check complete; all selected values match frozen JSON. REPORT remains current and byte-identical to the evidence pin; no edit or export under the freeze.
+**Guard:** I170 forbidden phrases + four required qualifiers remain in merge_flags for post-18:00 edits; old I169 patch superseded.
 **Limitations:** nulls ≠ absence; T=20 planted-move sensitivity 0.58–0.65; E72 post hoc; one prompt family (2/5 wordings resolved).
-**Likely judge question** ("isn't the level screen trivially the treatment?") → REPORT P2.11(a,g): level cannot separate channel from tacit-high no-channel (E62 9/10; E66 19/20); executed-only pCMI 0.42 [0.33, 0.53].
-**Next:** at most one more P1 verification on a later merge commit that touches TEMPLATE/SLIDES (by 17:55). No experiments, model calls or REPORT edits.
+**Judge question:** level cannot separate channel from tacit-high no-channel (E62 9/10; E66 19/20); executed-only pCMI 0.42 [0.33, 0.53] (REPORT P2.11).
+**Next:** at most one remaining P1 verification if a later merge commit changes TEMPLATE/SLIDES; refresh final STATUS by 17:55. No experiments, model calls, critics or REPORT edits.
 
 ## Dated log (append-only; prior state summaries retained verbatim)
 
@@ -663,3 +664,5 @@ Completion metadata only: D2 25/30 (nocomms seed 12 active); E70 c00–01 10 gam
 - I168 2026-10-25 16:34:31 UTC: known P1s also present in exported template/slide PDFs; reviewed new pending Q1.4 hunks, prepared and scratch-applied 11 wording replacements in `results/reviews/template_scope_fixes.patch` (snapshot hashes in merge_flags); pin 81/81 and five source/export files unchanged. Merge untouched; REPORT remains current and pinned. Bounded finalization handoff completed under DIRECTION’s ≤15-minute scope, without repeating I167 table checks.
 
 - I169 2026-10-25 16:37:30 UTC: merge `f23c1c2` commits the exact I168 template/slide bytes; both known P1s persist in rebuilt PDFs. Promoted current warning above historical 0-P1 SUBMISSION entries in merge_flags; existing patch remains directly applicable. Pin 81/81, five sources/exports unchanged; REPORT stays pinned under DIRECTION. End bounded finalization handoff early; no new experiment, critic, table rerun or export.
+
+- I171 2026-10-25 16:55 UTC (fallback manager): read CLAUDE/PLAN/STATUS/DIRECTION and experiment ledger; no promoted serendipity hit. Merge advanced `eb14a03`→`52f3fd8` with checker/packaging bookkeeping only; committed TEMPLATE/SLIDES/form/PDF bytes are identical to I170, so no repeat P1 scope read or duplicate review was needed. Completed DIRECTION #5's optional frozen-source spot-check (100% planted recovery, 14% common-shock flags, level 0.75–0.99, pCMI 0.34–0.72, executed pair-level 0.87 [0.80, 0.94] and pCMI 0.42 [0.33, 0.53], grid 192); no mismatch. Pin 81/81 exact; REPORT byte-identical to `732f08c`. Corrected merge_flags' stale opening from two open P1s to one, explicitly superseded the old patch, and retained the exact I170 fix and after-18:00 guard. REPORT is current and left untouched under DIRECTION's explicit freeze. No experiments, new analysis, model calls, broad checker rerun, export, ledger row or merge writes. End this bounded finalization chunk early rather than invent unrequested research; one diff-triggered verification remains available before 17:55.
