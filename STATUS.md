@@ -1,4 +1,4 @@
-# STATUS (updated 2026-10-25 13:05 UTC, Phase 2 iteration 142; DIRECTION 12:35)
+# STATUS (updated 2026-10-25 13:02 UTC, Phase 2 iteration 143; DIRECTION 12:35)
 
 **State:** Q1.4 experiments final; scientific REPORT and headline numbers remain frozen from `7b337e4`. No new experiment, estimator, LLM call or numerical re-audit this iteration.
 **Headline:** channel raises markup in 9/9 main sets (7 models); max-pair markup > pCMI point AUROC in 9/9, paired Δ CI > 0 in 8/9 (gpt-5.6-luna unresolved); pCMI CI includes 0.5 in 8/9 (`eval/claims_denominators.json`, `eval/e74_paired_diff.json`).
@@ -13,6 +13,8 @@
 **Risks:** nulls do not establish absence; short-game planting sensitivity is limited; weak lagged dependence remains. Serendipity HITS has no promoted hit.
 
 ## Dated log (append-only; prior state summaries retained verbatim)
+
+**Iteration 143 (2026-10-25 13:02 UTC) — DIRECTION 12:35 #1, fallback manager.** Read CLAUDE, PLAN, STATUS, DIRECTION, experiment ledger and serendipity HITS (no promoted hit or confirmation request). Merge HEAD remains `d8ebfab`; committed and pending SUBMISSION/SLIDES diffs since I142 are empty, and merge STATUS/DIRECTION has no Q1.4 request. The pending merge manifest adds the archived gate trajectories without changing manuscript scope; all **81/81** Q1.4 manifest files match their SHA256, and REPORT.md is byte-identical to `732f08c`. No experiment, numerical re-audit, model call, export or ledger row. REPORT and exports remain current and frozen. End this bounded handoff early; the final scope read remains due 14:00–15:00, and 16:30 is a freshness check only. Process deviation only: the user's explicit iteration-143 request to update STATUS, commit and push takes precedence over DIRECTION's zero-edit no-op rule; this commit changes STATUS only, preserving the pinned REPORT and avoiding a duplicate merge_flags entry.
 
 **Iteration 142 (2026-10-25 13:05 UTC) — DIRECTION 12:35 #1.** Merge HEAD advanced `118344c`→`d8ebfab` (iter28 scripted-gate replay, iter29 fresh-clone distribution check). Scope-read the SUBMISSION hunks only: one Q1.4 paragraph (gate reaggregation, 500 markets / nine detectors — counts verified against our data), correctly scoped to saved aggregation; rest is process counts. **0 P1**, SLIDES unchanged, pin 80/80 identical. One merge_flags entry. No REPORT edit, export, experiment, model call or ledger row. Next: final scope read 14:00–15:00.
 
