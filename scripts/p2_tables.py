@@ -4,7 +4,7 @@ No experiments or LLM calls; nothing is written. Every number in a cell comes fr
 only row labels / annotation words are literal text here.
     uv run python scripts/p2_tables.py          # print regenerated tables
     uv run python scripts/p2_tables.py --check  # compare cell by cell with REPORT.md (exit 1 on failure)
-Tables: P2.1 prevalence, P2.3 same-model, P2.4 coalitions/cost asymmetry, P2.5 market robustness, P2.6 rotation, P2.7 prompt wording, P2.9 family, P2.10 sibling arms, P2.11 part C, P2.12 D2 CDA (once e68_cda.json exists), P2.13 denominators, P2.14 E70 grid (once e70_grid.json exists).
+Tables: P2.1 prevalence, P2.3 same-model, P2.4 coalitions/cost asymmetry, P2.5 market robustness, P2.6 rotation, P2.7 prompt wording, P2.9 family, P2.10 sibling arms, P2.11 part C, P2.12 D2 CDA (once e68_cda.json exists), P2.13 denominators, P2.13b E74 paired differences, P2.14 E70 grid (once e70_grid.json exists).
 """
 from __future__ import annotations
 
@@ -287,6 +287,18 @@ def p213():
     return table(["claim", "sets", "holds in", "seller models where it holds", "fails in"], rows)
 
 
+def p213b():
+    """E74 paired AUROC differences (level − pCMI, level − TE), nine main sets + E70 pooled within cell."""
+    d = jl("results/eval/e74_paired_diff.json")
+    f = lambda x: f"{x['delta']:+.2f} [{x['ci'][0]:+.2f}, {x['ci'][1]:+.2f}]".replace("-", "−")
+    rows = [[n, ", ".join(r["models"]), f"{r['n'][0]}, {r['n'][1]}", f"{r['market_level']:.2f}", f"{r['pcmi']:.2f}",
+             f"{r['te']:.2f}", f(r["level_minus_pcmi"]), f(r["level_minus_te"])] for n, r in d["main_sets"].items()]
+    e = d["E70_pooled"]
+    rows.append(["E70 pooled (within cell)", "grid", f"{e['n'][0]}, {e['n'][1]}", f"{e['market_level']:.2f}", f"{e['pcmi']:.2f}",
+                 f"{e['te']:.2f}", f(e["level_minus_pcmi"]), f(e["level_minus_te"])])
+    return table(["set", "seller model", "n (A, C)", "level", "pCMI", "TE", "Δ level − pCMI", "Δ level − TE"], rows)
+
+
 def p214(path="results/eval/e70_grid.json", *, data=None):
     """E70 grid main effects on d = C − A markup (declared analysis 2), plus the amendment-2 rows."""
     d = jl(path) if data is None else data
@@ -299,6 +311,8 @@ BUILDERS = {"P2.1": p21, "P2.3": p23, "P2.4": p24, "P2.5": p25, "P2.6": p26, "P2
 if (ROOT / "results/eval/e68_cda.json").exists():  # registered once the declared E68 analysis has run (REPORT order)
     BUILDERS["P2.12"] = p212
 BUILDERS["P2.13"] = p213
+if (ROOT / "results/eval/e74_paired_diff.json").exists():  # E74 (declared robustness, zero calls)
+    BUILDERS["P2.13b"] = p213b
 if (ROOT / "results/eval/e70_grid.json").exists():  # registered once the declared E70 analysis has run
     BUILDERS["P2.14"] = p214
 
