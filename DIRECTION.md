@@ -1,78 +1,64 @@
-# DIRECTION — Phase 2, director review 2026-10-25 06:20 UTC (Sun morning)
-(experiments end **Sun 15:00** · numbers freeze **14:00** · finalize-only **16:30** · hard stop **18:00** · top + merge block freeze **07:30** · merge manager (`collusion-beyond-words`, still "Not started") starts **08:00**)
+# DIRECTION — Phase 2, director review 2026-10-25 08:23 UTC (Sun morning)
+(experiments end **Sun 15:00** · numbers freeze **14:00** · finalize-only **16:30** · hard stop **18:00** · top/merge block frozen since **07:30** at `7b337e4` · merge manager `collusion-beyond-words` **started 08:03**: SUBMISSION v0 at `fbed25a`, Opus review applied at `02ebfd2`)
 
-**Verdict.**
-1. **Q1.4 is answered, and the headline comparison now has a paired test.** E74: level − pCMI CI > 0 in 8/9 sets (gpt-5.6-luna unresolved). E70 level − TE is +0.12 [+0.01, +0.22]. E73 shows the null holds for nonlinear estimators. All 04:15 directives were done by ~05:05, with two critics (R77 Opus, R86 codex).
-2. **What is left is accuracy, not evidence.** R91 (committed 06:20, codex fact-check of the top) fixed 3 P0s in non-headline text:
-   - a stale "interim; pending final E54" in P2.3c (the final pool of 50 gives pCMI 2/21 and MI 1/21);
-   - the E44 decline CI rounded from the JSON (−0.405 → −0.40);
-   - a Q2.2 premium label.
-
-   That a stale "pending" survived four critics means there may be more. One mechanical sweep is worth doing; another review round is not.
-3. **Explore vs exploit: no more exploration.** About 8.5 h of experiment time is left, but no new number can change the Q1.4 answer, and every new number churns the merge input. Use the time to answer the merge manager quickly and accurately, plus one regenerability check before the 14:00 freeze.
+**Verdict (3 lines).**
+1. **Q1.4 is answered and defensible.** Level beats pCMI in 9/9 sets, with the paired CI > 0 in 8/9 (E74). The null holds at T=60 (E44), on executed games only, and for nonlinear estimators (E73). TE is the one weak positive, and it is labelled. All 06:20 directives are done: the sweep was clean (I94), the "Changes after 08:00" heading exists, and E73/E74 regenerate byte-identically (I98). Both table checks PASS.
+2. **The only live risk is the merged text, not this repo.** SUBMISSION §5.2 l.174–175 still says "not an estimator artefact … not a pure power failure". That is the overclaim you flagged as P1 in I107, and as of `02ebfd2` + working tree it is **not applied**. Your flag lives only in your STATUS. The merge PLAN tells the merge manager to read your REPORT and "Changes after 08:00", not your STATUS, so it may never see the flag.
+3. **Explore vs exploit: exploit only.** About 6.5 h of experiment time is left, but no new number can change the answer, and each new number would now break a frozen input the merge is already reviewing. Exploration is closed. Value left: get the flags *seen and applied*, check each new merge commit, then do one clean export.
 
 ## Top directives (in priority order)
 
-1. **One mechanical stale-label sweep by 07:15 (no new numbers; R91 is already committed).**
-   - Confirm `p2_tables --check` + `tables --check` PASS on commit c8efcf9 (R91 doesn't say it ran them).
-   - Then grep REPORT once for `pending|interim|will |to be run|not yet` and fix any other stale forward-looking label. The P2.3c "interim" was one; make sure it was the last.
-   - Make sure the E54 final numbers (pCMI 2/21, MI 1/21 at α = 0.05, n = 50 pool) match `matched_ref.json` everywhere they appear: P2.3c, the glance gap-3 row and takeaway (3).
-   - **Why:** a stale "pending" in a final report is the cheapest thing a judge can catch, and the merge manager copies text verbatim.
-2. **07:30 freeze + "Changes after 08:00" section.**
-   - At 07:30, add an empty `### Changes after 08:00 (for the merge manager)` heading directly under the merge block. It does not exist yet in REPORT.
-   - From then on, every edit to the top, the box, the merge block or a headline number gets one dated line there (what changed, old → new, why).
-   - Post one "For Q2.2" STATUS line confirming the freeze.
-3. **Merge support from 08:00: this is now the main job.**
-   - Each iteration, read `~/collusion/collusion-beyond-words/STATUS.md` + `DIRECTION.md` (read-only).
-   - Answer every Q1.4 ask in your STATUS within one iteration, quoting the REPORT § and the JSON key (e.g. `eval/e74_paired_diff.json`). Answer factual asks briefly.
-   - If the merge manager paraphrases a Q1.4 claim more strongly than the REPORT (e.g. "pCMI cannot detect LLM collusion", "no co-movement exists", "TE detects collusion"), flag it in STATUS with the exact REPORT wording. This is the highest-value review left.
-   - Do not rewrite REPORT sections for the merge manager unless it asks.
-4. **One regenerability check before the 14:00 freeze (zero calls, ~15 min, around 12:30–13:30).**
-   - Run E73 and E74 from scratch: `scripts/e73_nonlinear.py`, `scripts/e74_paired_diff.py`. Confirm the outputs are byte- or number-identical to the committed JSON, then run both table checks.
-   - Log one ledger row. No adversarial review round: R35/R62/R77/R86 are enough, and a fifth critic would only produce wording churn.
-5. **Freeze schedule (unchanged).** Numbers freeze 14:00. At **16:30**, do one export pass: slides.py → PRESENTATION, REPORT.pdf/html, PRESENTATION.pdf, both table checks once, commit. Nothing after 17:30 except fixing an error. Between asks, idle at ≤ 1 STATUS line/hour (fallback manager: nothing if the last idle line is < 60 min old).
+1. **Deliver the merge flags through a channel the merge manager actually reads (now, ≤ 15 min, no REPORT science edit).**
+   - Add one dated line under `### Changes after 08:00 (for the merge manager)` in REPORT. Replace "None so far" with something like: "2026-10-25 08:3x: no scientific change. Merge-draft check: 1 P1 + 2 P2 wording flags with exact replacements and JSON keys → STATUS 'For merge manager' (or `results/reviews/merge_flags.md`)."
+   - Q2.2 already does this (see its 08:12 line and `merge_source_audit_i116.json`), and it is the right pattern.
+   - Put the flags in a small file `results/reviews/merge_flags.md`. Use one table: id, severity, SUBMISSION line, current text, exact replacement, REPORT §, JSON key, status (open / applied / rejected).
+   - **Why:** a correct flag that never reaches the merge manager is worth zero, and §5.2 is the core Q1.4 sentence in the submission.
+2. **Re-check each new merge commit and close flags; don't expand them (every iteration until 16:30).**
+   - When `git -C ~/collusion/collusion-beyond-words log -1` changes, re-grep SUBMISSION for every Q1.4 number and the P1 sentence. Mark each flag applied/open in `merge_flags.md`, and check any *new* Q1.4 text against REPORT + JSON.
+   - Severity bar: only P1 (wrong number, wrong direction, or a claim stronger than REPORT) gets posted. P2 style preferences: at most two, already posted, and don't add more.
+   - Especially watch for: "pCMI cannot detect collusion", "no co-movement exists", "TE detects collusion", "executed collusion is undetectable", the two markets merged into one (T=20 Nash 10 vs Q2.2 T=12 Nash ≈ 11), and the E70 main effects presented as causal.
+   - If the merge manager rejects a flag, accept it and record that. Don't re-litigate.
+3. **Answer merge asks within one iteration.** Quote REPORT § + JSON key. If the merge manager needs a number REPORT doesn't state, tell them it isn't in REPORT; don't compute it. The numbers freeze is 14:00, and after 07:30 any new number needs a "Changes after 08:00" line plus a merge re-sync.
+4. **16:30 export pass (unchanged, once).** slides.py → PRESENTATION, REPORT.pdf/html, PRESENTATION.pdf, both table checks, one commit. Confirm that pinned `e68_cda.json` / `e70_grid.json` SHA256 are unchanged. Nothing after 17:30 except fixing an error the merge manager reports.
+5. **Idle properly between merge commits.**
+   - With no new merge commit and no ask, **do not commit**. Fourteen of the last 20 commits are "idle"/"honor freeze" lines, which is git noise a judge will see in the history.
+   - At most one STATUS line per hour, folded into the next real commit.
+   - Use `date -u` for every timestamp. I107 is stamped "08:35 UTC" but was committed at 08:20, the third future-timestamp slip. Don't spend an iteration fixing old ones.
 
 ## STOP doing
-- No new games, arms, models, estimators, slices or reviews. E74 closed the last rigour gap. TE/E72 stays exploratory, with no more slicing.
-- No timestamp or provenance hygiene as iteration work (iterations 79/87 were this). Fix such things only while making a real edit.
-- No REPORT restructuring or length-cutting unless the merge manager asks. The main claim is ~250 words; leave it, because § pointers depend on it.
-- Don't regenerate `e68_cda.json` or `e70_grid.json` (Q2.2 pins both by SHA256). Don't edit the joint statement.
-- No serendipity promotion: S44–S53 are all unpromoted DUD/ODD.
-- Don't add more caveats to the abstract or box. If the softening pass adds words to a sentence, take the same number out of the same sentence.
+- No new games, estimators, slices, sets, critics or review rounds. R35/R62/R77/R86/R91 + I94 + I107 are enough.
+- No idle-only commits. No "honor freeze" iterations that only restate the freeze.
+- No REPORT restructuring or length-cutting. The merge manager is lifting text, and § pointers must stay stable.
+- Don't regenerate `e68_cda.json` / `e70_grid.json` (Q2.2 pins them). Don't edit the joint statement.
+- Don't edit the merge repo, even to "help". Flags only, delivered via directive 1.
+- No serendipity confirmation (no promoted hits through S56).
 
 ## Cross-pollination
-- **From Q2.2 → here:** E133e (zero calls, post hoc, n = 78 of your E70 agreed games). Oriented AUROCs: private say-do gap 0.77 [0.66, 0.87], early pair SD 0.855. An LLM without the private chat beats the best raw early-price rule, 0.94 vs 0.885, Δ +0.06 [+0.02, +0.10]. Talk adds nothing beyond early price stability.
-  - Your E72 paragraph cites only the zero-call E133 part. If you touch that paragraph anyway during the sweep, update it to Q2.2's wording: "early price stability forecasts late execution; private say-do consistency adds nothing beyond it". Otherwise leave it.
-  - Never write "prices alone" or "reading the public log".
-- **From here → Q2.2:** the E74 verdict (k = 8/9) has been posted, and the joint statement is unaffected. Post the 07:30 freeze line.
-- **Regenerability:** Q2.2's E133 family is outside their `verify_phase2.py`. You already cover E73/E74 in `p2_tables`. If they ask, `scripts/p2_tables.py` lines ~290–320 are the pattern.
+- **From Q2.2 → here (copy it):** `check_merge_sources.py` + `results/analysis/merge_source_audit_i116.json` is a machine check: 69 saved-value checks of SUBMISSION numbers against frozen JSON, with source hashes. Q2.2's Changes-after-08:00 line links it. A 30-line equivalent for your ~30 Q1.4 numbers (from I107) is a fine use of one iteration, if it is read-only and zero-call. Rerun it on every merge commit (directive 2).
+- **From here → Q2.2:** the market-difference risk (two different Nash levels and horizons) applies to both repos. If the merge writes one "shared market" in Methods, both repos should flag it with one combined line. Coordinate via the sibling's STATUS so the merge gets one flag, not two.
+- Joint statement: unchanged in both repos, so no action.
 
-## Phase 2 gap-list status summary (06:20 Sun)
+## Phase 2 gap-list status summary (08:23 Sun)
 | item | status |
 |---|---|
 | Shared: precision at prevalence (E46) · reimplementation (E47) | DONE |
-| Q1.4 gaps 1–4, 7 (wording E43, long games E44, same-model E48/E54, 2nd family E45/58/59, market model E52) | DONE / frozen (E54 final-pool wording fixed in R91, 06:20) |
-| Q1.4 gaps 5, 6, 8, 9 (coalitions E49, onset E50, cost asymmetry E51, bid rotation E53) | DONE (scripted); LLM variants of 5/6 DROPPED (new channel design / codex budget) |
-| Part C: C1 (E64/E65/E66/E71), C2 (E62), C3 (E61), C3b (E69) | DONE; glm-5.2 and gpt-6.1-sol pair DROPPED (no complete games / codex saturated); C3c DROPPED by Q2.2 (E109) |
+| Q1.4 gaps 1–4, 7 (E43, E44, E48/E54, E45/58/59, E52) | DONE / frozen |
+| Q1.4 gaps 5, 6, 8, 9 (E49, E50, E51, E53) | DONE (scripted); LLM variants of 5/6 DROPPED (needs a new channel design; codex budget) |
+| Part C: C1 (E64/E65/E66/E71), C2 (E62), C3 (E61), C3b (E69) | DONE; glm-5.2 and gpt-6.1-sol pair DROPPED (no complete games; codex saturated); C3c DROPPED by Q2.2 (E109) |
 | Part D: D1 Q1.4 pCMI part | DROPPED (no action time series in SALT) |
 | Part D: D2 double auction (E68) | DONE, inconclusive, pinned |
-| Part D: D3 | n/a (Q2.2, DROPPED there) |
+| Part D: D3 | n/a (Q2.2; DROPPED there) |
 | Part E: E1 grid (E70 + follow-up) | DONE |
 | Part E: E72 TE diagnostic | DONE (post hoc) |
-| Part E: E2, E4, E5 | DONE by Q2.2 |
-| Part E: E3 | DROPPED by Q2.2 |
-| Denominators (claims_denominators, incl. E70 13/16) | DONE |
-| One-minute box | DONE |
-| E73 nonlinear-estimator robustness | DONE (declared null branch) |
-| E74 paired level − pCMI / level − TE CIs (04:15 #1) | DONE (8/9; TE below level; R77 + R86 reviewed) |
-| Merge-block audit + E133 clause + E43–E74 ranges (04:15 #2) | DONE |
-| R91 pre-freeze fact-check (3 P0 non-headline fixes) | DONE (06:20, c8efcf9) |
-| Stale-label sweep + table checks (06:20 #1) | NOT STARTED (due 07:15) |
-| "Changes after 08:00" section (06:20 #2) | NOT STARTED (due 07:30) |
-| Merge support (from 08:00) | NOT STARTED (merge repo starts 08:00) → directive 3 |
-| Regenerability check E73/E74 (06:20 #4) | NOT STARTED (12:30–13:30) |
-| Export pass (16:30) | NOT STARTED → directive 5 |
-| Serendipity | no promoted hits (through S53) |
+| Part E: E2, E4, E5 | DONE by Q2.2 · E3 DROPPED by Q2.2 |
+| Denominators · one-minute box | DONE |
+| E73 nonlinear robustness · E74 paired Δ | DONE |
+| R91 fact-check · stale-label sweep + table checks (I94) | DONE (clean, E54 numbers match `matched_ref.json`) |
+| "Changes after 08:00" heading (07:30 freeze) | DONE (still says "None so far"; directive 1 adds a pointer line) |
+| Regenerability check E73/E74 | DONE early (I98, byte-identical) |
+| Merge support | IN PROGRESS: I107 audit of ~30 numbers, 0 numeric errors; 1 P1 + 2 P2 flags **not yet applied in SUBMISSION** → directives 1–2 |
+| Export pass (16:30) | NOT STARTED → directive 4 |
+| Serendipity | no promoted hits |
 
 ---
 

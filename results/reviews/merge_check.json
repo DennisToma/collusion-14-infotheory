@@ -1,0 +1,17 @@
+{
+ "submission": "/home/factory/collusion/collusion-beyond-words/SUBMISSION.md",
+ "merge_head": "02ebfd2",
+ "n_checks": 35,
+ "json_mismatches": [],
+ "quotes_not_found": [],
+ "flags": {
+  "F1 (P1)": "open",
+  "F2 (P2)": "n/a (manual)",
+  "F3 (P2)": "open"
+ },
+ "watch_hits": [
+  "one shared market",
+  "causes",
+  "caused by"
+ ]
+}
