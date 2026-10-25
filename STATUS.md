@@ -1,4 +1,4 @@
-# STATUS (updated 2026-10-25 00:40 UTC, Phase 2 iteration 46; follows DIRECTION 00:10)
+# STATUS (updated 2026-10-25 00:28 UTC, Phase 2 iteration 46; follows DIRECTION 00:10)
 
 **E72 TE diagnostic DONE (exploratory, zero calls; `scripts/e72_te_diag.py` → `results/eval/e72_te_diag.{json,md}`; reproduces E70 TE scores exactly, pooled 0.62).** (a) TE names the channel pair in 30/96 games, 0.31 [0.23, 0.41] vs chance 1/6 (level names it 57/96). (b) Rounds 1–10 / 11–20 alone: 0.46 [0.39, 0.54] / 0.49 [0.42, 0.58], late − early +0.03 [−0.07, +0.14], so timing is unresolved. (c) Non-executed C vs A 0.73 [0.64, 0.80] (n=52: 38 agreed not held, 14 none); executed C vs A 0.49 [0.38, 0.60] (n=44).
 **Pre-committed branches:** none fires exactly. (a) is above chance, so the "does not name the pair" branch does NOT apply. (b) is not early-only, and the late window is not above 0.5, so the "stronger/sustained" branch does NOT apply either. REPORT says this plainly: TE is weakly pair-specific, comes from channel games without a held agreement, and its timing is unresolved.
