@@ -9,8 +9,9 @@ Two estimators, one configuration each (no tuning), next to the frozen linear pC
       residualisation and gauss_cmi_from_resid (detectors.infotheory.score_run, B=0).
   (b) sign MI: Miller-Madow CMI(sign dp_i ; sign dp_j | public state at t), alphabet {-, 0, +}, cmi_mm.
 AUROCs use raw run scores, as the linear pCMI AUROCs in REPORT do (the within-run shift null only gives per-run
-p-values and is not needed for a run AUROC). Each set's bootstrap is the one its linear number used, and the
-linear numbers are asserted to reproduce the saved ones (E70 0.51, E44 0.34, executed-only 0.42).
+p-values and is not needed for a run AUROC). E44 / executed-only / planting use the bootstrap their linear numbers
+used; E70 uses e72_te_diag.boot (same within cell x arm game resampling as e70_grid, different draw order: linear CI
+[0.431, 0.590] vs saved [0.429, 0.589]). Linear point estimates are asserted to reproduce (E70 0.51, E44 0.34, exec 0.42).
 Sensitivity: planted shared +-1 move (E30 method, scripts/injection_mde.run: 10 plantings per game, same seeds) at
 q = 0.1 on the E44 no-channel controls at T = 20 and T = 60, all three estimators on the same plantings.
 """
