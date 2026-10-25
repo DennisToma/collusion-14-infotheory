@@ -1,11 +1,11 @@
-# STATUS (updated 2026-10-25 12:07 UTC, Phase 2 iteration 136; DIRECTION 10:30)
+# STATUS (updated 2026-10-25 12:24 UTC, Phase 2 iteration 137; DIRECTION 10:30)
 
 **State:** Q1.4 experiments final; scientific REPORT and headline numbers remain frozen from `7b337e4`. No new experiment, estimator, LLM call or numerical re-audit this iteration.
 **Headline:** channel raises markup in 9/9 main sets (7 models); max-pair markup > pCMI point AUROC in 9/9, paired Δ CI > 0 in 8/9 (gpt-5.6-luna unresolved); pCMI CI includes 0.5 in 8/9 (`eval/claims_denominators.json`, `eval/e74_paired_diff.json`).
 **Long / executed:** E44 T=60 pCMI 0.34 [0.18, 0.52], level 0.94; executed-only pCMI 0.42 [0.33, 0.53], 48/149; E71 definition range 0.343–0.531 (P2.8/P2.11).
 **Grid:** E70 192 games: C − A positive 13/16, level > pCMI 12/16; pooled pCMI 0.51 [0.43, 0.59], TE 0.62 [0.54, 0.70]; level − TE +0.12 [+0.01, +0.22] (P2.14/E74). E72 execution split remains exploratory.
 **Evidence pin:** `732f08c`, including REPORT.md; no pinned-file edits. Handoff notes go only to `results/reviews/merge_flags.md` / STATUS. F1/F3 applied; no open Q1.4 P1.
-**Scope coverage:** through merge `f6f10df` (I135, 0 Q1.4 P1). I136: HEAD unchanged, no committed or pending SUBMISSION/SLIDES diff; no new review or numerical check. I135 pin check remains 30/30 identical; final full read due 14:00–15:00.
+**Scope coverage:** through merge `d523c5b` + working tree (I137, 0 Q1.4 P1; hunks are Q2.2 replay/process only). I137 pin check 30/30 identical; final full read due 14:00–15:00.
 **Scope nuance:** the wording set includes baseline v0 plus four variants (6+6 each); only v0 and para have positive C − A CI lower bounds. This does not generalise the 9/9 main-set result to arbitrary prompts.
 **Known rounding:** I130 independently confirmed merge E70 upper CI 0.80 and E65 +2.14 [1.29, 3.00]; pinned REPORT retains 0.81 / +2.13 [1.28, 3.00]. Disclosed on merge side; not P1.
 **Prior checks:** E73/E74 byte-identical regeneration I98; p2_tables 543/543 and tables 404/404 PASS I116. No rerun needed for this scope-only handoff.
@@ -13,6 +13,8 @@
 **Risks:** nulls do not establish absence; short-game planting sensitivity is limited; weak lagged dependence remains. Serendipity HITS has no promoted hit.
 
 ## Dated log (append-only; prior state summaries retained verbatim)
+
+**Iteration 137 (2026-10-25 12:24 UTC) — DIRECTION 10:30 #2.** Merge `f6f10df`→`d523c5b` plus pending tree: SUBMISSION hunks are Q2.2 kept-rule wording, process counts, evidence-bundle size and Q2.2 replay scripts/locked-test replay paragraph. Q1.4 double-rounding values unchanged. **0 P1**; SLIDES unchanged; 30/30 pinned files SHA-identical (manifest q14 `732f08c`). Logged in `merge_flags.md`. REPORT.md untouched (pinned). No calls, experiments or ledger row. Next: final scope read 14:00–15:00.
 
 **Iteration 136 (2026-10-25 12:07 UTC) — DIRECTION 10:30 #2, fallback manager.** Read CLAUDE, PLAN, STATUS, DIRECTION and the experiment ledger. Merge HEAD remains `f6f10df`; both the committed diff from last coverage and pending SUBMISSION/SLIDES diff are empty. Read merge STATUS/DIRECTION: no Q1.4 ask. Pending evidence/recompute changes concern Q2.2 only. No new scope review, numerical audit, experiment, estimator, critic, model call or export; no ledger row. REPORT.md remains presentable and unchanged under the explicit evidence pin. End early: final full-document scope read is scheduled for 14:00–15:00, export for 16:30. Process deviation only: the user's explicit iteration-136 instruction to update STATUS, commit and push takes precedence over DIRECTION's instruction not to commit a no-change handoff; this commit contains only STATUS and the one-line handoff record.
 
