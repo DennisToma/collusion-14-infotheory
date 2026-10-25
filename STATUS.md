@@ -1,11 +1,11 @@
-# STATUS (updated 2026-10-25 11:49 UTC, Phase 2 iteration 134; DIRECTION 10:30)
+# STATUS (updated 2026-10-25 12:08 UTC, Phase 2 iteration 135; DIRECTION 10:30)
 
 **State:** Q1.4 experiments final; scientific REPORT and headline numbers remain frozen from `7b337e4`. No new experiment, estimator, LLM call or numerical re-audit this iteration.
 **Headline:** channel raises markup in 9/9 main sets (7 models); max-pair markup > pCMI point AUROC in 9/9, paired Δ CI > 0 in 8/9 (gpt-5.6-luna unresolved); pCMI CI includes 0.5 in 8/9 (`eval/claims_denominators.json`, `eval/e74_paired_diff.json`).
 **Long / executed:** E44 T=60 pCMI 0.34 [0.18, 0.52], level 0.94; executed-only pCMI 0.42 [0.33, 0.53], 48/149; E71 definition range 0.343–0.531 (P2.8/P2.11).
 **Grid:** E70 192 games: C − A positive 13/16, level > pCMI 12/16; pooled pCMI 0.51 [0.43, 0.59], TE 0.62 [0.54, 0.70]; level − TE +0.12 [+0.01, +0.22] (P2.14/E74). E72 execution split remains exploratory.
 **Evidence pin:** `732f08c`, including REPORT.md; no pinned-file edits. Handoff notes go only to `results/reviews/merge_flags.md` / STATUS. F1/F3 applied; no open Q1.4 P1.
-**Scope check I134:** merge `1329a9a` commits the I133 wording caveats. Read the complete `38e9a96`→`1329a9a` SUBMISSION/SLIDES diff: 0 Q1.4 P1; SLIDES unchanged. Remaining pending SUBMISSION edit is Q2.2's kept-floor definition. Committed scope coverage now reaches `1329a9a`; final full read remains due at 14:00–15:00.
+**Scope check I135:** merge `f6f10df` (+ working tree): only Q2.2 kept-floor definition, process counts and checker text changed; 0 Q1.4 P1; SLIDES unchanged; 30/30 pinned files SHA-identical. Committed scope coverage reaches `f6f10df`; final full read due 14:00–15:00.
 **Scope nuance:** the wording set includes baseline v0 plus four variants (6+6 each); only v0 and para have positive C − A CI lower bounds. This does not generalise the 9/9 main-set result to arbitrary prompts.
 **Known rounding:** I130 independently confirmed merge E70 upper CI 0.80 and E65 +2.14 [1.29, 3.00]; pinned REPORT retains 0.81 / +2.13 [1.28, 3.00]. Disclosed on merge side; not P1.
 **Prior checks:** E73/E74 byte-identical regeneration I98; p2_tables 543/543 and tables 404/404 PASS I116. No rerun needed for this scope-only handoff.
@@ -13,6 +13,8 @@
 **Risks:** nulls do not establish absence; short-game planting sensitivity is limited; weak lagged dependence remains. Serendipity HITS has no promoted hit.
 
 ## Dated log (append-only; prior state summaries retained verbatim)
+
+**Iteration 135 (2026-10-25 12:08 UTC) — DIRECTION 10:30 #2.** Merge `1329a9a`→`f6f10df`: SUBMISSION hunks are the Q2.2 kept/followed floor ≥ 12 definition, the manager-iteration counts (336 by 11:50) and the number-coverage/release-test text. None touches Q1.4 scope, so **0 P1**. Working-tree changes are Q2.2 evidence additions; the manifest q14 block is still `732f08c`, and 30/30 pinned files are SHA-identical. Logged in `merge_flags.md`. REPORT.md untouched. No calls, experiments or ledger row. Next: final scope read 14:00–15:00.
 
 **Iteration 134 (2026-10-25 11:49 UTC) — DIRECTION 10:30 #2, fallback manager.** Read the rule/state files and experiment ledger. Merge advanced from `38e9a96` to `1329a9a`: checked the complete SUBMISSION/SLIDES diff for Q1.4 scope against REPORT P2.7, §4.1 and the joint statement. It commits the previously pending wording caveats: the 9/9 result is limited to the main prompt family; the wording comparison has two individually resolved effects; positive-control localisation refers to C/D; TE's 8–22% shift-null rate is distinguished from 0–20% under the surrogate null; prevalence remains a statement about frozen tested flags; the cross-project inference is a suggestion. **0 Q1.4 P1.** Other changed definitions/appendix notes are Q2.2; its new pending kept-floor edit is also Q2.2-only. No SLIDES change. The merge STATUS reports 111/111 assertions, 139/139 bindings and 76 hashes passing; these are its reported checks, not rerun here. No new experiment, estimator, numerical audit, critic, LLM call or export; no ledger row. REPORT remains current and unchanged under the explicit evidence pin. End this bounded scope task early rather than invent work before the scheduled 14:00–15:00 final read; no DIRECTION deviation.
 
