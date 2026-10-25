@@ -1,6 +1,6 @@
 {
  "submission": "/home/factory/collusion/collusion-beyond-words/SUBMISSION.md",
- "merge_head": "f88618d",
+ "merge_head": "37e7193",
  "n_checks": 35,
  "json_mismatches": [],
  "quotes_not_found": [],
@@ -11,7 +11,6 @@
  },
  "watch_hits": [
   "one shared market",
-  "causes",
-  "caused by"
+  "causes"
  ]
 }

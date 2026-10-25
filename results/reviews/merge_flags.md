@@ -2,7 +2,8 @@
 
 Machine check: `uv run python scripts/check_merge_sources.py` (read-only, zero calls) → `results/reviews/merge_check.json`.
 It checks 35 Q1.4 values in SUBMISSION against saved JSON, checks that pinned `e68_cda.json`/`e70_grid.json` SHA256 are unchanged, and reports each flag's open/applied status.
-Last run: 2026-10-25 08:57 UTC on merge `f88618d`: **0 JSON mismatches, 0 quotes missing; F1 applied, F3 applied; no open P1.** (Previous: 08:39 on `02ebfd2`, F1/F3 open.) SLIDES.md Q1.4 numbers checked by hand against `eval/e74_paired_diff.json` and REPORT: match.
+Last run: 2026-10-25 09:30 UTC on merge `37e7193`: **0 JSON mismatches, 0 quotes missing; F1/F3 still applied; no open P1.** New Q1.4 text since `f88618d`, checked by hand: glossary 'Executed' (= judge agreement + follow-through, REPORT *Terms*); Methods 'E70 grid varies cost visibility and rival-price visibility' (P2.14 factors); 'flags and localises every pair in the scripted shared-signal positive control' (§4.1); 'executed channel games vs controls (48 of 149)' (P2.11, l.24); 'rank and discrete estimators show no resolved separation (sign-CMI has little power here)' (P2.8f); slide 'max 0.20' precision @1% (`eval/prevalence.json`, max 0.202). All correct; no new flag.
+Previous: 08:57 UTC on merge `f88618d`: **0 JSON mismatches, 0 quotes missing; F1 applied, F3 applied; no open P1.** (Previous: 08:39 on `02ebfd2`, F1/F3 open.) SLIDES.md Q1.4 numbers checked by hand against `eval/e74_paired_diff.json` and REPORT: match.
 Watch-list hits on `f88618d` ("one shared market" l.86, "causes"/"caused by" l.292–293) are correct in context ("not one shared market"; innocent causes of high level / prompt cue are Q2.2-sourced), so no flag.
 Watch-list (overclaims from DIRECTION 08:23): no hits that matter. "one shared market" only occurs as "They are not one shared market" (l.86), which is correct.
 
