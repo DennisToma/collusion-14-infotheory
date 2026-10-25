@@ -1,48 +1,69 @@
-# DIRECTION — Phase 2, director review 2026-10-25 00:10 UTC (Sun, early morning)
-(experiments end **Sun 15:00** · numbers freeze **14:00** · finalize-only **16:30** · hard stop **18:00** · merge manager (`collusion-beyond-words`) reads your REPORT from **08:00**, so anything not in REPORT by **07:30** may be missed)
+# DIRECTION — Phase 2, director review 2026-10-25 02:15 UTC (Sun, early morning)
+(experiments end **Sun 15:00** · numbers freeze **14:00** · finalize-only **16:30** · hard stop **18:00** · merge manager (`collusion-beyond-words`, still "Not started") reads your REPORT from **08:00**. Anything not in REPORT by **07:30** goes into "Changes after 08:00".)
 
 **Verdict.**
-1. Q1.4 is answered and closed: level > pCMI in 9/9 sets and 12/16 E70 cells, pCMI null at T=60 and on executed games, and E70 plus its follow-up are landed honestly (model effect +1.07 [−0.20, +2.41], not confirmed). Every 22:05 directive is done, and the adversarial review (R35) was done early. There are no open defects.
-2. One finding is still uninterpreted, and a judge will go for it: **TE 0.62 [0.54, 0.70]**, the confirmed secondary hypothesis and the only dependence signal above chance. Your own v1 §3.3 shows that TE flags *level* collusion at the market level without naming the pair, and that it flags public leader-follower pricing 100%. So "lagged dependence" may be a by-product of convergence to a common high price rather than coordination. (Director spot check: TE is uncorrelated with market level within E70, r ≈ −0.03, so it is not a plain level proxy. That leaves the question open, not settled.)
-3. Explore vs exploit: you have 15 h of experiment time and a repo that has idled through iterations 36–45. Do **one zero-call exploratory diagnostic** (TE: which pair, which rounds), then **one readability pass** on the top. The top is a dense wall of hedged numbers that a judge will not get through in 2 minutes, and the merge manager copies it at 08:00. Nothing else.
+1. **Q1.4 is answered and closed.** Level > pCMI in 9/9 sets and 12/16 E70 cells. pCMI is null at T=60 (0.34) and on executed games (0.42). E72 landed at 00:28: TE names the pair 30/96 vs chance 1/6 and sits in non-executed games (0.73 vs 0.49). The one-minute box is in, and the checks pass (p2_tables 463, tables 404). Since 00:36 the repo has written 12 idle iterations / commits.
+2. **One weakness a judge will find:** the headline "no co-movement" rests on a *linear-Gaussian* pCMI (REPORT l.513 itself says nonlinear coordination is not ruled out), and at T=20 its sensitivity to a planted ±1 move is only 0.62. "Is the null just your estimator?" is the obvious question, and it is answerable at zero calls.
+3. **Explore vs exploit:** 12.5 h of experiment time remain and nothing is running. Do one pre-committed, zero-call nonlinear-estimator check (E73) before 07:30, then hygiene for the merge manager (STATUS top, stale ranges), then merge support. No new games.
 
 ## Top directives (in priority order)
 
-1. **E72: zero-call TE diagnostic on saved E70 games (register in EXPERIMENTS.tsv first, labelled exploratory/post hoc; target done by Sun 04:00).** Use the frozen TE estimator and the saved `data/llm_grid_p2_*` trajectories, with no new games, no tuning and no change to the E70 verdicts. Compute:
-   (a) **pair naming:** in channel games, the share where TE's max-scoring pair is the assigned channel pair, against chance 1/6 (4 sellers) or 1/1 (2-seller cells, which you report separately or exclude), with a Wilson CI;
-   (b) **timing:** pooled C-vs-A TE AUROC on rounds 1–10 vs 11–20 (convergence transient vs sustained following), with a game-bootstrap CI for the difference;
-   (c) **execution:** TE AUROC of executed C vs A and of non-executed C vs A (E70's `games[].executed`).
-   Pre-committed wording (write it in STATUS **before** computing):
-   - If (a)'s CI includes chance, P2.14 and the main-claim sentence say: "TE separates channel *markets* but does not name the channel pair (k/n vs chance), as in scripted level collusion (§3.3)".
-   - If (b) shows the signal only in rounds 1–10 (late CI includes 0.5), add: "consistent with convergence to a common price rather than ongoing following".
-   - If (a) names the pair above chance AND (b) shows late-round signal, the TE sentence gets *stronger*. Say so plainly ("weak but pair-specific, sustained lagged dependence"), because it is the one result that cuts against the headline.
-   Output: `results/eval/e72_te_diag.json` + a script in `scripts/`. ≤ 5 lines in P2.14, one clause in the main claim and merge block if a pre-committed branch fires, and one ledger row. **Why:** it decides what the only above-chance dependence result means, and costs ~1 h of CPU with no LLM calls.
-2. **"Key findings in one minute" box at the very top of REPORT (by 07:30, zero new numbers).** It goes directly under the title and above the main claim: ≤ 6 bullets, each ≤ 25 words, plain language, one number per bullet, every number copied verbatim from the existing text. Suggested skeleton:
-   (i) a private channel raises prices in every model tested (9/9 sets, 13/16 grid cells);
-   (ii) it shows as a higher price *level*, not as prices moving together (pCMI ≈ chance: 0.51 grid, 0.34 at T=60);
-   (iii) even executed agreements do not move together (0.42);
-   (iv) level screens false-flag unequal costs (30/30) and need a model- and prompt-matched reference;
-   (v) at 1% prevalence every flag is an audit trigger, not a verdict;
-   (vi) the TE line from E72.
-   Don't rewrite the main claim, abstract or glance table; the box sits *on top*. Re-run `p2_tables.py --check` once. **Why:** the merge manager and the judges read the first screen, and today that screen is 400 words of hedges.
-3. **Merge support from 08:00.** Each iteration after 08:00, read `~/collusion/collusion-beyond-words/STATUS.md` and `DIRECTION.md` for questions or requests addressed to Q1.4, and answer them in your STATUS (read-only on that repo). Any change to the top or to a headline number after 08:00 gets a dated line in "Changes after 08:00 (for the merge manager)" under the merge block (22:05 #5 stands).
-4. **Freeze schedule.** Top freeze 07:30. Numbers freeze 14:00. At **16:30**, do one export pass: regenerate PRESENTATION via slides.py, REPORT.pdf/PRESENTATION.pdf/REPORT.html, `p2_tables.py --check` + `tables.py --check` once, and commit. Nothing after 17:30 except fixing an error.
-5. **Otherwise idle cheaply:** one STATUS line per iteration when nothing is due.
+1. **E73: nonlinear-dependence robustness of the co-movement null (zero calls; register in EXPERIMENTS.tsv *before* computing, labelled "robustness, declared"; target done by Sun 05:30).**
+   - **Data, all saved and frozen:** E70 (192 games, pooled within cell, as for pCMI); E44 T=60 (20 + 20); E64 executed-only set (48 executed C vs their controls, our rule).
+   - **Estimators:** exactly two, one configuration each, no keep-if-better:
+     - (a) **copula pCMI:** rank-transform each seller's price series and the lag/state regressors to normal scores, then run the *identical* residualisation + `gauss_cmi_from_resid` + shift null, max-pair.
+     - (b) **discrete sign MI:** the existing Miller–Madow `cmi_mm`/`mi_mm` between sign(Δp_i) and sign(Δp_j) ∈ {−, 0, +}, conditioned on the discrete public state only (the alphabet must stay small at T=20), max-pair, same shift null.
+   - **Report:** run AUROC [game-bootstrap CI] for (a) and (b) next to linear pCMI on each set. Also report each estimator's sensitivity to the *same* planted shared ±1 move at q = 0.1 on the E44 controls (reuse `scripts/injection_mde.py` / `long_power.py`), so that a null can be read.
+   - **Pre-committed wording (write it in STATUS before computing):**
+     - If (a) and (b) both have CIs including 0.5 (or below) on E70 and E44, the l.513 limitation becomes "a rank-based and a discrete sign-based CMI are also at chance (…), with planted-move sensitivity x/y". The main-claim scope sentence gets one clause.
+     - If either has lower CI > 0.5 on E70 or E44, it is a **finding** and you say so plainly: "co-movement is detectable by a nonlinear estimator (AUROC x)". Update box bullet (ii), the main-claim scope, the merge block, a "For Q2.2" line, and a "Changes after 08:00" entry if after 07:30.
+     - Linear pCMI numbers never change.
+   - **Output:** `scripts/e73_nonlinear.py` → `results/eval/e73_nonlinear.json`, ≤ 5 lines in P2.8 or P2.14, one ledger row.
+   - **Why:** it is the most likely judge attack on the central null, and it costs ~1 h of CPU.
+2. **07:30 top freeze and merge hygiene (no new numbers except E73).**
+   - (a) Rewrite the **STATUS top to ≤ 15 lines**: frozen headline numbers, where each lives (§ + JSON), what is post hoc, open risks, and E73's verdict. Today the top interleaves iterations 46–58 with old snapshots. The merge manager will read it, so move the idle lines into the log.
+   - (b) Fix the stale range at REPORT l.40 ("E43–E71" → include E72/E73).
+   - (c) Run `p2_tables.py --check` + `tables.py --check` **once** after E73 lands.
+3. **Merge support from 08:00.** Each iteration, read `~/collusion/collusion-beyond-words/STATUS.md` and `DIRECTION.md` (read-only) and answer Q1.4 asks in your STATUS. Any post-07:30 change to the top or to a headline number gets a dated line in "Changes after 08:00 (for the merge manager)" under the merge block.
+4. **Freeze schedule (unchanged).** Numbers freeze 14:00. At **16:30**, do one export pass: slides.py → PRESENTATION, REPORT.pdf/PRESENTATION.pdf/REPORT.html, both table checks once, then commit. Nothing after 17:30 except fixing an error.
+5. **Idle cheaply, and less often.** When nothing is due, write **at most one STATUS idle line per hour**. The codex fallback manager writes *nothing* when the previous line is an idle line less than 60 min old. Thirteen near-identical idle commits since 00:36 are noise for the merge manager.
 
 ## STOP doing
-- **No E70 follow-up extension or stage-2 replication on the model factor.** M is confounded with public-board use (≈100% vs 4–10%), so even a confirmed effect could not be read as "the model causes the lift". The not-confirmed verdict stands as the declared answer.
-- No "light consistency re-reads" of the top as iteration work (iterations 43 and 45 both did one). One is enough, and the R35 review covered it.
-- No new games, arms, models, audits, landing scripts or verification tooling. E72 is the only new analysis, and it reuses the frozen estimator.
-- Don't regenerate `e68_cda.json` or any JSON that Q2.2 pins by SHA256. Don't edit the joint statement: it must stay verbatim in both reports, and Q2.2 already disambiguates "without any channel" (= private channel; the public board exists) in its parenthetical.
-- No below-chance-pCMI mechanism work (E67 settled it). No REPORT length-cutting.
+- No new games, arms, models, audits, landing scripts or verification tooling. E73 is the only new analysis, and it reuses saved data and frozen estimator code.
+- **No more estimator variants** beyond E73's two (no kNN/KSG sweep, no lag-order search). No further E72/TE slicing: E72 is already post hoc, and more slices are forking paths.
+- No E70 follow-up extension or stage-2 replication on the model factor (M is confounded with board use; the not-confirmed verdict stands).
+- No "light consistency re-reads" of the top as iteration work. No REPORT length-cutting. No below-chance-pCMI mechanism work (E67 settled it).
+- Don't regenerate `e68_cda.json` or `e70_grid.json` (Q2.2 pins both by SHA256). Don't edit the joint statement.
 
 ## Cross-pollination
-- **From here → Q2.2:** E70's per-game `executed` field in `results/eval/e70_grid.json` (`games[]`, 44/96 C) is the input for Q2.2's *registered* E113 secondary (executed label), which was "unavailable at cutoff". Don't change that file; Q2.2 will snapshot it. Post the E72 TE verdict as one STATUS line ("For Q2.2: …").
-- **From Q2.2 → here:** their "Key findings" box should use the same terms (channel = private channel; public board exists in all arms; executed rule named per project). Match their wording when you describe the joint result.
-- **Serendipity:** still no promoted hit bearing on Q1.4 (S28–S32 ODD/unconfirmed/dud). One line per iteration; no confirmation runs.
+- **From here → Q2.2:**
+  - E70's per-round `private_message` fields (`data/llm_grid_p2_c*/trajectories.jsonl`) and `games[].executed` are the inputs to Q2.2's new **E133** (does early private talk forecast late execution?). Don't touch these files.
+  - E72 puts TE in the 38 + 14 non-executed channel games. If E133 reports how many agreed-not-held games contain explicit defection or renegotiation talk, cite it in one clause of the E72 paragraph ("consistent / not consistent with broken agreements producing lagged reactions").
+  - Post the E73 verdict as one "For Q2.2" STATUS line.
+- **From Q2.2 → here:**
+  - E113-secondary: on E70-executed qwen games, text stays inverted (0.36) and adding it hurts (−0.30). E132: the inversion mechanism is Qwen-specific (fewer public invites in channel arms). Q2.2 states the joint "neither words nor co-movement establish execution" inference is unchanged, so no edit is needed here.
+  - Use their box terms (channel = private channel; the public board exists in all arms; executed rule named).
+- **Serendipity:** S33–S38 are not promoted (DUD/ODD), so there is nothing to confirm. S03's lag-conditioned deterministic cycles are a candidate *future* negative control for dependence detectors: at most one "next steps" line, no runs.
 
-## Phase 2 gap-list status summary (00:10 Sun)
-All nine Q1.4 gaps: **DONE/frozen**. Shared gaps: **DONE**. Part C (C1, C2, C3, C3b): **DONE**. Part D: D1 Q1.4 part **DROPPED** (no time series), **D2 DONE** (E68, inconclusive, pinned), D3 n/a. Part E: **E1/E70 DONE** (13/0/3, level > pCMI 12/1/3, TE confirmed, qwen pCMI not replicated; follow-up on model not confirmed). E2/E4/E5 done by Q2.2; E3 dropped by Q2.2. Denominators: **DONE** (incl. E70 13/16). **New (00:10):** E72 TE diagnostic (directive 1) NOT STARTED; one-minute box (directive 2) NOT STARTED. Serendipity: no promoted hits.
+## Phase 2 gap-list status summary (02:15 Sun)
+| item | status |
+|---|---|
+| Shared: precision at prevalence (E46) · reimplementation (E47) | DONE |
+| Q1.4 gaps 1–4, 7 (wording E43, long games E44, same-model E48/E54, 2nd family E45/58/59, market model E52) | DONE / frozen |
+| Q1.4 gaps 5, 6, 8, 9 (coalitions E49, onset E50, cost asymmetry E51, bid rotation E53) | DONE (scripted); LLM variants of 5/6 DROPPED (new channel design / codex budget) |
+| Part C: C1 (E64/E65/E66/E71), C2 (E62), C3 (E61), C3b (E69) | DONE; glm-5.2 and gpt-6.1-sol pair DROPPED (no complete games / codex saturated); C3c DROPPED by Q2.2 (E109) |
+| Part D: D1 Q1.4 pCMI part | DROPPED (no action time series in SALT) |
+| Part D: D2 double auction (E68) | DONE, inconclusive, pinned |
+| Part D: D3 | n/a (Q2.2, DROPPED there) |
+| Part E: E1 grid (E70 + follow-up) | DONE |
+| Part E: E72 TE diagnostic | DONE (00:28) |
+| Part E: E2, E4, E5 | DONE by Q2.2 |
+| Part E: E3 | DROPPED by Q2.2 |
+| Denominators (claims_denominators, incl. E70 13/16) | DONE |
+| One-minute box | DONE (00:28) |
+| Serendipity | no promoted hits |
+| **New (02:15):** E73 nonlinear-estimator robustness | NOT STARTED → directive 1 |
+| **New (02:15):** STATUS top rewrite + stale ranges | NOT STARTED → directive 2 |
 
 ---
 
@@ -190,7 +211,7 @@ detector AUROCs) with CIs, and state the precision caveat (FP8/AWQ/bf16) per pai
 
 
 **Serendipity Explorer (added 14:50 UTC):** a third agent runs wild cheap pilots in `~/collusion/collusion-serendipity` (other markets, hub-and-spoke advisor, leniency, counterfactual replay, steganography in prices, personas, ...). Read its `HITS.md` at the start of every iteration; if a hit bears on your headline claims, decide explicitly (in STATUS) whether to confirm it with a registered experiment. Don't duplicate its pilots.
-→ Status 00:10 Sun: **still no promoted hits** (S28–S32 unconfirmed/dud). (S01, S03, S07, S21, S22, S24 duds; S02 odd/inconclusive; S04 uninformative; S11 ODD; S14 tender caution, used in P2.12 (done); S16 failed pilot). Nothing to confirm. Keep one STATUS line per iteration.
+→ Status 02:15 Sun: **still no promoted hits** (S28–S38 unconfirmed/dud/ODD). (S01, S03, S07, S21, S22, S24 duds; S02 odd/inconclusive; S04 uninformative; S11 ODD; S14 tender caution, used in P2.12 (done); S16 failed pilot). Nothing to confirm. Keep one STATUS line per iteration.
 
 ## Part E — BROADEN THE DESIGN so we can make concrete, general claims (added by Dennis 14:30 UTC)
 **Why:** so far we varied one thing at a time (model, prompt, memory, channel) in mostly one market setup. Claims like
@@ -207,7 +228,7 @@ designs that turn one-off pilots into **general statements with a denominator** 
   Report main effects with CIs (which factors CAUSE the price lift — answers sprint Q1.1 — and which single restriction
   cuts it most — answers Q1.5) and the claim's **denominator** (in how many cells level > co-movement, text ≈ chance).
   Gateway is 45 calls/min shared: luna cells via codex, qwen cells via gateway; one queue, resumable, registered first.
-  → **DONE (00:10 Sun).** E70 landed 22:36: C − A 13/0/3, pooled +0.98 [0.65, 1.29]; level > pCMI 12/1/3; pCMI 0.51; TE 0.62 [0.54, 0.70] confirmed (interpretation pending E72, directive 1); qwen pCMI not replicated; M and cost main effects descriptive. Declared follow-up (model, 12 + 12/level) landed 23:32: +1.07 [−0.20, +2.41], not confirmed. No extension (STOP list). Earlier log: E70 (registered 17:10; amendment 2 declared 18:02 before analysis). At 22:05: luna lane 6/6 complete (20:54); qwen lane sweep 5 has c08–c10 done (c10 at 22:02), c11–c15 left (≈5–20 min per cell) → generation ≈22:30–23:00, `e70_post` eval after it, follow-up auto-launch if decided by 00:30 (schedule-only amendment allowed per 22:05 directive 3 if generation is still running at 23:45), follow-up stop 08:00. Next: write-up by Sun 00:30 with pre-committed interpretations (22:05 directive 1), follow-up by 07:30. Board use: luna mostly silent, but c02 channel 78/240 and c07 no-channel 75/240 posts (Q2.2 coverage), so report per cell.
+  → **DONE (00:10 Sun).** E70 landed 22:36: C − A 13/0/3, pooled +0.98 [0.65, 1.29]; level > pCMI 12/1/3; pCMI 0.51; TE 0.62 [0.54, 0.70] confirmed (E72 DONE 00:28: names the pair 30/96 vs 1/6; signal in non-executed games 0.73 vs executed 0.49; post hoc); qwen pCMI not replicated; M and cost main effects descriptive. Declared follow-up (model, 12 + 12/level) landed 23:32: +1.07 [−0.20, +2.41], not confirmed. No extension (STOP list). Earlier log: E70 (registered 17:10; amendment 2 declared 18:02 before analysis). At 22:05: luna lane 6/6 complete (20:54); qwen lane sweep 5 has c08–c10 done (c10 at 22:02), c11–c15 left (≈5–20 min per cell) → generation ≈22:30–23:00, `e70_post` eval after it, follow-up auto-launch if decided by 00:30 (schedule-only amendment allowed per 22:05 directive 3 if generation is still running at 23:45), follow-up stop 08:00. Next: write-up by Sun 00:30 with pre-committed interpretations (22:05 directive 1), follow-up by 07:30. Board use: luna mostly silent, but c02 channel 78/240 and c07 no-channel 75/240 posts (Q2.2 coverage), so report per cell.
 - **E2 Participant replacement mid-game (owner Q2.2; sprint Q1.2).** In executed-collusion games (strong arm / qwen memory),
   replace one colluder at round T/2 with a fresh agent (same model, no chat history) or a different model. Does the price
   level survive? Do detectors notice the break (changepoint)? Cheap, novel, and answers an official sprint question.
