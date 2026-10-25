@@ -31,6 +31,7 @@ Can a prices-only detector find colluding agents without accusing agents sharing
 ### Changes after 08:00 (for the merge manager)
 *Freeze confirmed 2026-10-25 07:30 UTC: top, one-minute box, merge block and headline numbers unchanged from commit `7b337e4`; each later edit gets one dated line here (what changed, old → new, why).*
 - 2026-10-25 08:39 UTC: no scientific change (REPORT text and numbers unchanged). Merge-draft check of SUBMISSION @ `02ebfd2`: 35 Q1.4 values match JSON; **1 P1 + 2 optional P2 wording flags**, each with exact replacement text and JSON key, are in [`results/reviews/merge_flags.md`](results/reviews/merge_flags.md). P1 = §5.2 l.174–175 "not a pure power failure". Rerun: `uv run python scripts/check_merge_sources.py`.
+- 2026-10-25 08:57 UTC: no scientific change. Rechecked SUBMISSION @ `f88618d`: 35/35 Q1.4 values match JSON, 0 quotes missing; **F1 (P1) and F3 applied**, F2 optional/not needed (§5.2 already states it). SLIDES.md Q1.4 numbers (ranges 0.75–0.99 / 0.34–0.72, grid, T=60, executed rows) also match. No open Q1.4 flags.
 
 ![Phase 2 overview](figures/phase2_headline.png)
 *Phase 2 overview: all nine P2.13 main sets (seven seller models), channel − no-channel markup and run AUROC with game-bootstrap 95% CIs. Scores target channel assignment, not execution; these sets share designs/models. Base Qwen3.6 is the pCMI exception (lower CI 0.507; not replicated in E70's design, P2.14). Regenerate from saved `p2_partc.json` and `claims_denominators.json`: `uv run python scripts/phase2_fig.py`.*

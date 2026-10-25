@@ -1,4 +1,4 @@
-# STATUS (updated 2026-10-25 08:41 UTC, Phase 2 iteration 109; DIRECTION 08:23)
+# STATUS (updated 2026-10-25 08:57 UTC, Phase 2 iteration 112; DIRECTION 08:23)
 
 **State:** Q1.4 experiments final; scientific REPORT and headline numbers remain frozen from `7b337e4`. No new experiment, estimator, review round or LLM call this iteration.
 **Headline:** channel raises markup in 9/9 main sets (7 models); max-pair markup > pCMI point AUROC in 9/9, paired Δ CI > 0 in 8/9 (gpt-5.6-luna unresolved); pCMI CI includes 0.5 in 8/9 (REPORT main claim/P2.13; `eval/claims_denominators.json`, `eval/e74_paired_diff.json`).
@@ -6,12 +6,14 @@
 **Grid:** E70 192 games: C − A positive 13/16, level > pCMI 12/16; pooled pCMI 0.51 [0.43, 0.59], TE 0.62 [0.54, 0.70]; level − TE +0.12 [+0.01, +0.22] (P2.14/E74; `eval/e70_grid.json`, `eval/e74_paired_diff.json`). E72 execution split remains exploratory.
 **Robustness / verification:** E73 nonlinear estimators detect nothing linear pCMI missed (P2.8f); E73/E74 byte-identical regeneration already done I98, ledger recorded. Pinned E68/E70 JSON untouched.
 **For Q2.2 / merge manager:** freeze holds (no science edit since `7b337e4`). The flags now go through the channel the merge manager reads: REPORT “Changes after 08:00” has an 08:39 line → `results/reviews/merge_flags.md` (table: id, severity, line, current text, exact replacement, REPORT §, JSON key, status).
-**Merge check I109 (DIRECTION #1 + cross-pollination):** `scripts/check_merge_sources.py` (read-only, zero calls) checks 35 Q1.4 SUBMISSION values against saved JSON, the pinned SHA256s, flag status and the overclaim watch-list → `results/reviews/merge_check.json`. On merge `02ebfd2`: 0 mismatches, 0 missing quotes. F1 (P1 “not a pure power failure”, §5.2 l.174–175) **open**; F3 (P2, Table 1 executed row) open; F2 manual/optional. Watch-list: no real hits (“not one shared market” l.86 is correct), so no shared-market flag is needed with Q2.2.
-**Checks I109:** p2_tables PASS (14 tables, 543 cells, 0 unchecked/mismatches); tables PASS (11 tables, 404 cells). Prior I107 audit checked ~30 merge Q1.4 numbers; no numerical discrepancy. No new review round.
+**Merge check I112 (DIRECTION #2):** merge HEAD moved to `f88618d` ("apply source P1 merge flags", plus SLIDES/PDF). `scripts/check_merge_sources.py`: 35/35 values match, 0 missing quotes; **F1 (P1) applied, F3 applied**, F2 not needed. Watch-list hits (l.86 "not one shared market", l.292–293 "causes") are correct in context. New SLIDES.md Q1.4 numbers checked by hand: match. **No open Q1.4 flags.** Next check only when merge HEAD changes again.
+**Checks I112:** p2_tables PASS (14 tables, 543 cells, 0 unchecked/mismatches); tables PASS (11 tables, 404 cells). Prior I107 audit checked ~30 merge Q1.4 numbers; no numerical discrepancy. No new review round.
 **Next:** answer Q1.4 merge asks via STATUS; no new experiments/reviews. Numbers freeze 14:00; scheduled export pass 16:30 (slides → PRESENTATION, PDF/HTML, both checks). Between asks, no idle entry within 60 minutes.
 **Risks:** nulls do not establish absence; T=20 planted-move sensitivity is only 0.58–0.65 at q=0.1; weak lagged dependence remains. Serendipity HITS: no promoted hits, no confirmation.
 
 ## Dated log (append-only; prior state summaries retained verbatim)
+
+**Iteration 112 (08:57 UTC) — DIRECTION #2.** Merge HEAD `02ebfd2` → `f88618d`. Reran the merge check: F1 P1 and F3 are applied, 35/35 values match, SLIDES Q1.4 numbers match REPORT/JSON. Updated `merge_flags.md` statuses and added one REPORT 'Changes after 08:00' line (no science change). Both table checks PASS. No new flags.
 
 **Iteration 109 (08:41 UTC) — DIRECTION 08:23 #1 done.** Merge flags moved out of STATUS into `results/reviews/merge_flags.md`, with a pointer line under REPORT “Changes after 08:00”. Added a Q2.2-style machine check, `scripts/check_merge_sources.py`: 35 values, 0 mismatches on `02ebfd2`, F1 P1 still open. Both table checks PASS. No new numbers, no science edit. Next iterations: rerun the check only when the merge HEAD changes; no idle commits.
 
