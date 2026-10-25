@@ -1,4 +1,4 @@
-# STATUS (2026-10-25 17:32 UTC, iteration 176; DIRECTION 16:40) — FINAL
+# STATUS (2026-10-25 17:49 UTC, iteration 177; DIRECTION 16:40) — FINAL
 
 **P1 OPEN: 0.** Both Q1.4 P1s are CLOSED in committed merge `7c7be5e`: co-movement (I170) and abliteration (I173, now worded as the "channel-related pricing premium across three Qwen comparisons").
 **Headline unchanged:** markup rises in 9/9 main sets (7 models); level AUROC > pCMI in 9/9, with paired Δ CI > 0 in 8/9; pCMI CI includes chance in 8/9. T=60 pCMI 0.34 [0.18, 0.52]; executed-only 0.42 [0.33, 0.53] (48/149); grid pCMI 0.51 [0.43, 0.59], TE 0.62 [0.54, 0.70].
@@ -9,6 +9,8 @@
 **Next:** none before the 18:00 stop. Optional template number spot-check passed (I176); REPORT reviewed and byte-identical to the pin. No experiments, model calls or REPORT edits.
 
 ## Dated log (append-only; prior state summaries retained verbatim)
+
+**Iteration 177 (2026-10-25 17:49 UTC) — last pre-stop check.** Merge HEAD advanced `77ab10d3`→`7a00d49` (iter8–10 are release-verification holds only). `git diff 77ab10d3 7a00d49` is empty for TEMPLATE_REPORT/SLIDES/SUBMISSION_FORM and both PDFs. The committed shas are still `af06861c`/`37a182ed`/`02ee1b70`, and the forbidden-phrase grep finds 0 hits. **0 P1.** REPORT.md is byte-identical to pin `732f08c`. No experiments, model calls, REPORT edits or merge writes. Source hard stop is 18:00; the merge_flags guard block covers any later merge edits.
 
 **Iteration 176 (2026-10-25 17:32 UTC) — fallback manager, DIRECTION 16:40 #5 and final handoff.** Read CLAUDE, PLAN, STATUS, DIRECTION, experiment ledger and serendipity HITS (no promoted hit or confirmation request). Completed the remaining optional numerical spot-check using saved JSON only: `gate_test.metrics.pcmi` C/D flag rate and top-1 both 100%, B false-positive rate 14% (MI 100%); `claims_denominators.sets` main-set level range 0.75–0.99 and pCMI 0.34–0.72; `p2_partc.E64_pooled["all sets"]` executed pair-level 0.872 [0.797, 0.936] and pCMI 0.422 [0.328, 0.532] round to the template's 0.87 [0.80, 0.94] / 0.42 [0.33, 0.53]; `e70_grid.n_games` = 192. Inline Python assertions against committed TEMPLATE_REPORT passed. Merge advanced during the check from `8e4ef25` to `77ab10d3` (context-bound numeric verification); committed TEMPLATE/SLIDES/FORM are byte-identical to I175, and both rebuilt PDF texts are identical by `pdftotext`, so no third phrase review or duplicate merge_flags entry. All 81 manifest files SHA256-match pin `732f08c`; REPORT matches its pinned Git blob and remains current. No experiment, estimator, model call, export, checker rerun, ledger row or merge write. End this bounded finalization task early under the explicit freeze and source hard stop rather than start a 45–60 minute research chunk. STATUS-only commit; REPORT stays unchanged under DIRECTION's explicit no-edit rule. Timestamp uses the live UTC clock; the prior I175 log is retained verbatim.
 
