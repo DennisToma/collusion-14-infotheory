@@ -1,15 +1,17 @@
-# STATUS (2026-10-25 16:57 UTC, iteration 172; DIRECTION 16:40)
+# STATUS (2026-10-25 17:18 UTC, iteration 173; DIRECTION 16:40) — FINAL
 
-**P1 OPEN: 1** in merge `3dbb114`: TEMPLATE l.11/30/64 claim an absolute-price null; name the channel premium. Current handoff corrected in `results/reviews/merge_flags.md` I171; I170 has exact replacements. Co-movement P1 CLOSED.
-**Headline unchanged:** markup rises in 9/9 main sets (7 models); level AUROC > pCMI in 9/9, paired Δ CI > 0 in 8/9; pCMI CI includes chance in 8/9. T=60 pCMI 0.34 [0.18, 0.52]; executed-only 0.42 [0.33, 0.53] (48/149); grid pCMI 0.51 [0.43, 0.59], TE 0.62 [0.54, 0.70].
-**Q1.4 science final at `732f08c`; pin 81/81 (I172). Last merge bytes verified:** `3dbb114`, TEMPLATE `211e4436`, SLIDES `e7f46fb3`, TEMPLATE.pdf `564415e1`, SLIDES.pdf `2784eb7a`; identical to I170.
-**Verified:** template/slides/form/PDF bytes unchanged; optional number spot-check complete (I171). REPORT remains current and byte-identical to the evidence pin; no edit or export under the freeze.
-**Guard:** I170 forbidden phrases + four required qualifiers remain in merge_flags for post-18:00 edits; old I169 patch superseded.
-**Limitations:** nulls ≠ absence; T=20 planted-move sensitivity 0.58–0.65; E72 post hoc; one prompt family (2/5 wordings resolved).
+**P1 OPEN: 0.** Both Q1.4 P1s are CLOSED in committed merge `7c7be5e`: co-movement (I170) and abliteration (I173, now worded as the "channel-related pricing premium across three Qwen comparisons").
+**Headline unchanged:** markup rises in 9/9 main sets (7 models); level AUROC > pCMI in 9/9, with paired Δ CI > 0 in 8/9; pCMI CI includes chance in 8/9. T=60 pCMI 0.34 [0.18, 0.52]; executed-only 0.42 [0.33, 0.53] (48/149); grid pCMI 0.51 [0.43, 0.59], TE 0.62 [0.54, 0.70].
+**Q1.4 final at `732f08c`; pin 81/81. Last merge bytes read:** `7c7be5e`, TEMPLATE `af06861c`, SLIDES `37a182ed`, FORM `02ee1b70`, TEMPLATE.pdf `03895b41`, SLIDES.pdf `1add6571`. Forbidden phrases absent; all four required qualifiers present.
+**Guard:** the I170 phrase list + qualifiers in merge_flags apply to merge edits after 18:00.
+**Limitations:** a null is not evidence of absence; T=20 planted-move sensitivity 0.58–0.65; E72 is post hoc; one prompt family (2/5 wordings resolved).
 **Judge question:** level cannot separate channel from tacit-high no-channel (E62 9/10; E66 19/20); executed-only pCMI 0.42 [0.33, 0.53] (REPORT P2.11).
-**Next:** at most one remaining P1 verification if a later merge commit changes TEMPLATE/SLIDES; refresh final STATUS by 17:55. No experiments, model calls, critics or REPORT edits.
+**Next:** none before the 18:00 stop. No experiments, model calls or REPORT edits (REPORT is byte-identical to the pin).
 
 ## Dated log (append-only; prior state summaries retained verbatim)
+
+**Iteration 173 (2026-10-25 17:18 UTC) — DIRECTION 16:40 #2/#4.** Merge advanced `3dbb114`→`7c7be5e` (iter54 + finalize), and TEMPLATE/SLIDES/FORM/PDFs changed. Ran the P1 phrase check on the committed bytes and on pdftotext output: 0 forbidden phrases. The abliteration P1 is closed (l.11/l.64 name the channel-related premium; "three Qwen comparisons" matches REPORT 3/3). The required qualifiers survive. **0 P1 open.** One merge_flags entry. No experiments, model calls, REPORT edits or merge writes.
+
 
 **Iteration 170 (2026-10-25 17:00 UTC) — DIRECTION 16:40 #1–#4.** Merge advanced `f23c1c2`→`eb14a03` (be8ee87 applied a Codex review to TEMPLATE; 934d875 rebuilt the PDFs). The committed bytes supersede the patch target, so the patch is not re-versioned (STOP list). Phrase-list read of committed TEMPLATE/SLIDES/SUBMISSION_FORM + pdftotext: co-movement P1 closed (8/9 qualifier and grid in contribution 2, results, Table A; title is detection-scoped). Abliteration P1 open in 3 TEMPLATE lines + PDF; confirmed against REPORT E61/E69 (C − A tested). Required qualifiers present (8/9, 19/20, 2/5, TE in some sets). Appended I170 flag + Q1.4 guard block to merge_flags. No merge writes, experiments, model calls or REPORT edits.
 

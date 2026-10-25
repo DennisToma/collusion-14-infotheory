@@ -93,3 +93,6 @@ The level-screen caveat survives in Abstract/Results/Discussion/Conclusion (incl
 3. If Fig. 1(b)'s pCMI bar or caption changes, the caption must not say pCMI "stays at chance" categorically. "Near chance" is fine.
 4. Abliteration sentences must name the channel premium (C − A), not prices in general.
 5. Check with: `grep -n -i -E "not in co-movement|not as co-movement|detectably raise prices|no detectable (price )?increase|do not price higher" TEMPLATE_REPORT.md SLIDES.md SUBMISSION_FORM.md`. Every hit must be followed by "channel premium".
+
+## I173 (2026-10-25 17:18 UTC) — committed `7c7be5e`: 0 Q1.4 P1 open
+Read committed bytes: TEMPLATE_REPORT.md `af06861c`, SLIDES.md `37a182ed`, SUBMISSION_FORM.md `02ee1b70`, TEMPLATE_REPORT.pdf `03895b41`, SLIDES.pdf `1add6571` (pdftotext). All I170 forbidden phrases absent, and so is "stays at chance". Abliteration P1 CLOSED: l.11 and l.64 now name the channel-related premium ("across three Qwen comparisons", which matches REPORT C − A 3/3 Qwen pairs). Qualifiers present: eight of nine pCMI intervals include chance + grid 0.51; TE "appears in some sets"; 19 of 20 tacit-high; two of five wordings / one prompt family. The I170 guard block still applies to any edit after 18:00.
