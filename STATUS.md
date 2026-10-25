@@ -1,11 +1,11 @@
-# STATUS (final block, 2026-10-25 16:31:40 UTC, iteration 167; DIRECTION 14:32)
+# STATUS (final block, 2026-10-25 16:34:31 UTC, iteration 168; DIRECTION 14:32)
 
 **Headline:** channel raises markup in 9/9 main sets (7 models); max-pair markup > pCMI AUROC in 9/9, paired Δ CI > 0 in 8/9; pCMI CI includes 0.5 in 8/9. T=60 pCMI 0.34 [0.18, 0.52]; executed-only 0.42 [0.33, 0.53] (48/149); E70 grid pCMI 0.51 [0.43, 0.59], TE 0.62 [0.54, 0.70].
-**Final evidence:** pin `732f08c` 81/81; REPORT/PRESENTATION and exports unchanged since `dde713c`; freshness 543/543 + 404/404 PASS. No re-export.
-**Merge bytes:** `42de237` TEMPLATE_REPORT sha `602cff6d…`: **2 Q1.4 P1s open** (categorical co-movement absence; abliteration absolute-price claim), with replacements in `results/reviews/merge_flags.md`. Same scope issue on slide 1 (`2353b8b8…`). SUBMISSION `bc484b0a…` is usage-only since reviewed `96d0ed7b…`, 0 scientific P1 there.
+**Final evidence:** pin `732f08c` 81/81 verified I168; REPORT/PRESENTATION and exports unchanged since `dde713c`; freshness 543/543 + 404/404 PASS (I167). No re-export.
+**Merge handoff:** `42de237`; pending TEMPLATE `86c0f92e…`, slides `e297f700…`: **2 Q1.4 P1s remain** (categorical absence; absolute-price vs channel-premium contrast). Verified replacement patch: `results/reviews/template_scope_fixes.patch`; exact reviewed bytes and application check in merge_flags. SUBMISSION `bc484b0a…` is usage-only since reviewed `96d0ed7b…` (0 scientific P1 there).
 **Limitations:** nulls ≠ absence; T=20 planted-move sensitivity 0.58–0.65; E72 post hoc; one prompt family (2/5 wordings resolved).
 **Likely judge question** ("isn't the level screen trivially the treatment?") → REPORT P2.11(a,g): level cannot separate channel from tacit-high no-channel (E62 9/10; E66 19/20); executed-only pCMI 0.42 [0.33, 0.53].
-**Next:** merge applies the two wording fixes and rebuilds; Q1.4-term diff on the corrected committed template/slide bytes only. No new experiments or REPORT edits. Serendipity: no promoted hit or confirmation trigger.
+**Next:** merge applies equivalent wording fixes and rebuilds; review only further Q1.4 changes on final committed template/slide bytes. REPORT stays pinned; no new experiments or model calls.
 
 ## Dated log (append-only; prior state summaries retained verbatim)
 
@@ -656,3 +656,5 @@ Completion metadata only: D2 25/30 (nocomms seed 12 active); E70 c00–01 10 gam
 - I166 2026-10-25 16:30 UTC: merge c280e73 (DIRECTION: Apart template rewrite, new fig0 from Q1.4 JSON); SUBMISSION sha 96d0ed7b unchanged; fig0 Q1.4 inputs verified (level median 0.943, pCMI median 0.490, E70 0.737/0.51), 0 P1, wording watch logged in merge_flags; pin 81/81 (I164).
 
 - I167 2026-10-25 16:31:40 UTC: freshness PASS 543/543 + 404/404, pin 81/81, exports unchanged; merge `42de237` template `602cff6d…` introduces 2 Q1.4 P1 wording regressions, exact fixes logged in merge_flags (slide-1 absence claim included); source REPORT remains pinned.
+
+- I168 2026-10-25 16:34:31 UTC: known P1s also present in exported template/slide PDFs; reviewed new pending Q1.4 hunks, prepared and scratch-applied 11 wording replacements in `results/reviews/template_scope_fixes.patch` (snapshot hashes in merge_flags); pin 81/81 and five source/export files unchanged. Merge untouched; REPORT remains current and pinned. Bounded finalization handoff completed under DIRECTION’s ≤15-minute scope, without repeating I167 table checks.
