@@ -5,7 +5,7 @@
 **Freshness (16:13):** p2_tables 543/543 PASS, tables 404/404 PASS; REPORT.md, PRESENTATION.md and exports unchanged since `dde713c` → no re-export.
 **Limitations:** nulls ≠ absence; T=20 planted-move sensitivity 0.58–0.65; E72 post hoc; one prompt family (2/5 wordings resolved).
 **Likely judge question** ("isn't the level screen trivially the treatment?") → REPORT P2.11 (a) E62 + (g) E66 (level can't separate channel from tacit-high no-channel: luna 9/10, strong framing 19/20) and abstract/P2.11 executed-only pCMI 0.42 [0.33, 0.53].
-**Next:** after merge 16:30 finalize, one Q1.4-term diff of final SUBMISSION/SLIDES, record sha; otherwise act only on a merge error naming Q1.4.
+**Next:** merge is rewriting to Apart template (deadline 18:30, Figure 1 uses Q1.4 JSON — inputs verified I166). Final Q1.4-term read on the template bytes once committed; P1 only: keep "no robust co-movement detected" (not "absent") and level-screen tacit-high caveat.
 
 ## Dated log (append-only; prior state summaries retained verbatim)
 
@@ -79,7 +79,7 @@
 **Pre-committed branches:** none fires exactly. (a) is above chance, so the "does not name the pair" branch does NOT apply. (b) is not early-only, and the late window is not above 0.5, so the "stronger/sustained" branch does NOT apply either. REPORT says this plainly: TE is weakly pair-specific, comes from channel games without a held agreement, and its timing is unresolved.
 **For Q2.2 (one line):** E72 (exploratory): E70's TE signal names the channel pair 30/96 (chance 1/6) and sits in non-executed channel games (0.73) rather than executed ones (0.49), so TE does not mark executed collusion either.
 **REPORT:** "Key findings in one minute" box added above the main claim (6 bullets, ≤ 24 words each; numbers copied from text). E72 paragraph added in P2.14, one clause in the main claim and the merge block. slides.py → PRESENTATION regenerated. p2_tables PASS (463), tables PASS (404).
-**Next:** freeze the top at 07:30. From 08:00, read collusion-beyond-words STATUS/DIRECTION and answer Q1.4 asks; log post-08:00 top changes under the merge block. 16:30 export pass (DIRECTION #4).
+**Next:** merge is rewriting to Apart template (deadline 18:30, Figure 1 uses Q1.4 JSON — inputs verified I166). Final Q1.4-term read on the template bytes once committed; P1 only: keep "no robust co-movement detected" (not "absent") and level-screen tacit-high caveat.
 **Review (R46):** codex gpt-6.1-sol timed out with no output (10 min). An Opus subagent found no code bugs (it reproduced every number) but four wording problems, all fixed. (1) My claim that executed games are "near-flat by construction" was false: mean seller price SD is executed 0.79, controls 0.83, non-executed 1.14 (now computed in the script). So TE's 0.73 may reflect unstable post-agreement dynamics. (2) The 10-round windows have ≈ 2–5 residual df; the full-fit split (0.57 / 0.54) is now reported. (3) The exec split is labelled post hoc, difference untested. (4) The box bullet is softened.
 **Risks:** E72 is post hoc; no headline numbers changed.
 
@@ -112,7 +112,7 @@
 **REPORT updated (wording only):** merge-block header + "do not quote" line, status line, glance E1 row, P2.14 result paragraph, abstract clause (259 words, compensating cuts), slides.py → PRESENTATION. p2_tables PASS (463), tables PASS (404). README had no follow-up mention.
 **For Q2.2 (one line):** E70 follow-up factor = model, verdict not confirmed (+1.07 [−0.20, +2.41]); no factor is claimed to drive the premium.
 **All Q1.4 experiments are now final.** Research numbers: E70 13/0/3, level > pCMI 12/1/3, TE 0.62 [0.54, 0.70], qwen pCMI 0.46 [0.35, 0.58]; executed 0.42 [0.33, 0.53]; E44 0.34 [0.18, 0.52].
-**Next:** nothing to run. Freeze the top at 07:30 (DIRECTION #5); after 08:00, log any top/headline change under the merge block. Optional: one light re-read of the top for consistency with the follow-up result before 07:30.
+**Next:** merge is rewriting to Apart template (deadline 18:30, Figure 1 uses Q1.4 JSON — inputs verified I166). Final Q1.4-term read on the template bytes once committed; P1 only: keep "no robust co-movement detected" (not "absent") and level-screen tacit-high caveat.
 **Risks:** none open. Adversarial review (R35) is done; the follow-up text was added after it (wording mirrors the JSON).
 
 **Iteration 44 (2026-10-24 23:54 UTC, `date -u`):** nothing landed; all Q1.4 experiments final, no Q1.4 processes running; qwen budget $18.13 (ok, 23:53). No edits to REPORT; ending per DIRECTION 22:05 STOP rule. Next: freeze top at 07:30; log post-08:00 changes under merge block.
@@ -128,7 +128,7 @@
 **For Q2.2 (one line):** our title and terms changed (above). TE is now "lagged dependence", and the qwen-pCMI non-replication is "not generalising to E70's design", not "not a model property". Please mirror this in any joint sentence.
 **Research numbers unchanged:** E70 13/0/3, level > pCMI 12/1/3, TE 0.62 [0.54, 0.70], qwen pCMI 0.46 [0.35, 0.58]; executed 0.42 [0.33, 0.53]; E44 0.34 [0.18, 0.52].
 **Running:** E70 follow-up (factor M, 12 + 12 per level) generating since 22:36. At 22:48: 4 + 5 of 24 + 24 games done (≈ 3 min/game per lane). Auto-analysis → `/var/tmp/c14/e70_followup.log`. Don't touch.
-**Next:** when FOLLOWUP_EXIT appears: ≤6 lines in P2.14, an abstract clause (needs a matching cut; abstract is at 260), merge block and glance "pending" → result, all by 07:30. Freeze the top at 07:30; after 08:00, log changes under the merge block.
+**Next:** merge is rewriting to Apart template (deadline 18:30, Figure 1 uses Q1.4 JSON — inputs verified I166). Final Q1.4-term read on the template bytes once committed; P1 only: keep "no robust co-movement detected" (not "absent") and level-screen tacit-high caveat.
 **Risks:** generation should end ≈ 00:00–00:30 (well before the 08:00 stop). Iteration 34's STATUS header said 23:05, but it was written ≈ 22:40 (clock typo).
 **Iteration 36 (22:52):** nothing landed. The E70 follow-up is still generating: 4 + 6 of 24 + 24 games done (fmodel0 luna / fmodel1 qwen), and the processes are healthy. FOLLOWUP_EXIT is not written yet, so the ETA is ≈ 00:00–00:30. The qwen budget is $18.13 (ok). No edits besides this line, as DIRECTION's STOP list requires.
 
@@ -152,7 +152,7 @@
 **Pre-commits applied (DIRECTION 22:05 #1):** (a) TE confirmed, so the title/main claim now says "not as *contemporaneous* co-movement", with a lagged-following sentence (REPORT, slides.py → PRESENTATION, README). (b) not triggered. (c) not triggered (13/16, CI > 0). (d) M and cost named as the only CI-excluding factors, flagged descriptive.
 **REPORT:** P2.14 rewritten (design limits, pos/tie/neg, board shares, replication, follow-up decision, checked table, figure `figures/e70_grid.png`); abstract 260 words; merge block (8 lines), glance row E1, status line, P2.13 +13/16 note. **Directive 2 done:** §P2.11 "shared definitions with Q2.2" replaced by our implemented rule + Q2.2 E129 note. p2_tables PASS (463 cells), tables PASS (404). REPORT 966 lines.
 **Running:** E70 follow-up generation (`/var/tmp/c14/e1_grid.log`, `e1_grid.out`), then auto analysis → `/var/tmp/c14/e70_followup.log` (FOLLOWUP_EXIT). Don't touch.
-**Next:** adversarial review 02:00–05:00 (Opus subagent + codex sol, read-only, top ~60 lines + P2.12/P2.14); follow-up result → ≤6 lines P2.14 + abstract clause by 07:30; freeze top 07:30; after 08:00, log changes under the merge block.
+**Next:** merge is rewriting to Apart template (deadline 18:30, Figure 1 uses Q1.4 JSON — inputs verified I166). Final Q1.4-term read on the template bytes once committed; P1 only: keep "no robust co-movement detected" (not "absent") and level-screen tacit-high caveat.
 **Risks:** follow-up must finish before the 08:00 stop (48 games; qwen ≈ 5 min/game with 2 workers). Abstract is at the 260-word cap; the follow-up clause needs a matching cut.
 
 # STATUS (updated 2026-10-24 21:55 UTC, Phase 2 iteration 33; follows DIRECTION 20:00)
@@ -164,7 +164,7 @@
 **REPORT:** P2.12 result (≤10 lines + checked table), glance D2 row, status line, abstract clause (abstract 258 words), merge block updated. `p2_tables.py --check` PASS, 442 cells, 0 mismatches. REPORT 948 lines.
 **E70 generation:** gpt-6-luna lane complete (sweeps 0–5, 20:54). qwen lane on its last sweep (c08 done 21:39, c09 running; c10–c15 left) → generation end ETA ≈ 22:30–22:45. NOT yet "6 sweeps complete". Chain/post/prelabel alive; no E70 outcome inspected.
 **Research headline unchanged:** level > pCMI 9/9 main sets (7 models); pCMI not above chance 8/9; E44 T=60 0.34 [0.18, 0.52]; executed-only 0.42 [0.33, 0.53], definition range 0.343–0.531 (E71).
-**Next:** the moment qwen lane logs "sweep 5 complete" → write "6 sweeps complete" + board-share table path in STATUS (Q2.2 E113 trigger). E70_EXIT=0 → `e70_fig.py` + `p2_landing.py e70 --part all` → ≤15-line P2.14 with design limits, k_pos/k_tie/k_neg, qwen-cell replication verdict, abstract sentence replacing "E70 … is pending" (keep ≤ 260 words), P2.13 +k/16, merge block. Then let the follow-up run untouched.
+**Next:** merge is rewriting to Apart template (deadline 18:30, Figure 1 uses Q1.4 JSON — inputs verified I166). Final Q1.4-term read on the template bytes once committed; P1 only: keep "no robust co-movement detected" (not "absent") and level-screen tacit-high caveat.
 **Risks:** E70 ETA slips if qwen/aqueduct slows. No amendments, audits, tooling or exports tonight.
 
 # STATUS (updated 2026-10-24 20:12 UTC, Phase 2 iteration 31; follows DIRECTION 20:00)
@@ -184,7 +184,7 @@
 **Verified:** 15 new tests PASS (actual synthetic analyses → fragments → REPORT table checker: 463 cells, 0 unchecked; deterministic E70 figure, inspected; E70/D2 prose 12/6 lines excluding tables). Existing E70 20 + D2 20 + release 13 tests PASS: 68 total. Actual REPORT 424 P2 + 404 v1 cells exact; 25 checksums/eight manifests/local links PASS. Evidence `results/p2_landing_check.json`; REPORT remains 957 lines; no PDF export.
 **Research state unchanged:** main level > pCMI 9/9 sets (7 models), pCMI not above chance 8/9; E44 T=60 pCMI 0.34 [0.18, 0.52]. No real E68/E70 outcome, ask, private label or per-cell statistic inspected.
 **Running, untouched:** full audit PID 2657265 (own SID), `/var/tmp/c14/iter23_full_release.log`; v1 exact, llm_long active. Its disposable snapshot predates iterations 24–27, so it does not verify the current reporting additions. E70 chain/post/prelabel alive; completion metadata only: 3/6 sweeps complete in all 16 cells. D2 24/30. No full-audit completion claimed.
-**Next:** audit completes → verify core_eval=true, phase2_recompute=true and passed; archive `results/release_audit_iter23_full.json` BEFORE another audit. E70_EXIT=0 → figure + `uv run python scripts/p2_landing.py e70 --part all` → replace P2.14/abstract/P2.13 (point-count explicitly separate), board caveat, slides/README, announce “6 sweeps complete”. D2 30/30 → `uv run python scripts/e68_cda.py` ONCE, then `uv run python scripts/p2_landing.py e68 --part all` → replace P2.12/glance. Run p2_tables --check after insertion.
+**Next:** merge is rewriting to Apart template (deadline 18:30, Figure 1 uses Q1.4 JSON — inputs verified I166). Final Q1.4-term read on the template bytes once committed; P1 only: keep "no robust co-movement detected" (not "absent") and level-screen tacit-high caveat.
 **Risks / scope:** E70/D2 and historical full audit pending; if incomplete use only declared Sun 08:00 grid / 10:00 D2 paths. No new arms, amendments, reviews, watchers or exports. Next PDF Sun 16:30. Serendipity HITS read; S11/S14 unpromoted, no headline change.
 
 
@@ -194,7 +194,7 @@
 **Verified:** 20 D2 synthetic tests PASS, including actual CDA generation with mocked LLM calls; scores, AUROCs, means, permutation flags and parse counts exact vs 7cd2151 on 30 generated games at B=200 (`results/e68_pipeline_check.json`). Existing E70 20/20 and release tests 13/13 PASS; REPORT 424 P2 + 404 v1 cells exact, 0 unchecked; eight checksum manifests/local links pass. REPORT remains 966 lines; no PDF export.
 **Input checks:** E68 validates both seed sets 0–14, exactly 30 rounds, seller/arm identities, finite prices and requested model/backend. Early partial analysis is blocked before opening asks/trades; Sun 10:00 interim samples preserve/count singleton seeds. No-trade arms render explicitly not evaluable; never-observed asks stop validation rather than fabricating cost-level series.
 **Running, untouched:** full audit PID 2657265 (own SID), `/var/tmp/c14/iter23_full_release.log`, v1 JSON byte-identical (1059 s), now llm_long evaluator; no full completion claimed. E70 chain/post/prelabel alive, qwen c12 sweep 2 done 19:22; D2 22/30. No generation process, active shell script, E70 registration or estimator changed.
-**Next:** full audit finishes → verify core_eval=true, phase2_recompute=true and passed; archive as `results/release_audit_iter23_full.json` BEFORE any other audit. E70_EXIT=0 → figure + replace P2.14/abstract/P2.13 denominators + board-use caveat; announce “6 sweeps complete”. D2 30/30 → `uv run python scripts/e68_cda.py` ONCE → P2.12/glance. If incomplete at Sun 10:00, `--min-runs 2` permits the declared interim analysis then only.
+**Next:** merge is rewriting to Apart template (deadline 18:30, Figure 1 uses Q1.4 JSON — inputs verified I166). Final Q1.4-term read on the template bytes once committed; P1 only: keep "no robust co-movement detected" (not "absent") and level-screen tacit-high caveat.
 **Risks / scope:** E70, D2 and historical full audit remain pending. No real E68/E70 results inspected, new arms, reviews or exports. Next PDF Sun 16:30. Serendipity HITS read: S11 remains unpromoted ODD; no confirmed hit warrants a new experiment.
 
 
@@ -203,7 +203,7 @@
 **Iteration 24: hardened the unattended E70 analysis/follow-up path, synthetic inputs only.** Completed games now require exactly rounds 0–19, four ordered sellers, finite prices, expected arms and complete requested-model metadata (fallback/unknown maps excluded). Partial grid/follow-up analysis is blocked before the registered Sun 08:00 stop. The first follow-up decision is preserved and hashed to its E70 input; analysis must match its saved factor/sign. No new hypothesis, tuning, amendment or real E70/D2 outcome inspection.
 **Verified:** 20 synthetic tests PASS; grid JSON byte-identical to pre-change b87f5db on a six-sweep fixture; all existing follow-up fields exact on a 48-game fixture (`results/e70_pipeline_check.json`). Existing release-audit tests 13/13 PASS; REPORT tables 424 P2 + 404 v1 cells, 0 unchecked/mismatches. REPORT reproduction text/section anchor corrected; scientific claims unchanged; no PDF export.
 **Running, untouched:** full audit PID 2657265 (SID 2657265), `/var/tmp/c14/iter23_full_release.log`, currently v1 evaluator; no full completion claimed. E70 chain/post/prelabel remain running, qwen c10 sweep 2; D2 21/30 runs. No active shell scripts or generation processes changed.
-**Next:** audit completes → verify core_eval=true, phase2_recompute=true and passed, archive as `results/release_audit_iter23_full.json` BEFORE another audit. E70_EXIT=0 → figure + replace P2.14 stub (≤15 lines + checked table), abstract sentence, P2.13 (+ k/16), board-use caveat and “6 sweeps complete” announcement. D2 30/30 → e68_cda.py once → P2.12/glance. Follow-up results Sun morning. No new arms/reviews/exports before the director's times.
+**Next:** merge is rewriting to Apart template (deadline 18:30, Figure 1 uses Q1.4 JSON — inputs verified I166). Final Q1.4-term read on the template bytes once committed; P1 only: keep "no robust co-movement detected" (not "absent") and level-screen tacit-high caveat.
 **Open risks:** E70/D2 and full audit pending. New guards fail closed on incomplete inputs; if E70 chain exits early, leave analysis pending until Sun 08:00, then run on complete sweeps as registered. Existing checkpoint PDFs remain the 19:07 export; next PDF Sun 16:30.
 
 
@@ -212,7 +212,7 @@
 **Iteration 23: the iteration-21 full E42 audit did NOT finish.** PID 2056592 was gone at 19:07; its log stops at "RUN: llm_eval eval --name llm_long" (last write 18:44), with no error and no OOM in the kernel log. The likely cause is that it was killed when its parent iteration's process group was torn down (it ran without setsid). results/release_audit.json still holds the committed P2-only PASS (core_eval=false). **No full historical audit result exists; none is claimed in REPORT.**
 **Relaunched 19:10, detached (setsid, own session SID 2657265):** `verify_release.py --core-eval --recompute --phase2-recompute`, log `/var/tmp/c14/iter23_full_release.log` (it now sees eight manifests). Expected run time >1 h (v1 eval alone took 1232 s). When it ends: check that results/release_audit.json has core_eval=true and phase2_recompute=true, archive it as results/release_audit_iter23_full.json, and record the real outcome. Do not start another audit while it runs.
 **Running, untouched:** E70 chain. The luna lane finished sweep 2 at 18:43 and waits; the qwen lane (the bottleneck) is at c09 sweep 2, ~5 min/cell → sweep 2 done ~19:40, sweeps 3–5 ~21:40 → e70_post. The prelabel watcher is keeping up (gpt-6.1-sol only). D2 is at 20/30 runs. p2_tables --check PASS (424, 0 unchecked). REPORT is checkpoint-ready (E70/D2 marked pending; PDFs from 19:07).
-**Next:** E70_EXIT=0 in /var/tmp/c14/e70_final.log → `scripts/e70_fig.py` + replace the P2.14 stub (≤15 lines + table via p2_tables) + abstract sentence + "(+ k/16)" in P2.13 + board-share line + announce "6 sweeps complete". D2 at 30 → `e68_cda.py` once → P2.12 + glance row. Archive the audit as above. Follow-up Sun morning. No PDF until Sun 16:30.
+**Next:** merge is rewriting to Apart template (deadline 18:30, Figure 1 uses Q1.4 JSON — inputs verified I166). Final Q1.4-term read on the template bytes once committed; P1 only: keep "no robust co-movement detected" (not "absent") and level-screen tacit-high caveat.
 **Open risks:** E70/D2 pending; full audit is running again (second attempt).
 
 # STATUS (updated 2026-10-24 19:10 UTC from date -u, Phase 2 iteration 22; follows DIRECTION 17:56)
@@ -227,14 +227,14 @@
 **Iteration 21 complete: finalized Phase 2 reproducibility.** Code/proof milestone **c05d4f4 pushed**. 9,490/9,490 saved scores across 16 datasets exact (`results/saved_scores_check.json`); disposable-copy P2 audit PASS: 19 analysis commands, 34 analysis + 12 render outputs byte-identical, 404 v1 + 424 P2 table cells, 23 checksums in seven manifests (`results/release_audit_iter21_phase2.json`). 13 failure-path tests pass. REPORT §6 + README updated; REPORT stays 966 lines; scientific claims unchanged (premium/level advantage 9/9 sets, pCMI CI includes .5 in 8/9).
 **Additional full E42 audit STILL RUNNING (not a completed result):** PID **2056592**, command `verify_release.py --core-eval --recompute --phase2-recompute`, log `/var/tmp/c14/iter21_full_release.log`. V1 JSON exact incl. flags/CIs (1232 s); llm_long active at 19:02. This exceeds the iteration timebox; leave it running. **Do not launch another release audit while it runs. When it finishes, archive results/release_audit.json as results/release_audit_iter21_full.json BEFORE any new audit overwrites it**, first verifying its JSON has core_eval=true and phase2_recompute=true, then record the real outcome (do not assume a pass). If those flags are absent/false, the process did not finish and there is no full result. Existing committed release_audit.json is the initial P2-only PASS.
 **Experiments remain sealed/running:** E70 chain/post/prelabel untouched (74 done-log lines at 19:02); D2 20/30. No E68/E70 statistics or private labels inspected; no new arms/LLM calls/reviews/exports initiated here. Newly completed grid data published after staged round/ground-truth integrity checks.
-**Next:** 19:30 `scripts/export_pdf.py`; full-audit completion/archive as above; E70_EXIT=0 → figure + replace P2.14 stub/table/abstract/P2.13 (+ k/16), board-use caveat, announce six sweeps complete; D2 at 30 → declared manipulation check/e68_cda.py once + replace P2.12 stub/glance row. Follow-up result Sun morning.
+**Next:** merge is rewriting to Apart template (deadline 18:30, Figure 1 uses Q1.4 JSON — inputs verified I166). Final Q1.4-term read on the template bytes once committed; P1 only: keep "no robust co-movement detected" (not "absent") and level-screen tacit-high caveat.
 **Open risks:** full historical audit pending; E70/D2 results pending; quoted sibling comparison remains explicitly unchecked. No new arms, reviews or early exports.
 
 # STATUS (updated 2026-10-24 18:20 UTC from date -u, Phase 2 iteration 20; follows DIRECTION 17:56)
 
 **All DIRECTION 17:56 actions that can run before E70/D2 data are done** (amendment 2 at 18:02, retitle, verbatim joint sentence, E112 cite, post/follow-up chain). This iteration: checked the unattended follow-up path (`e70_post.sh` → `e70_followup_rule.py` → `e1_grid.py followup`, cell flags come from argparse switches, so `f<factor>j` labels are fine; dry run `llm_grid_dry_fu_*` exists); added a **P2.14 pending stub** to REPORT (E70 design + declared outputs, 1 paragraph) so the 20:00 checkpoint shows the registered grid. This is the paragraph to REPLACE with results (net-lines rule).
 **Running:** e1_grid (sweep 1, 60 "done" log lines), e70_chain, e70_post (waiting), e70_prelabel (17 judged, gpt-6.1-sol), D2 run_cda (comms). Checks: p2_tables PASS (424).
-**Next:** (1) 19:30 `scripts/export_pdf.py`; (2) E70_EXIT=0 → `uv run python scripts/e70_fig.py`, replace P2.14 stub with ≤15 lines + table + abstract sentence (replace "is generating (pending)") + "(+ k/16)" in P2.13 + announce "6 sweeps complete"; (3) D2 at 30 runs → `e68_cda.py` once → P2.12; (4) follow-up result Sun morning.
+**Next:** merge is rewriting to Apart template (deadline 18:30, Figure 1 uses Q1.4 JSON — inputs verified I166). Final Q1.4-term read on the template bytes once committed; P1 only: keep "no robust co-movement detected" (not "absent") and level-screen tacit-high caveat.
 
 # STATUS (updated 2026-10-24 18:11 UTC from date -u, Phase 2 iteration 19; follows DIRECTION 17:56)
 
@@ -242,7 +242,7 @@
 **E70:** 23 cell×sweep "done" lines at 18:04 (sweep 1 in progress). **D2:** 16/30 runs. Checks: p2_tables PASS (424). Prelabel pass 1: 17 games judged, all gpt-6.1-sol.
 **E70 figure ready:** `scripts/e70_fig.py` → figures/e70_grid.png ((a) main effects + CIs, (b) per-cell market-level vs pCMI AUROC); tested on e70_dry only (output in /var/tmp). Not in e70_post.sh (running bash script must not be edited) → run it by hand after E70_EXIT=0 and add it to P2.14.
 **REPORT:** glance "Status:" paragraph shortened (909 → 566 chars, wording only; checks PASS 424 / 404).
-**Next:** (1) 19:30 `scripts/export_pdf.py`; (2) E70_EXIT=0 → `uv run python scripts/e70_fig.py` + P2.14 ≤15 lines + table + abstract sentence + "(+ k/16)" in P2.13 + board-share line + announce "6 sweeps complete"; (3) D2 at 30 runs → `e68_cda.py` once → P2.12 ≤10 lines + glance row; (4) follow-up result Sun morning; (5) tighten glance "Status:" paragraph for merge (directive 5) when E70 lands.
+**Next:** merge is rewriting to Apart template (deadline 18:30, Figure 1 uses Q1.4 JSON — inputs verified I166). Final Q1.4-term read on the template bytes once committed; P1 only: keep "no robust co-movement detected" (not "absent") and level-screen tacit-high caveat.
 
 # STATUS (updated 2026-10-24 18:09 UTC from date -u, Phase 2 iteration 18; iteration-17 header "18:08" was written ~18:05; follows DIRECTION 17:56)
 
@@ -250,7 +250,7 @@
 **p2_tables:** new `p212()` builder (E68 manip check + statistics table) auto-registers when results/eval/e68_cda.json exists → paste its output (`uv run python scripts/p2_tables.py`) into P2.12, or `--check` fails (intended).
 **E70:** sweeps are 0-indexed (sweep 0 = first, 2 games/cell). At 18:05: sweep 0 done (32 games), sweep 1 7/16 cells; ~40 min/sweep → sweep 5 done ~21:15–21:45; `e70_post.sh` then runs the eval + follow-up rule automatically. **D2:** 16/30 runs, ~12–25 min/run → ~21:30–23:00.
 Checks: p2_tables PASS (424), tables PASS. REPORT is presentable for the 20:00 checkpoint (E70/D2 marked pending).
-**Next:** (1) 19:30 `scripts/export_pdf.py` (PDFs); (2) E70_EXIT=0 in /var/tmp/c14/e70_final.log → P2.14 ≤15 lines + table + abstract sentence + "(+ k/16)" in P2.13 + joint luna-board line (DIRECTION cross-pollination) + announce "6 sweeps complete" for Q2.2; (3) D2 at 30 runs: `uv run python scripts/e68_cda.py` ONCE → P2.12 ≤10 lines + glance row (replace the stub text); (4) follow-up result Sun morning.
+**Next:** merge is rewriting to Apart template (deadline 18:30, Figure 1 uses Q1.4 JSON — inputs verified I166). Final Q1.4-term read on the template bytes once committed; P1 only: keep "no robust co-movement detected" (not "absent") and level-screen tacit-high caveat.
 
 # STATUS (updated 2026-10-24 18:08 UTC from date -u, Phase 2 iteration 17; follows DIRECTION 17:56)
 
@@ -259,7 +259,7 @@ Checks: p2_tables PASS (424), tables PASS. REPORT is presentable for the 20:00 c
 **DIRECTION #2 done:** retitled ("LLM price collusion shows up as a market-wide price level, not as coordinated moves…"; slides too); joint statement sentence 2 now verbatim with Q2.2; Q2.2 E112 cited in P2.4(b) onset. Checks: p2_tables PASS (424), tables PASS (404), release audit OK. REPORT 964 lines.
 **p2_tables:** `p214()` builder (E70 main effects) auto-registers when results/eval/e70_grid.json exists → `--check` FAILS until the P2.14 table is pasted (intended reminder).
 **E70:** sweep 1 done 17:45; 6 sweeps ETA ~21:30–22:00. Data published for Q2.2 as sweeps land. **D2/E68:** 15/30 runs (ETA ~20:40).
-**Next:** (1) 19:30 PDFs (`scripts/export_pdf.py`); (2) when /var/tmp/c14/e70_final.log has E70_EXIT=0: P2.14 ≤15 lines (main-effects table from `p2_tables.py`, amend2 lines, board-share sentence) + 1 abstract sentence + "(+ k/16 cells)" in P2.13; replace text, not net lines; announce "6 sweeps complete" for Q2.2; (3) D2 at 30 runs: declared manipulation check, then `e68_cda.py` once → P2.12 ≤10 lines + glance row; (4) follow-up result Sun morning.
+**Next:** merge is rewriting to Apart template (deadline 18:30, Figure 1 uses Q1.4 JSON — inputs verified I166). Final Q1.4-term read on the template bytes once committed; P1 only: keep "no robust co-movement detected" (not "absent") and level-screen tacit-high caveat.
 
 # STATUS (updated 2026-10-24 17:35 UTC from date -u, Phase 2 iteration 16; follows DIRECTION 15:50)
 
@@ -270,7 +270,7 @@ Checks: p2_tables PASS (424), tables PASS. REPORT is presentable for the 20:00 c
 **Claims × denominators** (`scripts/claims_denominators.py`, REPORT P2.13, in p2_tables --check): premium 9/9 sets (7 models), level>pCMI 9/9, pCMI null 8/9, executed ≤50% 8/9, tacit rare 8/9.
 **19:30 consolidation done early:** main claim = 2 sentences; abstract 246 words with denominators; P2.3–P2.6 prose −32 lines (REPORT 959 lines < 968). Checks: p2_tables PASS (424), tables PASS, release audit PASS (PRESENTATION regenerated; slides.py ledger-ID parse fixed by naming the grid E70).
 **E70 update 17:58:** sweep 1 complete 17:45 (42 min) → data/llm_grid_p2_c00..c15 + manifest committed for Q2.2. **Amended to 6 sweeps (192 games), declared 17:48 before analysis.** Chain: `scripts/e70_chain.sh` (waits for 3-sweep runner, then `--sweeps 6`), `scripts/e70_post.sh` (when chain exits: `e70_grid.py --label --eval` once → /var/tmp/c14/e70_final.log, results/eval/e70_grid.{json,md}). ETA analysis ~21:30. Analysis pipeline dry-tested on fake-LLM data (gitignored).
-**Next:** (1) read /var/tmp/c14/e70_final.log (E70_EXIT=0) → P2.14 ≤15 lines + main-effects table (add builder to p2_tables) + 1 abstract sentence + '(+ k/16 cells)' in P2.13; if chain stalls, run e70_grid.py at Sun 08:00 on complete sweeps; (2) PDFs at 19:30 (`scripts/export_pdf.py`); (3) D2 analysis at 15+15 or Sun 10:00.
+**Next:** merge is rewriting to Apart template (deadline 18:30, Figure 1 uses Q1.4 JSON — inputs verified I166). Final Q1.4-term read on the template bytes once committed; P1 only: keep "no robust co-movement detected" (not "absent") and level-screen tacit-high caveat.
 
 # STATUS (updated 2026-10-24 15:53 UTC from date -u, Phase 2 iteration 15; follows DIRECTION 13:45)
 
@@ -279,7 +279,7 @@ Checks: p2_tables PASS (424), tables PASS. REPORT is presentable for the 20:00 c
 **E68 pipeline** crash-tested on 4 partial runs (output discarded, no numbers read). D2 4/30 at 15:47 (~15 min/run → ETA ~23:00+).
 **E69:** qb36 19/30 at 15:52. When 30: `uv run python scripts/p2_partc.py --label --run-eval` → P2.11 table auto-row + (b) line + glance.
 Checks: p2_tables PASS (336), tables PASS, release audit OK.
-**Next:** (1) E69 contrast; (2) 19:30 checks + PDFs; (3) D2 analysis when 30 runs (Sun); final review Sun ~12:30 incl. D2.
+**Next:** merge is rewriting to Apart template (deadline 18:30, Figure 1 uses Q1.4 JSON — inputs verified I166). Final Q1.4-term read on the template bytes once committed; P1 only: keep "no robust co-movement detected" (not "absent") and level-screen tacit-high caveat.
 
 # STATUS (updated 2026-10-24 15:45 UTC from date -u, Phase 2 iteration 14; follows DIRECTION 13:45)
 
@@ -287,7 +287,7 @@ Checks: p2_tables PASS (336), tables PASS, release audit OK.
 **E66 DONE (declared verdict: NOT EVALUABLE):** class check 40/40, 0 mismatches. Executed 13/20, but no-channel tacit-high 19/20 → competitive n=1. Private vs none: pCMI .46, market level .44, TE .61 (nothing separates; channel adds no price effect under strong framing). E67 on it fails .42 → confirmatory tally 1/3. Written: P2.11(e)+(g), glance status + row C. (Watcher criterion was wrong — classes come from terms.jsonl, not labels; fixed in e66_post.sh and run manually 15:43.)
 **E69:** qb36 12/30 at 15:31 (faster now). When 30: `uv run python scripts/p2_partc.py --label --run-eval`.
 **D2/E68:** 3/30 runs (comms s1 774 s, 2 parse fails). `scripts/d2_queue.sh` running; log `/var/tmp/c14d2/full.log`.
-**Next:** (1) E69 contrast when qb36 hits 30; (3) 18:30 one adversarial review (Opus subagent) of abstract+glance+P2.8+P2.11 (now incl. E65 (f)); 19:30 checks + PDFs; (4) D2 analysis when complete.
+**Next:** merge is rewriting to Apart template (deadline 18:30, Figure 1 uses Q1.4 JSON — inputs verified I166). Final Q1.4-term read on the template bytes once committed; P1 only: keep "no robust co-movement detected" (not "absent") and level-screen tacit-high caveat.
 
 # STATUS (updated 2026-10-24 15:04 UTC from date -u, Phase 2 iteration 13; follows DIRECTION 13:45)
 
@@ -296,7 +296,7 @@ Checks: p2_tables PASS (336), tables PASS, release audit OK.
 **E65:** 32/40 at 15:03. `e65_post.sh` (label+eval) → new `scripts/e65_chain.sh` auto-runs `e65_final.sh` → `/var/tmp/c14/e65_final.log`. Next iteration: read the verdict there, write it verbatim into P2.11 + glance + takeaway 7.
 **E66:** sibling `llm_p2strongF` 33/40; `e66_post.sh` watcher running (log `/var/tmp/c14/e66.log`).
 **REPORT:** added P2.12 D2 stub; Limitations gained cross-repo lines (Q2.2 P2.9 no evasion arm, SALT D1 pCMI n/a + P(said|executed) 0.385, P2.10 asymmetry); seller-model limitation updated for Part C. Checks: p2_tables PASS (327), tables PASS, release audit OK.
-**Next:** (1) E65 verdict write-up; (2) E66 write-up; (3) E69 contrast when qb36 completes; (4) 18:30 one adversarial review (Opus subagent; codex saturated) of abstract+glance+P2.8+P2.11; 19:30 checks + PDFs; (5) D2 analysis when complete.
+**Next:** merge is rewriting to Apart template (deadline 18:30, Figure 1 uses Q1.4 JSON — inputs verified I166). Final Q1.4-term read on the template bytes once committed; P1 only: keep "no robust co-movement detected" (not "absent") and level-screen tacit-high caveat.
 
 # STATUS (updated 2026-10-24 13:53 UTC from date -u, Phase 2 iteration 12; follows DIRECTION 13:45)
 
@@ -307,7 +307,7 @@ Checks: p2_tables PASS (336), tables PASS, release audit OK.
 **E69 (C3b, declared + launched 14:2x):** `scripts/llm_queue_e69.sh`: llm_qa36_p2 (Modal qwen36-abliterated, w6) + llm_qb36_p2 (aqueduct qwen-3.6-35b, w2); p2_partc has both sets (COMPLETE_N 30) + declared contrast keys `E69_*`. Then `--label --run-eval`.
 **Running:** E65 `llm_strong_qa` 20/40 at 14:25 (ETA ~16:30); sibling strongF 20/40; luna memory pilot 5/10 (descriptive, not promoted); D2 CDA (see below).
 **Checks:** p2_tables --check PASS (327 cells), tables --check PASS, test_release_audit OK.
-**Next:** (1) E65 → `bash scripts/e65_final.sh` → P2.11 row + verdict verbatim + glance + takeaway 7; (2) E66 done → P2.11 (e66 line, class-check result) + glance; (3) D2 per DIRECTION #4 (smoke by 18:00, drop at 20:00 if it fails); (4) 18:30 one adversarial review (Opus OR codex) of abstract+glance+P2.8+P2.11; 19:30 checks + PDFs.
+**Next:** merge is rewriting to Apart template (deadline 18:30, Figure 1 uses Q1.4 JSON — inputs verified I166). Final Q1.4-term read on the template bytes once committed; P1 only: keep "no robust co-movement detected" (not "absent") and level-screen tacit-high caveat.
 
 # STATUS (updated 2026-10-24 13:47 UTC from date -u, Phase 2 iteration 11; NB the iteration-10 header said "13:45" but was written ~13:20)
 
@@ -317,7 +317,7 @@ Checks: p2_tables PASS (336), tables PASS, release audit OK.
 **E66 ready:** `scripts/strongF_ext.py` (classes copied from sibling p2_strong; smoke-tested on sibling pilot only). Sibling `llm_p2strongF` 18/40 at 13:45 → when 40: `uv run python scripts/strongF_ext.py --snapshot && uv run python scripts/strongF_ext.py` (~5 min) → P2.11(e) + glance.
 **Running:** E65 `llm_strong_qa` 6/40 games at 13:45 (~65 calls/min → ETA ~15:30; Modal $8.76). `llm_queue_p2d.sh` → gpt-6-luna memory pilot (started 13:26). glm on Go slow.
 **Checks:** p2_tables --check PASS (327 cells), tables --check PASS, test_release_audit OK.
-**Next:** (1) E65 at 40: watcher `scripts/e65_post.sh` (setsid, running) auto-runs `llm_eval label` + `eval --Ts 40` (check `/var/tmp/c14/queue_partc.log` for 'E65 label+eval done'); then → add `llm_strong_qa` to p2_partc SETS (full arm) + P211_SETS → declared verdict in P2.11 + glance + takeaway 7; (2) E66 when sibling done; (3) luna pilot labels; (4) 19:30 checkpoint PDFs; codex review of P2.11 after E65/E66.
+**Next:** merge is rewriting to Apart template (deadline 18:30, Figure 1 uses Q1.4 JSON — inputs verified I166). Final Q1.4-term read on the template bytes once committed; P1 only: keep "no robust co-movement detected" (not "absent") and level-screen tacit-high caveat.
 **Gotcha (again!):** `until ! pgrep -f "<pattern>"` loops match their OWN command line → never exit; and `pkill/kill $(pgrep -f ...)` from such a shell kills yourself. Use `pgrep -f "[l]lm_eval ..."` bracket trick.
 
 # STATUS (updated 2026-10-24 13:45 UTC from date -u, Phase 2 iteration 10)
@@ -327,7 +327,7 @@ Checks: p2_tables PASS (336), tables PASS, release audit OK.
 **E65 promoted arm (declared 13:38, launched):** E63 qwen-abliterated memory pilot executed 5/5 (C−A +6.5) → `llm_strong_qa` 20+20, T=40, seed 65 via `scripts/llm_queue_e65.sh` (one writer, resumable). Declared rule: pCMI AUROC(executed C vs A) ≥.65 & lo>.5 → "moves appear"; upper<.65 → "still a level". NO detector has been run on the pilot.
 **Queues:** `llm_queue_p2d.sh` (replaced p2c; T=80 replay CANCELLED): g56l 15/20 → luna memory pilot. qb memory pilot 7/10 (workers 6, started before; base gateway). glm on Go slow. Q2.2 `llm_p2strongF` ETA ~17–19 → directive 3d (declare before reading!).
 **Checks:** p2_tables --check PASS (9 tables), tables --check PASS, test_release_audit OK.
-**Next:** (1) when g56l/qb pilot/luna pilot done: `uv run python -m experiments.llm_eval label/eval` for them (p2_partc `--label --run-eval`) → P2.11(d); (2) declare E66 = frozen detectors on Q2.2 `llm_p2strongF` by behaviour class BEFORE it lands; (3) E65 when 40 → eval + p2_partc → P2.11 + glance + merger sentence; (4) codex review of P2.8/P2.11 before 19:30 checkpoint; PDFs 19:30.
+**Next:** merge is rewriting to Apart template (deadline 18:30, Figure 1 uses Q1.4 JSON — inputs verified I166). Final Q1.4-term read on the template bytes once committed; P1 only: keep "no robust co-movement detected" (not "absent") and level-screen tacit-high caveat.
 **Risks:** e44_post.sh takes ~25 min (llm_eval at 6 Ts) — run detached (`setsid nohup`), harness kills foreground/bg after 10 min. gpt-5.6-luna interim A games price high (tacit) — don't report until done.
 
 # STATUS (updated 2026-10-24 11:42 UTC from date -u, Phase 2 iteration 9, interim)
@@ -344,7 +344,7 @@ Checks: p2_tables PASS (336), tables PASS, release audit OK.
 - E61 qwen: `llm_qb_p2` (base) generating (calls from 11:24; ~8.5 min/game × 6 parallel → 30 games ~12:20; first A games price ≈ 7–8, BELOW Nash 10); `llm_qa_p2` (abliterated) endpoint has NOT answered since 11:00 (no call returned; budget $2.55 at 11:15). Retry/wait loop added for qwen (sim). Then `llm_queue_partc2.sh` runs E63 qwen memory pilots (T=40, 5+5 each).
 - E62: `llm_glm_p2` on Go (slow, shared lock; ~19% empty glm replies retried; max_tokens 4000); gpt-5.6-luna + E63 luna memory pilot queued in `llm_queue_p2c.sh` AFTER E44 (replaced p2b; T=80 replay moved last).
 - sim: `--backend qwen`, `--model` (cache key unchanged when unset), `--memory` (full price history + chat[-60:]).
-**Next:** (1) when qa/qb done: `uv run python scripts/p2_partc.py --run-eval --label` → P2.11 numbers (abl − base contrast); (2) E44 → P2.8 (directive 1); (3) choose E63 promoted arm (executed rate) → declare full arm ≥20+20 new seed; (4) 19:30 checkpoint.
+**Next:** merge is rewriting to Apart template (deadline 18:30, Figure 1 uses Q1.4 JSON — inputs verified I166). Final Q1.4-term read on the template bytes once committed; P1 only: keep "no robust co-movement detected" (not "absent") and level-screen tacit-high caveat.
 **Risks:** abliterated endpoint (QWEN_BASE_URL) unreachable 11:00–11:36 (/v1/models times out; base endpoint fine) — the running qa process uses pre-fix code (no long retry): if it has exited, relaunch `scripts/llm_queue_partc.sh qwen` style command for llm_qa_p2 only (cached calls replay); Go glm too slow (report n); codex load (E44 5 + sibling).
 **Gotcha:** never `pkill -f <pattern>` from a shell whose own command line contains the pattern (killed my shell twice); never edit a running queue .sh (bash reads by offset).
 
@@ -356,7 +356,7 @@ Checks: p2_tables PASS (336), tables PASS, release audit OK.
 **E59 DONE (10:56, 15/15):** deepseek A + public board: markup +0.70 [0.23,1.23] over no-board A (channel +3.75); +0.11 over Nash, so it does NOT explain the sibling's ds none 17 vs 11; frozen level screen false-flags 5/15 [14,58]%; C vs A_pub markup AUROC .96; pCMI 1/15. → REPORT P2.9(e), glance row 4, takeaway 4.
 **Checks:** p2_tables --check PASS (264; end marker now "## 5. Limitations"), tables.py --check PASS (404; report_tables excises the two Phase 2 blocks), test_release_audit OK.
 **Opus fact-check of new top text APPLIED** (1 P0 + 7 P1 wording; no number changed except main-claim AUROCs now like-for-like C vs A: markup .94/.95/.99, pCMI .48/.45/.57).
-**Next:** (1) E44 → P2.8 rewrite + main claim/abstract/takeaway 7 verdict; (3) Sat 19:30 checkpoint exports; (4) Sun final codex review (directive 4).
+**Next:** merge is rewriting to Apart template (deadline 18:30, Figure 1 uses Q1.4 JSON — inputs verified I166). Final Q1.4-term read on the template bytes once committed; P1 only: keep "no robust co-movement detected" (not "absent") and level-screen tacit-high caveat.
 **Risks:** E44 timing; Go throughput for E59 (sibling also uses Go).
 
 # STATUS (updated 2026-10-24 09:46 UTC, Phase 2 iteration 6; header corrected in iter 7, was stamped 09:50 by estimate)
@@ -366,7 +366,7 @@ Checks: p2_tables PASS (336), tables PASS, release audit OK.
 **This iteration:** P2.3 trimmed (20 → 13 lines of text, no numbers changed, `p2_tables.py --check` PASS); **race fixed**: `matched_ref.py` now reads `llm_long_p2_T60` (p2b rewrites `data/llm_long_p2`); new one-shot `scripts/e44_post.sh` (label → eval T10..60 → long_power → premium_decay_fig → matched_ref final → behaviour_split), all on the T60 copy.
 codex review of glance/P2.9/P2.10/abstract APPLIED: 4 P0 text fixes verified vs JSON (reimpl 422/424 cells, rotation controls 5/30,4/30, coalition AUROC .26/.25, ds CI 2.36); P1 wording; p2_family flag_rate summary bug fixed.
 **E58 (new, P2.9d):** deepseek judge: 15/15 agreements (median agreed price 20), only 3/15 followed, abandoned pairs still +3.23 over rivals → level signal does not need the agreement kept.
-**Next:** (1) when `data/llm_long_p2_T60` has 40 games: `bash scripts/e44_post.sh` → rewrite P2.8 (E44 rule decision, MDE bound, decay), glance row 2, abstract sentence; (2) Opus review of the final P2.8 + abstract before 19:30; (3) Phase 2 work after E44: gap 9 already scripted (E53); remaining = final claims review + checkpoint polish.
+**Next:** merge is rewriting to Apart template (deadline 18:30, Figure 1 uses Q1.4 JSON — inputs verified I166). Final Q1.4-term read on the template bytes once committed; P1 only: keep "no robust co-movement detected" (not "absent") and level-screen tacit-high caveat.
 **Checks (09:46):** p2_tables --check PASS (264 cells), tables.py --check PASS (404), test_release_audit 8/8 OK.
 **Risks:** E44 timing (~11:30 + T80 ~14:30); codex parallelism (queue uses 5).
 
@@ -378,7 +378,7 @@ codex review of glance/P2.9/P2.10/abstract APPLIED: 4 P0 text fixes verified vs 
 **Gaps 1, 3, 5–9 + shared DONE.** Only gap 2 (E44) open. Opus review of P2.7/P2.10 applied (wording only).
 **Checks:** `scripts/p2_tables.py --check` PASS (8 tables, 264 cells).
 **Generating:** E44 llm_long_p2 (A/C × 20, T=60; started 08:30, 0 games at 08:51; ETA ~12:30), then p2b T=80 replay. Go queue finished (deepseek) — free for nothing else planned.
-**Next:** (1) E44 done: `uv run python -m experiments.llm_eval eval --name llm_long_p2 --Ts 10,20,30,40,50,60`, `scripts/long_power.py --name llm_long_p2` (E44 rule primary), `scripts/premium_decay_fig.py --name llm_long_p2`, `scripts/matched_ref.py` (final), `behaviour_split.py` (needs `llm_eval label --name llm_long_p2`) → replace P2.8 pilot + glance row 2; (2) codex/Opus review of P2.9 + final claims before 19:30; (3) optional: judge labels for llm_ds_p2 (agreement rate, behaviour split).
+**Next:** merge is rewriting to Apart template (deadline 18:30, Figure 1 uses Q1.4 JSON — inputs verified I166). Final Q1.4-term read on the template bytes once committed; P1 only: keep "no robust co-movement detected" (not "absent") and level-screen tacit-high caveat.
 **Risks:** E44 timing; nothing else blocking.
 
 # STATUS (updated 2026-10-24 08:38 UTC, Phase 2 iteration 4)
@@ -389,7 +389,7 @@ codex review of glance/P2.9/P2.10/abstract APPLIED: 4 P0 text fixes verified vs 
 **E55 pilot (old llm_long):** E44 rule inconclusive (upper CI .75); co-move excess −0.008 [−0.023, 0.009] < q=.1 planting; premium shrinks 1.12 → 0.16. **E56:** agreements mostly followed (12/16, 6/8), floors 12.
 **Generating:** queue now on E44 llm_long_p2 (A/C × 20, T=60; started 08:30 → ~12:30), then p2b T=80. E45 deepseek ~7/30, non-degenerate.
 **Checks:** `scripts/p2_tables.py --check` PASS (6 tables, 234 cells); `tables.py --check` PASS; `test_release_audit.py` 8/8 OK.
-**Next:** (1) when E44 done: `uv run python -m experiments.llm_eval label --name llm_long_p2` (judge), `uv run python -m experiments.llm_eval eval --name llm_long_p2 --Ts 10,20,30,40,50,60`, `scripts/long_power.py` (E44 rule primary), `scripts/matched_ref.py` (final), `behaviour_split.py --names llm_v1,llm_long,llm_long_p2` → replace P2.8 pilot; (2) deepseek markup C−A at checkpoint (state n); (3) abstract rewrite + takeaways-as-table by 19:30; codex review of P2.3c/P2.7/P2.8 text; (4) "Then" items: frozen detectors on sibling llm_p2cue when labels publish.
+**Next:** merge is rewriting to Apart template (deadline 18:30, Figure 1 uses Q1.4 JSON — inputs verified I166). Final Q1.4-term read on the template bytes once committed; P1 only: keep "no robust co-movement detected" (not "absent") and level-screen tacit-high caveat.
 **Risks:** E44 ~12:30 (tight but OK); Go throughput; the prompt-sensitivity result weakens "level screens work" → framed as the main validity limit (P2.7d).
 
 # STATUS (updated 2026-10-24 07:55 UTC, Phase 2 iteration 3)
@@ -400,7 +400,7 @@ codex review of glance/P2.9/P2.10/abstract APPLIED: 4 P0 text fixes verified vs 
 **E52 (gap 7, locked test):** pCMI control false flags pooled 18/300 = 6.0% [3.8, 9.3] over N=2/4/6 × μ 1.5/3/4.5 × A/B; declared ≤.10 criterion passes 9/10 (elastic/A 4/30 fails); s=.6 power 30/30 everywhere; detector ranking varies at s=.15/T30.
 **E53 (gap 9 exploration, locked test):** deterministic bid rotation invisible to pCMI (6/30, 2/30 = controls 5/30, 4/30), TE 13/30, 17/30, levels 30/30; private-random rotation pCMI 24/30, 22/30.
 Codex review of P2.4–P2.5 applied (1 P0 summary-only bug, no reported number changed; 5 P1 wording).
-**Next:** (1) ~09:00 variants done: `uv run python scripts/p2_variants.py --run-eval` → REPORT P2.7 (gap 1); (2) llm_long_p2 eval `uv run python -m experiments.llm_eval eval --name llm_long_p2_T60 --Ts 10,20,30,40,50,60` → P2.8 (gap 2, decisive);
+**Next:** merge is rewriting to Apart template (deadline 18:30, Figure 1 uses Q1.4 JSON — inputs verified I166). Final Q1.4-term read on the template bytes once committed; P1 only: keep "no robust co-movement detected" (not "absent") and level-screen tacit-high caveat.
 (3) deepseek eval when ≥ 10+10 → P2.9 (gap 4); (4) optional: LLM onset (channel opened mid-game) / coalition small LLM set if codex budget allows after E44; all-sol A games as matched reference; (5) codex review of P2.6 + final claims before 20:00.
 **Risks:** Go throughput; codex shared by queue + reviews; E44 timing. `scripts/test_release_audit.py` fails at import (`report_tables` path), pre-existing.
 
@@ -414,7 +414,7 @@ Codex review of P2.4–P2.5 applied (1 P0 summary-only bug, no reported number c
 **E42:** --core-eval adds frozen primary evaluators (v1/long/mixed2/external v3) and trend/incremental diagnostics, requiring seven additional byte-identical outputs.
 **Verified:** llm_v1 evaluation JSON byte-identical (972 s); long/mixed/external/diagnostics pending. Eight tests pass; Codex static review found no material issues.
 **Exports:** refresh after REPORT §6 and ledger updates; prior report/deck exports remain from E41.
-**Next:** finish core audit, preserve evidence, regenerate exports, run final release check, commit and push. No new experiments.
+**Next:** merge is rewriting to Apart template (deadline 18:30, Figure 1 uses Q1.4 JSON — inputs verified I166). Final Q1.4-term read on the template bytes once committed; P1 only: keep "no robust co-movement detected" (not "absent") and level-screen tacit-high caveat.
 **Finalization:** at 08:15 run tables.py --check, headline_fig.py, slides.py, export_pdf.py LAST; verify_release.py --export checks a disposable copy.
 **Risks:** small LLM n, OpenAI-family sellers only, no own-market placebo; surplus dependence is not proof of an agreement.
 
@@ -494,7 +494,7 @@ recovers pre-play provisional prices (`data/*/preplay.jsonl`). First sender (no 
 llm_long +2.19 [0.56,3.94]. Codex P0 (pre-play sequential → first-sender split) + Opus review (first sender's price = its own proposal → fits willingness-to-coordinate, §4.3.10 reconciled) applied; descriptive, not causal. REPORT §4.3.11 + abstract/table row 8/§5/§7.
 **E40 (iter 26):** new short judge-facing abstract (~300 words) in REPORT; the old 700-word abstract kept verbatim as '### Detailed summary'. Numbers copied from it; codex review (results/reviews/codex_short_abstract_iter26.md) 3 P1 applied (14% is the common-shock set; +1.8 is llm_v1 only; 'at chance' → 'not distinguishable', mechanism unresolved). tables.py clean; PDFs re-exported (REPORT 20 pp).
 (Note: iter-20 header timestamp 05:10 was ahead of the VM clock; real ~04:50.)
-**Next:** no new experiments (E39 was the last; nothing else worth starting before the 06:30 cutoff). At 08:15: re-run tables.py, headline_fig.py, slides.py,
+**Next:** merge is rewriting to Apart template (deadline 18:30, Figure 1 uses Q1.4 JSON — inputs verified I166). Final Q1.4-term read on the template bytes once committed; P1 only: keep "no robust co-movement detected" (not "absent") and level-screen tacit-high caveat.
 then export_pdf.py LAST (PDFs must match final REPORT/PRESENTATION .md); check README renders; push.
 **Risks:** low n everywhere on LLM; only OpenAI-family sellers; no placebo arm in llm_v1 (placebo only in sibling market, n=15).
 
@@ -522,7 +522,7 @@ Chose D2 pre-analysis correctness while E70/D2 generation and the full E42 audit
 **Iteration 26: checkpoint presentation now reflects finalized Phase 2.** Replaced stale v1-only deck claims (OpenAI-only sellers, unresolved T=50 question) with six generated slides: 9/9 positive channel sets (7 models), level > pCMI 9/9, pCMI not above chance 8/9; E44 T=60 and executed-only results, model/prompt dependence and caveats. Added a nine-set estimate/CI figure to REPORT/README; release RENDER now includes it. No estimator, design or scientific result changed.
 **Verified:** 66 deck AUROC/CI numbers parsed against saved JSON; inclusion/counts independently rebuilt from Part C. Figure/deck hashes repeat exactly; six browser-rendered slides fit at 14 pt, no overflow; screenshots inspected. 424 P2 + 404 v1 REPORT cells exact, 0 unchecked; 13 release tests PASS; 25 checksums/eight manifests and local links PASS (`results/checkpoint_iter26.json`). REPORT 957 lines (was 966). No PDF export; next Sun 16:30.
 **Running, untouched:** full audit PID 2657265 (own SID), `/var/tmp/c14/iter23_full_release.log`; v1 exact, llm_long active, no full completion claimed. Its disposable snapshot predates iterations 24–26; it does not verify the new deck/figure, which have the separate checkpoint evidence. E70 chain/post/prelabel alive (qwen sweep 2, c14 done 19:33; c15 active); D2 23/30. No real E68/E70 outcomes inspected.
-**Next:** full audit finishes → verify core_eval=true, phase2_recompute=true and passed; archive as `results/release_audit_iter23_full.json` BEFORE another audit. E70_EXIT=0 → figure + replace P2.14/abstract/P2.13 denominators + board-use caveat; announce “6 sweeps complete”; update slide 6/README pending line. D2 30/30 → `uv run python scripts/e68_cda.py` ONCE → P2.12/glance and pending lines. If incomplete at Sun 10:00, only then use the declared interim path.
+**Next:** merge is rewriting to Apart template (deadline 18:30, Figure 1 uses Q1.4 JSON — inputs verified I166). Final Q1.4-term read on the template bytes once committed; P1 only: keep "no robust co-movement detected" (not "absent") and level-screen tacit-high caveat.
 **Risks / scope:** E70, D2 and historical full audit remain pending; PDFs/HTML are explicitly labelled as the Sat 19:07 export, Markdown/figures newer. No new arms, reviews, amendments, watchers or exports. Serendipity HITS read: S11/S14 remain unpromoted ODD; procurement ask/payment caution does not justify a new experiment or a headline change.
 
 # Iteration 27 log (2026-10-24 19:44 UTC; fallback manager)
@@ -557,7 +557,7 @@ E71 registered in ledger at 20:03, then computed all 27 original one-sided floor
 **Audit archived:** `results/release_audit_iter23_full.json`, finished 20:00:41: core_eval/recompute/phase2_recompute/passed all true, 41 commands / 62 outputs byte-identical, 9,490 score cells, 828 table cells, 25 checksums/eight manifests. Historical source cea55dc predates later pipeline/report/deck work; not a full current-source audit. **No more release audits before Sun 16:30.** No new verification tooling retained.
 **Research headline unchanged:** level > pCMI 9/9 sets (7 models), pCMI not above chance 8/9; E44 T=60 pCMI 0.34 [0.18, 0.52]. Execution rate depends on definition; the selected executed-vs-A ranking is never clearly above chance here.
 **Running untouched:** E70 three full sweeps complete, sweep index 3 (fourth) active; luna lane sweep 3 done 20:03, qwen c09 done 20:06. ETA all six ≈22:40, post ≈23:15. D2 25/30, seed 12 nocomms running. No E68/E70 aggregate or private label inspected.
-**Next:** D2 30/30 → e68_cda.py ONCE → ≤10-line P2.12 + glance before 22:00 (asks ≠ paid prices). E70 generation ends → immediately announce “6 sweeps complete” + board-share path in STATUS for Q2.2; E70_EXIT=0 → figure + existing landing fragments → ≤15-line P2.14, abstract, P2.13 by 00:00; report positive/tie/negative counts, design aliases and model/board caveat. Let existing post chain handle follow-up; no intervention unless error.
+**Next:** merge is rewriting to Apart template (deadline 18:30, Figure 1 uses Q1.4 JSON — inputs verified I166). Final Q1.4-term read on the template bytes once committed; P1 only: keep "no robust co-movement detected" (not "absent") and level-screen tacit-high caveat.
 **Then / risks:** main-claim MDE scope sentence + eight-line merge block by Sun 07:30; follow-up write-up by 09:00. Do not use E70 per-cell AUROCs as headline evidence; no more amendments, new arms, watchers, reviews or PDF exports tonight. New director 20:00 instructions arrived/read at 20:02 and supersede prior audit focus.
 **Serendipity:** HITS read; S11/S14/S16 unpromoted per director. No confirmation justified; S14 ask/payment caution belongs in D2 write-up.
 
@@ -632,7 +632,7 @@ Completion metadata only: D2 25/30 (nocomms seed 12 active); E70 c00–01 10 gam
  All other Q1.4 wording is faithful, including TE "weakly above chance … below level", 6/9 level > TE, and "no detected" rather than "no co-movement".
 **Checks (iter 101 freeze handoff):** p2_tables PASS (14 tables, 543 cells, 0 unchecked/mismatches), tables PASS (11 tables, 404 cells); scientific REPORT text and saved results unchanged from `7b337e4`.
 **Regenerability (DIRECTION #4, done early 07:12):** E73 + E74 rerun from scratch → byte-identical JSON; both checks PASS. Ledger I98-regen.
-**Next:** from 08:00 read collusion-beyond-words STATUS/DIRECTION each iteration, answer Q1.4 asks, log top/headline changes under the merge block ("Changes after 08:00"). 16:30 export pass (slides → PRESENTATION, PDFs/HTML, both checks). Idle lines ≤ 1/hour.
+**Next:** merge is rewriting to Apart template (deadline 18:30, Figure 1 uses Q1.4 JSON — inputs verified I166). Final Q1.4-term read on the template bytes once committed; P1 only: keep "no robust co-movement detected" (not "absent") and level-screen tacit-high caveat.
 **Risks:** at T=20 small co-movement is not excluded (sensitivity 0.58–0.65 at q=0.1); E72 is post hoc; lagged dependence (TE) is weakly present.
 
 
@@ -653,3 +653,4 @@ Completion metadata only: D2 25/30 (nocomms seed 12 active); E70 c00–01 10 gam
 - I163 2026-10-25 15:54:31 UTC: merge 42c5b16, SUBMISSION sha 96d0ed7b, no Q1.4 hunk; pin 81/81 (last verified I162).
 - I164 2026-10-25 16:13 UTC: merge 42c5b16, SUBMISSION sha 96d0ed7b, no Q1.4 hunk; pin 81/81; freshness checks PASS (543/543, 404/404), no re-export; final STATUS top written.
 - I165 2026-10-25 16:11:22 UTC: merge 42c5b16, SUBMISSION sha 96d0ed7b, no Q1.4 hunk; pin 81/81 (last verified I164).
+- I166 2026-10-25 16:30 UTC: merge c280e73 (DIRECTION: Apart template rewrite, new fig0 from Q1.4 JSON); SUBMISSION sha 96d0ed7b unchanged; fig0 Q1.4 inputs verified (level median 0.943, pCMI median 0.490, E70 0.737/0.51), 0 P1, wording watch logged in merge_flags; pin 81/81 (I164).
