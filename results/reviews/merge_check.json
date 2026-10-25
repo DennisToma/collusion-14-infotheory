@@ -1,9 +1,12 @@
 {
  "submission": "/home/factory/collusion/collusion-beyond-words/SUBMISSION.md",
- "merge_head": "3360cfa",
+ "merge_head": "089ffb0",
  "n_checks": 35,
  "json_mismatches": [],
- "quotes_not_found": [],
+ "quotes_not_found": [
+  "grid_level: '0.74 [0.66, 0.81]' not found in SUBMISSION",
+  "grid_level_ci: '0.74 [0.66, 0.81]' not found in SUBMISSION"
+ ],
  "flags": {
   "F1 (P1)": "applied",
   "F2 (P2)": "n/a (manual)",
