@@ -1,11 +1,11 @@
-# STATUS (updated 2026-10-25 13:58 UTC, Phase 2 iteration 148; DIRECTION 12:35)
+# STATUS (updated 2026-10-25 13:55 UTC, Phase 2 iteration 149; DIRECTION 12:35)
 
 **State:** Q1.4 experiments final; scientific REPORT and headline numbers remain frozen from `7b337e4`. No new experiment, estimator, LLM call or numerical re-audit this iteration.
 **Headline:** channel raises markup in 9/9 main sets (7 models); max-pair markup > pCMI point AUROC in 9/9, paired Δ CI > 0 in 8/9 (gpt-5.6-luna unresolved); pCMI CI includes 0.5 in 8/9 (`eval/claims_denominators.json`, `eval/e74_paired_diff.json`).
 **Long / executed:** E44 T=60 pCMI 0.34 [0.18, 0.52], level 0.94; executed-only pCMI 0.42 [0.33, 0.53], 48/149; E71 definition range 0.343–0.531 (P2.8/P2.11).
 **Grid:** E70 192 games: C − A positive 13/16, level > pCMI 12/16; pooled pCMI 0.51 [0.43, 0.59], TE 0.62 [0.54, 0.70]; level − TE +0.12 [+0.01, +0.22] (P2.14/E74). E72 execution split remains exploratory.
 **Evidence pin:** `732f08c`, including REPORT.md; no pinned-file edits. Handoff notes go only to `results/reviews/merge_flags.md` / STATUS. F1/F3 applied; no open Q1.4 P1.
-**Scope coverage:** I148 checked the further pending SUBMISSION change at merge `089ffb0` (SHA `4ff83a2b…`, 13:45): **0 Q1.4 P1**; new TE sentences (deepseek 0.81, Qwen3.8 0.91, level > TE CI in 6/9) match `eval/e74_paired_diff.json`. Final scope read (DIRECTION #3) is satisfied by I146+I147+I148; only diff-triggered checks remain. Pin 81/81 SHA-identical at `732f08c`.
+**Scope coverage:** Merge `ff5b616` commits exactly the SUBMISSION/SLIDES bytes reviewed through I148 (SHA `4ff83a2b…` / `4a66dd9b…`): **0 Q1.4 P1**, no new Q1.4 ask. Final scope read (DIRECTION #3) is satisfied by I146+I147+I148; only diff-triggered checks remain. I149 confirms pin 81/81 SHA-identical at `732f08c`.
 **Scope nuance:** the wording set includes baseline v0 plus four variants (6+6 each); only v0 and para have positive C − A CI lower bounds. This does not generalise the 9/9 main-set result to arbitrary prompts.
 **Known rounding:** I130 independently confirmed merge E70 upper CI 0.80 and E65 +2.14 [1.29, 3.00]; pinned REPORT retains 0.81 / +2.13 [1.28, 3.00]. Disclosed on merge side; not P1.
 **Exports:** REPORT.pdf/html + PRESENTATION.pdf rebuilt I139 (12:50) from unchanged REPORT.md (DIRECTION 12:35 #2); 1225 table cells, 30 headings, 6 slide titles found in PDF text; p2_tables 543/543 and tables 404/404 PASS; slides.py output byte-identical.
@@ -13,6 +13,8 @@
 **Risks:** nulls do not establish absence; short-game planting sensitivity is limited; weak lagged dependence remains. Serendipity HITS has no promoted hit.
 
 ## Dated log (append-only; prior state summaries retained verbatim)
+
+**Iteration 149 (2026-10-25 13:55 UTC) — DIRECTION 12:35 #1, fallback manager.** Read CLAUDE, PLAN, STATUS, DIRECTION, experiment ledger and serendipity HITS (no promoted hit or confirmation request). Merge advanced `089ffb0`→`ff5b616` (submission compliance complete); its working tree is clean, and both committed manuscript files SHA256-match the exact bytes already reviewed in I148. Under I147's explicit exact-byte handoff, no repeat scope read or numerical checker run is needed; merge STATUS reports all release checks passing and no Q1.4 ask. All **81/81** manifest files match evidence pin `732f08c`; REPORT.md matches its pinned Git blob, and report/presentation sources and exports are unchanged since I139 (`dde713c`). REPORT remains presentable and untouched under the explicit no-edit directive. No experiment, estimator, model call, export, ledger row or duplicate merge_flags entry. End this bounded handoff early rather than invent work under the freeze; next substantive check is 16:30 freshness only. Process deviation only: the user's explicit instruction to update STATUS, commit and push takes precedence over DIRECTION's zero-edit no-op rule; this commit changes STATUS only.
 
 **Iteration 148 (2026-10-25 13:58 UTC) — DIRECTION 12:35 #1/#3 (diff-triggered).** Merge HEAD unchanged (`089ffb0`), but its pending SUBMISSION.md changed after I147's recorded hash (6e678f23→4ff83a2b, mtime 13:45), so directive 1's no-op condition failed. Scope-read the current Q1.4 text (abstract, TL;DR, §5.2, §6–§8, Table 1, Appendix A/E) against the watch list: 0 P1. Verified the new TE claims against saved JSON (0.809, 0.907, 6/9, +0.118 [+0.013, +0.219]). SLIDES change is the affiliation only. Pin 81/81 identical; REPORT.md unchanged vs `732f08c`. No experiment, model call, export or ledger row. One merge_flags entry.
 
