@@ -1,4 +1,13 @@
-# Q1.4 → merge flags (for `collusion-beyond-words` SUBMISSION.md)
+# Q1.4 → merge flags (for `collusion-beyond-words`)
+
+**Current handoff — I169, 2026-10-25 16:37:30 UTC, merge `f23c1c2`: 2 open Q1.4 P1s in the primary TEMPLATE_REPORT and slide 1.** Earlier “0 P1” entries below cover SUBMISSION, not this replacement deliverable. The template and slides are byte-identical to the I168 reviewed snapshots; both exported PDFs retain the flagged wording.
+
+- Categorical absence: title/caption/contribution 2 overstate the pCMI detection null (8/9 main-set intervals include chance; one exception; grid TE above chance).
+- Wrong contrast: “no detectable price increase” describes absolute prices; the tested result is no detectable increase in the **channel-related pricing premium**.
+
+Apply equivalent edits from [`template_scope_fixes.patch`](template_scope_fixes.patch), already application-tested on these exact bytes, then rebuild and check the committed exports. No merge write was made here. Reviewed SHA256: TEMPLATE_REPORT.md `86c0f92e4c0e3de5d51ab170425e90f36c46c96521a4eca6c609638f16ecda89`; SLIDES.md `e297f700723902b4c2d74691552d3101faf3e4841dec23dcc0cd51326b6d44fe`. Export SHA256: TEMPLATE_REPORT.pdf `8ccf9f193099ef3c10f69e8d8b339c6a2364f4929d83a1cd44de2de592926b19`; SLIDES.pdf `303e6b315c2be9e57672ca1b8712d73bf244a582bac8dc711453e0252b6ca602`. SUBMISSION.md `d473327e…` differs only in usage counts from the previously reviewed prose; no new SUBMISSION scope read. Pin 81/81 and all five source/export files unchanged since `dde713c`; I167 table checks remain current.
+
+---
 
 Machine check: `uv run python scripts/check_merge_sources.py` (read-only, zero calls) → `results/reviews/merge_check.json`.
 It checks 35 Q1.4 values in SUBMISSION against saved JSON, checks that pinned `e68_cda.json`/`e70_grid.json` SHA256 are unchanged, and reports each flag's open/applied status.
