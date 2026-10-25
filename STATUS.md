@@ -1,14 +1,16 @@
-# STATUS (2026-10-25 17:49 UTC, iteration 177; DIRECTION 16:40) — FINAL
+# STATUS (2026-10-25 17:48 UTC, iteration 178; DIRECTION 16:40) — FINAL
 
 **P1 OPEN: 0.** Both Q1.4 P1s are CLOSED in committed merge `7c7be5e`: co-movement (I170) and abliteration (I173, now worded as the "channel-related pricing premium across three Qwen comparisons").
 **Headline unchanged:** markup rises in 9/9 main sets (7 models); level AUROC > pCMI in 9/9, with paired Δ CI > 0 in 8/9; pCMI CI includes chance in 8/9. T=60 pCMI 0.34 [0.18, 0.52]; executed-only 0.42 [0.33, 0.53] (48/149); grid pCMI 0.51 [0.43, 0.59], TE 0.62 [0.54, 0.70].
-**Q1.4 final at `732f08c`; pin 732f08c 81/81. Last merge bytes read:** `77ab10d3`, TEMPLATE `af06861c`, SLIDES `37a182ed`, FORM `02ee1b70`, TEMPLATE.pdf `693fd00b`, SLIDES.pdf `1c0e55ed`. Prose and PDF text identical to I175's reviewed bytes; 0 P1 open.
+**Q1.4 final at `732f08c`; pin 732f08c 81/81. Last merge bytes read:** `2fe0265`, TEMPLATE `af06861c`, SLIDES `37a182ed`, FORM `02ee1b70`, TEMPLATE.pdf `693fd00b`, SLIDES.pdf `1c0e55ed`. Prose and PDF text identical to I175's reviewed bytes; 0 P1 open.
 **Guard:** the I170 phrase list + qualifiers in merge_flags apply to merge edits after 18:00.
 **Limitations:** a null is not evidence of absence; T=20 planted-move sensitivity 0.58–0.65; E72 is post hoc; one prompt family (2/5 wordings resolved).
 **Judge question:** level cannot separate channel from tacit-high no-channel (E62 9/10; E66 19/20); executed-only pCMI 0.42 [0.33, 0.53] (REPORT P2.11).
-**Next:** none before the 18:00 stop. Optional template number spot-check passed (I176); REPORT reviewed and byte-identical to the pin. No experiments, model calls or REPORT edits.
+**Next:** none before the 18:00 stop. I178 verified all 81 evidence hashes and unchanged accepted merge artifacts; optional template number spot-check passed (I176). REPORT remains byte-identical to the pin under its explicit freeze.
 
 ## Dated log (append-only; prior state summaries retained verbatim)
+
+**Iteration 178 (2026-10-25 17:48 UTC) — fallback manager, final freeze handoff.** Read CLAUDE, PLAN, STATUS, DIRECTION, experiment ledger and serendipity HITS (no promoted hit or confirmation request). Merge advanced `7a00d49`→`2fe0265`; its new REPORT/SOURCES text records provenance and packaging instructions, with no scientific estimate change or Q1.4 request. Committed TEMPLATE/SLIDES/FORM/PDFs are byte-identical to I177 and their working copies match HEAD: `af06861c`/`37a182ed`/`02ee1b70`/`693fd00b`/`1c0e55ed`. No repeated phrase review is needed under the diff-triggered rule; **0 P1** remains. Inline `uv run python` assertions passed: **81/81** local manifest files SHA256-match evidence pin `732f08c`, all five accepted submission files have empty diffs since `7a00d49`, and REPORT.md equals its pinned Git blob. No experiment, model call, checker rerun, export, ledger row or merge write. STATUS-only commit: REPORT is already current and DIRECTION explicitly prohibits edits. End this bounded finalization chunk early because all directives are complete and only 12 minutes remain before the source hard stop; do not start a 45–60 minute task. Prior future-dated log entries are retained verbatim; this timestamp uses the live UTC clock.
 
 **Iteration 177 (2026-10-25 17:49 UTC) — last pre-stop check.** Merge HEAD advanced `77ab10d3`→`7a00d49` (iter8–10 are release-verification holds only). `git diff 77ab10d3 7a00d49` is empty for TEMPLATE_REPORT/SLIDES/SUBMISSION_FORM and both PDFs. The committed shas are still `af06861c`/`37a182ed`/`02ee1b70`, and the forbidden-phrase grep finds 0 hits. **0 P1.** REPORT.md is byte-identical to pin `732f08c`. No experiments, model calls, REPORT edits or merge writes. Source hard stop is 18:00; the merge_flags guard block covers any later merge edits.
 
