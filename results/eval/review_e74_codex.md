@@ -1,0 +1,5 @@
+- **P0 — [REPORT.md:846](/home/factory/collusion/collusion-14-infotheory/REPORT.md:846):** The saved-result cross-check incorrectly says “8/9” and excludes `llm_v1`. All **9/9** saved `C_vs_A:pcmi-market_level` differences and CIs match E74 to three decimals after sign reversal. `llm_v1` contains the matching C-vs-A entry alongside its CD-vs-AB entry. **Fix:** replace that parenthetical with: “The saved `auroc_diff[T]['C_vs_A:pcmi-market_level']` entries agree with E74 after sign reversal to three decimals in all 9/9 sets.”
+
+Otherwise, checks pass: the read-only rerun reproduces every JSON field; resampling is paired across detectors, class-stratified, and within cell for E70; orientations and score sources agree. All E74 estimates and intervals in the report match at displayed precision.
+
+**No additional P1 findings:** “below level” is supported by E70’s paired CI `[0.013, 0.219]`; the positive-CI count really is 8/9; multiplicity, sign-test independence, and declaration-provenance limitations are already stated.
