@@ -1,4 +1,4 @@
-# STATUS (updated 2026-10-25 09:52 UTC, Phase 2 iteration 118; DIRECTION 08:23)
+# STATUS (updated 2026-10-25 10:12 UTC, Phase 2 iteration 120; DIRECTION 08:23)
 
 **State:** Q1.4 experiments final; scientific REPORT and headline numbers remain frozen from `7b337e4`. No new experiment, estimator, review round or LLM call this iteration.
 **Headline:** channel raises markup in 9/9 main sets (7 models); max-pair markup > pCMI point AUROC in 9/9, paired Δ CI > 0 in 8/9 (gpt-5.6-luna unresolved); pCMI CI includes 0.5 in 8/9 (REPORT main claim/P2.13; `eval/claims_denominators.json`, `eval/e74_paired_diff.json`).
@@ -6,13 +6,14 @@
 **Grid:** E70 192 games: C − A positive 13/16, level > pCMI 12/16; pooled pCMI 0.51 [0.43, 0.59], TE 0.62 [0.54, 0.70]; level − TE +0.12 [+0.01, +0.22] (P2.14/E74; `eval/e70_grid.json`, `eval/e74_paired_diff.json`). E72 execution split remains exploratory.
 **Robustness / verification:** E73 nonlinear estimators detect nothing linear pCMI missed (P2.8f); E73/E74 byte-identical regeneration already done I98, ledger recorded. Pinned E68/E70 JSON untouched.
 **For Q2.2 / merge manager:** freeze holds (no science edit since `7b337e4`). The flags now go through the channel the merge manager reads: REPORT “Changes after 08:00” has an 08:39 line → `results/reviews/merge_flags.md` (table: id, severity, line, current text, exact replacement, REPORT §, JSON key, status).
-**Merge check I116 (DIRECTION #2):** merge HEAD `f88618d` → `37e7193` (merge iter3, Q2.2 flags + v1.2 wording). `check_merge_sources.py`: 35/35 match, 0 quotes missing, F1/F3 still applied. New Q1.4 wording (glossary 'Executed', E70 visibility factors, executed-vs-controls row, sign-CMI power caveat, slide precision 'max 0.20' = prevalence.json 0.202) checked by hand: correct. **No open Q1.4 flags.** Next check only when merge HEAD changes again.
-**Pre-check I118 (09:52):** merge HEAD unchanged (`37e7193`). Its uncommitted `reviews/codex_v2.md` proposes 3 Q1.4-sourced replacements (precision 0.20 [0.07, 0.54]; base Qwen3.6 0.71 [0.51, 0.88], not replicated in grid; placebo 'not equivalence'). All match JSON and REPORT → recorded in `merge_flags.md` as safe to apply. No new flag.
+**Merge check I120 (DIRECTION #2):** merge HEAD `37e7193` → `6a295b5` (SUBMISSION v1.4 presentation pass: TL;DR, numbered abstract, captions, E133 → App. C). `check_merge_sources.py`: 35/35 match, 0 quotes missing, F1/F3 still applied. New Q1.4 text (TL;DR/abstract items 1–2, Fig. 2/3 captions, E133 attribution) checked by hand vs e74/e70/claims JSON: correct. E133's 48/78 'held' is Q2.2's late-window rule, not our E70 44/96, and the text attributes it that way. **No open Q1.4 flags.**
 **Checks I116:** p2_tables PASS (14 tables, 543 cells, 0 unchecked/mismatches); tables PASS (11 tables, 404 cells). Prior I107 audit checked ~30 merge Q1.4 numbers; no numerical discrepancy. No new review round.
 **Next:** answer Q1.4 merge asks via STATUS; no new experiments/reviews. Numbers freeze 14:00; scheduled export pass 16:30 (slides → PRESENTATION, PDF/HTML, both checks). Between asks, no idle entry within 60 minutes.
 **Risks:** nulls do not establish absence; T=20 planted-move sensitivity is only 0.58–0.65 at q=0.1; weak lagged dependence remains. Serendipity HITS: no promoted hits, no confirmation.
 
 ## Dated log (append-only; prior state summaries retained verbatim)
+
+**Iteration 120 (10:12 UTC) — DIRECTION #2.** Merge HEAD moved to `6a295b5`. Machine check: 35/35, F1/F3 applied. I checked the new Q1.4 sentences in v1.4 (TL;DR, abstract, captions, E133) by hand: all correct, so no new flag. Updated `merge_flags.md`, added one REPORT 'Changes after 08:00' line, one ledger row. No science change.
 
 **Iteration 118 (09:52 UTC) — DIRECTION #2.** Merge HEAD unchanged, so I ran no machine check. I pre-checked the three Q1.4 numbers/claims in the merge's pending codex_v2 review against prevalence.json, claims_denominators.json, e70_grid.json and REPORT §5/§4.3.9/P2.14: all correct. Noted in `merge_flags.md`. No REPORT or science change.
 
