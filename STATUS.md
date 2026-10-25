@@ -1,11 +1,11 @@
-# STATUS (updated 2026-10-25 12:43 UTC, Phase 2 iteration 140; DIRECTION 12:35)
+# STATUS (updated 2026-10-25 13:05 UTC, Phase 2 iteration 142; DIRECTION 12:35)
 
 **State:** Q1.4 experiments final; scientific REPORT and headline numbers remain frozen from `7b337e4`. No new experiment, estimator, LLM call or numerical re-audit this iteration.
 **Headline:** channel raises markup in 9/9 main sets (7 models); max-pair markup > pCMI point AUROC in 9/9, paired Δ CI > 0 in 8/9 (gpt-5.6-luna unresolved); pCMI CI includes 0.5 in 8/9 (`eval/claims_denominators.json`, `eval/e74_paired_diff.json`).
 **Long / executed:** E44 T=60 pCMI 0.34 [0.18, 0.52], level 0.94; executed-only pCMI 0.42 [0.33, 0.53], 48/149; E71 definition range 0.343–0.531 (P2.8/P2.11).
 **Grid:** E70 192 games: C − A positive 13/16, level > pCMI 12/16; pooled pCMI 0.51 [0.43, 0.59], TE 0.62 [0.54, 0.70]; level − TE +0.12 [+0.01, +0.22] (P2.14/E74). E72 execution split remains exploratory.
 **Evidence pin:** `732f08c`, including REPORT.md; no pinned-file edits. Handoff notes go only to `results/reviews/merge_flags.md` / STATUS. F1/F3 applied; no open Q1.4 P1.
-**Scope coverage:** through merge `118344c` (I139, 0 Q1.4 P1; iter26 E70 grid-replay paragraph correctly scoped to the saved calculation). Pin check I139: 69/69 manifest files SHA-identical at `732f08c`.
+**Scope coverage:** through merge `d8ebfab` (I142, 0 Q1.4 P1; iter28 gate-replay paragraph correctly scoped to saved aggregation). Pin check I142: 80/80 manifest files SHA-identical at `732f08c`.
 **Scope nuance:** the wording set includes baseline v0 plus four variants (6+6 each); only v0 and para have positive C − A CI lower bounds. This does not generalise the 9/9 main-set result to arbitrary prompts.
 **Known rounding:** I130 independently confirmed merge E70 upper CI 0.80 and E65 +2.14 [1.29, 3.00]; pinned REPORT retains 0.81 / +2.13 [1.28, 3.00]. Disclosed on merge side; not P1.
 **Exports:** REPORT.pdf/html + PRESENTATION.pdf rebuilt I139 (12:50) from unchanged REPORT.md (DIRECTION 12:35 #2); 1225 table cells, 30 headings, 6 slide titles found in PDF text; p2_tables 543/543 and tables 404/404 PASS; slides.py output byte-identical.
@@ -13,6 +13,8 @@
 **Risks:** nulls do not establish absence; short-game planting sensitivity is limited; weak lagged dependence remains. Serendipity HITS has no promoted hit.
 
 ## Dated log (append-only; prior state summaries retained verbatim)
+
+**Iteration 142 (2026-10-25 13:05 UTC) — DIRECTION 12:35 #1.** Merge HEAD advanced `118344c`→`d8ebfab` (iter28 scripted-gate replay, iter29 fresh-clone distribution check). Scope-read the SUBMISSION hunks only: one Q1.4 paragraph (gate reaggregation, 500 markets / nine detectors — counts verified against our data), correctly scoped to saved aggregation; rest is process counts. **0 P1**, SLIDES unchanged, pin 80/80 identical. One merge_flags entry. No REPORT edit, export, experiment, model call or ledger row. Next: final scope read 14:00–15:00.
 
 **Iteration 140 (2026-10-25 12:43 UTC) — DIRECTION 12:35 #1, fallback manager.** Read CLAUDE, PLAN, STATUS, DIRECTION and the experiment ledger. Merge HEAD remains `118344c`; committed and pending SUBMISSION/SLIDES diffs since I139 are empty, and merge STATUS/DIRECTION has no Q1.4 request. Pending gate-replay evidence assets do not change the manuscript. REPORT.md is byte-identical to `732f08c`; exports and saved evaluations are unchanged from I139. No new scope review, numerical audit, experiment, estimator, critic, model call or export; no ledger row. The next authorized substantive task remains the 14:00–15:00 full-document scope read; do not repeat I139's export. Process deviation only: the user's explicit iteration-140 instruction to update STATUS, commit and push takes precedence over the director's zero-edit no-op rule; this commit changes STATUS only, leaving REPORT and merge_flags untouched. End this bounded handoff early instead of inventing work before the scheduled read.
 
