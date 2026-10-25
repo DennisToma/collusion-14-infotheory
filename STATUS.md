@@ -1,13 +1,16 @@
-# STATUS (final block, 2026-10-25 16:37:30 UTC, iteration 169; DIRECTION 14:32)
+# STATUS (final block, 2026-10-25 17:00 UTC, iteration 170; DIRECTION 16:40)
 
-**Headline:** channel raises markup in 9/9 main sets (7 models); max-pair markup > pCMI AUROC in 9/9, paired Δ CI > 0 in 8/9; pCMI CI includes 0.5 in 8/9. T=60 pCMI 0.34 [0.18, 0.52]; executed-only 0.42 [0.33, 0.53] (48/149); E70 grid pCMI 0.51 [0.43, 0.59], TE 0.62 [0.54, 0.70].
-**Final evidence:** pin `732f08c` 81/81 verified I169; REPORT/PRESENTATION and exports unchanged since `dde713c`; freshness 543/543 + 404/404 PASS (I167). No re-export.
-**Merge handoff:** committed `f23c1c2` TEMPLATE `86c0f92e…`, slides `e297f700…` equal I168 snapshots: **2 Q1.4 P1s remain in primary text and PDFs** (categorical absence; absolute-price vs channel-premium contrast). Exact-byte patch and current warning lead `results/reviews/merge_flags.md`. SUBMISSION `d473327e…` is usage-only since reviewed `96d0ed7b…` (0 scientific P1 there).
+**P1 OPEN: 1** (abliteration wording) in merge committed `eb14a03`. Template l.11/30/64 state an absolute-price null; the tested quantity is the channel premium (C − A). Fix text in `results/reviews/merge_flags.md` I170. Co-movement P1 CLOSED (equivalent rewrite accepted).
+**Headline (unchanged):** channel raises markup in 9/9 main sets (7 models); max-pair markup > pCMI AUROC in 9/9, paired Δ CI > 0 in 8/9; pCMI CI includes 0.5 in 8/9. T=60 pCMI 0.34 [0.18, 0.52]; executed-only 0.42 [0.33, 0.53] (48/149); E70 grid pCMI 0.51 [0.43, 0.59], TE 0.62 [0.54, 0.70].
+**Q1.4 final at** this commit; pin `732f08c` 81/81 (I169; REPORT untouched since); **last merge bytes read:** `eb14a03`, TEMPLATE `211e4436`, SLIDES `e7f46fb3`, TEMPLATE.pdf `564415e1`, SLIDES.pdf `2784eb7a`.
+**Q1.4 guard** (forbidden phrases + 4 required qualifiers + grep command) is appended to merge_flags so the merge can self-check after 18:00.
 **Limitations:** nulls ≠ absence; T=20 planted-move sensitivity 0.58–0.65; E72 post hoc; one prompt family (2/5 wordings resolved).
 **Likely judge question** ("isn't the level screen trivially the treatment?") → REPORT P2.11(a,g): level cannot separate channel from tacit-high no-channel (E62 9/10; E66 19/20); executed-only pCMI 0.42 [0.33, 0.53].
-**Next:** merge applies equivalent wording fixes and rebuilds; review only further Q1.4 changes on final committed template/slide bytes. REPORT stays pinned; no new experiments or model calls.
+**Next:** at most one more P1 verification on a later merge commit that touches TEMPLATE/SLIDES (by 17:55). No experiments, model calls or REPORT edits.
 
 ## Dated log (append-only; prior state summaries retained verbatim)
+
+**Iteration 170 (2026-10-25 17:00 UTC) — DIRECTION 16:40 #1–#4.** Merge advanced `f23c1c2`→`eb14a03` (be8ee87 applied a Codex review to TEMPLATE; 934d875 rebuilt the PDFs). The committed bytes supersede the patch target, so the patch is not re-versioned (STOP list). Phrase-list read of committed TEMPLATE/SLIDES/SUBMISSION_FORM + pdftotext: co-movement P1 closed (8/9 qualifier and grid in contribution 2, results, Table A; title is detection-scoped). Abliteration P1 open in 3 TEMPLATE lines + PDF; confirmed against REPORT E61/E69 (C − A tested). Required qualifiers present (8/9, 19/20, 2/5, TE in some sets). Appended I170 flag + Q1.4 guard block to merge_flags. No merge writes, experiments, model calls or REPORT edits.
 
 **Iteration 150 (2026-10-25 14:15 UTC) — DIRECTION 12:35 #1 (diff-triggered).** Merge HEAD unchanged (`ff5b616`), but its working-tree SUBMISSION.md changed after I149 (SHA256 `adb75810fc7a1028fef24f9ee97a2561b36edba9b4017b75453d77f159fde2c0`, mtime 13:59), so directive 1's no-op condition failed. `git diff` shows a single hunk in the AI-assistance disclosure: manager-iteration count 361→364 (233/128→234/130 Opus/gpt-6.1-sol) and timestamp 13:45→13:56. No Q1.4 text touched; SLIDES unchanged (`4a66dd9b…`); merge STATUS has no Q1.4 ask. **0 P1**; no merge_flags entry (process count only). All **81/81** Q1.4 manifest files SHA256-match evidence pin `732f08c`; REPORT.md identical to the pin. No experiment, model call, export or ledger row. Further process-count-only changes to that sentence are no-ops under directive 1.
 
