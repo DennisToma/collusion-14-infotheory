@@ -1,18 +1,20 @@
-# STATUS (updated 2026-10-25 12:24 UTC, Phase 2 iteration 138; DIRECTION 10:30)
+# STATUS (updated 2026-10-25 12:50 UTC, Phase 2 iteration 139; DIRECTION 12:35)
 
 **State:** Q1.4 experiments final; scientific REPORT and headline numbers remain frozen from `7b337e4`. No new experiment, estimator, LLM call or numerical re-audit this iteration.
 **Headline:** channel raises markup in 9/9 main sets (7 models); max-pair markup > pCMI point AUROC in 9/9, paired Δ CI > 0 in 8/9 (gpt-5.6-luna unresolved); pCMI CI includes 0.5 in 8/9 (`eval/claims_denominators.json`, `eval/e74_paired_diff.json`).
 **Long / executed:** E44 T=60 pCMI 0.34 [0.18, 0.52], level 0.94; executed-only pCMI 0.42 [0.33, 0.53], 48/149; E71 definition range 0.343–0.531 (P2.8/P2.11).
 **Grid:** E70 192 games: C − A positive 13/16, level > pCMI 12/16; pooled pCMI 0.51 [0.43, 0.59], TE 0.62 [0.54, 0.70]; level − TE +0.12 [+0.01, +0.22] (P2.14/E74). E72 execution split remains exploratory.
 **Evidence pin:** `732f08c`, including REPORT.md; no pinned-file edits. Handoff notes go only to `results/reviews/merge_flags.md` / STATUS. F1/F3 applied; no open Q1.4 P1.
-**Scope coverage:** through merge `d523c5b` + working tree (I137, 0 Q1.4 P1; hunks are Q2.2 replay/process only). I138: HEAD/pending hunks unchanged; no Q1.4 ask. I137 pin check 30/30 identical; final full read due 14:00–15:00.
+**Scope coverage:** through merge `118344c` (I139, 0 Q1.4 P1; iter26 E70 grid-replay paragraph correctly scoped to the saved calculation). Pin check I139: 69/69 manifest files SHA-identical at `732f08c`.
 **Scope nuance:** the wording set includes baseline v0 plus four variants (6+6 each); only v0 and para have positive C − A CI lower bounds. This does not generalise the 9/9 main-set result to arbitrary prompts.
 **Known rounding:** I130 independently confirmed merge E70 upper CI 0.80 and E65 +2.14 [1.29, 3.00]; pinned REPORT retains 0.81 / +2.13 [1.28, 3.00]. Disclosed on merge side; not P1.
-**Prior checks:** E73/E74 byte-identical regeneration I98; p2_tables 543/543 and tables 404/404 PASS I116. No rerun needed for this scope-only handoff.
-**Next:** final judge-style scope read once at 14:00–15:00; numbers freeze 14:00; render-only export at 16:30 with both table checks. No new experiments or idle audits.
+**Exports:** REPORT.pdf/html + PRESENTATION.pdf rebuilt I139 (12:50) from unchanged REPORT.md (DIRECTION 12:35 #2); 1225 table cells, 30 headings, 6 slide titles found in PDF text; p2_tables 543/543 and tables 404/404 PASS; slides.py output byte-identical.
+**Next:** silent no-op iterations unless merge HEAD changes with Q1.4 hunks; final judge-style scope read once at 14:00–15:00 (+ check_merge_sources.py); 16:30 freshness check only (no rebuild unless sources changed); wind down by 17:30.
 **Risks:** nulls do not establish absence; short-game planting sensitivity is limited; weak lagged dependence remains. Serendipity HITS has no promoted hit.
 
 ## Dated log (append-only; prior state summaries retained verbatim)
+
+**Iteration 139 (2026-10-25 12:50 UTC) — DIRECTION 12:35 #2 + #1.** Render-only export pulled forward per DIRECTION: `slides.py` (PRESENTATION.md byte-identical), `export_pdf.py` (REPORT.pdf 40 pp; all 1225 table-cell and 30 heading fragments found; 6/6 slides), `p2_tables.py --check` 543/543, `tables.py --check` 404/404. The new PDF contains the 10:10 `732f08c` text that the 05:56 PDF lacked. Pinned writers were not run; git status shows only REPORT.pdf/html and PRESENTATION.pdf changed. Merge `d523c5b`→`118344c` scope check: one new Q1.4 paragraph (E70 grid replay), correctly scoped, 0 P1 (merge_flags). Pin 69/69 identical. No calls, experiments or ledger row.
 
 **Iteration 138 (2026-10-25 12:24 UTC) — DIRECTION 10:30 #2, fallback manager.** Read CLAUDE, PLAN, STATUS, DIRECTION and the experiment ledger. Merge HEAD remains `d523c5b`; its pending SUBMISSION edits are the same Q2.2 locked-test replay/process changes already covered by I137, with no SLIDES change. Merge STATUS/DIRECTION contains no Q1.4 ask. No new scope finding, numerical audit, experiment, estimator, critic, model call or export; no ledger row. REPORT.md remains current and byte-identical to the evidence pin, as DIRECTION #1 explicitly requires. End this bounded handoff early: the next authorized substantive task is the final full-document scope read at 14:00–15:00, followed by the 16:30 export. Process deviation only: the user's explicit iteration-138 instruction to commit and push takes precedence over DIRECTION #2's no-change/no-commit instruction; this commit updates only STATUS and the unpinned handoff log.
 
